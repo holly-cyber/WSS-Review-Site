@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+const mods = import.meta.glob('./*/*.md', { eager: true });
+const sorted = Object.entries(mods)
+  .map(([path, mod]: [string, any]) => {
+    const parts = path.split('/');
+    return { ...mod.frontmatter, slug: parts[parts.length - 1].replace('.md',''), _cat: parts[parts.length - 2] };
+  })
+  .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const cats = [
+  {slug:'run',label:'Run',emoji:'🏃‍♀️',desc:'Running shoes, kit, and accessories tested on real training runs.'},
+  {slug:'swim',label:'Swim',emoji:'🏊‍♀️',desc:'Open water and pool kit reviewed by swimmers who actually use it.'},
+  {slug:'cycle',label:'Cycle',emoji:'🚴‍♀️',desc:'Cycling apparel and gear tested in real-world conditions.'},
+  {slug:'tri',label:'Tri',emoji:'🏅',desc:'Triathlon kit from race-day trisuits to transition essentials.'},
+  {slug:'sports-bras',label:'Sports Bras',emoji:'💪',desc:'Support, fit, and comfort across A–HH cup range.'},
+  {slug:'nutrition',label:'Nutrition',emoji:'⚡',desc:'Fuelling products reviewed against female-specific physiology.'},
+];
+---
+<BaseLayout title="Independent Women's Sports Product Reviews" description="Expert product reviews tested against the Women's Sports Standard™. Every review is independent, honest, and scored.">
+  <section class="hub-hero">
+    <div class="container">
+      <div class="wss-badge">WSS™ Independent Reviews</div>
+      <h1>Every product, honestly tested.</h1>
+      <p>We score sports products against the Women's Sports Standard™ — five independent pillars that measure what actually matters to active women. No brand bias. Just evidence.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-n">{sorted.length}</span><span class="stat-l">Reviews published</span></div>
+        <div class="stat"><span class="stat-n">5</span><span class="stat-l">WSS™ pillars tested</span></div>
+        <div class="stat"><span class="stat-n">331</span><span class="stat-l">Women surveyed</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">Browse by category</h2>
+      <div class="categories-grid">
+        {cats.map(cat => (
+          <a href={`/reviews/${cat.slug}/`} class="cat-card">
+            <div class="cat-emoji">{cat.emoji}</div>
+            <h3>{cat.label}</h3>
+            <p>{cat.desc}</p>
+            <span class="cat-arrow">Browse reviews →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {sorted.length > 0 && (
+    <section class="latest-section">
+      <div class="container">
+        <h2 class="section-title">Latest reviews</h2>
+        <div class="reviews-grid">
+          {sorted.slice(0,6).map((r: any) => (
+            <ReviewCard title={r.title} brand={r.brand} slug={r.slug} category={r._cat} score={r.overall_score} excerpt={r.excerpt} image={r.hero_image} date={r.date} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="wss-explainer">
+    <div class="container explainer-inner">
+      <div class="explainer-text">
+        <div class="wss-badge">The Women's Sports Standard™</div>
+        <h2>What makes a WSS™ review different</h2>
+        <p>Every review is scored against five independent pillars. If a product fails one, we say so — clearly, with evidence.</p>
+        <div class="pillars-list">
+          {[['1','Inclusive Fit & Proportional Sizing','Tested across UK 6–24+'],['2','Functional Performance in Use','Real activity, real conditions'],['3','Adequate Support Standards','Across A–HH cup range'],['5','Genuine Female Design','Engineering, not just colour'],['7','Transparency & Verification','Independent data only']].map(([n,t,s]) => (
+            <div class="pillar-item">
+              <div class="pillar-n">{n}</div>
+              <div><div class="pillar-title">{t}</div><div class="pillar-sub">{s}</div></div>
+            </div>
+          ))}
+        </div>
+        <a href="https://womenssportsstandard.com" target="_blank" class="btn btn-navy">About the standard →</a>
+      </div>
+      <div class="explainer-stats">
+        <div class="stat-card"><div class="stat-pct">80%</div><p>of women surveyed experienced poor product fit</p></div>
+        <div class="stat-card"><div class="stat-pct">86%</div><p>more likely to buy a WSS™-certified product</p></div>
+        <div class="stat-card"><div class="stat-pct">98%</div><p>want clearer independent standards</p></div>
+        <p class="stat-source">Source: WSS consumer survey, n=331, March 2026</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+.hub-hero{background:var(--navy);color:white;padding:4rem 0 3.5rem;text-align:center}
+.hub-hero .wss-badge{margin:0 auto 1.25rem}
+.hub-hero h1{font-size:clamp(2rem,4vw,3.25rem);color:white;margin-bottom:1rem}
+.hub-hero p{font-size:1.1rem;opacity:.75;max-width:640px;margin:0 auto 2.5rem}
+.hero-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{display:block;font-size:2rem;font-weight:700;color:var(--pink)}
+.stat-l{font-size:.8rem;opacity:.6;text-transform:uppercase;letter-spacing:.08em}
+.section-title{font-size:1.5rem;margin-bottom:1.5rem}
+.categories-section{padding:3.5rem 0;background:var(--off-white)}
+.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.cat-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;transition:all .2s}
+.cat-card:hover{border-color:var(--pink);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.cat-emoji{font-size:2rem;margin-bottom:.75rem}
+.cat-card h3{font-size:1.1rem;margin-bottom:.4rem}
+.cat-card p{font-size:.875rem;color:var(--text-secondary);margin-bottom:.875rem;line-height:1.5}
+.cat-arrow{font-size:.8rem;font-weight:600;color:var(--pink)}
+.latest-section{padding:3.5rem 0}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.wss-explainer{padding:4rem 0;background:var(--off-white)}
+.explainer-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.explainer-text .wss-badge{margin-bottom:1rem}
+.explainer-text h2{font-size:1.75rem;margin-bottom:1rem}
+.explainer-text>p{color:var(--text-secondary);margin-bottom:1.5rem}
+.pillars-list{margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.625rem}
+.pillar-item{display:flex;align-items:flex-start;gap:.875rem}
+.pillar-n{width:28px;height:28px;background:var(--pink);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.pillar-title{font-size:.875rem;font-weight:600;color:var(--navy)}
+.pillar-sub{font-size:.75rem;color:var(--text-muted)}
+.explainer-stats{display:flex;flex-direction:column;gap:1rem}
+.stat-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem}
+.stat-pct{font-size:2.5rem;font-weight:700;color:var(--pink);line-height:1;margin-bottom:.375rem}
+.stat-card p{font-size:.875rem;color:var(--text-secondary)}
+.stat-source{font-size:.7rem;color:var(--text-muted)}
+@media(max-width:900px){.explainer-inner{grid-template-columns:1fr}.hero-stats{gap:1.5rem}}
+</style>

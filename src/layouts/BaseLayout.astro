@@ -1,0 +1,113 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+const { title, description = "Women's Sports Store — Independent product reviews tested against the Women's Sports Standard™.", ogImage, noindex } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Women's Sports Store</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:title" content={`${title} | Women's Sports Store`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:type" content="website" />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/global.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/reviews/" class="logo">
+        <span class="logo-wss">WSS</span>
+        <span class="logo-tm">™</span>
+        <span class="logo-text">Women's Sports Store</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/reviews/run/">Run</a>
+        <a href="/reviews/swim/">Swim</a>
+        <a href="/reviews/cycle/">Cycle</a>
+        <a href="/reviews/tri/">Tri</a>
+        <a href="/reviews/sports-bras/">Sports Bras</a>
+        <a href="/reviews/nutrition/">Nutrition</a>
+      </nav>
+      <a href="https://shop.womenssportsstore.com" class="btn btn-pink shop-btn" target="_blank">Shop →</a>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">WSS™</div>
+        <p>The UK's first certified women's sports retail destination. Independent reviews tested against the Women's Sports Standard™.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Reviews</h4>
+          <a href="/reviews/run/">Run</a>
+          <a href="/reviews/swim/">Swim</a>
+          <a href="/reviews/cycle/">Cycle</a>
+          <a href="/reviews/tri/">Tri</a>
+          <a href="/reviews/sports-bras/">Sports Bras</a>
+          <a href="/reviews/nutrition/">Nutrition</a>
+        </div>
+        <div>
+          <h4>WSS™</h4>
+          <a href="https://womenssportsstandard.com" target="_blank">The Standard</a>
+          <a href="https://shop.womenssportsstore.com" target="_blank">Shop</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© {new Date().getFullYear()} Women's Sports Store · Active AI Ltd · All reviews independent · <a href="https://womenssportsstandard.com">WSS™ framework</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+.site-header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.header-inner { display: flex; align-items: center; gap: 2rem; padding-top: .875rem; padding-bottom: .875rem; }
+.logo { display: flex; align-items: baseline; gap: .25rem; font-weight: 700; font-size: 1.1rem; color: var(--navy); }
+.logo-wss { color: var(--pink); font-size: 1.2rem; }
+.logo-tm { color: var(--pink); font-size: .7rem; }
+.logo-text { color: var(--navy); font-size: .9rem; }
+.main-nav { display: flex; gap: 1.5rem; margin-left: auto; }
+.main-nav a { font-size: .875rem; font-weight: 500; color: var(--text-secondary); transition: color .15s; }
+.main-nav a:hover { color: var(--pink); }
+.shop-btn { font-size: .8rem; padding: .5rem 1rem; white-space: nowrap; }
+.site-footer { background: var(--navy); color: rgba(255,255,255,.8); margin-top: 4rem; padding: 3rem 0 0; }
+.footer-inner { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; padding-bottom: 2rem; }
+.footer-logo { font-size: 1.5rem; font-weight: 700; color: var(--pink); margin-bottom: .75rem; }
+.footer-brand p { font-size: .875rem; line-height: 1.6; opacity: .7; max-width: 320px; }
+.footer-links { display: flex; gap: 3rem; }
+.footer-links h4 { color: white; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .75rem; }
+.footer-links a { display: block; font-size: .875rem; opacity: .65; margin-bottom: .4rem; transition: opacity .15s; }
+.footer-links a:hover { opacity: 1; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding: 1rem 0; }
+.footer-bottom p { font-size: .75rem; opacity: .5; }
+.footer-bottom a { opacity: .75; text-decoration: underline; }
+@media (max-width: 900px) {
+  .main-nav { display: none; }
+  .footer-inner { grid-template-columns: 1fr; }
+}
+</style>

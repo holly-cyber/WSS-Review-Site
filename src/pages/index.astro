@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Women's Sports Store — Independent Reviews">
+  <section class="home-hero">
+    <div class="container">
+      <div class="wss-badge">WSS™ Independent Reviews</div>
+      <h1>Sports products,<br/><span class="pink">honestly tested</span><br/>for women.</h1>
+      <p>Independent product reviews scored against the Women's Sports Standard™. No brand bias. No vague praise. Just evidence-based assessments that actually help you buy better.</p>
+      <div class="hero-ctas">
+        <a href="/reviews/" class="btn btn-pink">Browse all reviews →</a>
+        <a href="https://shop.womenssportsstore.com" class="btn btn-outline" target="_blank">Visit the shop</a>
+      </div>
+    </div>
+  </section>
+  <section class="home-categories container">
+    <h2>What are you shopping for?</h2>
+    <div class="cat-grid">
+      <a href="/reviews/run/" class="cat-btn"><span>🏃‍♀️</span>Run</a>
+      <a href="/reviews/swim/" class="cat-btn"><span>🏊‍♀️</span>Swim</a>
+      <a href="/reviews/cycle/" class="cat-btn"><span>🚴‍♀️</span>Cycle</a>
+      <a href="/reviews/tri/" class="cat-btn"><span>🏅</span>Tri</a>
+      <a href="/reviews/sports-bras/" class="cat-btn"><span>💪</span>Sports Bras</a>
+      <a href="/reviews/nutrition/" class="cat-btn"><span>⚡</span>Nutrition</a>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+.home-hero { background: var(--navy); color: white; padding: 5rem 0 4rem; }
+.home-hero .wss-badge { margin-bottom: 1.5rem; }
+.home-hero h1 { font-size: clamp(2.25rem, 5vw, 4rem); color: white; margin-bottom: 1.25rem; line-height: 1.1; }
+.pink { color: var(--pink); }
+.home-hero p { font-size: 1.15rem; opacity: .75; max-width: 560px; margin-bottom: 2rem; }
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-outline { border-color: rgba(255,255,255,.4); color: white; }
+.btn-outline:hover { background: rgba(255,255,255,.1); }
+.home-categories { padding: 3.5rem 0; }
+.home-categories h2 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+.cat-grid { display: flex; flex-wrap: wrap; gap: .75rem; }
+.cat-btn { display: flex; align-items: center; gap: .5rem; padding: .75rem 1.25rem; background: var(--off-white); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: .9rem; font-weight: 600; color: var(--navy); transition: all .15s; }
+.cat-btn:hover { border-color: var(--pink); color: var(--pink); background: var(--light-pink); }
+</style>

@@ -1,0 +1,64 @@
+---
+export interface Props {
+  title: string;
+  brand: string;
+  slug: string;
+  category: string;
+  score: number;
+  excerpt: string;
+  image?: string;
+  date: string;
+}
+const { title, brand, slug, category, score, excerpt, image, date } = Astro.props;
+
+function renderStars(score: number) {
+  const full = Math.floor(score);
+  const half = score % 1 >= 0.5;
+  const empty = 5 - full - (half ? 1 : 0);
+  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+}
+---
+<article class="review-card">
+  {image && (
+    <a href={`/reviews/${category}/${slug}/`} class="card-img-wrap">
+      <img src={image} alt={title} loading="lazy" />
+    </a>
+  )}
+  <div class="card-body">
+    <div class="card-meta">
+      <span class={`pill pill-${category}`}>{category.replace('-', ' ')}</span>
+      <time datetime={date}>{new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
+    </div>
+    <h3><a href={`/reviews/${category}/${slug}/`}>{title}</a></h3>
+    <p class="card-brand">by {brand}</p>
+    <p class="card-excerpt">{excerpt}</p>
+    <div class="card-footer">
+      <div class="card-score">
+        <span class="stars" aria-label={`${score} out of 5 stars`}>{renderStars(score)}</span>
+        <span class="score-num">{score}/5</span>
+      </div>
+      <a href={`/reviews/${category}/${slug}/`} class="card-link">Read review →</a>
+    </div>
+  </div>
+</article>
+
+<style>
+.review-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; transition: box-shadow .2s, transform .2s; }
+.review-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.card-img-wrap { display: block; aspect-ratio: 4/3; overflow: hidden; }
+.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+.review-card:hover .card-img-wrap img { transform: scale(1.03); }
+.card-body { padding: 1.25rem; }
+.card-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: .625rem; }
+.card-meta time { font-size: .7rem; color: var(--text-muted); }
+.card-body h3 { font-size: 1rem; margin-bottom: .2rem; }
+.card-body h3 a:hover { color: var(--pink); }
+.card-brand { font-size: .75rem; color: var(--text-muted); margin-bottom: .5rem; }
+.card-excerpt { font-size: .875rem; color: var(--text-secondary); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .875rem; padding-top: .875rem; border-top: 1px solid var(--border); }
+.card-score { display: flex; align-items: center; gap: .375rem; }
+.stars { color: var(--pink); font-size: .875rem; }
+.score-num { font-size: .75rem; font-weight: 700; color: var(--navy); }
+.card-link { font-size: .8rem; font-weight: 600; color: var(--pink); }
+.card-link:hover { text-decoration: underline; }
+</style>

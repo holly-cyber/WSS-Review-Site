@@ -1,0 +1,691 @@
+---
+export const prerender = true;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSS™ Review Pipeline</title>
+<meta name="robots" content="noindex,nofollow"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#111;padding:1.5rem}
+.wrap{max-width:900px;margin:0 auto}
+button{cursor:pointer;border:none;font-family:inherit;font-size:13px;transition:opacity .15s}
+button:disabled{opacity:.4;cursor:not-allowed}
+input,textarea,select{font-family:inherit;font-size:13px;border:1px solid #ddd;border-radius:6px;padding:8px 10px;width:100%;background:#fff;color:#111;outline:none}
+input:focus,textarea:focus,select:focus{border-color:#FF5E84;box-shadow:0 0 0 3px rgba(255,94,132,.1)}
+textarea{resize:vertical;line-height:1.65}
+label{font-size:12px;color:#666;display:block;margin-bottom:3px}
+.bp{background:#FF5E84;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600}
+.bp:hover:not(:disabled){background:#e04470}
+.bg{background:#fff;color:#555;border:1px solid #ddd;padding:8px 16px;border-radius:6px;font-size:13px}
+.bg:hover:not(:disabled){background:#f5f5f5}
+.bset{background:#fff;border:1px solid #ddd;color:#777;padding:7px 13px;border-radius:6px;font-size:12px}
+.bset.on{border-color:#FF5E84;color:#FF5E84;background:#fff8f9}
+.card{background:#fff;border:1px solid #eee;border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.card.pk{border-color:#FF5E84}
+.slbl{font-size:13px;font-weight:700;color:#000036;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.dot{width:22px;height:22px;background:#FF5E84;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;flex-shrink:0}
+.dot.g{background:#4CAF50}
+.dot.b{background:#000036}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:8px}
+.row{display:flex;gap:8px;align-items:flex-end}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #eee}
+.tab{padding:7px 15px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid #ddd;background:#f5f5f5;color:#777;cursor:pointer;transition:all .15s}
+.tab.act{background:#FF5E84;color:#fff;border-color:#FF5E84}
+.tab.dn{background:#fff0f4;color:#FF5E84;border-color:#ffc8d5}
+.sbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px;flex-wrap:wrap}
+.sdesc{font-size:13px;color:#777;flex:1;line-height:1.5}
+.out{background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:1rem 1.25rem;font-size:13px;line-height:1.75;color:#222;white-space:pre-wrap;min-height:80px;word-break:break-word}
+.empty{color:#bbb}
+.cursor{display:inline-block;width:7px;height:14px;background:#FF5E84;margin-left:2px;vertical-align:text-bottom;animation:bl 1s step-end infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
+.fb{margin-top:10px}
+.fb textarea{min-height:50px;margin-bottom:8px}
+.fbr{display:flex;gap:8px}
+.al{padding:8px 12px;border-radius:6px;font-size:12px;margin-bottom:8px;line-height:1.5}
+.al.er{background:#fff0f0;border:1px solid #fcc;color:#c00}
+.al.ok{background:#f0fff4;border:1px solid #9f9;color:#060}
+.al.inf{background:#f0f8ff;border:1px solid #bee;color:#336}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:8px}
+.icard{border:2px solid #eee;border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .15s;position:relative}
+.icard.sel{border-color:#FF5E84}
+.icard img{width:100%;height:80px;object-fit:cover;display:block}
+.icard .itick{display:none;position:absolute;top:4px;right:4px;background:#FF5E84;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;align-items:center;justify-content:center;font-weight:700}
+.icard.sel .itick{display:flex}
+.icard .itype{font-size:10px;color:#999;padding:2px 6px;background:#f9f9f9;text-align:center}
+.rv{background:#f9f9f9;border:1px solid #eee;border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:12px}
+.rv .rstar{color:#f5a623;margin-bottom:2px}
+.rv .rauth{color:#999;font-size:11px;margin-top:3px}
+.retlist{border:1px solid #eee;border-radius:6px;overflow:hidden;max-height:200px;overflow-y:auto;margin-top:6px}
+.retitem{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;border-bottom:1px solid #f5f5f5;transition:background .1s}
+.retitem:last-child{border-bottom:none}
+.retitem:hover{background:#fff8fa}
+.retitem.sel{background:#fff0f4}
+.retn{font-size:13px;font-weight:600}
+.retd{font-size:11px;color:#aaa;margin-top:1px}
+.retck{width:16px;height:16px;border-radius:50%;border:2px solid #ddd;margin-left:auto;flex-shrink:0}
+.retitem.sel .retck{background:#FF5E84;border-color:#FF5E84}
+.ec{border:1px solid #eee;border-radius:8px;overflow:hidden;margin-bottom:8px}
+.eh{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f9f9f9;cursor:pointer;user-select:none}
+.eht{font-size:13px;font-weight:700;color:#FF5E84}
+.eb{padding:12px 14px}
+.efl{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.ef{margin-bottom:10px}
+.ci{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0}
+.ci:last-child{border-bottom:none}
+.ck{width:20px;height:20px;border-radius:50%;border:2px solid #ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.ck.yes{background:#FF5E84;border-color:#FF5E84;color:#fff}
+.cl{font-size:13px;color:#888}
+.cl.yes{color:#111;font-weight:500}
+.cr{margin-left:auto;font-size:12px;padding:4px 10px;background:#fff;border:1px solid #ddd;border-radius:5px;cursor:pointer;color:#666}
+.mlb{background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:12px 14px;margin-top:12px}
+.mlb p{font-size:12px;color:#777;margin-bottom:6px}
+.mlb code{font-size:11px;line-height:1.6;color:#222;display:block;white-space:pre-wrap;word-break:break-word;background:#fff;padding:8px 10px;border-radius:6px;border:1px solid #eee;font-family:monospace}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px}
+.hdr-l{display:flex;align-items:center;gap:12px}
+.bar{width:6px;height:36px;background:#FF5E84;border-radius:3px;flex-shrink:0}
+.ttl{font-size:20px;font-weight:700;color:#000036}
+.sub{font-size:12px;color:#999;margin-top:2px}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:flex-start;justify-content:center;padding-top:50px}
+.ov.show{display:flex}
+.mo{background:#fff;border-radius:12px;padding:1.5rem;width:100%;max-width:540px;margin:0 1rem;max-height:88vh;overflow-y:auto}
+.moh{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.mot{font-size:16px;font-weight:700;color:#000036}
+.mox{background:none;border:none;font-size:22px;color:#aaa;cursor:pointer}
+.mof{margin-bottom:12px}
+.ht{background:#f9f9f9;border:1px solid #eee;border-radius:6px;padding:10px 14px;font-size:12px;line-height:1.75;color:#555;margin-bottom:14px}
+.ht strong{color:#000036}
+.mnote{font-size:11px;color:#bbb;margin-top:10px;line-height:1.5}
+.div{border:none;border-top:1px solid #eee;margin:14px 0}
+.gh-status{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:12px;margin-top:8px}
+.gh-status.ok{background:#f0fff4;border:1px solid #9f9;color:#060}
+.gh-status.er{background:#fff0f0;border:1px solid #fcc;color:#c00}
+.deploy-link{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#000036;color:white;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;margin-top:8px;margin-right:8px}
+.deploy-link:hover{background:#000060}
+.deploy-link.pink{background:#FF5E84}
+.deploy-link.pink:hover{background:#e04470}
+@media(max-width:600px){.g4{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="bar"></div>
+    <div>
+      <div class="ttl">WSS™ Review Pipeline</div>
+      <div class="sub">Research → Write → Affiliate link → Push to GitHub → Reel → Emails → Social</div>
+    </div>
+  </div>
+  <button class="bset" id="settingsBtn">⚙ Settings</button>
+</div>
+
+<div class="card pk">
+  <div class="slbl"><div class="dot">1</div>Product details</div>
+  <div class="row" style="margin-bottom:8px">
+    <div style="flex:2"><label>Product URL *</label><input id="pUrl" type="url" placeholder="https://brand.com/products/product-name"/></div>
+    <div style="padding-top:19px"><button class="bp" id="researchBtn" style="white-space:nowrap">Research →</button></div>
+  </div>
+  <div class="g4">
+    <div><label>Product name *</label><input id="pName" placeholder="e.g. Super Strider Shorts"/></div>
+    <div><label>Brand *</label><input id="pBrand" placeholder="e.g. Bimble &amp; Bolt"/></div>
+    <div><label>Price (£)</label><input id="pPrice" placeholder="e.g. 65.00"/></div>
+    <div><label>Product type *</label><select id="pType"><option value="apparel">Apparel</option><option value="nutrition">Nutrition</option></select></div>
+  </div>
+  <div id="researchAlert" style="margin-top:8px"></div>
+</div>
+
+<div id="researchSection" style="display:none">
+  <div class="card"><div class="slbl"><div class="dot">2</div>Research findings</div><div id="researchOut" class="out empty">Analysing product…</div></div>
+  <div class="card"><div class="slbl"><div class="dot">3</div>Customer reviews found</div><div id="reviewsOut"><div class="out empty">Searching…</div></div></div>
+  <div class="card">
+    <div class="slbl"><div class="dot">4</div>Select images for the article</div>
+    <div id="imageAlert"></div><div id="imageGrid" class="igrid"></div>
+    <p style="font-size:11px;color:#aaa;margin-top:8px">Select images to include. First selected = featured image.</p>
+  </div>
+  <div class="card">
+    <div class="slbl"><div class="dot">5</div>Generate affiliate link (Avelon)</div>
+    <p style="font-size:13px;color:#777;margin-bottom:8px">Select retailer:</p>
+    <div id="retailerList" class="retlist"><div class="out empty" style="margin:0;border:none;background:none">Connect Avelon in Settings to load retailers…</div></div>
+    <div style="margin-top:10px;display:flex;gap:8px;align-items:flex-end">
+      <div style="flex:2"><label>Destination URL</label><input id="destUrl" placeholder="https://brand.com/products/…"/></div>
+      <button class="bp" id="affBtn" style="white-space:nowrap;padding:9px 14px">Generate link</button>
+    </div>
+    <div id="affAlert" style="margin-top:6px"></div>
+    <div id="affResult" style="display:none;margin-top:8px">
+      <label>Affiliate tracking link</label>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <input id="affLink" readonly style="background:#f9f9f9;font-size:12px"/>
+        <button class="bg" id="affCopyBtn" style="white-space:nowrap;padding:8px 12px">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs" id="tabs" style="display:none">
+  <div class="tab" data-s="write">6. Write Review</div>
+  <div class="tab" data-s="push">7. Push to GitHub</div>
+  <div class="tab" data-s="reel">8. Reel Script</div>
+  <div class="tab" data-s="emails">9. Emails</div>
+  <div class="tab" data-s="social">10. Social Copy</div>
+  <div class="tab" data-s="approve">11. Holly Approves</div>
+</div>
+
+<div id="s-write" style="display:none">
+  <div class="card">
+    <div class="sbar"><span class="sdesc">Writes the WSS™ review — apparel (5 pillars + star scores) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
+    <div id="writeTypeInfo" style="margin-bottom:8px"></div>
+    <div style="margin-bottom:10px"><label>Tester notes (optional)</label><textarea id="testerNotes" rows="2" placeholder="e.g. Tested size 12. Run-tested 3 sessions including 16km trail."></textarea></div>
+    <div id="writeOut" class="out empty">Output will appear here…</div>
+    <div id="writeEditWrap" style="display:none;margin-top:8px"><label>Edit before publishing:</label><textarea id="writeEdit" rows="14" style="margin-top:4px"></textarea></div>
+    <div id="writeFB" class="fb" style="display:none">
+      <label>Holly's feedback:</label><textarea id="writeFBText" rows="2" placeholder="e.g. Verdict too soft…"></textarea>
+      <div class="fbr"><button class="bp" id="writeApproveBtn">✓ Approve</button><button class="bg" id="writeRegenBtn">↺ Regenerate</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="s-push" style="display:none">
+  <div class="card">
+    <div class="sbar"><span class="sdesc">Commits the review as a markdown file to GitHub. Netlify auto-deploys — review goes live within 60 seconds.</span><button class="bp" id="pushBtn">Push to GitHub →</button></div>
+    <div id="pushAlert"></div>
+    <div id="pushResult" style="display:none">
+      <div id="pushBadge" class="gh-status ok"></div>
+      <div id="pushLinks" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
+<div id="s-reel" style="display:none">
+  <div class="card">
+    <div class="sbar"><span class="sdesc">60-second presenter-to-camera script. Hook → 3 WSS beats → verdict → CTA.</span><button class="bp" id="reelBtn">Write reel script →</button></div>
+    <div id="reelOut" class="out empty">Output will appear here…</div>
+    <div id="reelFB" class="fb" style="display:none">
+      <label>Holly's feedback:</label><textarea id="reelFBText" rows="2"></textarea>
+      <div class="fbr"><button class="bp" id="reelApproveBtn">✓ Approve</button><button class="bg" id="reelRegenBtn">↺ Regenerate</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="s-emails" style="display:none">
+  <div class="card">
+    <div class="sbar"><span class="sdesc">3-email MailerLite sequence. Fully editable before pushing.</span><button class="bp" id="emailsBtn">Write emails →</button></div>
+    <div id="emailsOut"></div>
+    <div id="emailsFB" class="fb" style="display:none">
+      <label>Holly's feedback:</label><textarea id="emailsFBText" rows="2"></textarea>
+      <div class="fbr"><button class="bp" id="emailsApproveBtn">✓ Approve</button><button class="bg" id="emailsRegenBtn">↺ Regenerate</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="s-social" style="display:none">
+  <div class="card">
+    <div class="sbar"><span class="sdesc">Reel caption, Stories slides, and carousel copy from the approved review.</span><button class="bp" id="socialBtn">Write social copy →</button></div>
+    <div id="socialOut" class="out empty">Output will appear here…</div>
+    <div id="socialFB" class="fb" style="display:none">
+      <label>Holly's feedback:</label><textarea id="socialFBText" rows="2"></textarea>
+      <div class="fbr"><button class="bp" id="socialApproveBtn">✓ Approve</button><button class="bg" id="socialRegenBtn">↺ Regenerate</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="s-approve" style="display:none">
+  <div class="card">
+    <div class="slbl"><div class="dot g">✓</div>Final sign-off — Holly</div>
+    <div id="checklist"></div>
+    <div id="mlPrompt" style="display:none" class="mlb"><p>Paste into Claude chat to push emails to MailerLite via MCP:</p><code id="mlCode"></code></div>
+  </div>
+</div>
+
+</div>
+
+<div class="ov" id="settingsOv">
+  <div class="mo">
+    <div class="moh"><div class="mot">Settings</div><button class="mox" id="modalCloseBtn">×</button></div>
+    <div class="slbl" style="margin-bottom:8px"><div class="dot b">GH</div>GitHub</div>
+    <div class="ht"><strong>Personal Access Token:</strong> github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → tick <strong>repo</strong> scope → copy (shown once only)</div>
+    <div class="mof"><label>GitHub username</label><input id="ghUser" placeholder="holly-cyber"/></div>
+    <div class="mof"><label>Repository</label><input id="ghRepo" placeholder="wss-reviews"/></div>
+    <div class="mof"><label>Personal access token</label><input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx"/></div>
+    <div class="mof"><label>Branch</label><input id="ghBranch" value="main"/></div>
+    <hr class="div">
+    <div class="slbl" style="margin-bottom:8px"><div class="dot" style="background:#f5a623">AV</div>Avelon</div>
+    <div class="ht"><strong>Avelon credentials:</strong> your Avelon publisher login.</div>
+    <div class="mof"><label>Avelon email</label><input id="avEmail" placeholder="your@email.com"/></div>
+    <div class="mof"><label>Avelon password</label><input type="password" id="avPass" placeholder="password"/></div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="bp" id="saveSettingsBtn">Save settings</button>
+      <button class="bg" id="cancelSettingsBtn">Cancel</button>
+    </div>
+    <div class="mnote">Credentials stored in this browser session only. Sent directly to GitHub and Avelon — never to any third party.</div>
+  </div>
+</div>
+
+<script>
+const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v1.0 — score 5 pillars ONLY (4 and 6 excluded):
+PILLAR 1 INCLUSIVE FIT & PROPORTIONAL SIZING: UK 16 must NOT be XL, size range UK 6-24+, women's proportions not scaled-down unisex.
+PILLAR 2 FUNCTIONAL PERFORMANCE IN USE: Seam placement, waistband stability, torso coverage, chafe after 45+ min. Test in intended activity.
+PILLAR 3 ADEQUATE SUPPORT STANDARDS: Stated impact vs experience, cup range A-HH. HARD RULE: fail Pillar 3 = overall max 2 stars.
+PILLAR 5 GENUINE FEMALE DESIGN: Women-specific cutting, functional pockets, engineering not colour. No pink it shrink it.
+PILLAR 7 TRANSPARENCY & USER REVIEWS: Published testing data, substantiated claims. HARD RULE: max 3 stars without verifiable data.
+SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per pillar, half-stars overall only.
+OUTPUT FORMAT:
+## Overview
+[80 words]
+## WSS™ Assessment
+[Each pillar: "Pillar N — Name: X/5" then paragraph. Flag fails and unverifiable claims.]
+## Scores
+Pillar 1 — Inclusive Fit & Proportional Sizing: X/5
+Pillar 2 — Functional Performance in Use: X/5
+Pillar 3 — Adequate Support Standards: X/5
+Pillar 5 — Genuine Female Design: X/5
+Pillar 7 — Transparency & User Reviews: X/5
+**Overall: X.X / 5 ★**
+## The Verdict
+[50-80 words. Direct. Name the athlete. Call out pillar 1-2 scores.]
+## Buy
+[30-50 words. CTA with [AFFILIATE_LINK].]
+TONE: Specific failure modes. Never vague praise. Never fabricate. British English.`;
+
+const WSS_NUTRITION=`WSS NUTRITION REVIEW FRAMEWORK v1.0:
+TASTE & TEXTURE (25%): Palatability mid-exercise, texture, aftertaste, ease of consumption.
+NUTRITION PROFILE (30%): Macros vs activity, ingredient quality, additives, female physiology.
+PERFORMANCE (30%): Delivers stated benefit during/after exercise?
+VALUE (15%): Price per serving vs market.
+SCORING: 1-5 each. Overall = weighted average.
+OUTPUT FORMAT:
+## Overview
+[80 words]
+## WSS™ Assessment
+[Each criterion with score e.g. "Taste & Texture: 4/5" then paragraph.]
+## Scores
+Taste & Texture (25%): X/5
+Nutrition Profile (30%): X/5
+Performance (30%): X/5
+Value (15%): X/5
+**Overall: X.X / 5 ★**
+## The Verdict
+[50-80 words.]
+## Buy
+[30-50 words. CTA with [AFFILIATE_LINK].]
+TONE: Specific, no vague praise, never fabricate. British English.`;
+
+const REEL_SYS=`WSS social content director. 60-second direct-to-camera Reel scripts.
+[HOOK 0-3s] [BEAT 1 3-20s] [BEAT 2 20-35s] [BEAT 3 35-45s] [VERDICT 45-55s] [CTA 55-60s]
+Hook=most surprising WSS finding. Each Beat=one specific finding. Verdict=binary. CTA="Full review and buy link in bio." only. On-screen text in [brackets]. British English.`;
+
+const EMAIL_SYS=`WSS email writer. Return ONLY valid JSON array of 3 objects: subject, preview_text, body_html.
+Email 1 Review Drop: best WSS finding, [VIDEO_EMBED], CTA to review.
+Email 2 Buy Nudge day 4: 3 bullet WSS findings, Shop now CTA.
+Email 3 Social Proof day 7: community framing, softer sell.
+HTML: inline styles, max 600px, #FF5E84 headings/CTAs, #000036 body. CTA: background:#FF5E84;color:white;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
+Raw JSON only. No markdown.`;
+
+let cfg={ghUser:'holly-cyber',ghRepo:'wss-reviews',ghToken:'',ghBranch:'main',avEmail:'',avPass:''};
+let state={researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[]};
+let done=new Set();
+let busy=false;
+
+function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function setAlert(id,type,msg){const el=document.getElementById(id);if(el)el.innerHTML=msg?`<div class="al ${type}">${msg}</div>`:''}
+function avAuth(){return'Basic '+btoa(cfg.avEmail+':'+cfg.avPass)}
+function getReview(){return(document.getElementById('writeEdit').value||'').trim()||state.reviewText}
+function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+
+// Settings
+document.getElementById('settingsBtn').addEventListener('click',()=>{
+  ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)el.value=cfg[k]||''});
+  document.getElementById('settingsOv').classList.add('show');
+});
+document.getElementById('modalCloseBtn').addEventListener('click',()=>document.getElementById('settingsOv').classList.remove('show'));
+document.getElementById('cancelSettingsBtn').addEventListener('click',()=>document.getElementById('settingsOv').classList.remove('show'));
+document.getElementById('settingsOv').addEventListener('click',e=>{if(e.target===document.getElementById('settingsOv'))document.getElementById('settingsOv').classList.remove('show')});
+document.getElementById('saveSettingsBtn').addEventListener('click',()=>{
+  ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)cfg[k]=el.value.trim()});
+  if(!cfg.ghBranch)cfg.ghBranch='main';
+  const btn=document.getElementById('settingsBtn');
+  const on=cfg.ghToken||cfg.avEmail;
+  btn.classList.toggle('on',!!on);
+  btn.textContent='⚙ '+(cfg.ghToken&&cfg.avEmail?'All connected':cfg.ghToken?'GitHub connected':cfg.avEmail?'Avelon connected':'Settings');
+  document.getElementById('settingsOv').classList.remove('show');
+  if(cfg.avEmail&&cfg.avPass)loadRetailers();
+});
+
+// AI helpers
+async function aiStream(msgs,sys,outEl,btnEl,btnLabel){
+  if(busy)return null;
+  busy=true;
+  if(btnEl){btnEl.disabled=true;btnEl.textContent='Writing…'}
+  outEl.classList.remove('empty');
+  outEl.innerHTML='<span class="cursor"></span>';
+  let text='';
+  try{
+    const res=await fetch('/api/ai-proxy',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,stream:true,system:sys,messages:msgs})
+    });
+    const reader=res.body.getReader();const dec=new TextDecoder();let buf='';
+    while(true){
+      const{done:d,value}=await reader.read();if(d)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop();
+      for(const line of lines){
+        if(line.startsWith('data: ')){
+          try{const j=JSON.parse(line.slice(6));if(j.type==='content_block_delta'&&j.delta?.text){text+=j.delta.text;outEl.innerHTML=esc(text)+'<span class="cursor"></span>';}}catch{}
+        }
+      }
+    }
+  }catch(e){text='Error: '+e.message;}
+  outEl.innerHTML=esc(text);
+  busy=false;
+  if(btnEl){btnEl.disabled=false;btnEl.textContent=btnLabel}
+  return text;
+}
+
+async function aiCall(msgs,sys){
+  const res=await fetch('/api/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:msgs})});
+  const d=await res.json();if(d.error)throw new Error(d.error.message);return d.content[0].text;
+}
+
+// Research
+document.getElementById('researchBtn').addEventListener('click',async()=>{
+  const url=document.getElementById('pUrl').value.trim();
+  const name=document.getElementById('pName').value.trim();
+  if(!url||!name){setAlert('researchAlert','er','Enter a product URL and name first.');return}
+  setAlert('researchAlert','','');
+  document.getElementById('researchSection').style.display='block';
+  document.getElementById('tabs').style.display='none';
+  document.getElementById('destUrl').value=url;
+  const pType=document.getElementById('pType').value;
+  const brand=document.getElementById('pBrand').value||'';
+  const price=document.getElementById('pPrice').value||'';
+  const resOut=document.getElementById('researchOut');
+  const prompt=pType==='apparel'
+    ?`Research this apparel product for WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\n1. Key claims and specs\n2. Target use case\n3. Size range — note labelling concerns\n4. Women-specific design claims — substantiated?\n5. WSS pillar pre-assessment (1,2,3,5,7)\n6. Red flags\n7. Price-to-value\nBe precise and sceptical. British English.`
+    :`Research this nutrition product for WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\n1. Product type and use\n2. Ingredients and nutritional values\n3. Macros vs activity\n4. Female physiology claims\n5. Additives\n6. Price per serving\n7. Value vs comparables\nBe precise and sceptical. British English.`;
+  const text=await aiStream([{role:'user',content:prompt}],'Senior WSS research analyst. British English. Never fabricate. Be sceptical.',resOut,document.getElementById('researchBtn'),'Re-research');
+  state.researchText=text||'';
+  fetchCustomerReviews(url,name,brand);
+  fetchImages(url);
+  document.getElementById('tabs').style.display='flex';
+  goStage('write');
+});
+
+// Customer reviews
+async function fetchCustomerReviews(url,name,brand){
+  const el=document.getElementById('reviewsOut');
+  el.innerHTML='<div class="out empty">Searching for customer reviews…</div>';
+  try{
+    const u=new URL(url);
+    const handle=u.pathname.split('/').filter(Boolean).pop();
+    try{
+      const r=await fetch(`https://judge.me/api/v1/reviews?shop_domain=${u.hostname}&handle=${handle}&per_page=20`);
+      if(r.ok){const d=await r.json();if(d.reviews&&d.reviews.length){state.customerReviews=d.reviews.slice(0,8).map(rv=>({rating:rv.rating,text:(rv.body||'').slice(0,250),author:rv.reviewer?.name||'Verified buyer',source:'Judge.me'}));renderReviews();return;}}
+    }catch{}
+    const text=await aiCall([{role:'user',content:`Find and summarise customer reviews of ${brand} ${name}. URL: ${url}\n1. Overall sentiment\n2. 5 most useful reviews with rating and key finding\n3. Common complaints\n4. Common praise\n5. Fit or performance issues relevant to WSS pillars\nBe honest about limitations. British English.`}],'WSS research analyst. Summarise customer sentiment accurately. British English.');
+    state.customerReviews=[{text}];
+    el.innerHTML=`<div class="out">${esc(text)}</div>`;
+  }catch(e){el.innerHTML=`<div class="out empty">Could not retrieve reviews: ${esc(e.message)}</div>`;}
+}
+function renderReviews(){
+  const el=document.getElementById('reviewsOut');
+  if(!state.customerReviews.length){el.innerHTML='<div class="out empty">No reviews found.</div>';return}
+  if(!state.customerReviews[0].rating){el.innerHTML=`<div class="out">${esc(state.customerReviews[0].text)}</div>`;return}
+  el.innerHTML=state.customerReviews.map(r=>`<div class="rv"><div class="rstar">${'★'.repeat(r.rating||5)}${'☆'.repeat(5-(r.rating||5))}</div><div>${esc(r.text)}</div><div class="rauth">${esc(r.author)}${r.source?' · '+r.source:''}</div></div>`).join('');
+}
+
+// Images
+async function fetchImages(url){
+  const el=document.getElementById('imageGrid');
+  el.innerHTML='<p style="font-size:12px;color:#aaa">Fetching images…</p>';
+  try{
+    const result=await aiCall([{role:'user',content:`List significant product images from: ${url}\nReturn JSON array: [{url,type,alt}]. Include og:image and main product images. Exclude icons/logos/tiny UI.\nRaw JSON only.`}],'Image extraction. Return only valid JSON array.');
+    const imgs=JSON.parse(result.trim().replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim());
+    state.allImages=imgs;renderImages(imgs);
+  }catch{
+    try{
+      const r=await fetch(url);const html=await r.text();
+      const matches=[...html.matchAll(/og:image.*?content=["']([^"']+)["']/gi)];
+      const found=matches.map(m=>({url:m[1],type:'hero',alt:'Product image'}));
+      state.allImages=found.slice(0,8);
+      if(found.length)renderImages(state.allImages);
+      else el.innerHTML='<p style="font-size:12px;color:#aaa">No images found. You can proceed without images.</p>';
+    }catch{el.innerHTML='<p style="font-size:12px;color:#aaa">Could not fetch images. Proceed without them.</p>';}
+  }
+}
+function renderImages(imgs){
+  const el=document.getElementById('imageGrid');
+  if(!imgs.length){el.innerHTML='<p style="font-size:12px;color:#aaa">No images found.</p>';return}
+  el.innerHTML=imgs.map((img,i)=>`<div class="icard" id="icard${i}" data-img="${i}"><img src="${esc(img.url)}" alt="${esc(img.alt||'')}" onerror="this.parentElement.style.display='none'"/><div class="itype">${esc(img.type||'product')}</div><div class="itick">✓</div></div>`).join('');
+  el.addEventListener('click',e=>{const c=e.target.closest('.icard');if(c)toggleImg(parseInt(c.dataset.img))});
+  const heroIdx=imgs.findIndex(i=>i.type==='hero');
+  if(imgs.length)toggleImg(heroIdx>=0?heroIdx:0);
+}
+function toggleImg(i){
+  const c=document.getElementById('icard'+i);if(!c)return;
+  const idx=state.selectedImages.indexOf(i);
+  if(idx>=0){state.selectedImages.splice(idx,1);c.classList.remove('sel')}
+  else{state.selectedImages.push(i);c.classList.add('sel')}
+}
+
+// Avelon
+async function loadRetailers(){
+  if(!cfg.avEmail||!cfg.avPass)return;
+  const el=document.getElementById('retailerList');
+  el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">Loading…</div>';
+  try{
+    const r=await fetch('https://app.avelonetwork.com/api/affiliate/retailers',{headers:{Authorization:avAuth(),'Content-Type':'application/json'}});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    const list=Array.isArray(data)?data:(data.retailers||data.data||[]);
+    state.retailers=list;
+    if(!list.length){el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">No approved retailers found.</div>';return}
+    el.innerHTML=list.map((r,i)=>`<div class="retitem" id="ret${i}" data-idx="${i}"><div><div class="retn">${esc(r.name||r.retailerName||'Retailer '+i)}</div><div class="retd">ID: ${esc(String(r.pk||r.id||''))}</div></div><div class="retck"></div></div>`).join('');
+    el.addEventListener('click',e=>{const item=e.target.closest('.retitem');if(item)selectRetailer(parseInt(item.dataset.idx))});
+  }catch(e){el.innerHTML=`<div style="padding:10px;font-size:12px;color:#c00">Could not load: ${esc(e.message)}</div>`;}
+}
+function selectRetailer(i){
+  document.querySelectorAll('.retitem').forEach(el=>el.classList.remove('sel'));
+  document.getElementById('ret'+i)?.classList.add('sel');
+  state.selectedRetailer=state.retailers[i];
+}
+document.getElementById('affBtn').addEventListener('click',async()=>{
+  if(!cfg.avEmail||!cfg.avPass){setAlert('affAlert','er','Connect Avelon in Settings first.');return}
+  if(!state.selectedRetailer){setAlert('affAlert','er','Select a retailer first.');return}
+  const dest=document.getElementById('destUrl').value.trim();
+  if(!dest){setAlert('affAlert','er','Enter destination URL.');return}
+  setAlert('affAlert','','');
+  document.getElementById('affBtn').disabled=true;document.getElementById('affBtn').textContent='Generating…';
+  try{
+    const pk=state.selectedRetailer.pk||state.selectedRetailer.id;
+    const r=await fetch('https://app.avelonetwork.com/api/affiliate/link/create',{method:'POST',headers:{Authorization:avAuth(),'Content-Type':'application/json'},body:JSON.stringify({destinationUrl:dest,retailerPk:pk})});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    const link=data.url||data.link||data.affiliateUrl||`https://${pk}.avln.me/c/${data.linkPk||data.pk||data.id}`;
+    state.affLink=link;
+    document.getElementById('affLink').value=link;
+    document.getElementById('affResult').style.display='block';
+    setAlert('affAlert','ok','Affiliate link generated.');
+  }catch(e){setAlert('affAlert','er','Could not generate: '+e.message);}
+  document.getElementById('affBtn').disabled=false;document.getElementById('affBtn').textContent='Generate link';
+});
+document.getElementById('affCopyBtn').addEventListener('click',()=>{
+  const v=document.getElementById('affLink').value;
+  if(v)navigator.clipboard.writeText(v).then(()=>setAlert('affAlert','ok','Copied.'));
+});
+
+// Write
+document.getElementById('writeBtn').addEventListener('click',()=>runWrite());
+document.getElementById('writeRegenBtn').addEventListener('click',()=>runWrite(document.getElementById('writeFBText').value));
+document.getElementById('writeApproveBtn').addEventListener('click',()=>approve('write'));
+async function runWrite(fb){
+  const name=document.getElementById('pName').value||'this product';
+  const brand=document.getElementById('pBrand').value||'';
+  const price=document.getElementById('pPrice').value||'';
+  const pType=document.getElementById('pType').value;
+  const affLink=state.affLink||'[AFFILIATE_LINK]';
+  const testerNotes=(document.getElementById('testerNotes').value||'').trim();
+  document.getElementById('writeTypeInfo').innerHTML=pType==='apparel'
+    ?'<div class="al inf">Apparel — 5 WSS™ pillars (1,2,3,5,7).</div>'
+    :'<div class="al inf">Nutrition — 4 criteria: Taste 25%, Nutrition 30%, Performance 30%, Value 15%.</div>';
+  let reviewContext='';
+  if(state.customerReviews.length){
+    if(state.customerReviews[0].rating!==undefined)reviewContext='\n\nCUSTOMER REVIEWS:\n'+state.customerReviews.slice(0,5).map(r=>`${r.rating}★: ${r.text}`).join('\n');
+    else reviewContext='\n\nCUSTOMER SENTIMENT:\n'+state.customerReviews[0].text;
+  }
+  const testerSection=testerNotes?`\n\nTESTER DATA:\n${testerNotes}`:'\n\nTESTER DATA: Not supplied. Flag findings requiring tester evidence as "Not independently verified."';
+  const note=fb?`\n\nHolly's feedback: ${fb}\nAddress this directly.`:'';
+  const prompt=`Write a WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nType: ${pType}\nAffiliate: ${affLink}\n\nResearch:\n${state.researchText||'See product URL.'}${testerSection}${reviewContext}${note}\n\nApply framework exactly. Include all headings, all scores, overall rating, 50-80 word verdict. Replace [AFFILIATE_LINK] with: ${affLink}\nBritish English.`;
+  const text=await aiStream([{role:'user',content:prompt}],`Senior WSS reviewer. Never fabricate. Specific failure modes. British English.\n\n${pType==='apparel'?WSS_APPAREL:WSS_NUTRITION}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate');
+  if(text){
+    state.reviewText=text;
+    document.getElementById('writeEdit').value=text;
+    document.getElementById('writeEditWrap').style.display='block';
+    document.getElementById('writeFB').style.display='block';
+  }
+}
+
+// GitHub push
+document.getElementById('pushBtn').addEventListener('click',async()=>{
+  if(!cfg.ghToken){setAlert('pushAlert','er','Add your GitHub Personal Access Token in Settings first.');return}
+  const review=getReview();
+  if(!review){setAlert('pushAlert','er','Write and approve the review first.');return}
+  const name=document.getElementById('pName').value||'Product Review';
+  const brand=document.getElementById('pBrand').value||'';
+  const price=document.getElementById('pPrice').value||'';
+  const pType=document.getElementById('pType').value;
+  const affLink=state.affLink||'';
+  const slug=slugify(`${brand}-${name}`);
+  const category=pType==='nutrition'?'nutrition':guessCategory();
+  setAlert('pushAlert','inf','Pushing to GitHub…');
+  document.getElementById('pushBtn').disabled=true;document.getElementById('pushBtn').textContent='Pushing…';
+  try{
+    const overallMatch=review.match(/Overall:\s*([\d.]+)\s*\/\s*5/i);
+    const overall=overallMatch?overallMatch[1]:'4.0';
+    const pillarScores=extractPillarScores(review,pType);
+    const today=new Date().toISOString().split('T')[0];
+    const heroImg=state.selectedImages.length?state.allImages[state.selectedImages[0]]?.url||'':'';
+    const excerpt=extractExcerpt(review);
+    const frontmatter=`---\ntitle: "${name}"\nbrand: "${brand}"\ncategory: "${category}"\ndate: "${today}"\nprice: "${price}"\nproduct_type: "${pType}"\nexcerpt: "${excerpt}"\nhero_image: "${heroImg}"\noverall_score: ${overall}\naffiliate_link: "${affLink}"\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n---\n\n${review}`;
+    const path=`src/pages/reviews/${category}/${slug}.md`;
+    const content=btoa(unescape(encodeURIComponent(frontmatter)));
+    let sha='';
+    try{const check=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'}});if(check.ok){const d=await check.json();sha=d.sha;}}catch{}
+    const body={message:`Add review: ${brand} ${name}`,content,branch:cfg.ghBranch};
+    if(sha)body.sha=sha;
+    const res=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!res.ok){const err=await res.json().catch(()=>({}));throw new Error(err.message||'HTTP '+res.status);}
+    setAlert('pushAlert','','');
+    document.getElementById('pushResult').style.display='block';
+    document.getElementById('pushBadge').textContent=`✓ Pushed — ${path}`;
+    document.getElementById('pushBadge').className='gh-status ok';
+    document.getElementById('pushLinks').innerHTML=`<a class="deploy-link" href="https://github.com/${cfg.ghUser}/${cfg.ghRepo}/blob/${cfg.ghBranch}/${path}" target="_blank">View on GitHub →</a><a class="deploy-link pink" href="https://app.netlify.com/sites/wss-reviews/deploys" target="_blank">Watch Netlify deploy →</a>`;
+    markDone('push');
+  }catch(e){
+    setAlert('pushAlert','er','GitHub push failed: '+e.message);
+    document.getElementById('pushBadge').textContent='✗ Push failed: '+e.message;
+    document.getElementById('pushBadge').className='gh-status er';
+    document.getElementById('pushResult').style.display='block';
+  }
+  document.getElementById('pushBtn').disabled=false;document.getElementById('pushBtn').textContent='Re-push to GitHub';
+});
+
+function guessCategory(){
+  const n=(document.getElementById('pName').value||'').toLowerCase();
+  if(/bra|bras/.test(n))return'sports-bras';
+  if(/swim|goggle|wetsuit/.test(n))return'swim';
+  if(/cycle|cycling|bike|jersey/.test(n))return'cycle';
+  if(/tri|trisuit|triathlon/.test(n))return'tri';
+  return'run';
+}
+function extractExcerpt(review){
+  const lines=review.split('\n').filter(l=>l.trim()&&!l.startsWith('#'));
+  return(lines[0]||'').slice(0,155).replace(/"/g,"'")+'\u2026';
+}
+function extractPillarScores(review,pType){
+  const scores={};
+  if(pType==='apparel'){
+    [['p1','Pillar 1'],['p2','Pillar 2'],['p3','Pillar 3'],['p5','Pillar 5'],['p7','Pillar 7']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
+  }else{
+    [['taste','Taste'],['nutrition','Nutrition Profile'],['performance','Performance'],['value','Value']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
+  }
+  return scores;
+}
+
+// Reel
+document.getElementById('reelBtn').addEventListener('click',()=>runReel());
+document.getElementById('reelRegenBtn').addEventListener('click',()=>runReel(document.getElementById('reelFBText').value));
+document.getElementById('reelApproveBtn').addEventListener('click',()=>approve('reel'));
+async function runReel(fb){
+  const name=document.getElementById('pName').value||'product';
+  const brand=document.getElementById('pBrand').value||'';
+  const note=fb?`\n\nHolly's feedback: ${fb}`:'';
+  const text=await aiStream([{role:'user',content:`60-second Instagram Reel script.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],REEL_SYS,document.getElementById('reelOut'),document.getElementById('reelBtn'),'Regenerate');
+  if(text)document.getElementById('reelFB').style.display='block';
+}
+
+// Emails
+document.getElementById('emailsBtn').addEventListener('click',()=>runEmails());
+document.getElementById('emailsRegenBtn').addEventListener('click',()=>runEmails(document.getElementById('emailsFBText').value));
+document.getElementById('emailsApproveBtn').addEventListener('click',()=>approve('emails'));
+async function runEmails(fb){
+  const name=document.getElementById('pName').value||'product';
+  const brand=document.getElementById('pBrand').value||'';
+  const note=fb?`\n\nHolly's feedback: ${fb}`:'';
+  if(busy)return;busy=true;
+  const btn=document.getElementById('emailsBtn');btn.disabled=true;btn.textContent='Writing…';
+  document.getElementById('emailsOut').innerHTML='<div class="out"><span class="cursor"></span></div>';
+  try{
+    const raw=await aiCall([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS);
+    state.emails=JSON.parse(raw.trim().replace(/^```json\n?/,'').replace(/\n?```$/,'').trim());
+    renderEmails();document.getElementById('emailsFB').style.display='block';
+  }catch(e){document.getElementById('emailsOut').innerHTML=`<div class="out">Error: ${esc(e.message)} — try regenerating.</div>`;}
+  busy=false;btn.disabled=false;btn.textContent='Regenerate';
+}
+function renderEmails(){
+  const labels=['Email 1 — Review Drop','Email 2 — Buy Nudge (day 4)','Email 3 — Social Proof (day 7)'];
+  document.getElementById('emailsOut').innerHTML=state.emails.map((e,i)=>`<div class="ec"><div class="eh" data-toggle="${i}"><div class="eht">${labels[i]}</div><div id="ech${i}">▼</div></div><div id="ecb${i}" class="eb" style="${i>0?'display:none':''}"><div class="ef"><div class="efl">Subject</div><input id="es${i}" value="${esc(e.subject||'')}"/></div><div class="ef"><div class="efl">Preview text</div><input id="ep${i}" value="${esc(e.preview_text||'')}"/></div><div class="ef"><div class="efl">Body HTML</div><textarea id="eb${i}" rows="6" style="font-family:monospace;font-size:12px">${esc(e.body_html||'')}</textarea></div></div></div>`).join('');
+  document.getElementById('emailsOut').addEventListener('click',e=>{const h=e.target.closest('[data-toggle]');if(h){const i=h.dataset.toggle;const b=document.getElementById('ecb'+i);const c=document.getElementById('ech'+i);b.style.display=b.style.display==='none'?'block':'none';c.textContent=b.style.display==='none'?'▼':'▲';}});
+}
+
+// Social
+document.getElementById('socialBtn').addEventListener('click',()=>runSocial());
+document.getElementById('socialRegenBtn').addEventListener('click',()=>runSocial(document.getElementById('socialFBText').value));
+document.getElementById('socialApproveBtn').addEventListener('click',()=>approve('social'));
+async function runSocial(fb){
+  const name=document.getElementById('pName').value||'product';
+  const brand=document.getElementById('pBrand').value||'';
+  const note=fb?`\n\nHolly's feedback: ${fb}`:'';
+  const reel=document.getElementById('reelOut').innerText||'';
+  const text=await aiStream([{role:'user',content:`Instagram social copy.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}\nReel:\n${reel}${note}\n1. REEL CAPTION (150w max, hook first, 3 WSS findings, "link in bio", 5 hashtags)\n2. STORIES (3 slides: teaser / key stat / CTA)\n3. CAROUSEL (5 slide titles + one-line caption each)`}],'WSS social writer. Expert, direct, sassy. British English. No pink-it-and-shrink-it.',document.getElementById('socialOut'),document.getElementById('socialBtn'),'Regenerate');
+  if(text)document.getElementById('socialFB').style.display='block';
+}
+
+// Stage control
+const STAGES=['write','push','reel','emails','social','approve'];
+function goStage(s){
+  STAGES.forEach(id=>{document.getElementById('s-'+id).style.display=id===s?'block':'none'});
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('act',t.dataset.s===s));
+  if(s==='approve')buildChecklist();
+}
+function markDone(s){done.add(s);document.querySelectorAll('.tab').forEach(t=>{if(t.dataset.s===s){t.classList.add('dn');t.classList.remove('act')}});}
+function approve(s){markDone(s);const next=STAGES[STAGES.indexOf(s)+1];if(next)goStage(next);}
+document.getElementById('tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t&&t.dataset.s)goStage(t.dataset.s)});
+
+function buildChecklist(){
+  const items=[['write','700w review (WSS™ pillars)'],['push','Pushed to GitHub (Netlify auto-deploys)'],['reel','60s Reel script'],['emails','3-email series'],['social','Instagram caption + Stories + carousel']];
+  document.getElementById('checklist').innerHTML=items.map(([id,label])=>{const ok=done.has(id);return`<div class="ci"><div class="ck ${ok?'yes':''}">${ok?'✓':''}</div><span class="cl ${ok?'yes':''}">${label}</span>${!ok?`<button class="cr" data-goto="${id}">Review</button>`:''}</div>`;}).join('');
+  document.getElementById('checklist').addEventListener('click',e=>{const b=e.target.closest('[data-goto]');if(b)goStage(b.dataset.goto)});
+  if(state.emails.length){
+    const name=document.getElementById('pName').value||'product';
+    document.getElementById('mlCode').textContent=`Push these 3 approved emails to MailerLite as draft campaigns for "${name}":\nEmail 1: ${document.getElementById('es0')?.value||state.emails[0]?.subject||''}\nEmail 2: ${document.getElementById('es1')?.value||state.emails[1]?.subject||''}\nEmail 3: ${document.getElementById('es2')?.value||state.emails[2]?.subject||''}\nSender: holly@womenssportsstore.com / WomensSportsStore.com`;
+    document.getElementById('mlPrompt').style.display='block';
+  }
+}
+</script>
+</body>
+</html>

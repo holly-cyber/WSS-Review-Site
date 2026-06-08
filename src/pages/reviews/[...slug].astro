@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const reviews = import.meta.glob('./*/*.md', { eager: true });
+
+export async function getStaticPaths() {
+  const reviews = import.meta.glob('./*/*.md', { eager: true });
+  return Object.entries(reviews).map(([path, mod]: [string, any]) => {
+    const parts = path.split('/');
+    const filename = parts[parts.length - 1].replace('.md', '');
+    const category = parts[parts.length - 2];
+    return {
+      params: { slug: `${category}/${filename}` },
+      props: { mod, category, slug: filename }
+    };
+  });
+}
+
+const { mod, category, slug } = Astro.props;
+const { Content, frontmatter: fm } = mod;
+
+function renderStars(score: number) {
+  const full = Math.floor(score);
+  const half = score % 1 >= 0.5;
+  const empty = 5 - full - (half ? 1 : 0);
+  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+}
+
+const pillars = fm.pillar_scores || {};
+const criteriaLabels: Record<string, string> = {
+  p1: 'Pillar 1 — Inclusive Fit & Sizing',
+  p2: 'Pillar 2 — Functional Performance',
+  p3: 'Pillar 3 — Support Standards',
+  p5: 'Pillar 5 — Genuine Female Design',
+  p7: 'Pillar 7 — Transparency',
+  taste: 'Taste & Texture (25%)',
+  nutrition: 'Nutrition Profile (30%)',
+  performance: 'Performance (30%)',
+  value: 'Value (15%)',
+};
+
+const schemaReview = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "name": fm.title,
+  "reviewBody": fm.excerpt,
+  "reviewRating": { "@type": "Rating", "ratingValue": fm.overall_score, "bestRating": "5", "worstRating": "1" },
+  "author": { "@type": "Organization", "name": "Women's Sports Store" },
+  "itemReviewed": { "@type": "Product", "name": fm.title, "brand": { "@type": "Brand", "name": fm.brand } }
+});
+---
+<BaseLayout title={`${fm.title} Review`} description={fm.excerpt} ogImage={fm.hero_image}>
+  <script type="application/ld+json" set:html={schemaReview} />
+
+  <div class="review-hero" style={fm.hero_image ? `background-image:url(${fm.hero_image})` : ''}>
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/reviews/">Reviews</a> / <a href={`/reviews/${category}/`}>{category.replace('-',' ')}</a> / <span>{fm.brand}</span>
+      </div>
+      <span class={`pill pill-${category}`}>{category.replace('-',' ')}</span>
+      <h1>{fm.title}</h1>
+      <p class="review-brand">by <strong>{fm.brand}</strong>{fm.price ? ` · £${fm.price}` : ''}</p>
+      <div class="hero-score">
+        <span class="stars big-stars">{renderStars(fm.overall_score)}</span>
+        <span class="overall-num">{fm.overall_score}/5</span>
+        <span class="wss-badge">WSS™ Reviewed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-layout container">
+    <aside class="review-sidebar">
+      <div class="score-card">
+        <div class="score-overall">
+          <div class="score-big">{fm.overall_score}</div>
+          <div class="score-label">Overall WSS™ Score</div>
+          <div class="stars">{renderStars(fm.overall_score)}</div>
+        </div>
+        <div class="score-breakdown">
+          {Object.entries(pillars).map(([key, val]) => (
+            <div class="score-row">
+              <div class="score-row-label">{criteriaLabels[key] || key}</div>
+              <div class="score-row-right">
+                <div class="score-bar-wrap"><div class="score-bar" style={`width:${(Number(val)/5)*100}%`}></div></div>
+                <span class="score-row-val">{val}/5</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {fm.affiliate_link && <a href={fm.affiliate_link} class="btn btn-pink buy-btn" target="_blank" rel="nofollow sponsored">Buy now — £{fm.price} →</a>}
+      {fm.shopify_link && <a href={fm.shopify_link} class="btn btn-navy buy-btn" target="_blank">Buy from WSS →</a>}
+      <div class="quick-facts">
+        <h4>Quick facts</h4>
+        {fm.product_type && <div class="fact"><span>Type</span><span>{fm.product_type}</span></div>}
+        {fm.price && <div class="fact"><span>Price</span><span>£{fm.price}</span></div>}
+        {fm.sizes && <div class="fact"><span>Sizes</span><span>{fm.sizes}</span></div>}
+        {fm.tested_by && <div class="fact"><span>Tested by</span><span>{fm.tested_by}</span></div>}
+        {fm.date && <div class="fact"><span>Reviewed</span><span>{new Date(fm.date).toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span></div>}
+      </div>
+    </aside>
+    <article class="review-content"><Content /></article>
+  </div>
+</BaseLayout>
+
+<style>
+.review-hero{background:var(--navy);color:white;padding:2.5rem 0;background-size:cover;background-position:center;position:relative}
+.review-hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,30,.75)}
+.review-hero .container{position:relative}
+.breadcrumb{font-size:.75rem;opacity:.6;margin-bottom:1rem}
+.breadcrumb a{opacity:.8}
+.review-hero h1{font-size:clamp(1.5rem,3vw,2.5rem);color:white;margin-bottom:.4rem}
+.review-brand{font-size:.9rem;opacity:.7;margin-bottom:1rem}
+.hero-score{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.big-stars{font-size:1.5rem;color:var(--pink)}
+.overall-num{font-size:1.25rem;font-weight:700;color:white}
+.review-layout{display:grid;grid-template-columns:300px 1fr;gap:2.5rem;padding-top:2.5rem;padding-bottom:3rem;align-items:start}
+.review-sidebar{position:sticky;top:80px}
+.score-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;box-shadow:var(--shadow-sm)}
+.score-overall{text-align:center;padding-bottom:1.25rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem}
+.score-big{font-size:3.5rem;font-weight:700;color:var(--pink);line-height:1}
+.score-label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.score-overall .stars{color:var(--pink);font-size:1.25rem}
+.score-breakdown{display:flex;flex-direction:column;gap:.75rem}
+.score-row{display:flex;flex-direction:column;gap:.25rem}
+.score-row-label{font-size:.7rem;color:var(--text-secondary);font-weight:600}
+.score-row-right{display:flex;align-items:center;gap:.5rem}
+.score-bar-wrap{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.score-bar{height:100%;background:var(--pink);border-radius:3px}
+.score-row-val{font-size:.75rem;font-weight:700;color:var(--navy);min-width:28px;text-align:right}
+.buy-btn{width:100%;justify-content:center;margin-bottom:.625rem}
+.quick-facts{background:var(--off-white);border-radius:var(--radius-md);padding:1.25rem;margin-top:1rem}
+.quick-facts h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.875rem}
+.fact{display:flex;justify-content:space-between;font-size:.8rem;padding:.375rem 0;border-bottom:1px solid var(--border)}
+.fact:last-child{border-bottom:none}
+.fact span:first-child{color:var(--text-muted)}
+.fact span:last-child{font-weight:600;color:var(--navy);text-align:right;max-width:55%}
+.review-content{font-size:1rem;line-height:1.75}
+.review-content :global(h2){font-size:1.4rem;color:var(--navy);margin:2rem 0 .875rem;padding-bottom:.5rem;border-bottom:2px solid var(--pink)}
+.review-content :global(h3){font-size:1.1rem;color:var(--navy);margin:1.5rem 0 .625rem}
+.review-content :global(p){margin-bottom:1rem;color:var(--text-secondary)}
+.review-content :global(strong){color:var(--text-primary)}
+.review-content :global(img){border-radius:var(--radius-md);margin:1.5rem 0;width:100%}
+.review-content :global(blockquote){border-left:3px solid var(--pink);padding:.75rem 1.25rem;background:var(--light-pink);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:1.25rem 0;font-style:italic;color:var(--text-secondary)}
+@media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}
+</style>

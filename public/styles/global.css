@@ -1,0 +1,43 @@
+/* WSS™ Global Styles */
+:root {
+  --pink: #FF5E84;
+  --navy: #000036;
+  --mint: #BDE1C9;
+  --white: #ffffff;
+  --off-white: #f8f8f6;
+  --light-pink: #fff0f4;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --border: #eeeeee;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --max-width: 1200px;
+  --font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--text-primary); background: var(--white); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+h1,h2,h3,h4 { font-weight: 700; line-height: 1.2; color: var(--navy); }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.5rem; border-radius: var(--radius-sm); font-family: var(--font); font-size: .875rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s; text-decoration: none; }
+.btn-pink { background: var(--pink); color: white; }
+.btn-pink:hover { background: #e04470; }
+.btn-navy { background: var(--navy); color: white; }
+.btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+.btn-outline:hover { background: var(--navy); color: white; }
+.stars { color: var(--pink); }
+.wss-badge { display: inline-flex; align-items: center; gap: .375rem; background: var(--light-pink); color: var(--pink); padding: .25rem .75rem; border-radius: 20px; font-size: .75rem; font-weight: 700; letter-spacing: .05em; border: 1px solid rgba(255,94,132,.3); }
+.pill { display: inline-block; padding: .2rem .75rem; border-radius: 20px; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.pill-run { background: #e8f5e9; color: #2e7d32; }
+.pill-swim { background: #e3f2fd; color: #1565c0; }
+.pill-cycle { background: #fff8e1; color: #f57f17; }
+.pill-tri { background: #f3e5f5; color: #6a1b9a; }
+.pill-sports-bras { background: var(--light-pink); color: var(--pink); }
+.pill-nutrition { background: #e8f5e9; color: #388e3c; }
+@media (max-width: 768px) { .container { padding: 0 1rem; } }
