@@ -366,7 +366,7 @@ async function aiStream(msgs,sys,outEl,btnEl,btnLabel){
   try{
     const res=await fetch('/.netlify/functions/ai-proxy',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,stream:true,system:sys,messages:msgs})
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,stream:true,system:sys,messages:msgs})
     });
     const reader=res.body.getReader();const dec=new TextDecoder();let buf='';
     while(true){
@@ -387,7 +387,7 @@ async function aiStream(msgs,sys,outEl,btnEl,btnLabel){
 }
 
 async function aiCall(msgs,sys){
-  const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:msgs})});
+  const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:msgs})});
   const d=await res.json();if(d.error)throw new Error(d.error.message);return d.content[0].text;
 }
 
