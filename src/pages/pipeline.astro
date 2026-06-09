@@ -150,7 +150,10 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <div><label>Price (£)</label><input id="pPrice" placeholder="—"/></div>
       <div><label>Size range</label><input id="pSizes" placeholder="—"/></div>
     </div>
-    <div style="margin-top:8px"><label>Key specs</label><textarea id="pSpecs" rows="2" placeholder="Key specifications found on the page…"></textarea></div>
+    <div class="g4" style="margin-top:8px">
+      <div><label>Category</label><select id="pCategory"><option value="run">Run</option><option value="swim">Swim</option><option value="cycle">Cycle</option><option value="tri">Tri</option><option value="sports-bras">Sports Bras</option><option value="nutrition">Nutrition</option></select></div>
+      <div style="grid-column:span 3"><label>Key specs</label><textarea id="pSpecs" rows="2" placeholder="Key specifications found on the page…"></textarea></div>
+    </div>
   </div>
 </div>
 
@@ -308,17 +311,17 @@ PILLAR 7 TRANSPARENCY & USER REVIEWS: Published testing data, substantiated clai
 SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per pillar; the Overall may use a half-star.
 OVERALL = average of the five pillar scores, then APPLY the hard rules (Pillar 3 fail => max 2.0; no verifiable data => max 3.0).
 
-OUTPUT FORMAT — use these exact H2 headings, in this order:
+OUTPUT FORMAT — use these exact H2 headings, in this order. IMPORTANT: do NOT use the word "Pillar" anywhere in the output — use the criterion names only:
 ## Overview
 [80 words]
 ## WSS™ Assessment
-[For each pillar: a line "**Pillar N — Name: X/5**" then a paragraph naming specific failure modes. Flag fails and any unverifiable claims.]
+[For each criterion, an H3 heading EXACTLY in this form: "### Inclusive Fit & Proportional Sizing — X/5 ★★★★☆" (replace X with the score and show X filled ★ and (5−X) empty ☆ stars), then a paragraph naming specific failure modes. Flag fails and any unverifiable claims. Use the five criterion names: Inclusive Fit & Proportional Sizing; Functional Performance in Use; Adequate Support Standards; Genuine Female Design; Transparency & User Reviews.]
 ## Scores
-Pillar 1 — Inclusive Fit & Proportional Sizing: X/5
-Pillar 2 — Functional Performance in Use: X/5
-Pillar 3 — Adequate Support Standards: X/5
-Pillar 5 — Genuine Female Design: X/5
-Pillar 7 — Transparency & User Reviews: X/5
+Inclusive Fit & Proportional Sizing: X/5
+Functional Performance in Use: X/5
+Adequate Support Standards: X/5
+Genuine Female Design: X/5
+Transparency & User Reviews: X/5
 **Overall: X.X / 5 ★**
 ## Pros & Cons
 [Two short lists: Pros, then Cons.]
@@ -345,7 +348,7 @@ OUTPUT FORMAT — use these exact H2 headings, in this order:
 ## Overview
 [80 words]
 ## WSS™ Assessment
-[For each criterion: a line "**Taste & Texture: X/5**" etc. then a paragraph.]
+[For each criterion, an H3 heading EXACTLY in this form: "### Taste & Texture — X/5 ★★★★☆" (replace X with the score and show X filled ★ and (5−X) empty ☆ stars), then a paragraph. Criteria: Taste & Texture; Nutrition Profile; Performance; Value.]
 ## Scores
 Taste & Texture (25%): X/5
 Nutrition Profile (30%): X/5
@@ -383,7 +386,7 @@ HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text i
 Raw JSON only. No markdown, no commentary.`;
 
 const SCORE_AREAS={
-  apparel:[['p1','Pillar 1 — Inclusive Fit & Proportional Sizing'],['p2','Pillar 2 — Functional Performance in Use'],['p3','Pillar 3 — Adequate Support Standards'],['p5','Pillar 5 — Genuine Female Design'],['p7','Pillar 7 — Transparency & User Reviews']],
+  apparel:[['p1','Inclusive Fit & Proportional Sizing'],['p2','Functional Performance in Use'],['p3','Adequate Support Standards'],['p5','Genuine Female Design'],['p7','Transparency & User Reviews']],
   nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']]
 };
 
@@ -524,6 +527,7 @@ async function runScrape(){
     document.getElementById('pPrice').value=scraped.price||'';
     document.getElementById('pSizes').value=scraped.sizes||'';
     document.getElementById('pSpecs').value=scraped.specs||'';
+    document.getElementById('pCategory').value=type==='nutrition'?'nutrition':guessCategory();
     document.getElementById('findings').style.display='block';
     setAlert('scrapeAlert','ok',`Found: ${esc(scraped.name||'product')}${scraped.brand?' by '+esc(scraped.brand):''}. Running research…`);
     document.getElementById('researchSection').style.display='block';
@@ -750,7 +754,7 @@ async function runWrite(fb){
   const pType=val('pType');
   const affLink=state.affLink||'[AFFILIATE_LINK]';
   const testerNotes=val('testerNotes');
-  const category=pType==='nutrition'?'Nutrition':catLabel(guessCategory());
+  const category=catLabel(val('pCategory')||(pType==='nutrition'?'nutrition':guessCategory()));
   const keyword=`${brand} ${name} Review — Women's ${category}`.replace(/\s+/g,' ').trim();
   document.getElementById('writeKw').style.display='block';
   document.getElementById('writeKw').innerHTML=`🔑 Target keyword: <strong>${esc(keyword)}</strong>`;
@@ -801,6 +805,16 @@ function sectionText(md,name){
   return(next>=0?rest.slice(0,next):rest).trim();
 }
 function mdAlt(s){return(s||'Product image').replace(/[\[\]\r\n]/g,' ').replace(/\s+/g,' ').trim();}
+function insertReviewerBio(md,reviewer){
+  reviewer=(reviewer||'').trim();
+  if(!reviewer)return md;
+  const bio=`\n\n> **Reviewed by ${reviewer.replace(/[*_`]/g,'')}**\n`;
+  const m=md.match(/^##\s*Overview.*$/im);
+  if(!m)return bio+'\n'+md;
+  const start=m.index+m[0].length;const rest=md.slice(start);const nx=rest.search(/\n##\s/);
+  const pos=nx>=0?start+nx:md.length;
+  return md.slice(0,pos)+bio+md.slice(pos);
+}
 function insertImages(md,imgs,name){
   imgs=(imgs||[]).slice(0,4);
   if(!imgs.length)return md;
@@ -869,7 +883,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
   const pType=val('pType');
   const affLink=state.affLink||'';
   const slug=slugify(`${brand}-${name}`);
-  const category=pType==='nutrition'?'nutrition':guessCategory();
+  const category=val('pCategory')||(pType==='nutrition'?'nutrition':guessCategory());
   setAlert('pushAlert','inf','Pushing to GitHub…');
   const btn=document.getElementById('pushBtn');btn.disabled=true;btn.textContent='Pushing…';
   try{
@@ -883,7 +897,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     const excerpt=extractExcerpt(review);
     const meta=state.metaDescription||excerpt.slice(0,150);
     const faqYaml=state.faq.length?'faq:\n'+state.faq.map(f=>`  - q: ${yaml(f.q)}\n    a: ${yaml(f.a)}`).join('\n')+'\n':'';
-    const reviewBody=insertImages(review,selImgs,`${brand} ${name}`);
+    const reviewBody=insertImages(insertReviewerBio(review,val('reviewerName')),selImgs,`${brand} ${name}`);
     const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
@@ -924,7 +938,7 @@ function guessCategory(){
 function extractPillarScores(review,pType){
   const scores={};
   if(pType==='apparel'){
-    [['p1','Pillar 1'],['p2','Pillar 2'],['p3','Pillar 3'],['p5','Pillar 5'],['p7','Pillar 7']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:\\n]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
+    [['p1','Inclusive Fit'],['p2','Functional Performance'],['p3','Support Standards'],['p5','Genuine Female Design'],['p7','Transparency']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:\\n]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
   }else{
     [['taste','Taste'],['nutrition','Nutrition Profile'],['performance','Performance'],['value','Value']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:\\n]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
   }

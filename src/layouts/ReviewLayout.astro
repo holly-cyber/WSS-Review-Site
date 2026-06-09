@@ -13,11 +13,11 @@ function renderStars(score: number) {
 
 const pillars = fm.pillar_scores || {};
 const criteriaLabels: Record<string, string> = {
-  p1: 'Pillar 1 — Inclusive Fit & Sizing',
-  p2: 'Pillar 2 — Functional Performance',
-  p3: 'Pillar 3 — Support Standards',
-  p5: 'Pillar 5 — Genuine Female Design',
-  p7: 'Pillar 7 — Transparency',
+  p1: 'Inclusive Fit & Sizing',
+  p2: 'Functional Performance',
+  p3: 'Support Standards',
+  p5: 'Genuine Female Design',
+  p7: 'Transparency',
   taste: 'Taste & Texture (25%)',
   nutrition: 'Nutrition Profile (30%)',
   performance: 'Performance (30%)',
@@ -144,9 +144,9 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .score-row{display:flex;flex-direction:column;gap:.25rem}
 .score-row-label{font-size:.7rem;color:var(--text-secondary);font-weight:600}
 .score-row-right{display:flex;align-items:center;gap:.5rem}
-.score-bar-wrap{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
-.score-bar{height:100%;background:var(--pink);border-radius:3px}
-.score-row-val{font-size:.75rem;font-weight:700;color:var(--navy);min-width:28px;text-align:right}
+.score-bar-wrap{flex:1;height:9px;background:var(--border);border-radius:5px;overflow:hidden}
+.score-bar{height:100%;background:var(--pink);border-radius:5px}
+.score-row-val{font-size:1rem;font-weight:700;color:var(--pink);min-width:38px;text-align:right;font-variant-numeric:tabular-nums}
 .buy-btn{width:100%;justify-content:center;margin-bottom:.625rem}
 .quick-facts{background:var(--off-white);border-radius:var(--radius-md);padding:1.25rem;margin-top:1rem}
 .quick-facts h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.875rem}
