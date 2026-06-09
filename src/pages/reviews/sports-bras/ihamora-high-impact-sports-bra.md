@@ -1,4 +1,5 @@
 ---
+layout: "../../../layouts/ReviewLayout.astro"
 title: "Ihamora High Impact Sports Bra"
 brand: "Ihamora"
 category: "sports-bras"

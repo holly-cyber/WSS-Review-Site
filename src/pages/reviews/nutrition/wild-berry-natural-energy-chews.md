@@ -1,4 +1,5 @@
 ---
+layout: "../../../layouts/ReviewLayout.astro"
 title: "Wild & Berry Natural Energy Chews"
 brand: "Wild & Berry"
 category: "nutrition"

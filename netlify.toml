@@ -25,3 +25,8 @@
   from = "/api/ai-proxy"
   to = "/.netlify/functions/ai-proxy"
   status = 200
+
+[[redirects]]
+  from = "/api/avelon-proxy"
+  to = "/.netlify/functions/avelon-proxy"
+  status = 200
