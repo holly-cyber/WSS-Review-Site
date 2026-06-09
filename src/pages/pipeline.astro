@@ -167,7 +167,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <input id="manualImgUrl" placeholder="Or paste an image URL to add it…"/>
       <button class="bg" id="addImgBtn" style="white-space:nowrap;padding:8px 14px">+ Add image</button>
     </div>
-    <p style="font-size:11px;color:#aaa;margin-top:6px">Click a thumbnail to include it (it turns pink with a ✓). The first one you pick (★ Featured) becomes the hero image.</p>
+    <p style="font-size:11px;color:#aaa;margin-top:6px">Pick up to 4 images. The first one (★ Featured) becomes the hero; the rest are spread through the article.</p>
   </div>
   <div class="card">
     <div class="slbl"><div class="dot">4</div>Generate affiliate link (Avelon)</div>
@@ -588,8 +588,11 @@ function renderImages(imgs,autoselect){
 function toggleImg(i){
   const c=document.getElementById('icard'+i);if(!c)return;
   const idx=state.selectedImages.indexOf(i);
-  if(idx>=0){state.selectedImages.splice(idx,1);c.classList.remove('sel')}
-  else{state.selectedImages.push(i);c.classList.add('sel')}
+  if(idx>=0){state.selectedImages.splice(idx,1);c.classList.remove('sel');setAlert('imageAlert','','');}
+  else{
+    if(state.selectedImages.length>=4){setAlert('imageAlert','inf','Maximum of 4 images per review — deselect one first.');return;}
+    state.selectedImages.push(i);c.classList.add('sel');setAlert('imageAlert','','');
+  }
   updateFeat();updateImgStatus();
 }
 function updateFeat(){
@@ -599,7 +602,7 @@ function updateFeat(){
 function updateImgStatus(){
   const n=state.selectedImages.length;
   const el=document.getElementById('imgStatus');if(!el)return;
-  el.textContent=n?`${n} image${n>1?'s':''} selected · first selected is the featured/hero image`:'No images selected — click a thumbnail above (or add one below).';
+  el.textContent=n?`${n}/4 image${n>1?'s':''} selected · first is the featured/hero, the rest are spread through the article`:'No images selected — click up to 4 thumbnails above (or add one below).';
   el.style.color=n?'#060':'#888';
 }
 function addManualImage(){
@@ -733,26 +736,41 @@ function sectionText(md,name){
 }
 function mdAlt(s){return(s||'Product image').replace(/[\[\]\r\n]/g,' ').replace(/\s+/g,' ').trim();}
 function insertImages(md,imgs,name){
-  if(!imgs||!imgs.length)return md;
+  imgs=(imgs||[]).slice(0,4);
+  if(!imgs.length)return md;
   const alt=mdAlt(name);
-  let body=md;
-  // Featured image right after the Overview section
-  const featured=`![${alt}](${imgs[0].url})`;
-  const m=body.match(/^##\s*Overview.*$/im);
-  if(m){
-    const start=m.index+m[0].length;const rest=body.slice(start);const nx=rest.search(/\n##\s/);
-    const pos=nx>=0?start+nx:body.length;
-    body=body.slice(0,pos)+'\n\n'+featured+'\n'+body.slice(pos);
-  }else{
-    body=featured+'\n\n'+body;
-  }
-  // Remaining images as a gallery just before the Buy section (or at the end)
+  const mk=(im,i)=>`\n\n![${alt}${i?' — image '+(i+1):''}](${im.url})\n`;
+  // Collect all H2 headings and their positions.
+  const heads=[];const re=/^##\s+(.*)$/gim;let m;
+  while((m=re.exec(md))){heads.push({pos:m.index,title:m[1].trim()});}
+  if(!heads.length)return imgs.map((im,i)=>mk(im,i)).join('')+'\n'+md;
+  // Don't place images right before these structured/CTA sections.
+  const skip=/^(overview|scores|faq|buy)/i;
+  const ovIdx=heads.findIndex(h=>/^overview/i.test(h.title));
+  const featuredPos=(ovIdx>=0&&heads[ovIdx+1])?heads[ovIdx+1].pos:heads[0].pos;
+  const inserts=[{pos:featuredPos,text:mk(imgs[0],0)}];
+  // Spread the remaining images across later, non-skipped section boundaries.
   const rest=imgs.slice(1);
+  const candidates=heads.filter(h=>h.pos>featuredPos&&!skip.test(h.title));
   if(rest.length){
-    const gallery=rest.map((im,i)=>`![${alt} — image ${i+2}](${im.url})`).join('\n\n');
-    if(/\n##\s*Buy/i.test(body))body=body.replace(/\n##\s*Buy/i,'\n\n'+gallery+'\n\n## Buy');
-    else body=body+'\n\n'+gallery+'\n';
+    if(candidates.length){
+      const used=new Set();
+      rest.forEach((im,j)=>{
+        let idx=Math.min(candidates.length-1,Math.max(0,Math.round((j+1)*candidates.length/(rest.length+1))));
+        let probe=idx;while(probe<candidates.length&&used.has(probe))probe++;
+        if(probe>=candidates.length){probe=idx;while(probe>=0&&used.has(probe))probe--;}
+        if(probe<0)probe=idx;
+        used.add(probe);
+        inserts.push({pos:candidates[probe].pos,text:mk(im,j+1)});
+      });
+    }else{
+      rest.forEach((im,j)=>inserts.push({pos:md.length,text:mk(im,j+1)}));
+    }
   }
+  // Apply from the end so earlier positions stay valid.
+  inserts.sort((a,b)=>b.pos-a.pos);
+  let body=md;
+  for(const ins of inserts)body=body.slice(0,ins.pos)+ins.text+body.slice(ins.pos);
   return body;
 }
 function makeMeta(review){
