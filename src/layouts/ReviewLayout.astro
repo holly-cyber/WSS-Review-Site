@@ -4,11 +4,9 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter: fm } = Astro.props;
 const category = fm.category || 'run';
 
-function renderStars(score: number) {
-  const full = Math.floor(score);
-  const half = score % 1 >= 0.5;
-  const empty = 5 - full - (half ? 1 : 0);
-  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+function starHtml(score: number) {
+  const pct = Math.max(0, Math.min(100, (Number(score) / 5) * 100));
+  return `<span class="stars-wrap"><span class="stars-bg">★★★★★</span><span class="stars-fg" style="width:${pct}%">★★★★★</span></span>`;
 }
 
 const pillars = fm.pillar_scores || {};
@@ -80,7 +78,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
       <h1>{fm.title}</h1>
       <p class="review-brand">by <strong>{fm.brand}</strong>{fm.price ? ` · £${fm.price}` : ''}</p>
       <div class="hero-score">
-        <span class="stars big-stars">{renderStars(fm.overall_score)}</span>
+        <span class="stars big-stars" aria-label={`${fm.overall_score} out of 5`} set:html={starHtml(fm.overall_score)} />
         <span class="overall-num">{fm.overall_score}/5</span>
         <span class="wss-badge">WSS™ Reviewed</span>
       </div>
@@ -93,7 +91,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
         <div class="score-overall">
           <div class="score-big">{fm.overall_score}</div>
           <div class="score-label">Overall WSS™ Score</div>
-          <div class="stars">{renderStars(fm.overall_score)}</div>
+          <div class="stars" aria-label={`${fm.overall_score} out of 5`} set:html={starHtml(fm.overall_score)} />
         </div>
         <div class="score-breakdown">
           {Object.entries(pillars).map(([key, val]) => (
@@ -131,7 +129,11 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-hero h1{font-size:clamp(1.5rem,3vw,2.5rem);color:white;margin-bottom:.4rem}
 .review-brand{font-size:.9rem;opacity:.7;margin-bottom:1rem}
 .hero-score{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-.big-stars{font-size:1.5rem;color:var(--pink)}
+.big-stars{font-size:1.5rem}
+.stars-wrap{position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em}
+.stars-bg{color:rgba(255,255,255,.35)}
+.stars-fg{position:absolute;top:0;left:0;overflow:hidden;color:var(--pink);width:0}
+.score-overall .stars-bg{color:#e6e6e6}
 .overall-num{font-size:1.25rem;font-weight:700;color:white}
 .review-layout{display:grid;grid-template-columns:300px 1fr;gap:2.5rem;padding-top:2.5rem;padding-bottom:3rem;align-items:start}
 .review-sidebar{position:sticky;top:80px}
