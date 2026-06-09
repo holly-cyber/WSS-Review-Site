@@ -854,6 +854,41 @@ function insertImages(md,imgs,name){
   for(const ins of inserts)body=body.slice(0,ins.pos)+ins.text+body.slice(ins.pos);
   return body;
 }
+function scoreBadge(score){
+  const n=Math.max(0,Math.min(5,Math.round(score)));
+  return `<span class="wss-score"><span class="wss-score-num">${n}</span><span class="wss-score-stars">${'★'.repeat(n)}<span class="off">${'☆'.repeat(5-n)}</span></span></span>`;
+}
+// Assemble the final review body: reviewer bio after the Overview, then the
+// featured image, then each assessment area (no "WSS Assessment" heading) led
+// by a circular score badge, with one image between consecutive areas and
+// none afterwards.
+function buildReviewBody(review,reviewer,imgs,name){
+  imgs=(imgs||[]).slice(0,4);
+  const alt=mdAlt(name);
+  const imgMd=(im,i)=>im?`\n\n![${alt}${i?' — image '+(i+1):''}](${im.url})\n`:'';
+  let md=insertReviewerBio(review,reviewer);
+  const am=md.match(/^##\s*WSS[^\n]*Assessment[^\n]*$/im);
+  if(!am)return insertImages(md,imgs,name);
+  const before=md.slice(0,am.index);
+  const afterHead=am.index+am[0].length;
+  const restAfter=md.slice(afterHead);
+  const nextRel=restAfter.search(/\n##\s/);
+  const asmBlock=nextRel>=0?restAfter.slice(0,nextRel):restAfter;
+  const after=nextRel>=0?restAfter.slice(nextRel):'';
+  const areaRe=/###[ \t]+(.+?)[ \t]*[—–-][ \t]*(\d)[ \t]*\/[ \t]*5[^\n]*\n([\s\S]*?)(?=\n###[ \t]|$)/g;
+  const areas=[];let mm;
+  while((mm=areaRe.exec(asmBlock)))areas.push({name:mm[1].trim(),score:parseInt(mm[2]),prose:mm[3].trim()});
+  if(!areas.length)return insertImages(md,imgs,name);
+  let out=before.replace(/\s+$/,'');
+  out+=imgMd(imgs[0],0);
+  let imgIdx=1;
+  areas.forEach((a,i)=>{
+    out+=`\n\n### ${a.name}\n\n${scoreBadge(a.score)}\n\n${a.prose}\n`;
+    if(i<areas.length-1&&imgs[imgIdx]){out+=imgMd(imgs[imgIdx],imgIdx);imgIdx++;}
+  });
+  out+='\n\n'+after.replace(/^\s+/,'');
+  return out;
+}
 function makeMeta(review){
   let v=sectionText(review,'The Verdict')||sectionText(review,'Verdict')||extractExcerpt(review);
   v=v.replace(/\s+/g,' ').trim();
@@ -897,7 +932,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     const excerpt=extractExcerpt(review);
     const meta=state.metaDescription||excerpt.slice(0,150);
     const faqYaml=state.faq.length?'faq:\n'+state.faq.map(f=>`  - q: ${yaml(f.q)}\n    a: ${yaml(f.a)}`).join('\n')+'\n':'';
-    const reviewBody=insertImages(insertReviewerBio(review,val('reviewerName')),selImgs,`${brand} ${name}`);
+    const reviewBody=buildReviewBody(review,val('reviewerName'),selImgs,`${brand} ${name}`);
     const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
