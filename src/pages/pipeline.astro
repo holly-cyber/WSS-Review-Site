@@ -599,17 +599,17 @@ document.getElementById('affBtn').addEventListener('click',async()=>{
   try{
     const ret=state.selectedRetailer;
     const pk=ret.pk||ret.id||ret.retailerPk||ret.slug;
-    // Avelon's exact field names are undocumented publicly — send the common
-    // variants so whichever the serializer expects is satisfied (extra keys are ignored).
-    const payload={retailer:pk,retailerPk:pk,retailerId:pk,retailer_id:pk,destinationUrl:dest,destination_url:dest,url:dest,destination:dest,landingPage:dest};
+    const payload={retailer:pk,destinationUrl:dest};
     const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'create',auth:avAuth(),payload})});
-    const data=await r.json().catch(()=>({}));
+    const raw=await r.text();
+    let data={};try{data=JSON.parse(raw);}catch{}
     if(!r.ok){
-      const detail=data.error||data.message||data.detail||(typeof data==='object'?JSON.stringify(data):String(data));
-      throw new Error('Avelon '+r.status+' — '+detail+(r.status===400?'. Tip: the selected retailer must be one you are approved for AND match the destination domain.':''));
+      const detail=(data.error||data.message||data.detail||(raw&&raw.trim())||'(empty response body)').toString().slice(0,400);
+      console.log('Avelon create error',r.status,raw,'retailer:',ret);
+      throw new Error('Avelon '+r.status+' — '+detail+' | retailer object: '+JSON.stringify(ret).slice(0,300));
     }
     const link=data.url||data.link||data.affiliateUrl||data.trackingUrl||(data.linkPk||data.pk||data.id?`https://${pk}.avln.me/c/${data.linkPk||data.pk||data.id}`:'');
-    if(!link)throw new Error('Avelon returned no link. Response: '+JSON.stringify(data).slice(0,200));
+    if(!link)throw new Error('Avelon returned no link. Response: '+(raw||'(empty)').slice(0,300));
     state.affLink=link;
     document.getElementById('affLink').value=link;
     document.getElementById('affResult').style.display='block';
