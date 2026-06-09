@@ -622,8 +622,8 @@ document.getElementById('affBtn').addEventListener('click',async()=>{
   const btn=document.getElementById('affBtn');btn.disabled=true;btn.textContent='Generating…';
   try{
     const ret=state.selectedRetailer;
-    // Avelon requires: retailer (numeric id), destination (URL), alias (unique slug)
-    const retailerId=ret.id!=null?ret.id:(ret.pk||ret.slug);
+    // Avelon requires: retailer (the slug/pk e.g. "veloforte"), destination (URL), alias (unique slug)
+    const retailerId=ret.pk||ret.slug||ret.id;
     let handle='link';try{handle=new URL(dest).pathname.split('/').filter(Boolean).pop()||'link';}catch{}
     const alias=((slugify(val('pBrand')+'-'+handle)||'wss-link').slice(0,40))+'-'+Math.random().toString(36).slice(2,6);
     const payload={retailer:retailerId,destination:dest,alias};
