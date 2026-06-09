@@ -202,6 +202,10 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="sbar"><span class="sdesc">Writes the full WSS™ review — apparel (5 pillars + star scores, full SEO sections) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
     <div id="writeTypeInfo" style="margin-bottom:8px"></div>
     <div id="writeKw" class="kw" style="display:none"></div>
+    <div style="margin-bottom:10px">
+      <label>Pre-set scores (optional) — leave blank to let WSS™ decide; any you set are used exactly</label>
+      <div id="scoreInputs" class="g4"></div>
+    </div>
     <div style="margin-bottom:10px"><label>Tester notes (optional — never fabricated; gaps flagged "Not independently verified")</label><textarea id="testerNotes" rows="2" placeholder="e.g. Tested size 12. Run-tested 3 sessions including 16km trail."></textarea></div>
     <div id="writeOut" class="out empty">Output will appear here…</div>
     <div id="writeEditWrap" style="display:none;margin-top:8px"><label>Edit before publishing:</label><textarea id="writeEdit" rows="16" style="margin-top:4px"></textarea></div>
@@ -316,6 +320,7 @@ Pillar 7 — Transparency & User Reviews: X/5
 ## Who It's For / Who It's Not For
 ## Size & Fit
 ## How It Compares
+[A Markdown table comparing this product with 2-3 named competing women's products. Use proper Markdown table syntax with a header row and a separator row. Columns: Product | Price | Size Range | Key Strength | WSS Verdict. Put THIS product in the first row. Keep each cell short (a few words).]
 ## The Verdict
 [50-80 words. Direct.]
 ## FAQ
@@ -346,6 +351,7 @@ Value (15%): X/5
 ## Who It's For / Who It's Not For
 ## Taste & Usage
 ## How It Compares
+[A Markdown table comparing this product with 2-3 named competing women's nutrition products. Use proper Markdown table syntax with a header row and a separator row. Columns: Product | Price | Key Macro | Taste | WSS Verdict. Put THIS product in the first row. Keep each cell short.]
 ## The Verdict
 [50-80 words.]
 ## FAQ
@@ -371,13 +377,18 @@ Email 3 Social Proof (day 7): community framing, softer sell.
 HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text in #000036. CTA button style: background:#FF5E84;color:#ffffff;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
 Raw JSON only. No markdown, no commentary.`;
 
+const SCORE_AREAS={
+  apparel:[['p1','Pillar 1 — Inclusive Fit & Proportional Sizing'],['p2','Pillar 2 — Functional Performance in Use'],['p3','Pillar 3 — Adequate Support Standards'],['p5','Pillar 5 — Genuine Female Design'],['p7','Pillar 7 — Transparency & User Reviews']],
+  nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']]
+};
+
 const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:''};
 const CFG_KEY='wss_pipeline_cfg_v1';
 let cfg={...CFG_DEFAULTS};
 function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
 function loadCfg(){try{const s=localStorage.getItem(CFG_KEY);if(s)Object.assign(cfg,JSON.parse(s));}catch{}}
 function reflectConnected(){const btn=document.getElementById('settingsBtn');const on=cfg.ghToken||cfg.avEmail;btn.classList.toggle('on',!!on);btn.textContent='⚙ '+(cfg.ghToken&&cfg.avEmail?'All connected':cfg.ghToken?'GitHub connected':cfg.avEmail?'Avelon connected':'Settings');}
-let state={product:{name:'',brand:'',price:'',sizes:'',specs:''},researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[],metaDescription:'',faq:[]};
+let state={product:{name:'',brand:'',price:'',sizes:'',specs:''},researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[],metaDescription:'',faq:[],providedScores:null};
 let done=new Set();
 let busy=false;
 
@@ -682,6 +693,19 @@ document.getElementById('affCopyBtn').addEventListener('click',()=>{
 });
 
 // STAGE 5 — Write
+let scoreType='';
+function renderScoreInputs(pType){
+  const areas=SCORE_AREAS[pType]||SCORE_AREAS.apparel;
+  const el=document.getElementById('scoreInputs');if(!el)return;
+  if(scoreType===pType&&el.children.length)return; // keep existing values
+  scoreType=pType;
+  el.innerHTML=areas.map(([k,l])=>`<div><label style="font-size:11px">${esc(l)}</label><select id="sc_${k}"><option value="">— auto —</option>${[1,2,3,4,5].map(n=>`<option value="${n}">${n}/5</option>`).join('')}</select></div>`).join('');
+}
+function getProvidedScores(pType){
+  const areas=SCORE_AREAS[pType]||SCORE_AREAS.apparel;const out={};let any=false;
+  areas.forEach(([k])=>{const e=document.getElementById('sc_'+k);if(e&&e.value){out[k]=parseInt(e.value);any=true;}});
+  return any?out:null;
+}
 document.getElementById('writeBtn').addEventListener('click',()=>runWrite());
 document.getElementById('writeRegenBtn').addEventListener('click',()=>runWrite(document.getElementById('writeFBText').value));
 document.getElementById('writeApproveBtn').addEventListener('click',()=>{harvestReview();approve('write');});
@@ -707,9 +731,16 @@ async function runWrite(fb){
     else reviewContext='\n\nCUSTOMER SENTIMENT:\n'+state.customerReviews[0].text;
   }
   const testerSection=testerNotes?`\n\nTESTER DATA (use only this; never invent more):\n${testerNotes}`:'\n\nTESTER DATA: Not supplied. Flag any finding that requires tester evidence as "Not independently verified."';
+  const provided=getProvidedScores(pType);
+  state.providedScores=provided;
+  let scoreDirective='';
+  if(provided){
+    const areas=SCORE_AREAS[pType];
+    scoreDirective='\n\nMANDATORY SCORES set by the reviewer — use EXACTLY these in the WSS™ Assessment and Scores sections, and compute the Overall from them (still applying the hard rules):\n'+areas.filter(([k])=>provided[k]!=null).map(([k,l])=>`${l}: ${provided[k]}/5`).join('\n')+'\nDo not change these numbers. Justify each in the Assessment prose.';
+  }
   const tone=TONES[Math.floor(Math.random()*TONES.length)];
   const note=fb?`\n\nHOLLY'S FEEDBACK: ${fb}\nAddress this directly in the rewrite.`:'';
-  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nAffiliate link: ${affLink}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${testerSection}${reviewContext}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Replace [AFFILIATE_LINK] with: ${affLink}\n${tone}\nBritish English throughout.`;
+  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nAffiliate link: ${affLink}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Replace [AFFILIATE_LINK] with: ${affLink}\n${tone}\nBritish English throughout.`;
   const text=await aiStream([{role:'user',content:prompt}],`Senior WSS reviewer. Never fabricate tester data. Specific failure modes, never vague praise. British English.\n\n${pType==='apparel'?WSS_APPAREL:WSS_NUTRITION}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
   if(text){
     state.reviewText=text;
@@ -754,11 +785,12 @@ function insertImages(md,imgs,name){
   const candidates=heads.filter(h=>h.pos>featuredPos&&!skip.test(h.title));
   if(rest.length){
     if(candidates.length){
-      const used=new Set();
+      const C=candidates.length,R=rest.length,used=new Set();
       rest.forEach((im,j)=>{
-        let idx=Math.min(candidates.length-1,Math.max(0,Math.round((j+1)*candidates.length/(rest.length+1))));
-        let probe=idx;while(probe<candidates.length&&used.has(probe))probe++;
-        if(probe>=candidates.length){probe=idx;while(probe>=0&&used.has(probe))probe--;}
+        let idx=R===1?Math.round((C-1)/2):Math.round(j*(C-1)/(R-1));
+        idx=Math.max(0,Math.min(C-1,idx));
+        let probe=idx;while(probe<C&&used.has(probe))probe++;
+        if(probe>=C){probe=idx;while(probe>=0&&used.has(probe))probe--;}
         if(probe<0)probe=idx;
         used.add(probe);
         inserts.push({pos:candidates[probe].pos,text:mk(im,j+1)});
@@ -808,7 +840,8 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
   try{
     const overallMatch=review.match(/Overall:\s*([\d.]+)\s*\/\s*5/i);
     const overall=overallMatch?overallMatch[1]:'4.0';
-    const pillarScores=extractPillarScores(review,pType);
+    let pillarScores=extractPillarScores(review,pType);
+    if(state.providedScores)pillarScores={...pillarScores,...state.providedScores};
     const today=new Date().toISOString().split('T')[0];
     const selImgs=state.selectedImages.map(i=>state.allImages[i]).filter(Boolean);
     const heroImg=selImgs.length?(selImgs[0].url||''):'';
@@ -918,6 +951,7 @@ const STAGES=['write','push','reel','emails','social','approve'];
 function goStage(s){
   STAGES.forEach(id=>{document.getElementById('s-'+id).style.display=id===s?'block':'none'});
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('act',t.dataset.s===s));
+  if(s==='write')renderScoreInputs(val('pType'));
   if(s==='approve')buildChecklist();
 }
 function markDone(s){done.add(s);document.querySelectorAll('.tab').forEach(t=>{if(t.dataset.s===s){t.classList.add('dn');t.classList.remove('act')}});}
