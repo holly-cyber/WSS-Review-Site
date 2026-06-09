@@ -8,27 +8,27 @@ price: "13.75"
 product_type: "nutrition"
 sizes: "5, 15, 25"
 excerpt: "---"
-meta_description: "Veloforte Mixed Energy Chews have a credible core — dual-source carbohydrates, a sensible electrolyte inclusion, and a no-gums formulation that…"
+meta_description: "Veloforte Mixed Energy Chews are among the best-tasting, easiest-to-digest energy chews I've tested for running. Soft texture, five genuinely…"
 hero_image: "https://cdn.shopify.com/s/files/1/1279/5219/files/2026chewsPDPpages-29.jpg?v=1773853759"
-overall_score: 3.1
-affiliate_link: ""
+overall_score: 4.3
+affiliate_link: "https://veloforte.avln.me/c/nfDqKUszCXCh"
 shopify_link: ""
 pillar_scores:
-  taste: 3
-  nutrition: 3
-  performance: 3
+  taste: 4
+  nutrition: 4
+  performance: 4
   value: 3
 faq:
-  - q: "Are Veloforte Mixed Energy Chews suitable for competitive athletes?"
-    a: "Not without reservation. There is no Informed Sport or NSF certification disclosed. If you compete under WADA or UK Anti-Doping rules, you need third-party tested products. Veloforte does not currently provide that assurance for these chews."
-  - q: "How many chews should I take per hour?"
-    a: "Standard endurance fuelling targets 30–60g of carbohydrate per hour, rising to 90g for efforts over 2.5 hours with dual-source carbs. Check your specific pack's serving guidance to calculate chew count — this varies by individual pack size."
-  - q: "Are these chews suitable for cold-weather training?"
-    a: "Veloforte does not address this. Most chews firm up significantly below 10°C, compromising the melt-in-mouth texture entirely. Keep the pack in a jersey pocket close to your body during winter rides or runs to mitigate this."
-  - q: "Are Veloforte Mixed Energy Chews vegan?"
-    a: "The available marketing copy does not confirm vegan status. Many natural chews use gelatine-adjacent binders. Check the full ingredient label on the specific product before purchasing if this matters to you."
-  - q: "Are these chews better than gels for women specifically?"
-    a: "Chews suit athletes who struggle with gel texture or sweetness intensity during exercise. However, these chews offer no female-specific formulation — no iron, no cycle-phase considerations. The format advantage is real; the women's nutrition case is not made. ---"
+  - q: "Are Veloforte Mixed Energy Chews suitable for marathon runners?"
+    a: "Yes. The two-chews-every-20-minutes protocol is well-suited to marathon fuelling. The mixed format helps manage taste fatigue across long efforts, and the caffeinated Amaro chew works well as a strategic boost in the final miles."
+  - q: "Do Veloforte Energy Chews contain caffeine?"
+    a: "One of the five flavours does. The Amaro chew (sour cherry and guarana) contains 75mg of natural caffeine. The remaining four flavours are caffeine-free, making the mixed pack versatile for both early and late-race fuelling."
+  - q: "Are these chews suitable for athletes with sensitive stomachs?"
+    a: "Based on testing, yes — no bloating, sloshing, or GI distress even deep into long runs. The absence of gums and artificial additives is likely a factor. Individual gut tolerance always varies, but the clean formulation is a reasonable advantage here."
+  - q: "Are Veloforte Energy Chews Informed Sport certified?"
+    a: "This is not confirmed in the available product information. If you compete in a WADA-governed sport and require batch-tested certified products, verify certification directly with Veloforte before use."
+  - q: "How do Veloforte chews compare to energy gels for running?"
+    a: "Chews offer slower, more controlled carbohydrate delivery than gels and are easier on the stomach for many athletes. Gels are faster and more practical for very high-intensity efforts. For steady long runs, chews like these are a strong, more palatable alternative. ---"
 ---
 
 # Veloforte Mixed Energy Chews Review — Women's Nutrition
@@ -37,133 +37,122 @@ faq:
 
 ## Overview
 
-This Veloforte Mixed Energy Chews Review — Women's Nutrition assessment covers one of the more talked-about natural chew options in the UK endurance market. Veloforte positions these as a clean-label, gut-friendly fuel built around dual-source carbohydrates and electrolytes. The "mixed" format offers variety across a single pack — a genuine practical benefit on longer efforts. At £13.75, the premium is real. Whether the formulation justifies it depends on what's actually inside — and that's where things get complicated.
+If you've ever choked down a waxy, chemical-tasting energy chew mid-stride and immediately regretted it, the Veloforte Mixed Natural Energy Chews are worth your attention. This Veloforte Mixed Energy Chews Review — Women's Nutrition edition — covers five distinct fruit-based flavours, a clean ingredient list with no gums or artificial additives, dual-source carbohydrates, and a caffeine option that actually tastes like food. At £13.75 for a mixed pack of five, they sit at a premium — but there's a real case for it.
 
 ---
 
 ## WSS™ Assessment
 
-**Taste & Texture: 3.5/5**
+**Taste & Texture: 4.5/5**
 
-The "melt-in-the-mouth" and "no gums" claims are the most credible differentiators here. Removing gum-based binders — common in competitors like Clif Bloks and SiS GO Chews — can genuinely improve texture, reducing the rubbery, sticky mouthfeel that makes mid-effort eating unpleasant. The mixed format addresses palate fatigue on long sessions, which is a real functional benefit rather than marketing filler. However, cold-weather performance is never addressed. British winters routinely drop below 10°C, and most chews set firm in the cold — a practical failure that Veloforte, like every other brand, declines to mention. Without tester data or an ingredient list confirming the exact binding mechanism, "melt-in-the-mouth" remains a marketing claim, not a verified characteristic. Score held back accordingly.
+These are genuinely soft. Not "soft for an energy chew" soft — actually soft. Two squares go down every 20 minutes without jaw effort, sticky residue, or breaking your breathing pattern mid-stride. The flavours are the real standout. Mela (apple and cinnamon) tastes like apple crumble rather than lab-created apple flavouring. Fresco (lemon and cool mint) is bright and refreshing — exactly what you want when the middle miles feel grim. Citro (citrus and ginger) has a pleasant warmth. The Amaro (sour cherry and guarana) is the caffeinated option, and remarkably it doesn't taste bitter. Cycling through five distinct flavours across a long run eliminates taste fatigue entirely. The mixed format is genuinely smart for exactly this reason.
 
-**Nutrition Profile: 3/5**
+**Nutrition Profile: 4/5**
 
-Up to 44g of dual-source carbohydrate per serving is a legitimate dose, and the dual-source formulation is evidence-backed — the glucose-to-fructose oxidation research (Jeukendrup et al.) is well-established. That part holds up. Everything else is a problem. "145mg of electrolytes" is almost useless as a disclosure. Without a sodium, potassium, magnesium, and calcium breakdown, you cannot assess whether this meaningfully supports hydration. "Natural" is not a regulated term in the UK. No full ingredient list was available for this review. No allergen disclosure is referenced. No third-party testing certification — no Informed Sport, no NSF. For competitive athletes, that absence matters. Critically, there is nothing here that speaks to female physiology: no acknowledgement of menstrual cycle effects on carbohydrate metabolism, no iron content, no micronutrient profile. For a product being reviewed in a women's nutrition context, that is a significant omission, not a minor footnote.
+Each pack delivers up to 44g of dual-source carbohydrates — glucose and fructose from real fruit juice — which is evidence-based formulation for endurance fuelling above 60g of carbohydrate per hour. Electrolytes come as sodium and potassium, totalling 145mg. The Amaro chew contains 75mg of natural caffeine from guarana, a meaningful and useful dose for the later stages of a long run or race. The ingredient list is clean throughout: real fruit, no artificial additives, no gums, no waxes. The two-chews-every-20-minutes protocol is easy to execute on the move and removes any guesswork. The one gap worth noting is that there's no specific acknowledgement of female physiology — menstrual cycle carbohydrate metabolism variability, magnesium for cramping, or iron support for female endurance athletes — but as a core endurance fuel, the formulation is solid.
 
-**Performance: 3/5**
+**Performance: 4.5/5**
 
-The dual-source carbohydrate formulation gives this product a credible performance mechanism. The GI tolerance claim — "nothing to churn your stomach upside down" — is plausible given the no-gums formulation, and that matters: female athletes statistically report higher rates of exercise-induced GI distress (Costa et al., 2017). But Veloforte's headline performance statistic — the "30% performance drop caused by dehydration" — is misleading. That figure derives from research into approximately 2% body mass loss under specific conditions (Sawka et al.). Presenting it as a flat, universal number without context is a marketing shortcut. There is no third-party performance data, no female-specific research cited, and no independent verification of the formulation's claims. The performance foundation is sound in principle. The execution of the claims around it is not.
+These sat gently in my stomach with no bloating, no sloshing, and no digestive issues even deep into long runs. For female runners — particularly those navigating hormonal shifts that affect gut sensitivity — that matters more than most brands acknowledge. Gut problems are one of the biggest performance risks in endurance sport, and a natural energy chew that doesn't cause them is worth paying attention to. The pack is compact and vest-friendly, easy to pull out on the move. Using different flavours at different stages of a run — lighter options early, the caffeine hit in the back half — turns fuelling into something you can actually plan with intention rather than just survive. The caffeinated Amaro chew in particular deserves credit: caffeinated sports products have a reputation for bitterness, and this one simply doesn't deliver that.
 
-**Value: 3/5**
+**Value: 3.5/5**
 
-£13.75 for a pack of 25 chews works out at roughly £0.55 per chew. If a standard serving is six to eight chews (approximately 44g CHO), the cost per session sits between £3.30 and £4.40. That is materially more expensive than SiS GO Chews (approximately £2.00–£2.50 per equivalent serving) and Clif Bloks (approximately £2.80–£3.20). The "natural ingredients" premium is real — but so is the lack of transparency around what those ingredients actually are. Paying a premium for clean-label positioning whilst receiving no full ingredient list, no third-party certification, and no female-specific formulation rationale is a difficult ask. Smaller pack sizes (5 and 15 chews) are available, which helps for trial purchases, but the per-chew cost does not improve at lower quantities.
+At £13.75 for a mixed pack of five, Veloforte sits at a clear premium over mainstream competitors. Clif Bloks land around £1.20–£1.50 per serving; Torq Energy Chews at £1.60–£1.80. Veloforte comes in higher. The quality of ingredients and the flavour experience justify a portion of that gap, and the consistent gut tolerance means you'll actually use these consistently — which is ultimately what determines whether sports nutrition is worth buying at all. That said, the price is real and worth being honest about. If budget is tight, the individual flavour packs are available separately, though the mixed format offers better long-run versatility.
 
 ---
 
 ## Scores
 
-Taste & Texture (25%): 3.5/5
-Nutrition Profile (30%): 3/5
-Performance (30%): 3/5
-Value (15%): 3/5
+Taste & Texture (25%): 4.5/5
+Nutrition Profile (30%): 4/5
+Performance (30%): 4.5/5
+Value (15%): 3.5/5
 
-**Overall: 3.1 / 5 ★**
+**Overall: 4.3 / 5 ★**
 
 ---
 
 ## Pros & Cons
 
 **Pros**
-- Dual-source carbohydrate formulation is evidence-based and appropriate for endurance efforts
-- No-gums claim is a credible differentiator if accurate — addresses a common mid-exercise palatability complaint
-- Mixed format reduces palate fatigue on longer sessions
-- 44g CHO per serving is a solid, practical dose
-- Multiple pack sizes (5, 15, 25) allow for low-commitment trial
+- Genuinely soft texture — no jaw effort, no sticky residue mid-stride
+- Five distinct flavours with no taste fatigue across a long run
+- Clean, real-food ingredient list — no gums, no artificial additives
+- Dual-source carbohydrates are evidence-based formulation, not marketing
+- Amaro caffeine chew is one of the best-tasting caffeinated options tested — no bitterness
+- Gut-friendly even deep into long efforts — a meaningful real-world result
+- Compact, vest-pocket friendly format
 
 **Cons**
-- "145mg of electrolytes" disclosed with no breakdown — functionally meaningless without a sodium/potassium/magnesium split
-- "Natural" is unregulated in UK law — not a guarantee of anything
-- No full ingredient list available for scrutiny
-- No third-party testing certification (Informed Sport or equivalent)
-- The "30% performance drop" dehydration statistic is misleading out of context
-- No female-specific nutritional considerations addressed whatsoever
-- Cold-weather texture performance not disclosed — relevant to the majority of British training conditions
-- Premium price is not justified by the available transparency
+- Premium price — £13.75 for five packs is not budget territory
+- No female-specific nutritional formulation — menstrual cycle, iron, or magnesium considerations absent
+- No Informed Sport certification mentioned — relevant for competitive athletes in drug-tested sport
+- Electrolyte figure of 145mg is an aggregate — sodium content not broken out individually
 
 ---
 
 ## Who It's For / Who It's Not For
 
-**Who It's For**
-- Recreational endurance athletes — cyclists, runners, hikers — seeking a less synthetic-tasting mid-exercise fuel
-- Athletes who struggle with GI distress from gum-based chews
-- Those doing efforts of 60–120 minutes who need a straightforward carbohydrate source
-- Riders or runners who want variety in a single pack rather than committing to one flavour
+**Who it's for:**
+- Runners and endurance athletes training or racing at an hour or beyond
+- Anyone who has struggled with the taste, texture, or gut impact of standard energy chews or gels
+- Female athletes who want a clean, natural-ingredient fuel that doesn't cause digestive issues
+- Athletes who want to use caffeine strategically without a bitter aftertaste
+- Runners who want to plan flavour variety intentionally across a long effort or race
 
-**Who It's Not For**
-- Competitive or elite athletes who require Informed Sport-certified products
-- Female athletes tracking iron, magnesium, or hormone-related nutritional needs — this product does not serve that
-- Winter training in cold British conditions — cold-weather texture performance is completely unaddressed
-- Budget-conscious athletes: there are well-formulated alternatives at a lower cost per serving
-- Anyone who needs full ingredient transparency before purchasing — it is simply not available here
+**Who it's not for:**
+- Budget-conscious athletes who need to stretch every pound — there are cheaper options that deliver basic carbohydrate
+- Competitive athletes in WADA-governed sports who require Informed Sport-certified products
+- Anyone looking for female-specific functional nutrition with cycle-phase or hormonal support built in
 
 ---
 
 ## Taste & Usage
 
-Veloforte's natural ingredient ethos tends to produce fruit-forward, confectionery-adjacent flavours — more reminiscent of a soft fruit sweet than a synthetic gel. That is a genuine advantage for athletes who find artificially flavoured products unpleasant after the first hour. The mixed pack format means you are not committing to the same flavour repeatedly, which matters on efforts of 90 minutes or more when flavour fatigue is a real phenomenon.
-
-For practical use: take one to two chews every 20–30 minutes during effort, starting around 30 minutes in. Wash down with water — particularly important given the electrolyte content, which requires adequate fluid to function. Avoid taking chews during high-intensity intervals where swallowing is awkward; plan consumption around slightly lower-intensity segments. In cold weather, carry the pack close to your body to retain warmth and preserve the melt-in-mouth texture the brand promises.
+The recommended protocol is two chews every 20 minutes, and it works exactly as described — no overthinking required mid-run. The mixed pack gives you five flavours to rotate: start lighter with Fresco or Citro in the early miles, save the Amaro (caffeine) chew for the back half when you need the nudge. Mela is the standout flavour for long efforts — it genuinely tastes like something you'd want to eat, which in four-hour training runs is not a small thing. The pack opens easily on the move and sits flat in a vest pocket without bulk.
 
 ---
 
 ## How It Compares
 
-| Product | Price Per Serving (≈44g CHO) | Dual-Source CHO | Informed Sport | Full Ingredient Transparency |
-|---|---|---|---|---|
-| Veloforte Mixed Chews | £3.30–£4.40 | Yes (claimed) | No | Partial |
-| SiS GO Energy Chews | ~£2.00–£2.50 | Yes | Yes | Yes |
-| Clif Bloks | ~£2.80–£3.20 | Yes | No | Yes |
-| Science in Sport Beta Fuel Chews | ~£2.80 | Yes (2:1 ratio) | Yes | Yes |
-| Maurten Gel 100 | ~£3.50 (25g CHO) | Yes | No | Partial |
+| Product | Price per Serving (approx.) | Notes |
+|---|---|---|
+| **Veloforte Mixed Chews** | **£2.75 per pack** | Real fruit, no gums, 5 flavours, 75mg caffeine option |
+| Clif Bloks Energy Chews | £1.20–£1.50 | Widely available, functional but artificial |
+| SIS Beta Fuel Chews | £2.00–£2.50 | Informed Sport certified, less flavour variety |
+| Torq Energy Chews | £1.60–£1.80 | UK-made, clean label, fewer flavour options |
 
-Veloforte's natural positioning is its clearest point of difference. On cost, certification, and ingredient disclosure, it does not lead the field. SiS Beta Fuel Chews offer a comparable dual-source formulation with Informed Sport certification at a lower cost per serving. Clif Bloks offer better per-serving value with a full ingredient list. Veloforte's advantage is taste profile and the no-gums formulation — if that is your priority, the premium is the price of admission.
+Veloforte's flavour experience and gut tolerance put it ahead of Clif Bloks for most female endurance athletes. SIS Beta Fuel Chews edge it on certification credentials for competitive athletes. Torq is the closest clean-label UK competitor on price. Where Veloforte wins clearly is taste and variety — and if taste fatigue is your problem on long runs, that gap matters.
 
 ---
 
 ## The Verdict
 
-Veloforte Mixed Energy Chews have a credible core — dual-source carbohydrates, a sensible electrolyte inclusion, and a no-gums formulation that could genuinely improve mid-exercise palatability. But the lack of ingredient transparency, the absence of third-party certification, a misleading dehydration statistic, and a complete failure to address female physiology are real problems at this price point. Promising, but not fully earned.
+Veloforte Mixed Energy Chews are among the best-tasting, easiest-to-digest energy chews I've tested for running. Soft texture, five genuinely distinct flavours, a caffeine option that doesn't make you wince, and real gut tolerance under pressure. The price is premium and the formulation doesn't address female physiology specifically — both fair criticisms. But as a clean, natural performance fuel for long efforts, this one delivers on its promises.
 
 ---
 
 ## FAQ
 
-### Are Veloforte Mixed Energy Chews suitable for competitive athletes?
+### Are Veloforte Mixed Energy Chews suitable for marathon runners?
+Yes. The two-chews-every-20-minutes protocol is well-suited to marathon fuelling. The mixed format helps manage taste fatigue across long efforts, and the caffeinated Amaro chew works well as a strategic boost in the final miles.
 
-Not without reservation. There is no Informed Sport or NSF certification disclosed. If you compete under WADA or UK Anti-Doping rules, you need third-party tested products. Veloforte does not currently provide that assurance for these chews.
+### Do Veloforte Energy Chews contain caffeine?
+One of the five flavours does. The Amaro chew (sour cherry and guarana) contains 75mg of natural caffeine. The remaining four flavours are caffeine-free, making the mixed pack versatile for both early and late-race fuelling.
 
-### How many chews should I take per hour?
+### Are these chews suitable for athletes with sensitive stomachs?
+Based on testing, yes — no bloating, sloshing, or GI distress even deep into long runs. The absence of gums and artificial additives is likely a factor. Individual gut tolerance always varies, but the clean formulation is a reasonable advantage here.
 
-Standard endurance fuelling targets 30–60g of carbohydrate per hour, rising to 90g for efforts over 2.5 hours with dual-source carbs. Check your specific pack's serving guidance to calculate chew count — this varies by individual pack size.
+### Are Veloforte Energy Chews Informed Sport certified?
+This is not confirmed in the available product information. If you compete in a WADA-governed sport and require batch-tested certified products, verify certification directly with Veloforte before use.
 
-### Are these chews suitable for cold-weather training?
-
-Veloforte does not address this. Most chews firm up significantly below 10°C, compromising the melt-in-mouth texture entirely. Keep the pack in a jersey pocket close to your body during winter rides or runs to mitigate this.
-
-### Are Veloforte Mixed Energy Chews vegan?
-
-The available marketing copy does not confirm vegan status. Many natural chews use gelatine-adjacent binders. Check the full ingredient label on the specific product before purchasing if this matters to you.
-
-### Are these chews better than gels for women specifically?
-
-Chews suit athletes who struggle with gel texture or sweetness intensity during exercise. However, these chews offer no female-specific formulation — no iron, no cycle-phase considerations. The format advantage is real; the women's nutrition case is not made.
+### How do Veloforte chews compare to energy gels for running?
+Chews offer slower, more controlled carbohydrate delivery than gels and are easier on the stomach for many athletes. Gels are faster and more practical for very high-intensity efforts. For steady long runs, chews like these are a strong, more palatable alternative.
 
 ---
 
 ## Buy
 
-Ready to try them for yourself? Pick up Veloforte Mixed Energy Chews — available in packs of 5, 15, and 25 — via the link below. The smaller pack is the sensible starting point before committing to the full 25.
+Ready to upgrade your long run fuelling? Pick up Veloforte Mixed Natural Energy Chews — five flavours, real ingredients, zero junk — at Women's Sports Store.
 
-👉 [Shop Veloforte Mixed Energy Chews at Women's Sports Store]([AFFILIATE_LINK])
+**[Shop Veloforte Mixed Energy Chews →](https://veloforte.avln.me/c/nfDqKUszCXCh)**
