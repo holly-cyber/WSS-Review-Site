@@ -130,10 +130,10 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-brand{font-size:.9rem;opacity:.7;margin-bottom:1rem}
 .hero-score{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .big-stars{font-size:1.5rem}
-.stars-wrap{position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em}
-.stars-bg{color:rgba(255,255,255,.35)}
-.stars-fg{position:absolute;top:0;left:0;overflow:hidden;color:var(--pink);width:0}
-.score-overall .stars-bg{color:#e6e6e6}
+:global(.stars-wrap){position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em}
+:global(.stars-bg){color:#e6e6e6}
+:global(.stars-fg){position:absolute;top:0;left:0;overflow:hidden;color:var(--pink);width:0}
+.review-hero :global(.stars-bg){color:rgba(255,255,255,.4)}
 .overall-num{font-size:1.25rem;font-weight:700;color:white}
 .review-layout{display:grid;grid-template-columns:300px 1fr;gap:2.5rem;padding-top:2.5rem;padding-bottom:3rem;align-items:start}
 .review-sidebar{position:sticky;top:80px}
