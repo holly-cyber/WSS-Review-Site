@@ -11,7 +11,7 @@ export const prerender = true;
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
+<style is:global>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#111;padding:1.5rem}
 .wrap{max-width:900px;margin:0 auto}
@@ -731,6 +731,30 @@ function sectionText(md,name){
   const next=rest.search(/\n##\s/);
   return(next>=0?rest.slice(0,next):rest).trim();
 }
+function mdAlt(s){return(s||'Product image').replace(/[\[\]\r\n]/g,' ').replace(/\s+/g,' ').trim();}
+function insertImages(md,imgs,name){
+  if(!imgs||!imgs.length)return md;
+  const alt=mdAlt(name);
+  let body=md;
+  // Featured image right after the Overview section
+  const featured=`![${alt}](${imgs[0].url})`;
+  const m=body.match(/^##\s*Overview.*$/im);
+  if(m){
+    const start=m.index+m[0].length;const rest=body.slice(start);const nx=rest.search(/\n##\s/);
+    const pos=nx>=0?start+nx:body.length;
+    body=body.slice(0,pos)+'\n\n'+featured+'\n'+body.slice(pos);
+  }else{
+    body=featured+'\n\n'+body;
+  }
+  // Remaining images as a gallery just before the Buy section (or at the end)
+  const rest=imgs.slice(1);
+  if(rest.length){
+    const gallery=rest.map((im,i)=>`![${alt} — image ${i+2}](${im.url})`).join('\n\n');
+    if(/\n##\s*Buy/i.test(body))body=body.replace(/\n##\s*Buy/i,'\n\n'+gallery+'\n\n## Buy');
+    else body=body+'\n\n'+gallery+'\n';
+  }
+  return body;
+}
 function makeMeta(review){
   let v=sectionText(review,'The Verdict')||sectionText(review,'Verdict')||extractExcerpt(review);
   v=v.replace(/\s+/g,' ').trim();
@@ -768,11 +792,13 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     const overall=overallMatch?overallMatch[1]:'4.0';
     const pillarScores=extractPillarScores(review,pType);
     const today=new Date().toISOString().split('T')[0];
-    const heroImg=state.selectedImages.length?(state.allImages[state.selectedImages[0]]?.url||''):'';
+    const selImgs=state.selectedImages.map(i=>state.allImages[i]).filter(Boolean);
+    const heroImg=selImgs.length?(selImgs[0].url||''):'';
     const excerpt=extractExcerpt(review);
     const meta=state.metaDescription||excerpt.slice(0,150);
     const faqYaml=state.faq.length?'faq:\n'+state.faq.map(f=>`  - q: ${yaml(f.q)}\n    a: ${yaml(f.a)}`).join('\n')+'\n':'';
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${review}`;
+    const reviewBody=insertImages(review,selImgs,`${brand} ${name}`);
+    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
