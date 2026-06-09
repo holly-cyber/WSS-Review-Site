@@ -52,14 +52,16 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .al.er{background:#fff0f0;border:1px solid #fcc;color:#c00}
 .al.ok{background:#f0fff4;border:1px solid #9f9;color:#060}
 .al.inf{background:#f0f8ff;border:1px solid #bee;color:#336}
-.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:8px}
-.icard{border:2px solid #eee;border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .15s;position:relative}
-.icard.sel{border-color:#FF5E84}
-.icard img{width:100%;height:80px;object-fit:cover;display:block}
-.icard .itick{display:none;position:absolute;top:4px;right:4px;background:#FF5E84;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;align-items:center;justify-content:center;font-weight:700}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:8px}
+.icard{border:3px solid #e5e5e5;border-radius:8px;overflow:hidden;cursor:pointer;transition:all .15s;position:relative;opacity:.5;background:#f3f3f3}
+.icard:hover{opacity:.85}
+.icard.sel{border-color:#FF5E84;opacity:1;box-shadow:0 2px 10px rgba(255,94,132,.25)}
+.icard img{width:100%;height:110px;object-fit:cover;display:block}
+.icard .itick{display:none;position:absolute;top:5px;right:5px;background:#FF5E84;color:#fff;border-radius:50%;width:24px;height:24px;font-size:14px;align-items:center;justify-content:center;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .icard.sel .itick{display:flex}
-.icard.feat .itick{background:#000036}
-.icard .itype{font-size:10px;color:#999;padding:2px 6px;background:#f9f9f9;text-align:center}
+.icard .ifeat{display:none;position:absolute;top:5px;left:5px;background:#000036;color:#fff;border-radius:4px;padding:3px 7px;font-size:10px;font-weight:700;letter-spacing:.02em}
+.icard.feat .ifeat{display:block}
+.icard .itype{font-size:10px;color:#999;padding:3px 6px;background:#f9f9f9;text-align:center}
 .rv{background:#f9f9f9;border:1px solid #eee;border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:12px}
 .rv .rstar{color:#f5a623;margin-bottom:2px}
 .rv .rauth{color:#999;font-size:11px;margin-top:3px}
@@ -160,7 +162,12 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
   <div class="card">
     <div class="slbl"><div class="dot">3</div>Select images for the article</div>
     <div id="imageAlert"></div><div id="imageGrid" class="igrid"></div>
-    <p style="font-size:11px;color:#aaa;margin-top:8px">Click to select images to include. First selected (navy tick) = featured image.</p>
+    <div id="imgStatus" style="font-size:12px;color:#888;margin-top:10px;font-weight:600"></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input id="manualImgUrl" placeholder="Or paste an image URL to add it…"/>
+      <button class="bg" id="addImgBtn" style="white-space:nowrap;padding:8px 14px">+ Add image</button>
+    </div>
+    <p style="font-size:11px;color:#aaa;margin-top:6px">Click a thumbnail to include it (it turns pink with a ✓). The first one you pick (★ Featured) becomes the hero image.</p>
   </div>
   <div class="card">
     <div class="slbl"><div class="dot">4</div>Generate affiliate link (Avelon)</div>
@@ -479,7 +486,7 @@ async function runScrape(){
     document.getElementById('researchSection').style.display='block';
     document.getElementById('tabs').style.display='flex';
     // images from scrape if available, else extract
-    if(scraped.images&&scraped.images.length){state.allImages=scraped.images;renderImages(scraped.images);}
+    if(scraped.images&&scraped.images.length){state.allImages=scraped.images;renderImages(scraped.images,true);}
     else fetchImages(url);
     // stage 2 research + customer reviews (parallel)
     runResearch(url,type);
@@ -560,29 +567,51 @@ async function fetchImages(url){
     [...html.matchAll(/og:image["']?\s*content=["']([^"']+)["']/gi)].forEach(m=>set.add(m[1]));
     [...html.matchAll(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp)[^"']*)["']/gi)].forEach(m=>set.add(m[1]));
     const found=[...set].filter(u=>!/icon|logo|sprite|favicon/i.test(u)).slice(0,12).map((u,i)=>({url:u.startsWith('//')?'https:'+u:u,type:i===0?'hero':'product',alt:'Product image'}));
-    if(found.length){state.allImages=found;renderImages(found);}
-    else el.innerHTML='<p style="font-size:12px;color:#aaa">No images found. You can proceed without images.</p>';
+    if(found.length){state.allImages=found;renderImages(found,true);}
+    else{el.innerHTML='<p style="font-size:12px;color:#aaa">No images found automatically. Paste an image URL below to add one.</p>';updateImgStatus();}
   }catch{
-    el.innerHTML='<p style="font-size:12px;color:#aaa">Could not fetch images (the site may block cross-origin requests). Proceed without them or add a hero image later.</p>';
+    el.innerHTML='<p style="font-size:12px;color:#aaa">Could not fetch images automatically (the site may block cross-origin requests). Paste an image URL below to add one.</p>';updateImgStatus();
   }
 }
 let imgGridBound=false;
-function renderImages(imgs){
+function renderImages(imgs,autoselect){
   const el=document.getElementById('imageGrid');
-  if(!imgs.length){el.innerHTML='<p style="font-size:12px;color:#aaa">No images found.</p>';return}
-  state.selectedImages=[];
-  el.innerHTML=imgs.map((img,i)=>`<div class="icard" id="icard${i}" data-img="${i}"><img src="${esc(img.url)}" alt="${esc(img.alt||'')}" onerror="this.parentElement.style.display='none'"/><div class="itype">${esc(img.type||'product')}</div><div class="itick">✓</div></div>`).join('');
+  if(!imgs.length){el.innerHTML='<p style="font-size:12px;color:#aaa">No images yet. Paste an image URL below to add one.</p>';updateImgStatus();return}
+  el.innerHTML=imgs.map((img,i)=>`<div class="icard" id="icard${i}" data-img="${i}"><img src="${esc(img.url)}" loading="lazy" alt="${esc(img.alt||'')}"/><div class="ifeat">★ Featured</div><div class="itick">✓</div><div class="itype">${esc(img.type||'product')}</div></div>`).join('');
+  el.querySelectorAll('.icard img').forEach(im=>{im.addEventListener('error',()=>{const card=im.closest('.icard');if(card){const i=parseInt(card.dataset.img);card.style.display='none';const idx=state.selectedImages.indexOf(i);if(idx>=0)state.selectedImages.splice(idx,1);updateFeat();updateImgStatus();}});});
   if(!imgGridBound){el.addEventListener('click',e=>{const c=e.target.closest('.icard');if(c)toggleImg(parseInt(c.dataset.img))});imgGridBound=true;}
-  toggleImg(0);
+  state.selectedImages=state.selectedImages.filter(i=>i<imgs.length);
+  if(autoselect&&!state.selectedImages.length)state.selectedImages=[0];
+  state.selectedImages.forEach(i=>document.getElementById('icard'+i)?.classList.add('sel'));
+  updateFeat();updateImgStatus();
 }
 function toggleImg(i){
   const c=document.getElementById('icard'+i);if(!c)return;
   const idx=state.selectedImages.indexOf(i);
   if(idx>=0){state.selectedImages.splice(idx,1);c.classList.remove('sel')}
   else{state.selectedImages.push(i);c.classList.add('sel')}
-  // first selected = featured
+  updateFeat();updateImgStatus();
+}
+function updateFeat(){
   document.querySelectorAll('.icard').forEach(el=>el.classList.remove('feat'));
-  if(state.selectedImages.length){const f=document.getElementById('icard'+state.selectedImages[0]);if(f)f.classList.add('feat');}
+  if(state.selectedImages.length){document.getElementById('icard'+state.selectedImages[0])?.classList.add('feat');}
+}
+function updateImgStatus(){
+  const n=state.selectedImages.length;
+  const el=document.getElementById('imgStatus');if(!el)return;
+  el.textContent=n?`${n} image${n>1?'s':''} selected · first selected is the featured/hero image`:'No images selected — click a thumbnail above (or add one below).';
+  el.style.color=n?'#060':'#888';
+}
+function addManualImage(){
+  const inp=document.getElementById('manualImgUrl');const u=(inp.value||'').trim();
+  if(!u){return}
+  if(!/^https?:\/\//i.test(u)){setAlert('imageAlert','er','Enter a full image URL starting with http(s)://');return}
+  setAlert('imageAlert','','');
+  state.allImages.push({url:u,type:'manual',alt:'Added image'});
+  const newIdx=state.allImages.length-1;
+  renderImages(state.allImages,false);
+  toggleImg(newIdx);
+  inp.value='';
 }
 
 // STAGE 4 — Avelon (via avelon-proxy)
@@ -863,6 +892,9 @@ function buildChecklist(){
   }
 }
 let checklistBound=false;
+
+document.getElementById('addImgBtn').addEventListener('click',addManualImage);
+document.getElementById('manualImgUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addManualImage();}});
 
 // Restore saved login so credentials persist across refreshes.
 loadCfg();
