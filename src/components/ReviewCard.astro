@@ -56,9 +56,9 @@ function starHtml(score: number) {
 .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .875rem; padding-top: .875rem; border-top: 1px solid var(--border); }
 .card-score { display: flex; align-items: center; gap: .375rem; }
 .stars { font-size: .875rem; }
-.stars-wrap { position: relative; display: inline-block; white-space: nowrap; line-height: 1; letter-spacing: .05em; }
-.stars-bg { color: #e6e6e6; }
-.stars-fg { position: absolute; top: 0; left: 0; overflow: hidden; color: var(--pink); width: 0; }
+:global(.stars-wrap) { position: relative; display: inline-block; white-space: nowrap; line-height: 1; letter-spacing: .05em; }
+:global(.stars-bg) { color: #e6e6e6; }
+:global(.stars-fg) { position: absolute; top: 0; left: 0; overflow: hidden; color: var(--pink); width: 0; }
 .score-num { font-size: .75rem; font-weight: 700; color: var(--navy); }
 .card-link { font-size: .8rem; font-weight: 600; color: var(--pink); }
 .card-link:hover { text-decoration: underline; }
