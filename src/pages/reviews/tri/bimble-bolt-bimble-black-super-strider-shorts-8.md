@@ -89,6 +89,9 @@ Hard rule check — Pillar 3: PASS (no cap applied). Hard rule check — Pillar 
 
 ---
 
+
+
+![Bimble & Bolt Bimble Black Super Strider Shorts 8" — image 2](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/BS_2_S.jpg?v=1774866435)
 ## Pros & Cons
 
 **Pros**
@@ -128,6 +131,9 @@ Hard rule check — Pillar 3: PASS (no cap applied). Hard rule check — Pillar 
 
 ---
 
+
+
+![Bimble & Bolt Bimble Black Super Strider Shorts 8" — image 3](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/Black_8_836f3b35-6f7a-4ff1-ae88-8344268ca2d8.png?v=1774879269)
 ## Size & Fit
 
 True to size based on tester data: a UK dress size 12 wore size Medium comfortably. The waistband is snug on first wear and does not loosen significantly; the drawcord adjusts fit tighter only. If you prefer a relaxed midsection fit, or you are between sizes, size up. The 8″ inseam provides mid-thigh coverage — the tester confirmed this length prevents thigh rub without restricting stride. The brand offers 4″, 6″, 8″, and 10″ inseam lengths, which is an unusually wide range for women's running shorts at this price tier. No size guide with body measurements is published on the listing; WSS recommends contacting the brand directly if you are between sizes.
@@ -145,6 +151,9 @@ True to size based on tester data: a UK dress size 12 wore size Medium comfortab
 
 ---
 
+
+
+![Bimble & Bolt Bimble Black Super Strider Shorts 8" — image 4](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/BB_Black_zip_pocket.png?v=1775555860)
 ## The Verdict
 
 The Bimble & Bolt Bimble Black Super Strider Shorts 8" deliver on the metrics that matter most for women's endurance running: zero chafe across 4+ hours, genuine pocket capacity, and a waistband that stays put through gym lifts and ultra miles alike. The multi-length inseam architecture is a standout design decision. Deductions for an absent size guide, upper size ceiling at XXL, and unverified eco-claims. At £46, the performance-to-price ratio is strong — but Bimble & Bolt need to publish their fabric data.
