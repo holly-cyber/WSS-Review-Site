@@ -470,7 +470,34 @@ async function aiStream(msgs,sys,outEl,btnEl,btnLabel,maxTokens){
 
 async function aiCall(msgs,sys,maxTokens){
   const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,system:sys,messages:msgs})});
+  const ct=res.headers.get('content-type')||'';
+  if(!res.ok||!ct.includes('application/json')){
+    const t=await res.text();let msg=t;try{const j=JSON.parse(t);msg=(j.error&&(j.error.message||j.error))||j.message||t;}catch{}
+    throw new Error('AI proxy '+res.status+': '+String(msg).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,200));
+  }
   const d=await res.json();if(d.error)throw new Error(d.error.message);return d.content[0].text;
+}
+
+// Streams a response and returns the full text (no UI) — for long generations
+// like the emails, which would otherwise time out as a single buffered call.
+async function aiCollect(msgs,sys,maxTokens){
+  const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,stream:true,system:sys,messages:msgs})});
+  const ct=res.headers.get('content-type')||'';
+  if(!res.ok||ct.includes('application/json')){
+    const t=await res.text();let msg=t;try{const j=JSON.parse(t);msg=(j.error&&(j.error.message||j.error))||j.message||t;}catch{}
+    throw new Error('AI proxy '+res.status+': '+String(msg).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,200));
+  }
+  const reader=res.body.getReader();const dec=new TextDecoder();let buf='',text='',streamErr='';
+  while(true){
+    const{done:d,value}=await reader.read();if(d)break;
+    buf+=dec.decode(value,{stream:true});
+    const lines=buf.split('\n');buf=lines.pop();
+    for(const line of lines){
+      if(line.startsWith('data: ')){let j;try{j=JSON.parse(line.slice(6));}catch{continue;}if(j.type==='error')streamErr=j.error?.message||'stream error';else if(j.type==='content_block_delta'&&j.delta?.text)text+=j.delta.text;}
+    }
+  }
+  if(streamErr&&!text)throw new Error(streamErr);
+  return text;
 }
 
 // STAGE 1 — scrape + auto-research
@@ -924,7 +951,7 @@ async function runEmails(fb){
   const btn=document.getElementById('emailsBtn');btn.disabled=true;btn.textContent='Writing…';
   document.getElementById('emailsOut').innerHTML='<div class="out"><span class="cursor"></span></div>';
   try{
-    const raw=await aiCall([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS,3000);
+    const raw=await aiCollect([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS,3000);
     state.emails=JSON.parse(cleanJson(raw));
     renderEmails();document.getElementById('emailsFB').style.display='block';
   }catch(e){document.getElementById('emailsOut').innerHTML=`<div class="out">Error: ${esc(e.message)} — try regenerating.</div>`;}
