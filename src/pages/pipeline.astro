@@ -72,6 +72,9 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .retd{font-size:11px;color:#aaa;margin-top:1px}
 .retck{width:16px;height:16px;border-radius:50%;border:2px solid #ddd;margin-left:auto;flex-shrink:0}
 .retitem.sel .retck{background:#FF5E84;border-color:#FF5E84}
+.retlist:has(select){max-height:none;overflow:visible}
+.retlist select{width:100%;border:none;padding:11px 12px;font-size:14px;background:#fff;border-radius:6px;cursor:pointer}
+.retlist select:focus{box-shadow:none}
 .ec{border:1px solid #eee;border-radius:8px;overflow:hidden;margin-bottom:8px}
 .eh{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f9f9f9;cursor:pointer;user-select:none}
 .eht{font-size:13px;font-weight:700;color:#FF5E84}
@@ -449,6 +452,7 @@ async function runScrape(){
   btn.disabled=true;btn.textContent='Scraping…';
   setAlert('scrapeAlert','inf','Scraping the product page…');
   document.getElementById('destUrl').value=url;
+  autoMatchRetailer();
   try{
     const scraped=await scrapeProduct(url,type);
     state.product=scraped;
@@ -580,18 +584,25 @@ async function loadRetailers(){
     const list=Array.isArray(data)?data:(data.retailers||data.data||[]);
     state.retailers=list;
     if(!list.length){el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">No approved retailers found.</div>';return}
-    el.innerHTML=list.map((r,i)=>`<div class="retitem" id="ret${i}" data-idx="${i}"><div><div class="retn">${esc(r.name||r.retailerName||'Retailer '+i)}</div><div class="retd">ID: ${esc(String(r.pk||r.id||''))}</div></div><div class="retck"></div></div>`).join('');
-    el.addEventListener('click',e=>{const item=e.target.closest('.retitem');if(item)selectRetailer(parseInt(item.dataset.idx))});
+    const opts=list.map((r,i)=>`<option value="${i}">${esc(r.name||r.retailerName||'Retailer '+i)} — ${esc(String(r.pk||r.id||r.slug||''))}</option>`).join('');
+    el.innerHTML=`<select id="retSelect"><option value="">— Select a retailer —</option>${opts}</select>`;
+    const sel=document.getElementById('retSelect');
+    sel.addEventListener('change',()=>{const i=parseInt(sel.value);state.selectedRetailer=isNaN(i)?null:state.retailers[i];setAlert('affAlert','','');});
+    autoMatchRetailer();
   }catch(e){el.innerHTML=`<div style="padding:10px;font-size:12px;color:#c00">Could not load retailers: ${esc(e.message)}</div>`;}
 }
-function selectRetailer(i){
-  document.querySelectorAll('.retitem').forEach(el=>el.classList.remove('sel'));
-  document.getElementById('ret'+i)?.classList.add('sel');
-  state.selectedRetailer=state.retailers[i];
+function autoMatchRetailer(){
+  const sel=document.getElementById('retSelect');if(!sel||!state.retailers.length)return;
+  let host='';try{host=new URL(val('destUrl')).hostname.replace(/^www\./,'').split('.')[0].toLowerCase();}catch{return;}
+  if(!host)return;
+  const norm=s=>(s==null?'':String(s)).toLowerCase().replace(/[^a-z0-9]/g,'');
+  const idx=state.retailers.findIndex(r=>{const id=norm(r.pk||r.id||r.slug);const nm=norm(r.name||r.retailerName);return id===host||(id&&(id.includes(host)||host.includes(id)))||(nm&&(nm.includes(host)||host.includes(nm)));});
+  if(idx>=0){sel.value=String(idx);state.selectedRetailer=state.retailers[idx];setAlert('affAlert','ok','Auto-matched retailer: '+(state.retailers[idx].name||state.retailers[idx].pk||'')+'. Change it above if wrong.');}
 }
 document.getElementById('affBtn').addEventListener('click',async()=>{
   if(!cfg.avEmail||!cfg.avPass){setAlert('affAlert','er','Connect Avelon in Settings first.');return}
-  if(!state.selectedRetailer){setAlert('affAlert','er','Select a retailer first.');return}
+  if(!state.selectedRetailer)autoMatchRetailer();
+  if(!state.selectedRetailer){setAlert('affAlert','er','Pick a retailer from the dropdown first.');return}
   const dest=val('destUrl');
   if(!dest){setAlert('affAlert','er','Enter a destination URL.');return}
   setAlert('affAlert','','');
