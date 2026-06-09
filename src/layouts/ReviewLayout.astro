@@ -158,5 +158,13 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-content :global(li){margin-bottom:.375rem}
 .review-content :global(img){border-radius:var(--radius-md);margin:1.5rem 0;width:100%}
 .review-content :global(blockquote){border-left:3px solid var(--pink);padding:.75rem 1.25rem;background:var(--light-pink);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:1.25rem 0;font-style:italic;color:var(--text-secondary)}
+.review-content :global(.table-wrap){overflow-x:auto;margin:1.5rem 0}
+.review-content :global(table){width:100%;border-collapse:collapse;font-size:.9rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden}
+.review-content :global(thead){background:var(--navy)}
+.review-content :global(th){color:#fff;text-align:left;padding:.75rem .875rem;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}
+.review-content :global(td){padding:.75rem .875rem;border-top:1px solid var(--border);color:var(--text-secondary);vertical-align:top}
+.review-content :global(tbody tr:nth-child(odd)){background:var(--off-white)}
+.review-content :global(tbody tr:first-child){background:var(--light-pink)}
+.review-content :global(tbody tr:first-child td){font-weight:600;color:var(--text-primary)}
 @media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}
 </style>
