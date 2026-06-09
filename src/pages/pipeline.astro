@@ -202,6 +202,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="sbar"><span class="sdesc">Writes the full WSS™ review — apparel (5 pillars + star scores, full SEO sections) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
     <div id="writeTypeInfo" style="margin-bottom:8px"></div>
     <div id="writeKw" class="kw" style="display:none"></div>
+    <div style="margin-bottom:10px"><label>Reviewer (shown as "Tested by"; the review is written in their first-person voice)</label><input id="reviewerName" placeholder="e.g. Holly Woodford, WSS co-founder and endurance athlete"/></div>
     <div style="margin-bottom:10px">
       <label>Pre-set scores (optional) — leave blank to let WSS™ decide; any you set are used exactly</label>
       <div id="scoreInputs" class="g4"></div>
@@ -327,7 +328,7 @@ Pillar 7 — Transparency & User Reviews: X/5
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
 ## Buy
 [CTA with the affiliate link [AFFILIATE_LINK].]
-RULES: Never fabricate tester data — flag gaps as "Not independently verified". Never vague praise. British English throughout.`;
+RULES: Write in the FIRST PERSON as the named reviewer ("I tested…", "I found…", "in my sessions…"). Never write "the tester" or any third-person reviewer reference. Never fabricate tester data — flag gaps as "Not independently verified". Never vague praise. British English throughout.`;
 
 const WSS_NUTRITION=`WSS NUTRITION REVIEW FRAMEWORK v2.0 — 4 weighted criteria:
 TASTE & TEXTURE (25%): Palatability mid-exercise, texture, aftertaste, ease of consumption.
@@ -358,7 +359,7 @@ Value (15%): X/5
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words.]
 ## Buy
 [CTA with the affiliate link [AFFILIATE_LINK].]
-RULES: Specific, no vague praise, never fabricate. British English throughout.`;
+RULES: Write in the FIRST PERSON as the named reviewer ("I tasted…", "I found…", "during my sessions…"). Never write "the tester" or any third-person reviewer reference. Specific, no vague praise, never fabricate. British English throughout.`;
 
 const TONES=[
   'TONE: Direct and blunt. Short sentences. Call out failures plainly.',
@@ -382,7 +383,7 @@ const SCORE_AREAS={
   nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']]
 };
 
-const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:''};
+const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:''};
 const CFG_KEY='wss_pipeline_cfg_v1';
 let cfg={...CFG_DEFAULTS};
 function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
@@ -730,7 +731,10 @@ async function runWrite(fb){
     if(state.customerReviews[0].rating!==undefined)reviewContext='\n\nCUSTOMER REVIEWS:\n'+state.customerReviews.slice(0,5).map(r=>`${r.rating}★: ${r.text}`).join('\n');
     else reviewContext='\n\nCUSTOMER SENTIMENT:\n'+state.customerReviews[0].text;
   }
-  const testerSection=testerNotes?`\n\nTESTER DATA (use only this; never invent more):\n${testerNotes}`:'\n\nTESTER DATA: Not supplied. Flag any finding that requires tester evidence as "Not independently verified."';
+  const reviewer=val('reviewerName');
+  cfg.reviewer=reviewer;saveCfg();
+  const reviewerSection=reviewer?`\n\nREVIEWER (author — write the whole review in this person's first-person voice as "I"): ${reviewer}`:'\n\nREVIEWER: a WSS tester (write in the first person as "I").';
+  const testerSection=testerNotes?`\n\nMY TESTING NOTES (write these up in the first person as my own experience; use only this, never invent more):\n${testerNotes}`:'\n\nMY TESTING NOTES: Not supplied. Flag any finding that needs hands-on evidence as "Not independently verified."';
   const provided=getProvidedScores(pType);
   state.providedScores=provided;
   let scoreDirective='';
@@ -740,7 +744,7 @@ async function runWrite(fb){
   }
   const tone=TONES[Math.floor(Math.random()*TONES.length)];
   const note=fb?`\n\nHOLLY'S FEEDBACK: ${fb}\nAddress this directly in the rewrite.`:'';
-  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nAffiliate link: ${affLink}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Replace [AFFILIATE_LINK] with: ${affLink}\n${tone}\nBritish English throughout.`;
+  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nAffiliate link: ${affLink}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${reviewerSection}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Write the whole review in the first person ("I"). Replace [AFFILIATE_LINK] with: ${affLink}\n${tone}\nBritish English throughout.`;
   const text=await aiStream([{role:'user',content:prompt}],`Senior WSS reviewer. Never fabricate tester data. Specific failure modes, never vague praise. British English.\n\n${pType==='apparel'?WSS_APPAREL:WSS_NUTRITION}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
   if(text){
     state.reviewText=text;
@@ -849,7 +853,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     const meta=state.metaDescription||excerpt.slice(0,150);
     const faqYaml=state.faq.length?'faq:\n'+state.faq.map(f=>`  - q: ${yaml(f.q)}\n    a: ${yaml(f.a)}`).join('\n')+'\n':'';
     const reviewBody=insertImages(review,selImgs,`${brand} ${name}`);
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
+    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
@@ -977,6 +981,7 @@ document.getElementById('manualImgUrl').addEventListener('keydown',e=>{if(e.key=
 // Restore saved login so credentials persist across refreshes.
 loadCfg();
 reflectConnected();
+{const rn=document.getElementById('reviewerName');if(rn)rn.value=cfg.reviewer||'';}
 if(cfg.avEmail&&cfg.avPass)loadRetailers();
 </script>
 </body>

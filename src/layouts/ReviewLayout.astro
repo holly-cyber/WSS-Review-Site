@@ -24,12 +24,17 @@ const criteriaLabels: Record<string, string> = {
   value: 'Value (15%)',
 };
 
+const authorNode = fm.tested_by
+  ? { "@type": "Person", "name": String(fm.tested_by).split(',')[0].trim() }
+  : { "@type": "Organization", "name": "Women's Sports Store" };
+
 const reviewNode = {
   "@type": "Review",
   "name": `${fm.brand} ${fm.title} Review`.trim(),
   "reviewBody": fm.excerpt,
   "reviewRating": { "@type": "Rating", "ratingValue": fm.overall_score, "bestRating": "5", "worstRating": "1" },
-  "author": { "@type": "Organization", "name": "Women's Sports Store" },
+  "author": authorNode,
+  "publisher": { "@type": "Organization", "name": "Women's Sports Store" },
   "datePublished": fm.date,
 };
 
