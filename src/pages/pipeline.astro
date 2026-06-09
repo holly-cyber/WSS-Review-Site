@@ -247,6 +247,10 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <label>Holly's feedback:</label><textarea id="emailsFBText" rows="2"></textarea>
       <div class="fbr"><button class="bp" id="emailsApproveBtn">✓ Approve</button><button class="bg" id="emailsRegenBtn">↺ Regenerate</button></div>
     </div>
+    <div id="emailsPush" style="display:none;margin-top:12px;border-top:1px solid #eee;padding-top:12px">
+      <button class="bp" id="emailsToClaudeBtn">⬆ Send emails to Claude (for MailerLite)</button>
+      <div id="emailsPushAlert" style="margin-top:8px"></div>
+    </div>
   </div>
 </div>
 
@@ -962,7 +966,34 @@ function renderEmails(){
   const labels=['Email 1 — Review Drop','Email 2 — Buy Nudge (day 4)','Email 3 — Social Proof (day 7)'];
   document.getElementById('emailsOut').innerHTML=state.emails.map((e,i)=>`<div class="ec"><div class="eh" data-toggle="${i}"><div class="eht">${labels[i]||'Email '+(i+1)}</div><div id="ech${i}">▼</div></div><div id="ecb${i}" class="eb" style="${i>0?'display:none':''}"><div class="ef"><div class="efl">Subject</div><input id="es${i}" value="${esc(e.subject||'')}"/></div><div class="ef"><div class="efl">Preview text</div><input id="ep${i}" value="${esc(e.preview_text||'')}"/></div><div class="ef"><div class="efl">Body HTML</div><textarea id="eb${i}" rows="6" style="font-family:monospace;font-size:12px">${esc(e.body_html||'')}</textarea></div></div></div>`).join('');
   if(!emailsBound){document.getElementById('emailsOut').addEventListener('click',e=>{const h=e.target.closest('[data-toggle]');if(h){const i=h.dataset.toggle;const b=document.getElementById('ecb'+i);const c=document.getElementById('ech'+i);b.style.display=b.style.display==='none'?'block':'none';c.textContent=b.style.display==='none'?'▼':'▲';}});emailsBound=true;}
+  document.getElementById('emailsPush').style.display='block';
 }
+// Commit the (edited) emails to the repo so Claude can read + push them to MailerLite via MCP.
+async function putRepoFile(path,str,message){
+  let sha='';
+  try{const c=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}?ref=${cfg.ghBranch}`,{headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'}});if(c.ok){sha=(await c.json()).sha;}}catch{}
+  const body={message,content:b64(str),branch:cfg.ghBranch};if(sha)body.sha=sha;
+  const res=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||'HTTP '+res.status);}
+  return res.json();
+}
+document.getElementById('emailsToClaudeBtn').addEventListener('click',async()=>{
+  if(!cfg.ghToken){setAlert('emailsPushAlert','er','Add your GitHub token in Settings first (same one used to publish reviews).');return}
+  if(!state.emails.length){setAlert('emailsPushAlert','er','Generate the emails first.');return}
+  const emails=state.emails.map((e,i)=>({label:['Review Drop','Buy Nudge (day 4)','Social Proof (day 7)'][i]||('Email '+(i+1)),subject:document.getElementById('es'+i)?.value??e.subject,preview_text:document.getElementById('ep'+i)?.value??e.preview_text,body_html:document.getElementById('eb'+i)?.value??e.body_html}));
+  const name=val('pName')||'product';const brand=val('pBrand')||'';
+  const slug=slugify(brand+'-'+name)||'review';
+  const payload={product:name,brand,slug,review_url:`https://wss-review-site-tool.netlify.app/reviews/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`,affiliate_link:state.affLink||'',generated_at:new Date().toISOString(),emails};
+  const json=JSON.stringify(payload,null,2);
+  const btn=document.getElementById('emailsToClaudeBtn');btn.disabled=true;btn.textContent='Sending…';
+  setAlert('emailsPushAlert','inf','Saving emails to the repo…');
+  try{
+    await putRepoFile('pipeline-output/emails-latest.json',json,`Pipeline emails: ${brand} ${name}`);
+    await putRepoFile(`pipeline-output/emails-${slug}.json`,json,`Pipeline emails: ${brand} ${name}`);
+    setAlert('emailsPushAlert','ok','Sent ✓ Now tell Claude in chat: “Push the latest pipeline emails to MailerLite as drafts.”');
+  }catch(e){setAlert('emailsPushAlert','er','Could not send: '+e.message);}
+  btn.disabled=false;btn.textContent='⬆ Send emails to Claude (for MailerLite)';
+});
 
 // STAGE 9 — Social
 document.getElementById('socialBtn').addEventListener('click',()=>runSocial());
