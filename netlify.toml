@@ -21,6 +21,10 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Give the AI proxy headroom for long streamed generations (default is 10s).
+[functions."ai-proxy"]
+  timeout = 26
+
 [[redirects]]
   from = "/api/ai-proxy"
   to = "/.netlify/functions/ai-proxy"
