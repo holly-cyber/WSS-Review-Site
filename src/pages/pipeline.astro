@@ -2,15 +2,18 @@
 export const prerender = true;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WSS™ Review Pipeline</title>
 <meta name="robots" content="noindex,nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#111;padding:1.5rem}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#111;padding:1.5rem}
 .wrap{max-width:900px;margin:0 auto}
 button{cursor:pointer;border:none;font-family:inherit;font-size:13px;transition:opacity .15s}
 button:disabled{opacity:.4;cursor:not-allowed}
@@ -55,6 +58,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .icard img{width:100%;height:80px;object-fit:cover;display:block}
 .icard .itick{display:none;position:absolute;top:4px;right:4px;background:#FF5E84;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;align-items:center;justify-content:center;font-weight:700}
 .icard.sel .itick{display:flex}
+.icard.feat .itick{background:#000036}
 .icard .itype{font-size:10px;color:#999;padding:2px 6px;background:#f9f9f9;text-align:center}
 .rv{background:#f9f9f9;border:1px solid #eee;border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:12px}
 .rv .rstar{color:#f5a623;margin-bottom:2px}
@@ -107,6 +111,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .deploy-link:hover{background:#000060}
 .deploy-link.pink{background:#FF5E84}
 .deploy-link.pink:hover{background:#e04470}
+.kw{font-size:11px;color:#FF5E84;background:#fff0f4;border:1px solid #ffc8d5;border-radius:6px;padding:6px 10px;margin-bottom:8px;line-height:1.5}
 @media(max-width:600px){.g4{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -118,37 +123,44 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="bar"></div>
     <div>
       <div class="ttl">WSS™ Review Pipeline</div>
-      <div class="sub">Research → Write → Affiliate link → Push to GitHub → Reel → Emails → Social</div>
+      <div class="sub">Scrape → Research → Affiliate → Write → Push → Reel → Emails → Social</div>
     </div>
   </div>
   <button class="bset" id="settingsBtn">⚙ Settings</button>
 </div>
 
 <div class="card pk">
-  <div class="slbl"><div class="dot">1</div>Product details</div>
-  <div class="row" style="margin-bottom:8px">
+  <div class="slbl"><div class="dot">1</div>Product URL</div>
+  <div class="row">
     <div style="flex:2"><label>Product URL *</label><input id="pUrl" type="url" placeholder="https://brand.com/products/product-name"/></div>
-    <div style="padding-top:19px"><button class="bp" id="researchBtn" style="white-space:nowrap">Research →</button></div>
+    <div style="flex:1"><label>Product type *</label><select id="pType"><option value="apparel">Apparel</option><option value="nutrition">Nutrition</option></select></div>
+    <div><button class="bp" id="scrapeBtn" style="white-space:nowrap">Scrape →</button></div>
   </div>
-  <div class="g4">
-    <div><label>Product name *</label><input id="pName" placeholder="e.g. Super Strider Shorts"/></div>
-    <div><label>Brand *</label><input id="pBrand" placeholder="e.g. Bimble &amp; Bolt"/></div>
-    <div><label>Price (£)</label><input id="pPrice" placeholder="e.g. 65.00"/></div>
-    <div><label>Product type *</label><select id="pType"><option value="apparel">Apparel</option><option value="nutrition">Nutrition</option></select></div>
+  <div id="scrapeAlert" style="margin-top:8px"></div>
+  <div id="findings" style="display:none;margin-top:12px">
+    <div class="al inf">Auto-scraped from the product page — edit if anything looks wrong.</div>
+    <div class="g4">
+      <div><label>Product name</label><input id="pName" placeholder="—"/></div>
+      <div><label>Brand</label><input id="pBrand" placeholder="—"/></div>
+      <div><label>Price (£)</label><input id="pPrice" placeholder="—"/></div>
+      <div><label>Size range</label><input id="pSizes" placeholder="—"/></div>
+    </div>
+    <div style="margin-top:8px"><label>Key specs</label><textarea id="pSpecs" rows="2" placeholder="Key specifications found on the page…"></textarea></div>
   </div>
-  <div id="researchAlert" style="margin-top:8px"></div>
 </div>
 
 <div id="researchSection" style="display:none">
-  <div class="card"><div class="slbl"><div class="dot">2</div>Research findings</div><div id="researchOut" class="out empty">Analysing product…</div></div>
-  <div class="card"><div class="slbl"><div class="dot">3</div>Customer reviews found</div><div id="reviewsOut"><div class="out empty">Searching…</div></div></div>
   <div class="card">
-    <div class="slbl"><div class="dot">4</div>Select images for the article</div>
-    <div id="imageAlert"></div><div id="imageGrid" class="igrid"></div>
-    <p style="font-size:11px;color:#aaa;margin-top:8px">Select images to include. First selected = featured image.</p>
+    <div class="slbl"><div class="dot">2</div>Research &amp; pre-assessment</div>
+    <div id="researchOut" class="out empty">Analysing product…</div>
   </div>
   <div class="card">
-    <div class="slbl"><div class="dot">5</div>Generate affiliate link (Avelon)</div>
+    <div class="slbl"><div class="dot">3</div>Select images for the article</div>
+    <div id="imageAlert"></div><div id="imageGrid" class="igrid"></div>
+    <p style="font-size:11px;color:#aaa;margin-top:8px">Click to select images to include. First selected (navy tick) = featured image.</p>
+  </div>
+  <div class="card">
+    <div class="slbl"><div class="dot">4</div>Generate affiliate link (Avelon)</div>
     <p style="font-size:13px;color:#777;margin-bottom:8px">Select retailer:</p>
     <div id="retailerList" class="retlist"><div class="out empty" style="margin:0;border:none;background:none">Connect Avelon in Settings to load retailers…</div></div>
     <div style="margin-top:10px;display:flex;gap:8px;align-items:flex-end">
@@ -167,21 +179,22 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 </div>
 
 <div class="tabs" id="tabs" style="display:none">
-  <div class="tab" data-s="write">6. Write Review</div>
-  <div class="tab" data-s="push">7. Push to GitHub</div>
-  <div class="tab" data-s="reel">8. Reel Script</div>
-  <div class="tab" data-s="emails">9. Emails</div>
-  <div class="tab" data-s="social">10. Social Copy</div>
-  <div class="tab" data-s="approve">11. Holly Approves</div>
+  <div class="tab" data-s="write">5. Write Review</div>
+  <div class="tab" data-s="push">6. Push to GitHub</div>
+  <div class="tab" data-s="reel">7. Reel Script</div>
+  <div class="tab" data-s="emails">8. Emails</div>
+  <div class="tab" data-s="social">9. Social Copy</div>
+  <div class="tab" data-s="approve">10. Holly Approves</div>
 </div>
 
 <div id="s-write" style="display:none">
   <div class="card">
-    <div class="sbar"><span class="sdesc">Writes the WSS™ review — apparel (5 pillars + star scores) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
+    <div class="sbar"><span class="sdesc">Writes the full WSS™ review — apparel (5 pillars + star scores, full SEO sections) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
     <div id="writeTypeInfo" style="margin-bottom:8px"></div>
-    <div style="margin-bottom:10px"><label>Tester notes (optional)</label><textarea id="testerNotes" rows="2" placeholder="e.g. Tested size 12. Run-tested 3 sessions including 16km trail."></textarea></div>
+    <div id="writeKw" class="kw" style="display:none"></div>
+    <div style="margin-bottom:10px"><label>Tester notes (optional — never fabricated; gaps flagged "Not independently verified")</label><textarea id="testerNotes" rows="2" placeholder="e.g. Tested size 12. Run-tested 3 sessions including 16km trail."></textarea></div>
     <div id="writeOut" class="out empty">Output will appear here…</div>
-    <div id="writeEditWrap" style="display:none;margin-top:8px"><label>Edit before publishing:</label><textarea id="writeEdit" rows="14" style="margin-top:4px"></textarea></div>
+    <div id="writeEditWrap" style="display:none;margin-top:8px"><label>Edit before publishing:</label><textarea id="writeEdit" rows="16" style="margin-top:4px"></textarea></div>
     <div id="writeFB" class="fb" style="display:none">
       <label>Holly's feedback:</label><textarea id="writeFBText" rows="2" placeholder="e.g. Verdict too soft…"></textarea>
       <div class="fbr"><button class="bp" id="writeApproveBtn">✓ Approve</button><button class="bg" id="writeRegenBtn">↺ Regenerate</button></div>
@@ -191,7 +204,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 
 <div id="s-push" style="display:none">
   <div class="card">
-    <div class="sbar"><span class="sdesc">Commits the review as a markdown file to GitHub. Netlify auto-deploys — review goes live within 60 seconds.</span><button class="bp" id="pushBtn">Push to GitHub →</button></div>
+    <div class="sbar"><span class="sdesc">Commits the review as a markdown file to GitHub. Netlify auto-deploys — review goes live within ~60 seconds. Frontmatter carries meta description + FAQ for schema markup.</span><button class="bp" id="pushBtn">Push to GitHub →</button></div>
     <div id="pushAlert"></div>
     <div id="pushResult" style="display:none">
       <div id="pushBadge" class="gh-status ok"></div>
@@ -249,35 +262,37 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="slbl" style="margin-bottom:8px"><div class="dot b">GH</div>GitHub</div>
     <div class="ht"><strong>Personal Access Token:</strong> github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → tick <strong>repo</strong> scope → copy (shown once only)</div>
     <div class="mof"><label>GitHub username</label><input id="ghUser" placeholder="holly-cyber"/></div>
-    <div class="mof"><label>Repository</label><input id="ghRepo" placeholder="wss-reviews"/></div>
+    <div class="mof"><label>Repository</label><input id="ghRepo" placeholder="WSS-Review-Site"/></div>
     <div class="mof"><label>Personal access token</label><input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx"/></div>
     <div class="mof"><label>Branch</label><input id="ghBranch" value="main"/></div>
     <hr class="div">
     <div class="slbl" style="margin-bottom:8px"><div class="dot" style="background:#f5a623">AV</div>Avelon</div>
-    <div class="ht"><strong>Avelon credentials:</strong> your Avelon publisher login.</div>
+    <div class="ht"><strong>Avelon credentials:</strong> your Avelon publisher login. Calls are routed through a Netlify function (avelon-proxy) to avoid CORS.</div>
     <div class="mof"><label>Avelon email</label><input id="avEmail" placeholder="your@email.com"/></div>
     <div class="mof"><label>Avelon password</label><input type="password" id="avPass" placeholder="password"/></div>
     <div style="display:flex;gap:8px;margin-top:4px">
       <button class="bp" id="saveSettingsBtn">Save settings</button>
       <button class="bg" id="cancelSettingsBtn">Cancel</button>
     </div>
-    <div class="mnote">Credentials stored in this browser session only. Sent directly to GitHub and Avelon — never to any third party.</div>
+    <div class="mnote">Credentials stored in this browser session only. Sent directly to GitHub, and to Avelon via the site's own Netlify function — never to any third party.</div>
   </div>
 </div>
 
 <script>
-const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v1.0 — score 5 pillars ONLY (4 and 6 excluded):
-PILLAR 1 INCLUSIVE FIT & PROPORTIONAL SIZING: UK 16 must NOT be XL, size range UK 6-24+, women's proportions not scaled-down unisex.
-PILLAR 2 FUNCTIONAL PERFORMANCE IN USE: Seam placement, waistband stability, torso coverage, chafe after 45+ min. Test in intended activity.
-PILLAR 3 ADEQUATE SUPPORT STANDARDS: Stated impact vs experience, cup range A-HH. HARD RULE: fail Pillar 3 = overall max 2 stars.
-PILLAR 5 GENUINE FEMALE DESIGN: Women-specific cutting, functional pockets, engineering not colour. No pink it shrink it.
-PILLAR 7 TRANSPARENCY & USER REVIEWS: Published testing data, substantiated claims. HARD RULE: max 3 stars without verifiable data.
-SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per pillar, half-stars overall only.
-OUTPUT FORMAT:
+const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v2.0 — score 5 pillars ONLY (Pillars 4 and 6 are EXCLUDED):
+PILLAR 1 INCLUSIVE FIT & PROPORTIONAL SIZING: UK 16 must NOT be labelled XL. Size range should span UK 6-24+. Women's proportions, not scaled-down unisex.
+PILLAR 2 FUNCTIONAL PERFORMANCE IN USE: Seam placement, waistband stability, torso coverage, chafe after 45+ min. Performance in the intended activity.
+PILLAR 3 ADEQUATE SUPPORT STANDARDS: Stated impact level vs experience, cup range A-HH. HARD RULE: a Pillar 3 FAIL caps the OVERALL score at a MAXIMUM of 2 stars.
+PILLAR 5 GENUINE FEMALE DESIGN: Women-specific cutting, functional pockets, engineering not colour. No "pink it and shrink it".
+PILLAR 7 TRANSPARENCY & USER REVIEWS: Published testing data, substantiated claims. HARD RULE: MAXIMUM 3 stars overall without verifiable, published data.
+SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per pillar; the Overall may use a half-star.
+OVERALL = average of the five pillar scores, then APPLY the hard rules (Pillar 3 fail => max 2.0; no verifiable data => max 3.0).
+
+OUTPUT FORMAT — use these exact H2 headings, in this order:
 ## Overview
 [80 words]
 ## WSS™ Assessment
-[Each pillar: "Pillar N — Name: X/5" then paragraph. Flag fails and unverifiable claims.]
+[For each pillar: a line "**Pillar N — Name: X/5**" then a paragraph naming specific failure modes. Flag fails and any unverifiable claims.]
 ## Scores
 Pillar 1 — Inclusive Fit & Proportional Sizing: X/5
 Pillar 2 — Functional Performance in Use: X/5
@@ -285,48 +300,68 @@ Pillar 3 — Adequate Support Standards: X/5
 Pillar 5 — Genuine Female Design: X/5
 Pillar 7 — Transparency & User Reviews: X/5
 **Overall: X.X / 5 ★**
+## Pros & Cons
+[Two short lists: Pros, then Cons.]
+## Who It's For / Who It's Not For
+## Size & Fit
+## How It Compares
 ## The Verdict
-[50-80 words. Direct. Name the athlete. Call out pillar 1-2 scores.]
+[50-80 words. Direct.]
+## FAQ
+[Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
 ## Buy
-[30-50 words. CTA with [AFFILIATE_LINK].]
-TONE: Specific failure modes. Never vague praise. Never fabricate. British English.`;
+[CTA with the affiliate link [AFFILIATE_LINK].]
+RULES: Never fabricate tester data — flag gaps as "Not independently verified". Never vague praise. British English throughout.`;
 
-const WSS_NUTRITION=`WSS NUTRITION REVIEW FRAMEWORK v1.0:
+const WSS_NUTRITION=`WSS NUTRITION REVIEW FRAMEWORK v2.0 — 4 weighted criteria:
 TASTE & TEXTURE (25%): Palatability mid-exercise, texture, aftertaste, ease of consumption.
 NUTRITION PROFILE (30%): Macros vs activity, ingredient quality, additives, female physiology.
-PERFORMANCE (30%): Delivers stated benefit during/after exercise?
+PERFORMANCE (30%): Delivers the stated benefit during/after exercise?
 VALUE (15%): Price per serving vs market.
-SCORING: 1-5 each. Overall = weighted average.
-OUTPUT FORMAT:
+SCORING: 1-5 each. Overall = weighted average (rounded to one decimal). Never fabricate.
+
+OUTPUT FORMAT — use these exact H2 headings, in this order:
 ## Overview
 [80 words]
 ## WSS™ Assessment
-[Each criterion with score e.g. "Taste & Texture: 4/5" then paragraph.]
+[For each criterion: a line "**Taste & Texture: X/5**" etc. then a paragraph.]
 ## Scores
 Taste & Texture (25%): X/5
 Nutrition Profile (30%): X/5
 Performance (30%): X/5
 Value (15%): X/5
 **Overall: X.X / 5 ★**
+## Pros & Cons
+## Who It's For / Who It's Not For
+## Taste & Usage
+## How It Compares
 ## The Verdict
 [50-80 words.]
+## FAQ
+[Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words.]
 ## Buy
-[30-50 words. CTA with [AFFILIATE_LINK].]
-TONE: Specific, no vague praise, never fabricate. British English.`;
+[CTA with the affiliate link [AFFILIATE_LINK].]
+RULES: Specific, no vague praise, never fabricate. British English throughout.`;
+
+const TONES=[
+  'TONE: Direct and blunt. Short sentences. Call out failures plainly.',
+  'TONE: Warmer and conversational, but still honest and specific. Speak to the reader directly.',
+  'TONE: Data-led and analytical. Lean on figures, comparisons and measurable claims.'
+];
 
 const REEL_SYS=`WSS social content director. 60-second direct-to-camera Reel scripts.
 [HOOK 0-3s] [BEAT 1 3-20s] [BEAT 2 20-35s] [BEAT 3 35-45s] [VERDICT 45-55s] [CTA 55-60s]
-Hook=most surprising WSS finding. Each Beat=one specific finding. Verdict=binary. CTA="Full review and buy link in bio." only. On-screen text in [brackets]. British English.`;
+Hook = the most surprising WSS finding. Each Beat = one specific finding. Verdict = binary. CTA must be exactly: "Full review and buy link in bio." and nothing else. On-screen text in [brackets]. British English.`;
 
-const EMAIL_SYS=`WSS email writer. Return ONLY valid JSON array of 3 objects: subject, preview_text, body_html.
-Email 1 Review Drop: best WSS finding, [VIDEO_EMBED], CTA to review.
-Email 2 Buy Nudge day 4: 3 bullet WSS findings, Shop now CTA.
-Email 3 Social Proof day 7: community framing, softer sell.
-HTML: inline styles, max 600px, #FF5E84 headings/CTAs, #000036 body. CTA: background:#FF5E84;color:white;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
-Raw JSON only. No markdown.`;
+const EMAIL_SYS=`WSS email writer. Return ONLY a valid JSON array of 3 objects, each with: subject, preview_text, body_html.
+Email 1 Review Drop: best WSS finding, link to the review, clear CTA.
+Email 2 Buy Nudge (day 4): 3 bullet WSS findings, "Shop now" CTA.
+Email 3 Social Proof (day 7): community framing, softer sell.
+HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text in #000036. CTA button style: background:#FF5E84;color:#ffffff;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
+Raw JSON only. No markdown, no commentary.`;
 
-let cfg={ghUser:'holly-cyber',ghRepo:'wss-reviews',ghToken:'',ghBranch:'main',avEmail:'',avPass:''};
-let state={researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[]};
+let cfg={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:''};
+let state={product:{name:'',brand:'',price:'',sizes:'',specs:''},researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[],metaDescription:'',faq:[]};
 let done=new Set();
 let busy=false;
 
@@ -334,7 +369,10 @@ function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace
 function setAlert(id,type,msg){const el=document.getElementById(id);if(el)el.innerHTML=msg?`<div class="al ${type}">${msg}</div>`:''}
 function avAuth(){return'Basic '+btoa(cfg.avEmail+':'+cfg.avPass)}
 function getReview(){return(document.getElementById('writeEdit').value||'').trim()||state.reviewText}
-function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function slugify(s){return(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function val(id){return(document.getElementById(id).value||'').trim()}
+function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim()}
+function stripHtml(h){const d=document.createElement('div');d.innerHTML=h||'';return(d.textContent||'').replace(/\s+/g,' ').trim()}
 
 // Settings
 document.getElementById('settingsBtn').addEventListener('click',()=>{
@@ -356,7 +394,7 @@ document.getElementById('saveSettingsBtn').addEventListener('click',()=>{
 });
 
 // AI helpers
-async function aiStream(msgs,sys,outEl,btnEl,btnLabel){
+async function aiStream(msgs,sys,outEl,btnEl,btnLabel,maxTokens){
   if(busy)return null;
   busy=true;
   if(btnEl){btnEl.disabled=true;btnEl.textContent='Writing…'}
@@ -366,7 +404,7 @@ async function aiStream(msgs,sys,outEl,btnEl,btnLabel){
   try{
     const res=await fetch('/.netlify/functions/ai-proxy',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,stream:true,system:sys,messages:msgs})
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,stream:true,system:sys,messages:msgs})
     });
     const reader=res.body.getReader();const dec=new TextDecoder();let buf='';
     while(true){
@@ -386,99 +424,148 @@ async function aiStream(msgs,sys,outEl,btnEl,btnLabel){
   return text;
 }
 
-async function aiCall(msgs,sys){
-  const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:msgs})});
+async function aiCall(msgs,sys,maxTokens){
+  const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,system:sys,messages:msgs})});
   const d=await res.json();if(d.error)throw new Error(d.error.message);return d.content[0].text;
 }
 
-// Research
-document.getElementById('researchBtn').addEventListener('click',async()=>{
-  const url=document.getElementById('pUrl').value.trim();
-  const name=document.getElementById('pName').value.trim();
-  if(!url||!name){setAlert('researchAlert','er','Enter a product URL and name first.');return}
-  setAlert('researchAlert','','');
-  document.getElementById('researchSection').style.display='block';
-  document.getElementById('tabs').style.display='none';
+// STAGE 1 — scrape + auto-research
+document.getElementById('scrapeBtn').addEventListener('click',()=>runScrape());
+async function runScrape(){
+  const url=val('pUrl');
+  if(!url){setAlert('scrapeAlert','er','Enter a product URL first.');return}
+  try{new URL(url);}catch{setAlert('scrapeAlert','er','That does not look like a valid URL.');return}
+  const type=val('pType');
+  const btn=document.getElementById('scrapeBtn');
+  btn.disabled=true;btn.textContent='Scraping…';
+  setAlert('scrapeAlert','inf','Scraping the product page…');
   document.getElementById('destUrl').value=url;
-  const pType=document.getElementById('pType').value;
-  const brand=document.getElementById('pBrand').value||'';
-  const price=document.getElementById('pPrice').value||'';
+  try{
+    const scraped=await scrapeProduct(url,type);
+    state.product=scraped;
+    document.getElementById('pName').value=scraped.name||'';
+    document.getElementById('pBrand').value=scraped.brand||'';
+    document.getElementById('pPrice').value=scraped.price||'';
+    document.getElementById('pSizes').value=scraped.sizes||'';
+    document.getElementById('pSpecs').value=scraped.specs||'';
+    document.getElementById('findings').style.display='block';
+    setAlert('scrapeAlert','ok',`Found: ${esc(scraped.name||'product')}${scraped.brand?' by '+esc(scraped.brand):''}. Running research…`);
+    document.getElementById('researchSection').style.display='block';
+    document.getElementById('tabs').style.display='flex';
+    // images from scrape if available, else extract
+    if(scraped.images&&scraped.images.length){state.allImages=scraped.images;renderImages(scraped.images);}
+    else fetchImages(url);
+    // stage 2 research + customer reviews (parallel)
+    runResearch(url,type);
+    goStage('write');
+  }catch(e){
+    setAlert('scrapeAlert','er','Scrape failed: '+e.message+' — you can still fill the fields in manually below.');
+    document.getElementById('findings').style.display='block';
+    document.getElementById('researchSection').style.display='block';
+    document.getElementById('tabs').style.display='flex';
+  }
+  btn.disabled=false;btn.textContent='Re-scrape →';
+}
+
+async function scrapeProduct(url,type){
+  // 1) Try Shopify product JSON (CORS-friendly, real data)
+  try{
+    const base=url.split('?')[0].split('#')[0].replace(/\/$/,'');
+    const r=await fetch(base+'.json',{headers:{Accept:'application/json'}});
+    if(r.ok){
+      const d=await r.json();
+      if(d.product){
+        const p=d.product;
+        const sizeOpt=(p.options||[]).find(o=>/size|uk|us|eu/i.test(o.name));
+        return {
+          name:p.title||'',
+          brand:p.vendor||'',
+          price:(p.variants&&p.variants[0]&&p.variants[0].price)?String(p.variants[0].price):'',
+          sizes:sizeOpt?sizeOpt.values.join(', '):'',
+          specs:stripHtml(p.body_html).slice(0,600),
+          images:(p.images||[]).slice(0,12).map(im=>({url:im.src,type:'product',alt:p.title||'Product image'}))
+        };
+      }
+    }
+  }catch{}
+  // 2) Fall back to ai-proxy extraction from the URL/slug
+  const raw=await aiCall([{role:'user',content:`Extract product details for a women's ${type} review from this URL.\nURL: ${url}\nInfer brand and product name from the domain and slug, and your knowledge of the product if you recognise it.\nReturn ONLY this JSON (no prose): {"name":"","brand":"","price":"","sizes":"","specs":""}\nUse "" for anything you cannot determine. Never invent a price.`}],'Product data extractor for WSS. Return only valid JSON. Never fabricate prices or specs.',800);
+  const obj=JSON.parse(cleanJson(raw));
+  obj.images=[];
+  return obj;
+}
+
+// STAGE 2 — research
+async function runResearch(url,type){
+  const name=val('pName')||state.product.name||'this product';
+  const brand=val('pBrand')||state.product.brand||'';
+  const price=val('pPrice');
+  const specs=val('pSpecs');
   const resOut=document.getElementById('researchOut');
-  const prompt=pType==='apparel'
-    ?`Research this apparel product for WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\n1. Key claims and specs\n2. Target use case\n3. Size range — note labelling concerns\n4. Women-specific design claims — substantiated?\n5. WSS pillar pre-assessment (1,2,3,5,7)\n6. Red flags\n7. Price-to-value\nBe precise and sceptical. British English.`
-    :`Research this nutrition product for WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\n1. Product type and use\n2. Ingredients and nutritional values\n3. Macros vs activity\n4. Female physiology claims\n5. Additives\n6. Price per serving\n7. Value vs comparables\nBe precise and sceptical. British English.`;
-  const text=await aiStream([{role:'user',content:prompt}],'Senior WSS research analyst. British English. Never fabricate. Be sceptical.',resOut,document.getElementById('researchBtn'),'Re-research');
+  const prompt=type==='apparel'
+    ?`Pre-assess this women's apparel product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PILLAR PRE-ASSESSMENT (Pillars 1, 2, 3, 5, 7 — note likely scores and the evidence/gaps for each)\n2. RED FLAGS (sizing labelling, "pink it shrink it", unsubstantiated claims, support gaps)\n3. CUSTOMER SENTIMENT SUMMARY (what buyers commonly say; be honest about data limitations)\n4. PRICE-TO-VALUE (vs comparable women's products)\nBe precise and sceptical. Flag anything that needs independent verification. British English.`
+    :`Pre-assess this women's nutrition product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PRE-ASSESSMENT across Taste & Texture, Nutrition Profile, Performance, Value (likely scores + evidence/gaps)\n2. RED FLAGS (additives, unsubstantiated claims, female-physiology gaps)\n3. CUSTOMER SENTIMENT SUMMARY (be honest about data limitations)\n4. PRICE-TO-VALUE (price per serving vs comparables)\nBe precise and sceptical. British English.`;
+  const text=await aiStream([{role:'user',content:prompt}],'Senior WSS research analyst. British English. Never fabricate. Be sceptical and specific.',resOut,null,'',2000);
   state.researchText=text||'';
   fetchCustomerReviews(url,name,brand);
-  fetchImages(url);
-  document.getElementById('tabs').style.display='flex';
-  goStage('write');
-});
+}
 
-// Customer reviews
+// Customer reviews (folded into research context)
 async function fetchCustomerReviews(url,name,brand){
-  const el=document.getElementById('reviewsOut');
-  el.innerHTML='<div class="out empty">Searching for customer reviews…</div>';
   try{
     const u=new URL(url);
     const handle=u.pathname.split('/').filter(Boolean).pop();
     try{
       const r=await fetch(`https://judge.me/api/v1/reviews?shop_domain=${u.hostname}&handle=${handle}&per_page=20`);
-      if(r.ok){const d=await r.json();if(d.reviews&&d.reviews.length){state.customerReviews=d.reviews.slice(0,8).map(rv=>({rating:rv.rating,text:(rv.body||'').slice(0,250),author:rv.reviewer?.name||'Verified buyer',source:'Judge.me'}));renderReviews();return;}}
+      if(r.ok){const d=await r.json();if(d.reviews&&d.reviews.length){state.customerReviews=d.reviews.slice(0,8).map(rv=>({rating:rv.rating,text:(rv.body||'').slice(0,250),author:rv.reviewer?.name||'Verified buyer',source:'Judge.me'}));return;}}
     }catch{}
-    const text=await aiCall([{role:'user',content:`Find and summarise customer reviews of ${brand} ${name}. URL: ${url}\n1. Overall sentiment\n2. 5 most useful reviews with rating and key finding\n3. Common complaints\n4. Common praise\n5. Fit or performance issues relevant to WSS pillars\nBe honest about limitations. British English.`}],'WSS research analyst. Summarise customer sentiment accurately. British English.');
+    const text=await aiCall([{role:'user',content:`Summarise customer sentiment for ${brand} ${name}. URL: ${url}\nOverall sentiment, common complaints, common praise, and any fit/performance issues relevant to WSS pillars. Be honest about limitations. British English.`}],'WSS research analyst. Summarise customer sentiment accurately. Never fabricate. British English.',900);
     state.customerReviews=[{text}];
-    el.innerHTML=`<div class="out">${esc(text)}</div>`;
-  }catch(e){el.innerHTML=`<div class="out empty">Could not retrieve reviews: ${esc(e.message)}</div>`;}
-}
-function renderReviews(){
-  const el=document.getElementById('reviewsOut');
-  if(!state.customerReviews.length){el.innerHTML='<div class="out empty">No reviews found.</div>';return}
-  if(!state.customerReviews[0].rating){el.innerHTML=`<div class="out">${esc(state.customerReviews[0].text)}</div>`;return}
-  el.innerHTML=state.customerReviews.map(r=>`<div class="rv"><div class="rstar">${'★'.repeat(r.rating||5)}${'☆'.repeat(5-(r.rating||5))}</div><div>${esc(r.text)}</div><div class="rauth">${esc(r.author)}${r.source?' · '+r.source:''}</div></div>`).join('');
+  }catch(e){state.customerReviews=[];}
 }
 
-// Images
+// STAGE 3 — Images
 async function fetchImages(url){
   const el=document.getElementById('imageGrid');
   el.innerHTML='<p style="font-size:12px;color:#aaa">Fetching images…</p>';
   try{
-    const result=await aiCall([{role:'user',content:`List significant product images from: ${url}\nReturn JSON array: [{url,type,alt}]. Include og:image and main product images. Exclude icons/logos/tiny UI.\nRaw JSON only.`}],'Image extraction. Return only valid JSON array.');
-    const imgs=JSON.parse(result.trim().replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim());
-    state.allImages=imgs;renderImages(imgs);
+    const r=await fetch(url);const html=await r.text();
+    const set=new Set();
+    [...html.matchAll(/og:image["']?\s*content=["']([^"']+)["']/gi)].forEach(m=>set.add(m[1]));
+    [...html.matchAll(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp)[^"']*)["']/gi)].forEach(m=>set.add(m[1]));
+    const found=[...set].filter(u=>!/icon|logo|sprite|favicon/i.test(u)).slice(0,12).map((u,i)=>({url:u.startsWith('//')?'https:'+u:u,type:i===0?'hero':'product',alt:'Product image'}));
+    if(found.length){state.allImages=found;renderImages(found);}
+    else el.innerHTML='<p style="font-size:12px;color:#aaa">No images found. You can proceed without images.</p>';
   }catch{
-    try{
-      const r=await fetch(url);const html=await r.text();
-      const matches=[...html.matchAll(/og:image.*?content=["']([^"']+)["']/gi)];
-      const found=matches.map(m=>({url:m[1],type:'hero',alt:'Product image'}));
-      state.allImages=found.slice(0,8);
-      if(found.length)renderImages(state.allImages);
-      else el.innerHTML='<p style="font-size:12px;color:#aaa">No images found. You can proceed without images.</p>';
-    }catch{el.innerHTML='<p style="font-size:12px;color:#aaa">Could not fetch images. Proceed without them.</p>';}
+    el.innerHTML='<p style="font-size:12px;color:#aaa">Could not fetch images (the site may block cross-origin requests). Proceed without them or add a hero image later.</p>';
   }
 }
+let imgGridBound=false;
 function renderImages(imgs){
   const el=document.getElementById('imageGrid');
   if(!imgs.length){el.innerHTML='<p style="font-size:12px;color:#aaa">No images found.</p>';return}
+  state.selectedImages=[];
   el.innerHTML=imgs.map((img,i)=>`<div class="icard" id="icard${i}" data-img="${i}"><img src="${esc(img.url)}" alt="${esc(img.alt||'')}" onerror="this.parentElement.style.display='none'"/><div class="itype">${esc(img.type||'product')}</div><div class="itick">✓</div></div>`).join('');
-  el.addEventListener('click',e=>{const c=e.target.closest('.icard');if(c)toggleImg(parseInt(c.dataset.img))});
-  const heroIdx=imgs.findIndex(i=>i.type==='hero');
-  if(imgs.length)toggleImg(heroIdx>=0?heroIdx:0);
+  if(!imgGridBound){el.addEventListener('click',e=>{const c=e.target.closest('.icard');if(c)toggleImg(parseInt(c.dataset.img))});imgGridBound=true;}
+  toggleImg(0);
 }
 function toggleImg(i){
   const c=document.getElementById('icard'+i);if(!c)return;
   const idx=state.selectedImages.indexOf(i);
   if(idx>=0){state.selectedImages.splice(idx,1);c.classList.remove('sel')}
   else{state.selectedImages.push(i);c.classList.add('sel')}
+  // first selected = featured
+  document.querySelectorAll('.icard').forEach(el=>el.classList.remove('feat'));
+  if(state.selectedImages.length){const f=document.getElementById('icard'+state.selectedImages[0]);if(f)f.classList.add('feat');}
 }
 
-// Avelon
+// STAGE 4 — Avelon (via avelon-proxy)
 async function loadRetailers(){
   if(!cfg.avEmail||!cfg.avPass)return;
   const el=document.getElementById('retailerList');
   el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">Loading…</div>';
   try{
-    const r=await fetch('https://app.avelonetwork.com/api/affiliate/retailers',{headers:{Authorization:avAuth(),'Content-Type':'application/json'}});
+    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'retailers',auth:avAuth()})});
     if(!r.ok)throw new Error('HTTP '+r.status);
     const data=await r.json();
     const list=Array.isArray(data)?data:(data.retailers||data.data||[]);
@@ -486,7 +573,7 @@ async function loadRetailers(){
     if(!list.length){el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">No approved retailers found.</div>';return}
     el.innerHTML=list.map((r,i)=>`<div class="retitem" id="ret${i}" data-idx="${i}"><div><div class="retn">${esc(r.name||r.retailerName||'Retailer '+i)}</div><div class="retd">ID: ${esc(String(r.pk||r.id||''))}</div></div><div class="retck"></div></div>`).join('');
     el.addEventListener('click',e=>{const item=e.target.closest('.retitem');if(item)selectRetailer(parseInt(item.dataset.idx))});
-  }catch(e){el.innerHTML=`<div style="padding:10px;font-size:12px;color:#c00">Could not load: ${esc(e.message)}</div>`;}
+  }catch(e){el.innerHTML=`<div style="padding:10px;font-size:12px;color:#c00">Could not load retailers: ${esc(e.message)}</div>`;}
 }
 function selectRetailer(i){
   document.querySelectorAll('.retitem').forEach(el=>el.classList.remove('sel'));
@@ -496,94 +583,139 @@ function selectRetailer(i){
 document.getElementById('affBtn').addEventListener('click',async()=>{
   if(!cfg.avEmail||!cfg.avPass){setAlert('affAlert','er','Connect Avelon in Settings first.');return}
   if(!state.selectedRetailer){setAlert('affAlert','er','Select a retailer first.');return}
-  const dest=document.getElementById('destUrl').value.trim();
-  if(!dest){setAlert('affAlert','er','Enter destination URL.');return}
+  const dest=val('destUrl');
+  if(!dest){setAlert('affAlert','er','Enter a destination URL.');return}
   setAlert('affAlert','','');
-  document.getElementById('affBtn').disabled=true;document.getElementById('affBtn').textContent='Generating…';
+  const btn=document.getElementById('affBtn');btn.disabled=true;btn.textContent='Generating…';
   try{
     const pk=state.selectedRetailer.pk||state.selectedRetailer.id;
-    const r=await fetch('https://app.avelonetwork.com/api/affiliate/link/create',{method:'POST',headers:{Authorization:avAuth(),'Content-Type':'application/json'},body:JSON.stringify({destinationUrl:dest,retailerPk:pk})});
+    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'create',auth:avAuth(),payload:{destinationUrl:dest,retailerPk:pk}})});
     if(!r.ok)throw new Error('HTTP '+r.status);
     const data=await r.json();
-    const link=data.url||data.link||data.affiliateUrl||`https://${pk}.avln.me/c/${data.linkPk||data.pk||data.id}`;
+    const link=data.url||data.link||data.affiliateUrl||(data.linkPk||data.pk||data.id?`https://${pk}.avln.me/c/${data.linkPk||data.pk||data.id}`:'');
+    if(!link)throw new Error('No link returned by Avelon.');
     state.affLink=link;
     document.getElementById('affLink').value=link;
     document.getElementById('affResult').style.display='block';
     setAlert('affAlert','ok','Affiliate link generated.');
   }catch(e){setAlert('affAlert','er','Could not generate: '+e.message);}
-  document.getElementById('affBtn').disabled=false;document.getElementById('affBtn').textContent='Generate link';
+  btn.disabled=false;btn.textContent='Generate link';
 });
 document.getElementById('affCopyBtn').addEventListener('click',()=>{
   const v=document.getElementById('affLink').value;
   if(v)navigator.clipboard.writeText(v).then(()=>setAlert('affAlert','ok','Copied.'));
 });
 
-// Write
+// STAGE 5 — Write
 document.getElementById('writeBtn').addEventListener('click',()=>runWrite());
 document.getElementById('writeRegenBtn').addEventListener('click',()=>runWrite(document.getElementById('writeFBText').value));
-document.getElementById('writeApproveBtn').addEventListener('click',()=>approve('write'));
+document.getElementById('writeApproveBtn').addEventListener('click',()=>{harvestReview();approve('write');});
 async function runWrite(fb){
-  const name=document.getElementById('pName').value||'this product';
-  const brand=document.getElementById('pBrand').value||'';
-  const price=document.getElementById('pPrice').value||'';
-  const pType=document.getElementById('pType').value;
+  const name=val('pName')||'this product';
+  const brand=val('pBrand')||'';
+  const price=val('pPrice');
+  const sizes=val('pSizes');
+  const specs=val('pSpecs');
+  const pType=val('pType');
   const affLink=state.affLink||'[AFFILIATE_LINK]';
-  const testerNotes=(document.getElementById('testerNotes').value||'').trim();
+  const testerNotes=val('testerNotes');
+  const category=pType==='nutrition'?'Nutrition':catLabel(guessCategory());
+  const keyword=`${brand} ${name} Review — Women's ${category}`.replace(/\s+/g,' ').trim();
+  document.getElementById('writeKw').style.display='block';
+  document.getElementById('writeKw').innerHTML=`🔑 Target keyword: <strong>${esc(keyword)}</strong>`;
   document.getElementById('writeTypeInfo').innerHTML=pType==='apparel'
-    ?'<div class="al inf">Apparel — 5 WSS™ pillars (1,2,3,5,7).</div>'
+    ?'<div class="al inf">Apparel — 5 WSS™ pillars (1,2,3,5,7). Hard rules: Pillar 3 fail caps at 2★; no verifiable data caps at 3★.</div>'
     :'<div class="al inf">Nutrition — 4 criteria: Taste 25%, Nutrition 30%, Performance 30%, Value 15%.</div>';
   let reviewContext='';
   if(state.customerReviews.length){
     if(state.customerReviews[0].rating!==undefined)reviewContext='\n\nCUSTOMER REVIEWS:\n'+state.customerReviews.slice(0,5).map(r=>`${r.rating}★: ${r.text}`).join('\n');
     else reviewContext='\n\nCUSTOMER SENTIMENT:\n'+state.customerReviews[0].text;
   }
-  const testerSection=testerNotes?`\n\nTESTER DATA:\n${testerNotes}`:'\n\nTESTER DATA: Not supplied. Flag findings requiring tester evidence as "Not independently verified."';
-  const note=fb?`\n\nHolly's feedback: ${fb}\nAddress this directly.`:'';
-  const prompt=`Write a WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nType: ${pType}\nAffiliate: ${affLink}\n\nResearch:\n${state.researchText||'See product URL.'}${testerSection}${reviewContext}${note}\n\nApply framework exactly. Include all headings, all scores, overall rating, 50-80 word verdict. Replace [AFFILIATE_LINK] with: ${affLink}\nBritish English.`;
-  const text=await aiStream([{role:'user',content:prompt}],`Senior WSS reviewer. Never fabricate. Specific failure modes. British English.\n\n${pType==='apparel'?WSS_APPAREL:WSS_NUTRITION}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate');
+  const testerSection=testerNotes?`\n\nTESTER DATA (use only this; never invent more):\n${testerNotes}`:'\n\nTESTER DATA: Not supplied. Flag any finding that requires tester evidence as "Not independently verified."';
+  const tone=TONES[Math.floor(Math.random()*TONES.length)];
+  const note=fb?`\n\nHOLLY'S FEEDBACK: ${fb}\nAddress this directly in the rewrite.`:'';
+  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nAffiliate link: ${affLink}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${testerSection}${reviewContext}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Replace [AFFILIATE_LINK] with: ${affLink}\n${tone}\nBritish English throughout.`;
+  const text=await aiStream([{role:'user',content:prompt}],`Senior WSS reviewer. Never fabricate tester data. Specific failure modes, never vague praise. British English.\n\n${pType==='apparel'?WSS_APPAREL:WSS_NUTRITION}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
   if(text){
     state.reviewText=text;
     document.getElementById('writeEdit').value=text;
     document.getElementById('writeEditWrap').style.display='block';
     document.getElementById('writeFB').style.display='block';
+    harvestReview();
   }
 }
+function harvestReview(){
+  const review=getReview();
+  state.faq=parseFaq(review);
+  state.metaDescription=makeMeta(review);
+}
 
-// GitHub push
+// Review parsing helpers
+function sectionText(md,name){
+  const re=new RegExp('^##\\s*'+name.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&')+'.*$','im');
+  const m=md.match(re);if(!m)return'';
+  const start=m.index+m[0].length;
+  const rest=md.slice(start);
+  const next=rest.search(/\n##\s/);
+  return(next>=0?rest.slice(0,next):rest).trim();
+}
+function makeMeta(review){
+  let v=sectionText(review,'The Verdict')||sectionText(review,'Verdict')||extractExcerpt(review);
+  v=v.replace(/\s+/g,' ').trim();
+  if(v.length>150)v=v.slice(0,147).replace(/[\s,;:.]+\S*$/,'')+'…';
+  return v;
+}
+function parseFaq(review){
+  const sec=sectionText(review,'FAQ');if(!sec)return[];
+  const parts=sec.split(/\n?###\s+/).slice(1);
+  return parts.map(p=>{const lines=p.split('\n');const q=lines[0].trim();const a=lines.slice(1).join(' ').replace(/\s+/g,' ').trim();return{q,a};}).filter(x=>x.q&&x.a).slice(0,5);
+}
+function extractExcerpt(review){
+  const lines=review.split('\n').filter(l=>l.trim()&&!l.startsWith('#'));
+  return(lines[0]||'').slice(0,155).replace(/"/g,"'");
+}
+
+// STAGE 6 — GitHub push
 document.getElementById('pushBtn').addEventListener('click',async()=>{
   if(!cfg.ghToken){setAlert('pushAlert','er','Add your GitHub Personal Access Token in Settings first.');return}
   const review=getReview();
-  if(!review){setAlert('pushAlert','er','Write and approve the review first.');return}
-  const name=document.getElementById('pName').value||'Product Review';
-  const brand=document.getElementById('pBrand').value||'';
-  const price=document.getElementById('pPrice').value||'';
-  const pType=document.getElementById('pType').value;
+  if(!review){setAlert('pushAlert','er','Write the review first.');return}
+  harvestReview();
+  const name=val('pName')||'Product Review';
+  const brand=val('pBrand')||'';
+  const price=val('pPrice');
+  const sizes=val('pSizes');
+  const pType=val('pType');
   const affLink=state.affLink||'';
   const slug=slugify(`${brand}-${name}`);
   const category=pType==='nutrition'?'nutrition':guessCategory();
   setAlert('pushAlert','inf','Pushing to GitHub…');
-  document.getElementById('pushBtn').disabled=true;document.getElementById('pushBtn').textContent='Pushing…';
+  const btn=document.getElementById('pushBtn');btn.disabled=true;btn.textContent='Pushing…';
   try{
     const overallMatch=review.match(/Overall:\s*([\d.]+)\s*\/\s*5/i);
     const overall=overallMatch?overallMatch[1]:'4.0';
     const pillarScores=extractPillarScores(review,pType);
     const today=new Date().toISOString().split('T')[0];
-    const heroImg=state.selectedImages.length?state.allImages[state.selectedImages[0]]?.url||'':'';
+    const heroImg=state.selectedImages.length?(state.allImages[state.selectedImages[0]]?.url||''):'';
     const excerpt=extractExcerpt(review);
-    const frontmatter=`---\ntitle: "${name}"\nbrand: "${brand}"\ncategory: "${category}"\ndate: "${today}"\nprice: "${price}"\nproduct_type: "${pType}"\nexcerpt: "${excerpt}"\nhero_image: "${heroImg}"\noverall_score: ${overall}\naffiliate_link: "${affLink}"\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n---\n\n${review}`;
+    const meta=state.metaDescription||excerpt.slice(0,150);
+    const faqYaml=state.faq.length?'faq:\n'+state.faq.map(f=>`  - q: ${yaml(f.q)}\n    a: ${yaml(f.a)}`).join('\n')+'\n':'';
+    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${review}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
-    const content=btoa(unescape(encodeURIComponent(frontmatter)));
+    const content=b64(frontmatter);
     let sha='';
-    try{const check=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'}});if(check.ok){const d=await check.json();sha=d.sha;}}catch{}
-    const body={message:`Add review: ${brand} ${name}`,content,branch:cfg.ghBranch};
-    if(sha)body.sha=sha;
-    const res=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+    try{const check=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}?ref=${cfg.ghBranch}`,{headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'}});if(check.ok){const d=await check.json();sha=d.sha;}}catch{}
+    const reqBody={message:`Add review: ${brand} ${name}`,content,branch:cfg.ghBranch};
+    if(sha)reqBody.sha=sha;
+    const res=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(reqBody)});
     if(!res.ok){const err=await res.json().catch(()=>({}));throw new Error(err.message||'HTTP '+res.status);}
+    const result=await res.json();
+    const commitUrl=result.commit?.html_url||`https://github.com/${cfg.ghUser}/${cfg.ghRepo}/blob/${cfg.ghBranch}/${path}`;
     setAlert('pushAlert','','');
     document.getElementById('pushResult').style.display='block';
     document.getElementById('pushBadge').textContent=`✓ Pushed — ${path}`;
     document.getElementById('pushBadge').className='gh-status ok';
-    document.getElementById('pushLinks').innerHTML=`<a class="deploy-link" href="https://github.com/${cfg.ghUser}/${cfg.ghRepo}/blob/${cfg.ghBranch}/${path}" target="_blank">View on GitHub →</a><a class="deploy-link pink" href="https://app.netlify.com/sites/wss-reviews/deploys" target="_blank">Watch Netlify deploy →</a>`;
+    document.getElementById('pushLinks').innerHTML=`<a class="deploy-link" href="${commitUrl}" target="_blank">View commit on GitHub →</a><a class="deploy-link pink" href="https://app.netlify.com/sites/wss-review-site-tool/deploys" target="_blank">Watch Netlify deploy →</a><a class="deploy-link" style="background:#4CAF50" href="https://wss-review-site-tool.netlify.app/reviews/${category}/${slug}/" target="_blank">Live URL (after deploy) →</a>`;
     markDone('push');
   }catch(e){
     setAlert('pushAlert','er','GitHub push failed: '+e.message);
@@ -591,77 +723,77 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     document.getElementById('pushBadge').className='gh-status er';
     document.getElementById('pushResult').style.display='block';
   }
-  document.getElementById('pushBtn').disabled=false;document.getElementById('pushBtn').textContent='Re-push to GitHub';
+  btn.disabled=false;btn.textContent='Re-push to GitHub';
 });
 
+function yaml(s){return '"'+String(s==null?'':s).replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\n/g,' ').trim()+'"';}
+function b64(str){return btoa(unescape(encodeURIComponent(str)));}
+function catLabel(c){return({run:'Run',swim:'Swim',cycle:'Cycle',tri:'Tri','sports-bras':'Sports Bras',nutrition:'Nutrition'})[c]||'Apparel';}
 function guessCategory(){
-  const n=(document.getElementById('pName').value||'').toLowerCase();
+  const n=(val('pName')+' '+val('pSpecs')).toLowerCase();
   if(/bra|bras/.test(n))return'sports-bras';
-  if(/swim|goggle|wetsuit/.test(n))return'swim';
-  if(/cycle|cycling|bike|jersey/.test(n))return'cycle';
+  if(/swim|goggle|wetsuit|costume/.test(n))return'swim';
+  if(/cycle|cycling|bike|jersey|bib/.test(n))return'cycle';
   if(/tri|trisuit|triathlon/.test(n))return'tri';
   return'run';
-}
-function extractExcerpt(review){
-  const lines=review.split('\n').filter(l=>l.trim()&&!l.startsWith('#'));
-  return(lines[0]||'').slice(0,155).replace(/"/g,"'")+'\u2026';
 }
 function extractPillarScores(review,pType){
   const scores={};
   if(pType==='apparel'){
-    [['p1','Pillar 1'],['p2','Pillar 2'],['p3','Pillar 3'],['p5','Pillar 5'],['p7','Pillar 7']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
+    [['p1','Pillar 1'],['p2','Pillar 2'],['p3','Pillar 3'],['p5','Pillar 5'],['p7','Pillar 7']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:\\n]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
   }else{
-    [['taste','Taste'],['nutrition','Nutrition Profile'],['performance','Performance'],['value','Value']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
+    [['taste','Taste'],['nutrition','Nutrition Profile'],['performance','Performance'],['value','Value']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:\\n]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
   }
   return scores;
 }
 
-// Reel
+// STAGE 7 — Reel
 document.getElementById('reelBtn').addEventListener('click',()=>runReel());
 document.getElementById('reelRegenBtn').addEventListener('click',()=>runReel(document.getElementById('reelFBText').value));
 document.getElementById('reelApproveBtn').addEventListener('click',()=>approve('reel'));
 async function runReel(fb){
-  const name=document.getElementById('pName').value||'product';
-  const brand=document.getElementById('pBrand').value||'';
+  const name=val('pName')||'product';
+  const brand=val('pBrand')||'';
   const note=fb?`\n\nHolly's feedback: ${fb}`:'';
-  const text=await aiStream([{role:'user',content:`60-second Instagram Reel script.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],REEL_SYS,document.getElementById('reelOut'),document.getElementById('reelBtn'),'Regenerate');
+  const text=await aiStream([{role:'user',content:`60-second Instagram Reel script.\nProduct: ${name} by ${brand}\nReview:\n${getReview()}${note}`}],REEL_SYS,document.getElementById('reelOut'),document.getElementById('reelBtn'),'Regenerate',1200);
   if(text)document.getElementById('reelFB').style.display='block';
 }
 
-// Emails
+// STAGE 8 — Emails
 document.getElementById('emailsBtn').addEventListener('click',()=>runEmails());
 document.getElementById('emailsRegenBtn').addEventListener('click',()=>runEmails(document.getElementById('emailsFBText').value));
 document.getElementById('emailsApproveBtn').addEventListener('click',()=>approve('emails'));
 async function runEmails(fb){
-  const name=document.getElementById('pName').value||'product';
-  const brand=document.getElementById('pBrand').value||'';
+  const name=val('pName')||'product';
+  const brand=val('pBrand')||'';
   const note=fb?`\n\nHolly's feedback: ${fb}`:'';
   if(busy)return;busy=true;
   const btn=document.getElementById('emailsBtn');btn.disabled=true;btn.textContent='Writing…';
   document.getElementById('emailsOut').innerHTML='<div class="out"><span class="cursor"></span></div>';
   try{
-    const raw=await aiCall([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS);
-    state.emails=JSON.parse(raw.trim().replace(/^```json\n?/,'').replace(/\n?```$/,'').trim());
+    const raw=await aiCall([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS,3000);
+    state.emails=JSON.parse(cleanJson(raw));
     renderEmails();document.getElementById('emailsFB').style.display='block';
   }catch(e){document.getElementById('emailsOut').innerHTML=`<div class="out">Error: ${esc(e.message)} — try regenerating.</div>`;}
   busy=false;btn.disabled=false;btn.textContent='Regenerate';
 }
+let emailsBound=false;
 function renderEmails(){
   const labels=['Email 1 — Review Drop','Email 2 — Buy Nudge (day 4)','Email 3 — Social Proof (day 7)'];
-  document.getElementById('emailsOut').innerHTML=state.emails.map((e,i)=>`<div class="ec"><div class="eh" data-toggle="${i}"><div class="eht">${labels[i]}</div><div id="ech${i}">▼</div></div><div id="ecb${i}" class="eb" style="${i>0?'display:none':''}"><div class="ef"><div class="efl">Subject</div><input id="es${i}" value="${esc(e.subject||'')}"/></div><div class="ef"><div class="efl">Preview text</div><input id="ep${i}" value="${esc(e.preview_text||'')}"/></div><div class="ef"><div class="efl">Body HTML</div><textarea id="eb${i}" rows="6" style="font-family:monospace;font-size:12px">${esc(e.body_html||'')}</textarea></div></div></div>`).join('');
-  document.getElementById('emailsOut').addEventListener('click',e=>{const h=e.target.closest('[data-toggle]');if(h){const i=h.dataset.toggle;const b=document.getElementById('ecb'+i);const c=document.getElementById('ech'+i);b.style.display=b.style.display==='none'?'block':'none';c.textContent=b.style.display==='none'?'▼':'▲';}});
+  document.getElementById('emailsOut').innerHTML=state.emails.map((e,i)=>`<div class="ec"><div class="eh" data-toggle="${i}"><div class="eht">${labels[i]||'Email '+(i+1)}</div><div id="ech${i}">▼</div></div><div id="ecb${i}" class="eb" style="${i>0?'display:none':''}"><div class="ef"><div class="efl">Subject</div><input id="es${i}" value="${esc(e.subject||'')}"/></div><div class="ef"><div class="efl">Preview text</div><input id="ep${i}" value="${esc(e.preview_text||'')}"/></div><div class="ef"><div class="efl">Body HTML</div><textarea id="eb${i}" rows="6" style="font-family:monospace;font-size:12px">${esc(e.body_html||'')}</textarea></div></div></div>`).join('');
+  if(!emailsBound){document.getElementById('emailsOut').addEventListener('click',e=>{const h=e.target.closest('[data-toggle]');if(h){const i=h.dataset.toggle;const b=document.getElementById('ecb'+i);const c=document.getElementById('ech'+i);b.style.display=b.style.display==='none'?'block':'none';c.textContent=b.style.display==='none'?'▼':'▲';}});emailsBound=true;}
 }
 
-// Social
+// STAGE 9 — Social
 document.getElementById('socialBtn').addEventListener('click',()=>runSocial());
 document.getElementById('socialRegenBtn').addEventListener('click',()=>runSocial(document.getElementById('socialFBText').value));
 document.getElementById('socialApproveBtn').addEventListener('click',()=>approve('social'));
 async function runSocial(fb){
-  const name=document.getElementById('pName').value||'product';
-  const brand=document.getElementById('pBrand').value||'';
+  const name=val('pName')||'product';
+  const brand=val('pBrand')||'';
   const note=fb?`\n\nHolly's feedback: ${fb}`:'';
   const reel=document.getElementById('reelOut').innerText||'';
-  const text=await aiStream([{role:'user',content:`Instagram social copy.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}\nReel:\n${reel}${note}\n1. REEL CAPTION (150w max, hook first, 3 WSS findings, "link in bio", 5 hashtags)\n2. STORIES (3 slides: teaser / key stat / CTA)\n3. CAROUSEL (5 slide titles + one-line caption each)`}],'WSS social writer. Expert, direct, sassy. British English. No pink-it-and-shrink-it.',document.getElementById('socialOut'),document.getElementById('socialBtn'),'Regenerate');
+  const text=await aiStream([{role:'user',content:`Instagram social copy for ${name} by ${brand}.\nReview:\n${getReview()}\nReel:\n${reel}${note}\n\nProduce, clearly labelled:\n1. REEL CAPTION (150 words max, hook first, 3 WSS findings, "link in bio", exactly 5 hashtags)\n2. STORIES SEQUENCE (3 slides: teaser / key stat / CTA)\n3. CAROUSEL (5 slide titles, each with a one-line caption)`}],'WSS social writer. Expert, direct, a little sassy. British English. No "pink it and shrink it".',document.getElementById('socialOut'),document.getElementById('socialBtn'),'Regenerate',2000);
   if(text)document.getElementById('socialFB').style.display='block';
 }
 
@@ -676,16 +808,18 @@ function markDone(s){done.add(s);document.querySelectorAll('.tab').forEach(t=>{i
 function approve(s){markDone(s);const next=STAGES[STAGES.indexOf(s)+1];if(next)goStage(next);}
 document.getElementById('tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t&&t.dataset.s)goStage(t.dataset.s)});
 
+// STAGE 10 — Holly approves
 function buildChecklist(){
-  const items=[['write','700w review (WSS™ pillars)'],['push','Pushed to GitHub (Netlify auto-deploys)'],['reel','60s Reel script'],['emails','3-email series'],['social','Instagram caption + Stories + carousel']];
+  const items=[['write','Full WSS™ review (pillars, scores, FAQ, meta)'],['push','Pushed to GitHub (Netlify auto-deploys)'],['reel','60s Reel script'],['emails','3-email series'],['social','Instagram caption + Stories + carousel']];
   document.getElementById('checklist').innerHTML=items.map(([id,label])=>{const ok=done.has(id);return`<div class="ci"><div class="ck ${ok?'yes':''}">${ok?'✓':''}</div><span class="cl ${ok?'yes':''}">${label}</span>${!ok?`<button class="cr" data-goto="${id}">Review</button>`:''}</div>`;}).join('');
-  document.getElementById('checklist').addEventListener('click',e=>{const b=e.target.closest('[data-goto]');if(b)goStage(b.dataset.goto)});
+  if(!checklistBound){document.getElementById('checklist').addEventListener('click',e=>{const b=e.target.closest('[data-goto]');if(b)goStage(b.dataset.goto)});checklistBound=true;}
   if(state.emails.length){
-    const name=document.getElementById('pName').value||'product';
+    const name=val('pName')||'product';
     document.getElementById('mlCode').textContent=`Push these 3 approved emails to MailerLite as draft campaigns for "${name}":\nEmail 1: ${document.getElementById('es0')?.value||state.emails[0]?.subject||''}\nEmail 2: ${document.getElementById('es1')?.value||state.emails[1]?.subject||''}\nEmail 3: ${document.getElementById('es2')?.value||state.emails[2]?.subject||''}\nSender: holly@womenssportsstore.com / WomensSportsStore.com`;
     document.getElementById('mlPrompt').style.display='block';
   }
 }
+let checklistBound=false;
 </script>
 </body>
 </html>

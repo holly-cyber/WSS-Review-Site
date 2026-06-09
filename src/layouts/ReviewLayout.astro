@@ -1,23 +1,8 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseLayout from './BaseLayout.astro';
 
-const reviews = import.meta.glob('./*/*.md', { eager: true });
-
-export async function getStaticPaths() {
-  const reviews = import.meta.glob('./*/*.md', { eager: true });
-  return Object.entries(reviews).map(([path, mod]: [string, any]) => {
-    const parts = path.split('/');
-    const filename = parts[parts.length - 1].replace('.md', '');
-    const category = parts[parts.length - 2];
-    return {
-      params: { slug: `${category}/${filename}` },
-      props: { mod, category, slug: filename }
-    };
-  });
-}
-
-const { mod, category, slug } = Astro.props;
-const { Content, frontmatter: fm } = mod;
+const { frontmatter: fm } = Astro.props;
+const category = fm.category || 'run';
 
 function renderStars(score: number) {
   const full = Math.floor(score);
@@ -39,18 +24,47 @@ const criteriaLabels: Record<string, string> = {
   value: 'Value (15%)',
 };
 
-const schemaReview = JSON.stringify({
-  "@context": "https://schema.org",
+const reviewNode = {
   "@type": "Review",
-  "name": fm.title,
+  "name": `${fm.brand} ${fm.title} Review`.trim(),
   "reviewBody": fm.excerpt,
   "reviewRating": { "@type": "Rating", "ratingValue": fm.overall_score, "bestRating": "5", "worstRating": "1" },
   "author": { "@type": "Organization", "name": "Women's Sports Store" },
-  "itemReviewed": { "@type": "Product", "name": fm.title, "brand": { "@type": "Brand", "name": fm.brand } }
+  "datePublished": fm.date,
+};
+
+const schemaReview = JSON.stringify({
+  "@context": "https://schema.org",
+  ...reviewNode,
+  "itemReviewed": { "@type": "Product", "name": fm.title, "brand": { "@type": "Brand", "name": fm.brand } },
 });
+
+const schemaProduct = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": fm.title,
+  "brand": { "@type": "Brand", "name": fm.brand },
+  ...(fm.hero_image ? { "image": fm.hero_image } : {}),
+  "review": reviewNode,
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": fm.overall_score, "bestRating": "5", "worstRating": "1", "reviewCount": 1 },
+  ...(fm.price ? { "offers": { "@type": "Offer", "price": String(fm.price).replace(/[^\d.]/g, ''), "priceCurrency": "GBP", "availability": "https://schema.org/InStock", ...(fm.affiliate_link ? { "url": fm.affiliate_link } : {}) } } : {}),
+});
+
+const faqItems = Array.isArray(fm.faq) ? fm.faq.filter((f: any) => f && f.q && f.a) : [];
+const schemaFaq = faqItems.length ? JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((f: any) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+}) : null;
 ---
-<BaseLayout title={`${fm.title} Review`} description={fm.excerpt} ogImage={fm.hero_image}>
+<BaseLayout title={`${fm.title} Review`} description={fm.meta_description || fm.excerpt} ogImage={fm.hero_image}>
   <script type="application/ld+json" set:html={schemaReview} />
+  <script type="application/ld+json" set:html={schemaProduct} />
+  {schemaFaq && <script type="application/ld+json" set:html={schemaFaq} />}
 
   <div class="review-hero" style={fm.hero_image ? `background-image:url(${fm.hero_image})` : ''}>
     <div class="container">
@@ -99,7 +113,7 @@ const schemaReview = JSON.stringify({
         {fm.date && <div class="fact"><span>Reviewed</span><span>{new Date(fm.date).toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span></div>}
       </div>
     </aside>
-    <article class="review-content"><Content /></article>
+    <article class="review-content"><slot /></article>
   </div>
 </BaseLayout>
 
@@ -140,6 +154,8 @@ const schemaReview = JSON.stringify({
 .review-content :global(h3){font-size:1.1rem;color:var(--navy);margin:1.5rem 0 .625rem}
 .review-content :global(p){margin-bottom:1rem;color:var(--text-secondary)}
 .review-content :global(strong){color:var(--text-primary)}
+.review-content :global(ul),.review-content :global(ol){margin:0 0 1rem 1.25rem;color:var(--text-secondary)}
+.review-content :global(li){margin-bottom:.375rem}
 .review-content :global(img){border-radius:var(--radius-md);margin:1.5rem 0;width:100%}
 .review-content :global(blockquote){border-left:3px solid var(--pink);padding:.75rem 1.25rem;background:var(--light-pink);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:1.25rem 0;font-style:italic;color:var(--text-secondary)}
 @media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}

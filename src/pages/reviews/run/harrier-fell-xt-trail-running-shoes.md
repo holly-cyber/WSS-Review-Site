@@ -1,4 +1,5 @@
 ---
+layout: "../../../layouts/ReviewLayout.astro"
 title: "Harrier Fell XT Trail Running Shoes"
 brand: "Harrier Trail Running"
 category: "run"
