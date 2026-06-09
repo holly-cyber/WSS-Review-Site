@@ -273,11 +273,12 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="ht"><strong>Avelon credentials:</strong> your Avelon publisher login. Calls are routed through a Netlify function (avelon-proxy) to avoid CORS.</div>
     <div class="mof"><label>Avelon email</label><input id="avEmail" placeholder="your@email.com"/></div>
     <div class="mof"><label>Avelon password</label><input type="password" id="avPass" placeholder="password"/></div>
-    <div style="display:flex;gap:8px;margin-top:4px">
+    <div style="display:flex;gap:8px;margin-top:4px;align-items:center">
       <button class="bp" id="saveSettingsBtn">Save settings</button>
       <button class="bg" id="cancelSettingsBtn">Cancel</button>
+      <button class="bg" id="forgetSettingsBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Forget saved login</button>
     </div>
-    <div class="mnote">Credentials stored in this browser session only. Sent directly to GitHub, and to Avelon via the site's own Netlify function — never to any third party.</div>
+    <div class="mnote">Saved in this browser (on this device) so you stay logged in between refreshes — use "Forget saved login" to wipe them. Sent directly to GitHub, and to Avelon via the site's own Netlify function — never to any third party.</div>
   </div>
 </div>
 
@@ -363,7 +364,12 @@ Email 3 Social Proof (day 7): community framing, softer sell.
 HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text in #000036. CTA button style: background:#FF5E84;color:#ffffff;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
 Raw JSON only. No markdown, no commentary.`;
 
-let cfg={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:''};
+const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:''};
+const CFG_KEY='wss_pipeline_cfg_v1';
+let cfg={...CFG_DEFAULTS};
+function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
+function loadCfg(){try{const s=localStorage.getItem(CFG_KEY);if(s)Object.assign(cfg,JSON.parse(s));}catch{}}
+function reflectConnected(){const btn=document.getElementById('settingsBtn');const on=cfg.ghToken||cfg.avEmail;btn.classList.toggle('on',!!on);btn.textContent='⚙ '+(cfg.ghToken&&cfg.avEmail?'All connected':cfg.ghToken?'GitHub connected':cfg.avEmail?'Avelon connected':'Settings');}
 let state={product:{name:'',brand:'',price:'',sizes:'',specs:''},researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[],metaDescription:'',faq:[]};
 let done=new Set();
 let busy=false;
@@ -388,12 +394,19 @@ document.getElementById('settingsOv').addEventListener('click',e=>{if(e.target==
 document.getElementById('saveSettingsBtn').addEventListener('click',()=>{
   ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)cfg[k]=el.value.trim()});
   if(!cfg.ghBranch)cfg.ghBranch='main';
-  const btn=document.getElementById('settingsBtn');
-  const on=cfg.ghToken||cfg.avEmail;
-  btn.classList.toggle('on',!!on);
-  btn.textContent='⚙ '+(cfg.ghToken&&cfg.avEmail?'All connected':cfg.ghToken?'GitHub connected':cfg.avEmail?'Avelon connected':'Settings');
+  saveCfg();
+  reflectConnected();
   document.getElementById('settingsOv').classList.remove('show');
   if(cfg.avEmail&&cfg.avPass)loadRetailers();
+});
+document.getElementById('forgetSettingsBtn').addEventListener('click',()=>{
+  try{localStorage.removeItem(CFG_KEY);}catch{}
+  cfg={...CFG_DEFAULTS};
+  ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)el.value=cfg[k]||''});
+  reflectConnected();
+  document.getElementById('retailerList').innerHTML='<div class="out empty" style="margin:0;border:none;background:none">Connect Avelon in Settings to load retailers…</div>';
+  state.selectedRetailer=null;state.retailers=[];
+  setAlert('affAlert','inf','Saved login cleared from this browser.');
 });
 
 // AI helpers
@@ -847,6 +860,11 @@ function buildChecklist(){
   }
 }
 let checklistBound=false;
+
+// Restore saved login so credentials persist across refreshes.
+loadCfg();
+reflectConnected();
+if(cfg.avEmail&&cfg.avPass)loadRetailers();
 </script>
 </body>
 </html>
