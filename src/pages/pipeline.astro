@@ -1128,13 +1128,17 @@ async function loadArticles(){
   list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">Loading articles…</div>';
   setAlert('manageAlert','','');
   try{
-    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/git/trees/${cfg.ghBranch}?recursive=1`,{headers:ghHeaders()});
+    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/git/trees/${cfg.ghBranch}?recursive=1&_=${Date.now()}`,{headers:{...ghHeaders(),'Cache-Control':'no-cache'}});
     if(!r.ok)throw new Error('HTTP '+r.status+(r.status===404?' — check repo/branch in Settings':''));
     const d=await r.json();
     manageFiles=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/reviews\/.+\.md$/.test(t.path)).sort((a,b)=>a.path.localeCompare(b.path));
-    if(!manageFiles.length){list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">No review articles found.</div>';return}
-    list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}</div><div class="retd">${esc(cat)}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
+    renderManageList();
   }catch(e){list.innerHTML=`<div style="padding:10px;color:#c00;font-size:13px">Could not load: ${esc(e.message)}</div>`;}
+}
+function renderManageList(){
+  const list=document.getElementById('manageList');
+  if(!manageFiles.length){list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">No review articles found.</div>';return}
+  list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}</div><div class="retd">${esc(cat)}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
 }
 document.getElementById('manageList').addEventListener('click',e=>{
   const ed=e.target.closest('[data-edit]'),dl=e.target.closest('[data-del]');
@@ -1180,8 +1184,9 @@ async function deleteArticle(f,fromEditor){
     const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}`,{method:'DELETE',headers:{...ghHeaders(),'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error((e.message||'HTTP '+r.status)+(r.status===403?' — the token needs write access to this repo':''));}
     setAlert('manageAlert','ok','Deleted ✓ It will disappear from the site on the next deploy.');
+    manageFiles=manageFiles.filter(x=>x.path!==f.path);
+    renderManageList();
     if(fromEditor)showManageList();
-    loadArticles();
   }catch(e){setAlert('manageAlert','er','Delete failed: '+e.message);}
 }
 
