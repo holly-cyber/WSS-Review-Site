@@ -131,7 +131,10 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <div class="sub">Scrape → Research → Affiliate → Write → Push → Reel → Emails → Social</div>
     </div>
   </div>
-  <button class="bset" id="settingsBtn">⚙ Settings</button>
+  <div style="display:flex;gap:8px">
+    <button class="bset" id="manageBtn">📄 Manage</button>
+    <button class="bset" id="settingsBtn">⚙ Settings</button>
+  </div>
 </div>
 
 <div class="card pk">
@@ -298,6 +301,26 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <button class="bg" id="forgetSettingsBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Forget saved login</button>
     </div>
     <div class="mnote">Saved in this browser (on this device) so you stay logged in between refreshes — use "Forget saved login" to wipe them. Sent directly to GitHub, and to Avelon via the site's own Netlify function — never to any third party.</div>
+  </div>
+</div>
+
+<div class="ov" id="manageOv">
+  <div class="mo" style="max-width:700px">
+    <div class="moh"><div class="mot">Manage articles</div><button class="mox" id="manageCloseBtn">×</button></div>
+    <div id="manageAlert"></div>
+    <div id="manageList">
+      <div style="padding:10px;color:#aaa;font-size:13px">Loading…</div>
+    </div>
+    <div id="manageEditor" style="display:none">
+      <div style="margin-bottom:8px;font-size:12px;color:#777">Editing: <strong id="meName"></strong></div>
+      <textarea id="meContent" rows="20" style="font-family:monospace;font-size:12px"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <button class="bp" id="meSaveBtn">Save changes</button>
+        <button class="bg" id="meBackBtn">← Back to list</button>
+        <button class="bg" id="meDeleteBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Delete article</button>
+      </div>
+    </div>
+    <div class="mnote">Edits and deletes commit straight to GitHub; the site redeploys automatically within ~60 seconds.</div>
   </div>
 </div>
 
@@ -1084,6 +1107,79 @@ let checklistBound=false;
 
 document.getElementById('addImgBtn').addEventListener('click',addManualImage);
 document.getElementById('manualImgUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addManualImage();}});
+
+// Manage articles (edit / delete) via the GitHub API
+function ghHeaders(){return{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'};}
+function b64decode(b){const clean=(b||'').replace(/\n/g,'');try{return decodeURIComponent(escape(atob(clean)));}catch{return atob(clean);}}
+let manageFiles=[],editingPath='',editingSha='';
+document.getElementById('manageBtn').addEventListener('click',openManage);
+document.getElementById('manageCloseBtn').addEventListener('click',()=>document.getElementById('manageOv').classList.remove('show'));
+document.getElementById('manageOv').addEventListener('click',e=>{if(e.target===document.getElementById('manageOv'))document.getElementById('manageOv').classList.remove('show')});
+document.getElementById('meBackBtn').addEventListener('click',showManageList);
+async function openManage(){
+  if(!cfg.ghToken){setAlert('manageAlert','er','Add your GitHub token in Settings first.');document.getElementById('manageOv').classList.add('show');return}
+  document.getElementById('manageOv').classList.add('show');
+  showManageList();
+  loadArticles();
+}
+function showManageList(){document.getElementById('manageEditor').style.display='none';document.getElementById('manageList').style.display='block';}
+async function loadArticles(){
+  const list=document.getElementById('manageList');
+  list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">Loading articles…</div>';
+  setAlert('manageAlert','','');
+  try{
+    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/git/trees/${cfg.ghBranch}?recursive=1`,{headers:ghHeaders()});
+    if(!r.ok)throw new Error('HTTP '+r.status+(r.status===404?' — check repo/branch in Settings':''));
+    const d=await r.json();
+    manageFiles=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/reviews\/.+\.md$/.test(t.path)).sort((a,b)=>a.path.localeCompare(b.path));
+    if(!manageFiles.length){list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">No review articles found.</div>';return}
+    list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}</div><div class="retd">${esc(cat)}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
+  }catch(e){list.innerHTML=`<div style="padding:10px;color:#c00;font-size:13px">Could not load: ${esc(e.message)}</div>`;}
+}
+document.getElementById('manageList').addEventListener('click',e=>{
+  const ed=e.target.closest('[data-edit]'),dl=e.target.closest('[data-del]');
+  if(ed)editArticle(manageFiles[parseInt(ed.dataset.edit)]);
+  else if(dl)deleteArticle(manageFiles[parseInt(dl.dataset.del)],false);
+});
+async function editArticle(f){
+  setAlert('manageAlert','inf','Loading '+f.path+'…');
+  try{
+    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}?ref=${cfg.ghBranch}`,{headers:ghHeaders()});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    editingPath=f.path;editingSha=d.sha;
+    document.getElementById('meContent').value=b64decode(d.content);
+    document.getElementById('meName').textContent=f.path;
+    document.getElementById('manageList').style.display='none';
+    document.getElementById('manageEditor').style.display='block';
+    setAlert('manageAlert','','');
+  }catch(e){setAlert('manageAlert','er','Could not load: '+e.message);}
+}
+document.getElementById('meSaveBtn').addEventListener('click',async()=>{
+  const btn=document.getElementById('meSaveBtn');btn.disabled=true;btn.textContent='Saving…';
+  setAlert('manageAlert','inf','Saving…');
+  try{
+    const body={message:`Edit review: ${editingPath}`,content:b64(document.getElementById('meContent').value),branch:cfg.ghBranch,sha:editingSha};
+    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${editingPath}`,{method:'PUT',headers:{...ghHeaders(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'HTTP '+r.status);}
+    const d=await r.json();editingSha=d.content.sha;
+    setAlert('manageAlert','ok','Saved ✓ Netlify will redeploy within ~60s.');
+  }catch(e){setAlert('manageAlert','er','Save failed: '+e.message);}
+  btn.disabled=false;btn.textContent='Save changes';
+});
+document.getElementById('meDeleteBtn').addEventListener('click',()=>deleteArticle({path:editingPath,sha:editingSha},true));
+async function deleteArticle(f,fromEditor){
+  if(!confirm('Delete this article permanently?\n\n'+f.path+'\n\nIt will be removed from the site on the next deploy.'))return;
+  setAlert('manageAlert','inf','Deleting…');
+  try{
+    const body={message:`Delete review: ${f.path}`,sha:f.sha,branch:cfg.ghBranch};
+    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}`,{method:'DELETE',headers:{...ghHeaders(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'HTTP '+r.status);}
+    setAlert('manageAlert','ok','Deleted ✓ It will disappear from the site on the next deploy.');
+    if(fromEditor)showManageList();
+    loadArticles();
+  }catch(e){setAlert('manageAlert','er','Delete failed: '+e.message);}
+}
 
 // Restore saved login so credentials persist across refreshes.
 loadCfg();
