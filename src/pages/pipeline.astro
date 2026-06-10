@@ -859,11 +859,21 @@ function mdAlt(s){return(s||'Product image').replace(/[\[\]\r\n]/g,' ').replace(
 // trailing spaces and any horizontal-rule separators (headings divide sections).
 function tidyMd(md){return(md||'').replace(/\r/g,'').replace(/[ \t]+\n/g,'\n').replace(/^\s*[-*_]{3,}\s*$/gm,'').replace(/\n{3,}/g,'\n\n').replace(/[ \t]+$/gm,'').trim()+'\n';}
 function reviewHeading(brand,name){brand=(brand||'').trim();name=(name||'').trim();let t=name;if(brand&&!name.toLowerCase().startsWith(brand.toLowerCase()))t=(brand+' '+name);t=t.replace(/\s+/g,' ').trim();return(t||'Product')+' Review';}
-// Link the first bold product/brand mention out to the affiliate/shopify URL (extra SEO link-out).
+// Link the first product/brand mention out to the affiliate/product URL (SEO link-out).
 function linkifyFirstBold(md,name,brand,url){
   if(!url)return md;
-  const cands=[`**${name}**`,`**${brand} ${name}**`,`**${brand}**`].filter(c=>c&&c!=='****');
-  for(const c of cands){const i=md.indexOf(c);if(i>=0&&md.indexOf('](')!==i-1)return md.slice(0,i)+`[${c}](${url})`+md.slice(i+c.length);}
+  name=(name||'').trim();brand=(brand||'').trim();
+  const targets=[`**${name}**`,`**${brand} ${name}**`,`**${brand}**`,name,brand?`${brand} ${name}`:'',brand]
+    .filter(t=>t&&t.replace(/\*/g,'').length>2);
+  const lines=md.split('\n');
+  for(let li=0;li<lines.length;li++){
+    const line=lines[li];
+    if(/^\s*#/.test(line)||/^\s*\|/.test(line)||/!\[/.test(line)||/<\w/.test(line)||/\]\(/.test(line))continue; // skip headings, tables, images, raw HTML, existing links
+    for(const t of targets){
+      const i=line.indexOf(t);
+      if(i>=0){lines[li]=line.slice(0,i)+`[${t}](${url})`+line.slice(i+t.length);return lines.join('\n');}
+    }
+  }
   return md;
 }
 function insertReviewerBio(md,reviewer){
@@ -996,11 +1006,13 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     let reviewBody=tidyMd(buildReviewBody(review,val('reviewerName'),selImgs,`${brand} ${name}`));
     // Task 1: first heading becomes the product name + "Review"
     reviewBody=reviewBody.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
-    // Task 2: extra in-content link-out to the affiliate/shopify URL
-    const productUrl=state.affLink||val('destUrl')||val('pUrl')||'';
+    // Product page URL (brand/Shopify page) — always captured for buy buttons + SEO link-outs.
+    const productPage=val('destUrl')||val('pUrl')||'';
+    // In-content link-out prefers the affiliate link, falls back to the product page.
+    const productUrl=affLink||productPage;
     reviewBody=linkifyFirstBold(reviewBody,name,brand,productUrl);
     const reviewerBio=val('reviewerBio'),reviewerAvatar=val('reviewerAvatar');
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
+    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
