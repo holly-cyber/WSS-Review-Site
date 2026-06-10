@@ -157,9 +157,10 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .fact span:first-child{color:var(--text-muted)}
 .fact span:last-child{font-weight:600;color:var(--navy);text-align:right;max-width:55%}
 .review-content{font-size:1rem;line-height:1.75}
-.review-content :global(h2){font-size:1.4rem;color:var(--navy);margin:2rem 0 .875rem;padding-bottom:.5rem;border-bottom:2px solid var(--pink)}
-.review-content :global(h3){font-size:1.1rem;color:var(--navy);margin:1.5rem 0 .625rem}
-.review-content :global(p){margin-bottom:1rem;color:var(--text-secondary)}
+.review-content :global(h2){font-size:1.4rem;color:var(--navy);margin:1.6rem 0 .6rem;padding-bottom:.4rem;border-bottom:2px solid var(--pink)}
+.review-content :global(h3){font-size:1.1rem;color:var(--navy);margin:1.1rem 0 .4rem}
+.review-content :global(p){margin:0 0 .85rem;color:var(--text-secondary)}
+.review-content :global(h2+p),.review-content :global(h3+p){margin-top:0}
 .review-content :global(strong){color:var(--text-primary)}
 .review-content :global(ul),.review-content :global(ol){margin:0 0 1rem 1.25rem;color:var(--text-secondary)}
 .review-content :global(li){margin-bottom:.375rem}
