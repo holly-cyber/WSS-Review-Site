@@ -1172,9 +1172,13 @@ async function deleteArticle(f,fromEditor){
   if(!confirm('Delete this article permanently?\n\n'+f.path+'\n\nIt will be removed from the site on the next deploy.'))return;
   setAlert('manageAlert','inf','Deleting…');
   try{
-    const body={message:`Delete review: ${f.path}`,sha:f.sha,branch:cfg.ghBranch};
+    // Re-fetch the file's current sha on this branch (robust against stale tree shas).
+    const g=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}?ref=${encodeURIComponent(cfg.ghBranch)}`,{headers:ghHeaders()});
+    if(!g.ok){const ge=await g.json().catch(()=>({}));throw new Error(`couldn't locate the file on branch "${cfg.ghBranch}" (HTTP ${g.status}${ge.message?': '+ge.message:''})`);}
+    const sha=(await g.json()).sha;
+    const body={message:`Delete review: ${f.path}`,sha,branch:cfg.ghBranch};
     const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}`,{method:'DELETE',headers:{...ghHeaders(),'Content-Type':'application/json'},body:JSON.stringify(body)});
-    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'HTTP '+r.status);}
+    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error((e.message||'HTTP '+r.status)+(r.status===403?' — the token needs write access to this repo':''));}
     setAlert('manageAlert','ok','Deleted ✓ It will disappear from the site on the next deploy.');
     if(fromEditor)showManageList();
     loadArticles();
