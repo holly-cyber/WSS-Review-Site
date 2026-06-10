@@ -1128,7 +1128,7 @@ async function loadArticles(){
   list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">Loading articles…</div>';
   setAlert('manageAlert','','');
   try{
-    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/git/trees/${cfg.ghBranch}?recursive=1&_=${Date.now()}`,{headers:{...ghHeaders(),'Cache-Control':'no-cache'}});
+    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/git/trees/${cfg.ghBranch}?recursive=1&_=${Date.now()}`,{headers:ghHeaders()});
     if(!r.ok)throw new Error('HTTP '+r.status+(r.status===404?' — check repo/branch in Settings':''));
     const d=await r.json();
     manageFiles=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/reviews\/.+\.md$/.test(t.path)).sort((a,b)=>a.path.localeCompare(b.path));
