@@ -44,6 +44,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <a href="/reviews/sports-bras/">Sports Bras</a>
         <a href="/reviews/nutrition/">Nutrition</a>
       </nav>
+      <form class="site-search" action="/search" method="get" role="search">
+        <input type="search" name="q" placeholder="Search reviews…" aria-label="Search reviews" />
+      </form>
       <a href="https://shop.womenssportsstore.com" class="btn btn-pink shop-btn" target="_blank">Shop →</a>
     </div>
   </header>
@@ -94,6 +97,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 .main-nav { display: flex; gap: 1.5rem; margin-left: auto; }
 .main-nav a { font-size: .875rem; font-weight: 500; color: var(--text-secondary); transition: color .15s; }
 .main-nav a:hover { color: var(--pink); }
+.site-search input { font-size: .8rem; padding: .45rem .9rem; border: 1px solid var(--border); border-radius: 999px; width: 160px; outline: none; background: var(--off-white); color: var(--text-primary); transition: width .2s, border-color .15s, background .15s; }
+.site-search input::placeholder { color: var(--text-muted); }
+.site-search input:focus { width: 200px; border-color: var(--pink); background: #fff; box-shadow: 0 0 0 3px rgba(255,94,132,.1); }
 .shop-btn { font-size: .8rem; padding: .5rem 1rem; white-space: nowrap; }
 .site-footer { background: var(--navy); color: rgba(255,255,255,.8); margin-top: 4rem; padding: 3rem 0 0; }
 .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; padding-bottom: 2rem; }
@@ -108,6 +114,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 .footer-bottom a { opacity: .75; text-decoration: underline; }
 @media (max-width: 900px) {
   .main-nav { display: none; }
+  .site-search { margin-left: auto; }
+  .site-search input { width: 130px; }
+  .site-search input:focus { width: 150px; }
   .footer-inner { grid-template-columns: 1fr; }
 }
 </style>
