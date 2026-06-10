@@ -414,8 +414,7 @@ Transparency & User Reviews: X/5
 [60–90 words. Warm and decisive — who should buy it and why.]
 ## FAQ
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
-## Buy
-[CTA with the affiliate link [AFFILIATE_LINK].]
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
 VOICE & STYLE — follow closely:
 - Write in the FIRST PERSON as the named reviewer ("I found", "I've used", "for me", "in my sessions"). Warm, enthusiastic and experience-led — a conversational review voice, never clinical testing language and never "the tester".
 - Talk directly to the reader.
@@ -454,8 +453,7 @@ Value (15%): X/5
 [60–90 words. Warm and decisive — who should buy it and why.]
 ## FAQ
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words.]
-## Buy
-[CTA with the affiliate link [AFFILIATE_LINK].]
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
 VOICE & STYLE — follow closely:
 - Write in the FIRST PERSON as the named reviewer ("I tasted", "I found", "for me", "mid-ride"). Warm, enthusiastic and experience-led — a conversational review voice, never clinical testing language and never "the tester".
 - Talk directly to the reader.
@@ -881,7 +879,7 @@ async function runWrite(fb){
   }
   const tone=TONES[Math.floor(Math.random()*TONES.length)];
   const note=fb?`\n\nHOLLY'S FEEDBACK: ${fb}\nAddress this directly in the rewrite.`:'';
-  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nAffiliate link: ${affLink}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${reviewerSection}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Write the whole review in the first person ("I"). Replace [AFFILIATE_LINK] with: ${affLink}\n${tone}\nBritish English throughout.`;
+  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${reviewerSection}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Write the whole review in the first person ("I"). End at the FAQ — do NOT write a Buy section or any link.\n${tone}\nBritish English throughout.`;
   const text=await aiStream([{role:'user',content:prompt}],`You are a WSS reviewer writing a warm, first-person, experience-led product review for active women. Lead with strengths, talk directly to the reader, avoid blunt criticism and anything you can't verify, and keep it grounded in real use. Never fabricate testing. British English.\n\n${pType==='apparel'?WSS_APPAREL:WSS_NUTRITION}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
   if(text){
     state.reviewText=text;
@@ -911,6 +909,8 @@ function mdAlt(s){return(s||'Product image').replace(/[\[\]\r\n]/g,' ').replace(
 // trailing spaces and any horizontal-rule separators (headings divide sections).
 function tidyMd(md){return(md||'').replace(/\r/g,'').replace(/[ \t]+\n/g,'\n').replace(/^\s*[-*_]{3,}\s*$/gm,'').replace(/\n{3,}/g,'\n\n').replace(/[ \t]+$/gm,'').trim()+'\n';}
 function reviewHeading(brand,name){brand=(brand||'').trim();name=(name||'').trim();let t=name;if(brand&&!name.toLowerCase().startsWith(brand.toLowerCase()))t=(brand+' '+name);t=t.replace(/\s+/g,' ').trim();return(t||'Product')+' Review';}
+// Drop any AI-written "Buy"/CTA section and stray [AFFILIATE_LINK] tokens — the page adds its own buy button.
+function stripBuy(md){return(md||'').replace(/\n#{2,3}[ \t]*(Buy|Where to Buy|Get It|Shop)\b[\s\S]*$/i,'\n').replace(/\[AFFILIATE_LINK\]/g,'').trim();}
 // Link the first product/brand mention out to the affiliate/product URL (SEO link-out).
 function linkifyFirstBold(md,name,brand,url){
   if(!url)return md;
@@ -1055,7 +1055,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     const excerpt=extractExcerpt(review);
     const meta=state.metaDescription||excerpt.slice(0,150);
     const faqYaml=state.faq.length?'faq:\n'+state.faq.map(f=>`  - q: ${yaml(f.q)}\n    a: ${yaml(f.a)}`).join('\n')+'\n':'';
-    let reviewBody=tidyMd(buildReviewBody(review,val('reviewerName'),selImgs,`${brand} ${name}`));
+    let reviewBody=tidyMd(buildReviewBody(stripBuy(review),val('reviewerName'),selImgs,`${brand} ${name}`));
     // Task 1: first heading becomes the product name + "Review"
     reviewBody=reviewBody.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
     // Product page URL (brand/Shopify page) — always captured for buy buttons + SEO link-outs.
@@ -1337,7 +1337,7 @@ function openPreview(){
   const name=val('pName')||'Product',brand=val('pBrand')||'',price=val('pPrice'),pType=val('pType');
   const category=val('pCategory')||(pType==='nutrition'?'nutrition':guessCategory());
   const selImgs=state.selectedImages.map(i=>state.allImages[i]).filter(Boolean);
-  let body=tidyMd(buildReviewBody(review,val('reviewerName'),selImgs,`${brand} ${name}`));
+  let body=tidyMd(buildReviewBody(stripBuy(review),val('reviewerName'),selImgs,`${brand} ${name}`));
   body=body.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
   const productPage=val('destUrl')||val('pUrl')||'',affLink=state.affLink||'';
   body=linkifyFirstBold(body,name,brand,affLink||productPage);
