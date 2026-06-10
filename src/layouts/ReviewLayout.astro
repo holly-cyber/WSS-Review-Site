@@ -116,7 +116,25 @@ const schemaFaq = faqItems.length ? JSON.stringify({
         {fm.date && <div class="fact"><span>Reviewed</span><span>{new Date(fm.date).toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span></div>}
       </div>
     </aside>
-    <article class="review-content"><slot /></article>
+    <article class="review-content">
+      <slot />
+      {(fm.affiliate_link || fm.shopify_link) && (
+        <div class="rv-cta">
+          {fm.affiliate_link && <a class="rv-buy" href={fm.affiliate_link} target="_blank" rel="nofollow sponsored">Buy now{fm.price ? ` — £${fm.price}` : ''} →</a>}
+          {fm.shopify_link && <a class="rv-buy alt" href={fm.shopify_link} target="_blank">Buy from WSS →</a>}
+        </div>
+      )}
+      {(fm.tested_by || fm.reviewer_bio) && (
+        <div class="rv-reviewer">
+          {fm.reviewer_avatar && <img class="rv-reviewer-img" src={fm.reviewer_avatar} alt={fm.tested_by || 'Reviewer'} loading="lazy" />}
+          <div class="rv-reviewer-body">
+            <div class="rv-reviewer-label">About the reviewer</div>
+            {fm.tested_by && <div class="rv-reviewer-name">{fm.tested_by}</div>}
+            {fm.reviewer_bio && <p class="rv-reviewer-bio">{fm.reviewer_bio}</p>}
+          </div>
+        </div>
+      )}
+    </article>
   </div>
 </BaseLayout>
 
@@ -157,7 +175,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .fact span:first-child{color:var(--text-muted)}
 .fact span:last-child{font-weight:600;color:var(--navy);text-align:right;max-width:55%}
 .review-content{font-size:1rem;line-height:1.75}
-.review-content :global(h2){font-size:1.4rem;color:var(--navy);margin:1.6rem 0 .6rem;padding-bottom:.4rem;border-bottom:2px solid var(--pink)}
+.review-content :global(h2){font-size:1.4rem;color:var(--navy);margin:1.7rem 0 .55rem}
 .review-content :global(h3){font-size:1.1rem;color:var(--navy);margin:1.1rem 0 .4rem}
 .review-content :global(p){margin:0 0 .85rem;color:var(--text-secondary)}
 .review-content :global(h2+p),.review-content :global(h3+p){margin-top:0}
@@ -178,5 +196,15 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-content :global(tbody tr:nth-child(odd)){background:var(--off-white)}
 .review-content :global(tbody tr:first-child){background:var(--light-pink)}
 .review-content :global(tbody tr:first-child td){font-weight:600;color:var(--text-primary)}
+.rv-cta{display:flex;gap:.75rem;flex-wrap:wrap;margin:2rem 0 1.5rem}
+.rv-buy{display:inline-flex;align-items:center;justify-content:center;background:var(--pink);color:#fff;font-weight:700;padding:.85rem 1.6rem;border-radius:8px;font-size:1rem;text-decoration:none;transition:background .15s}
+.rv-buy:hover{background:#e04470}
+.rv-buy.alt{background:var(--navy)}
+.rv-buy.alt:hover{background:#000060}
+.rv-reviewer{display:flex;gap:1rem;align-items:center;background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem;margin:1.5rem 0 .5rem}
+.rv-reviewer-img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--pink)}
+.rv-reviewer-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.2rem}
+.rv-reviewer-name{font-weight:700;color:var(--navy)}
+.rv-reviewer-bio{font-size:.9rem;color:var(--text-secondary);margin:.35rem 0 0;line-height:1.55}
 @media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}
 </style>

@@ -209,6 +209,10 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div id="writeTypeInfo" style="margin-bottom:8px"></div>
     <div id="writeKw" class="kw" style="display:none"></div>
     <div style="margin-bottom:10px"><label>Reviewer (shown as "Tested by"; the review is written in their first-person voice)</label><input id="reviewerName" placeholder="e.g. Holly Woodford, WSS co-founder and endurance athlete"/></div>
+    <div class="row" style="margin-bottom:10px">
+      <div style="flex:2"><label>Reviewer bio (shown in the "About the reviewer" card at the foot of the review)</label><textarea id="reviewerBio" rows="2" placeholder="e.g. Holly is a WSS co-founder and sub-3 marathoner who has tested kit across 12 marathons and countless trail miles."></textarea></div>
+      <div style="flex:1"><label>Reviewer photo URL</label><input id="reviewerAvatar" placeholder="https://…/holly.jpg"/></div>
+    </div>
     <div style="margin-bottom:10px">
       <label>Pre-set scores (optional) — leave blank to let WSS™ decide; any you set are used exactly</label>
       <div id="scoreInputs" class="g4"></div>
@@ -347,7 +351,7 @@ Genuine Female Design: X/5
 Transparency & User Reviews: X/5
 **Overall: X.X / 5 ★**
 ## Pros & Cons
-[Two short, benefit-focused lists: what I loved, then a few honest watch-outs (kept light, never harsh).]
+[Two short, benefit-focused lists: what I loved, then a few gentle watch-outs (kept light).]
 ## Who It's For / Who It's Not For
 ## Size & Fit
 ## How It Compares
@@ -363,8 +367,9 @@ VOICE & STYLE — follow closely:
 - Talk directly to the reader.
 - Bold the product name, key features and important terms. Use the occasional italic for emphasis, the odd short sentence fragment for impact, colons to introduce lists or explanations, parentheses for clarifying details, and quotation marks around coined terms.
 - Describe benefits in simple, evaluative terms (e.g. "true to size", "supportive", "stays put", "premium").
-- Lead with what works. Score honestly and apply the hard rules, but frame everything constructively — avoid blunt criticism, and don't dwell on anything you can't verify (note missing data neutrally as "not independently verified", not as a failing).
+- Lead with what works. Score fairly and apply the hard rules, but frame everything constructively — avoid blunt criticism, and don't dwell on anything you can't verify (note missing data neutrally as "not independently verified", not as a failing).
 - Never fabricate testing you didn't do. Keep claims grounded in real use and practical outcomes.
+- NEVER use the words "honest" or "honestly" anywhere in the review.
 - Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words overall. British English throughout.`;
 
 const WSS_NUTRITION=`WSS NUTRITION REVIEW FRAMEWORK v2.0 — 4 weighted criteria:
@@ -386,7 +391,7 @@ Performance (30%): X/5
 Value (15%): X/5
 **Overall: X.X / 5 ★**
 ## Pros & Cons
-[Two short, benefit-focused lists: what I loved, then a few honest watch-outs (kept light, never harsh).]
+[Two short, benefit-focused lists: what I loved, then a few gentle watch-outs (kept light).]
 ## Who It's For / Who It's Not For
 ## Taste & Usage
 ## How It Compares
@@ -402,8 +407,9 @@ VOICE & STYLE — follow closely:
 - Talk directly to the reader.
 - Bold the product name, key features and important terms. Use the occasional italic for emphasis, the odd short sentence fragment for impact, colons to introduce lists or explanations, parentheses for clarifying details, and quotation marks around coined terms.
 - Describe benefits in simple, evaluative terms (e.g. "easy on the stomach", "gut-friendly", "great mid-ride", "not too sweet").
-- Lead with what works. Score honestly, but frame everything constructively — avoid blunt criticism, and don't dwell on anything you can't verify (note missing data neutrally as "not independently verified", not as a failing).
+- Lead with what works. Score fairly, but frame everything constructively — avoid blunt criticism, and don't dwell on anything you can't verify (note missing data neutrally as "not independently verified", not as a failing).
 - Never fabricate testing you didn't do. Keep claims grounded in real use and practical outcomes.
+- NEVER use the words "honest" or "honestly" anywhere in the review.
 - Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words overall. British English throughout.`;
 
 const TONES=[
@@ -428,7 +434,7 @@ const SCORE_AREAS={
   nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']]
 };
 
-const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:''};
+const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:'',reviewerBio:'',reviewerAvatar:''};
 const CFG_KEY='wss_pipeline_cfg_v1';
 let cfg={...CFG_DEFAULTS};
 function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
@@ -621,8 +627,8 @@ async function runResearch(url,type){
   const specs=val('pSpecs');
   const resOut=document.getElementById('researchOut');
   const prompt=type==='apparel'
-    ?`Pre-assess this women's apparel product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PILLAR PRE-ASSESSMENT (Pillars 1, 2, 3, 5, 7 — note likely scores and the evidence/gaps for each)\n2. RED FLAGS (sizing labelling, "pink it shrink it", unsubstantiated claims, support gaps)\n3. CUSTOMER SENTIMENT SUMMARY (what buyers commonly say; be honest about data limitations)\n4. PRICE-TO-VALUE (vs comparable women's products)\nBe precise and sceptical. Flag anything that needs independent verification. British English.`
-    :`Pre-assess this women's nutrition product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PRE-ASSESSMENT across Taste & Texture, Nutrition Profile, Performance, Value (likely scores + evidence/gaps)\n2. RED FLAGS (additives, unsubstantiated claims, female-physiology gaps)\n3. CUSTOMER SENTIMENT SUMMARY (be honest about data limitations)\n4. PRICE-TO-VALUE (price per serving vs comparables)\nBe precise and sceptical. British English.`;
+    ?`Pre-assess this women's apparel product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PILLAR PRE-ASSESSMENT (Pillars 1, 2, 3, 5, 7 — note likely scores and the evidence/gaps for each)\n2. RED FLAGS (sizing labelling, "pink it shrink it", unsubstantiated claims, support gaps)\n3. CUSTOMER SENTIMENT SUMMARY (what buyers commonly say; be clear about data limitations)\n4. PRICE-TO-VALUE (vs comparable women's products)\nBe precise and sceptical. Flag anything that needs independent verification. British English.`
+    :`Pre-assess this women's nutrition product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PRE-ASSESSMENT across Taste & Texture, Nutrition Profile, Performance, Value (likely scores + evidence/gaps)\n2. RED FLAGS (additives, unsubstantiated claims, female-physiology gaps)\n3. CUSTOMER SENTIMENT SUMMARY (be clear about data limitations)\n4. PRICE-TO-VALUE (price per serving vs comparables)\nBe precise and sceptical. British English.`;
   const text=await aiStream([{role:'user',content:prompt}],'Senior WSS research analyst. British English. Never fabricate. Be sceptical and specific.',resOut,null,'',2000);
   state.researchText=text||'';
   fetchCustomerReviews(url,name,brand);
@@ -637,7 +643,7 @@ async function fetchCustomerReviews(url,name,brand){
       const r=await fetch(`https://judge.me/api/v1/reviews?shop_domain=${u.hostname}&handle=${handle}&per_page=20`);
       if(r.ok){const d=await r.json();if(d.reviews&&d.reviews.length){state.customerReviews=d.reviews.slice(0,8).map(rv=>({rating:rv.rating,text:(rv.body||'').slice(0,250),author:rv.reviewer?.name||'Verified buyer',source:'Judge.me'}));return;}}
     }catch{}
-    const text=await aiCall([{role:'user',content:`Summarise customer sentiment for ${brand} ${name}. URL: ${url}\nOverall sentiment, common complaints, common praise, and any fit/performance issues relevant to WSS pillars. Be honest about limitations. British English.`}],'WSS research analyst. Summarise customer sentiment accurately. Never fabricate. British English.',900);
+    const text=await aiCall([{role:'user',content:`Summarise customer sentiment for ${brand} ${name}. URL: ${url}\nOverall sentiment, common complaints, common praise, and any fit/performance issues relevant to WSS pillars. Be clear about limitations. British English.`}],'WSS research analyst. Summarise customer sentiment accurately. Never fabricate. British English.',900);
     state.customerReviews=[{text}];
   }catch(e){state.customerReviews=[];}
 }
@@ -805,7 +811,7 @@ async function runWrite(fb){
     else reviewContext='\n\nCUSTOMER SENTIMENT:\n'+state.customerReviews[0].text;
   }
   const reviewer=val('reviewerName');
-  cfg.reviewer=reviewer;saveCfg();
+  cfg.reviewer=reviewer;cfg.reviewerBio=val('reviewerBio');cfg.reviewerAvatar=val('reviewerAvatar');saveCfg();
   const reviewerSection=reviewer?`\n\nREVIEWER (author — write the whole review in this person's first-person voice as "I"): ${reviewer}`:'\n\nREVIEWER: a WSS tester (write in the first person as "I").';
   const testerSection=testerNotes?`\n\nMY TESTING NOTES (write these up in the first person as my own experience; use only this, never invent more):\n${testerNotes}`:'\n\nMY TESTING NOTES: Not supplied. Flag any finding that needs hands-on evidence as "Not independently verified."';
   const provided=getProvidedScores(pType);
@@ -846,6 +852,14 @@ function mdAlt(s){return(s||'Product image').replace(/[\[\]\r\n]/g,' ').replace(
 // Keep markdown clean: collapse runs of blank lines to a single break, drop
 // trailing spaces and any horizontal-rule separators (headings divide sections).
 function tidyMd(md){return(md||'').replace(/\r/g,'').replace(/[ \t]+\n/g,'\n').replace(/^\s*[-*_]{3,}\s*$/gm,'').replace(/\n{3,}/g,'\n\n').replace(/[ \t]+$/gm,'').trim()+'\n';}
+function reviewHeading(brand,name){brand=(brand||'').trim();name=(name||'').trim();let t=name;if(brand&&!name.toLowerCase().startsWith(brand.toLowerCase()))t=(brand+' '+name);t=t.replace(/\s+/g,' ').trim();return(t||'Product')+' Review';}
+// Link the first bold product/brand mention out to the affiliate/shopify URL (extra SEO link-out).
+function linkifyFirstBold(md,name,brand,url){
+  if(!url)return md;
+  const cands=[`**${name}**`,`**${brand} ${name}**`,`**${brand}**`].filter(c=>c&&c!=='****');
+  for(const c of cands){const i=md.indexOf(c);if(i>=0&&md.indexOf('](')!==i-1)return md.slice(0,i)+`[${c}](${url})`+md.slice(i+c.length);}
+  return md;
+}
 function insertReviewerBio(md,reviewer){
   reviewer=(reviewer||'').trim();
   if(!reviewer)return md;
@@ -973,8 +987,14 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     const excerpt=extractExcerpt(review);
     const meta=state.metaDescription||excerpt.slice(0,150);
     const faqYaml=state.faq.length?'faq:\n'+state.faq.map(f=>`  - q: ${yaml(f.q)}\n    a: ${yaml(f.a)}`).join('\n')+'\n':'';
-    const reviewBody=tidyMd(buildReviewBody(review,val('reviewerName'),selImgs,`${brand} ${name}`));
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
+    let reviewBody=tidyMd(buildReviewBody(review,val('reviewerName'),selImgs,`${brand} ${name}`));
+    // Task 1: first heading becomes the product name + "Review"
+    reviewBody=reviewBody.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
+    // Task 2: extra in-content link-out to the affiliate/shopify URL
+    const productUrl=state.affLink||val('destUrl')||val('pUrl')||'';
+    reviewBody=linkifyFirstBold(reviewBody,name,brand,productUrl);
+    const reviewerBio=val('reviewerBio'),reviewerAvatar=val('reviewerAvatar');
+    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
@@ -1211,7 +1231,7 @@ async function deleteArticle(f,fromEditor){
 // Restore saved login so credentials persist across refreshes.
 loadCfg();
 reflectConnected();
-{const rn=document.getElementById('reviewerName');if(rn)rn.value=cfg.reviewer||'';}
+{const rn=document.getElementById('reviewerName');if(rn)rn.value=cfg.reviewer||'';const rb=document.getElementById('reviewerBio');if(rb)rb.value=cfg.reviewerBio||'';const ra=document.getElementById('reviewerAvatar');if(ra)ra.value=cfg.reviewerAvatar||'';}
 if(cfg.avEmail&&cfg.avPass)loadRetailers();
 </script>
 </body>
