@@ -208,11 +208,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="sbar"><span class="sdesc">Writes the full WSS™ review — apparel (5 pillars + star scores, full SEO sections) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
     <div id="writeTypeInfo" style="margin-bottom:8px"></div>
     <div id="writeKw" class="kw" style="display:none"></div>
-    <div style="margin-bottom:10px"><label>Reviewer (shown as "Tested by"; the review is written in their first-person voice)</label><input id="reviewerName" placeholder="e.g. Holly Woodford, WSS co-founder and endurance athlete"/></div>
-    <div class="row" style="margin-bottom:10px">
-      <div style="flex:2"><label>Reviewer bio (shown in the "About the reviewer" card at the foot of the review)</label><textarea id="reviewerBio" rows="2" placeholder="e.g. Holly is a WSS co-founder and sub-3 marathoner who has tested kit across 12 marathons and countless trail miles."></textarea></div>
-      <div style="flex:1"><label>Reviewer photo URL</label><input id="reviewerAvatar" placeholder="https://…/holly.jpg"/></div>
-    </div>
+    <div class="al inf" style="margin-bottom:10px">Reviewer name, bio &amp; photo are set once in ⚙ Settings → Reviewer profile, then reused on every review.</div>
     <div style="margin-bottom:10px">
       <label>Pre-set scores (optional) — leave blank to let WSS™ decide; any you set are used exactly</label>
       <div id="scoreInputs" class="g4"></div>
@@ -299,6 +295,12 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="ht"><strong>Avelon credentials:</strong> your Avelon publisher login. Calls are routed through a Netlify function (avelon-proxy) to avoid CORS.</div>
     <div class="mof"><label>Avelon email</label><input id="avEmail" placeholder="your@email.com"/></div>
     <div class="mof"><label>Avelon password</label><input type="password" id="avPass" placeholder="password"/></div>
+    <hr class="div">
+    <div class="slbl" style="margin-bottom:8px"><div class="dot" style="background:#FF5E84">RV</div>Reviewer profile</div>
+    <div class="ht">Shown as the byline (with photo) at the top of each review and in the "About the reviewer" card at the foot. Reviews are written in this person's first-person voice.</div>
+    <div class="mof"><label>Reviewer name &amp; credentials</label><input id="reviewerName" placeholder="e.g. Holly Woodford, WSS co-founder and endurance athlete"/></div>
+    <div class="mof"><label>Reviewer bio</label><textarea id="reviewerBio" rows="3" placeholder="e.g. Holly is a WSS co-founder and sub-3 marathoner who has tested kit across 12 marathons and countless trail miles."></textarea></div>
+    <div class="mof"><label>Reviewer photo URL</label><input id="reviewerAvatar" placeholder="https://…/holly.jpg"/></div>
     <div style="display:flex;gap:8px;margin-top:4px;align-items:center">
       <button class="bp" id="saveSettingsBtn">Save settings</button>
       <button class="bg" id="cancelSettingsBtn">Cancel</button>
@@ -454,8 +456,10 @@ function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^`
 function stripHtml(h){const d=document.createElement('div');d.innerHTML=h||'';return(d.textContent||'').replace(/\s+/g,' ').trim()}
 
 // Settings
+function fillReviewerInputs(){const r=document.getElementById('reviewerName');if(r)r.value=cfg.reviewer||'';const b=document.getElementById('reviewerBio');if(b)b.value=cfg.reviewerBio||'';const a=document.getElementById('reviewerAvatar');if(a)a.value=cfg.reviewerAvatar||'';}
 document.getElementById('settingsBtn').addEventListener('click',()=>{
   ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)el.value=cfg[k]||''});
+  fillReviewerInputs();
   document.getElementById('settingsOv').classList.add('show');
 });
 document.getElementById('modalCloseBtn').addEventListener('click',()=>document.getElementById('settingsOv').classList.remove('show'));
@@ -463,6 +467,7 @@ document.getElementById('cancelSettingsBtn').addEventListener('click',()=>docume
 document.getElementById('settingsOv').addEventListener('click',e=>{if(e.target===document.getElementById('settingsOv'))document.getElementById('settingsOv').classList.remove('show')});
 document.getElementById('saveSettingsBtn').addEventListener('click',()=>{
   ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)cfg[k]=el.value.trim()});
+  cfg.reviewer=val('reviewerName');cfg.reviewerBio=val('reviewerBio');cfg.reviewerAvatar=val('reviewerAvatar');
   if(!cfg.ghBranch)cfg.ghBranch='main';
   saveCfg();
   reflectConnected();
@@ -473,6 +478,7 @@ document.getElementById('forgetSettingsBtn').addEventListener('click',()=>{
   try{localStorage.removeItem(CFG_KEY);}catch{}
   cfg={...CFG_DEFAULTS};
   ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)el.value=cfg[k]||''});
+  fillReviewerInputs();
   reflectConnected();
   document.getElementById('retailerList').innerHTML='<div class="out empty" style="margin:0;border:none;background:none">Connect Avelon in Settings to load retailers…</div>';
   state.selectedRetailer=null;state.retailers=[];
@@ -921,7 +927,7 @@ function buildReviewBody(review,reviewer,imgs,name){
   imgs=(imgs||[]).slice(0,4);
   const alt=mdAlt(name);
   const imgMd=(im,i)=>im?`\n\n![${alt}${i?' — image '+(i+1):''}](${im.url})\n`:'';
-  let md=insertReviewerBio(review,reviewer);
+  let md=review;
   const am=md.match(/^##\s*WSS[^\n]*Assessment[^\n]*$/im);
   if(!am)return insertImages(md,imgs,name);
   const before=md.slice(0,am.index);
