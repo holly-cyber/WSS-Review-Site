@@ -4,6 +4,10 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter: fm } = Astro.props;
 const category = fm.category || 'run';
 
+// Buy button URL: affiliate link first (sponsored), else the product/Shopify page.
+const buyUrl = fm.affiliate_link || fm.product_url || fm.shopify_link || '';
+const buyRel = fm.affiliate_link ? 'nofollow sponsored' : 'noopener';
+
 function starHtml(score: number) {
   const pct = Math.max(0, Math.min(100, (Number(score) / 5) * 100));
   return `<span class="stars-wrap"><span class="stars-bg">★★★★★</span><span class="stars-fg" style="width:${pct}%">★★★★★</span></span>`;
@@ -111,8 +115,8 @@ const schemaFaq = faqItems.length ? JSON.stringify({
           ))}
         </div>
       </div>
-      {fm.affiliate_link && <a href={fm.affiliate_link} class="btn btn-pink buy-btn" target="_blank" rel="nofollow sponsored">Buy now — £{fm.price} →</a>}
-      {fm.shopify_link && <a href={fm.shopify_link} class="btn btn-navy buy-btn" target="_blank">Buy from WSS →</a>}
+      {buyUrl && <a href={buyUrl} class="btn btn-pink buy-btn" target="_blank" rel={buyRel}>Buy now{fm.price ? ` — £${fm.price}` : ''} →</a>}
+      {fm.shopify_link && fm.shopify_link !== buyUrl && <a href={fm.shopify_link} class="btn btn-navy buy-btn" target="_blank">Buy from WSS →</a>}
       <div class="quick-facts">
         <h4>Quick facts</h4>
         {fm.product_type && <div class="fact"><span>Type</span><span>{fm.product_type}</span></div>}
@@ -124,10 +128,10 @@ const schemaFaq = faqItems.length ? JSON.stringify({
     </aside>
     <article class="review-content">
       <slot />
-      {(fm.affiliate_link || fm.shopify_link) && (
+      {buyUrl && (
         <div class="rv-cta">
-          {fm.affiliate_link && <a class="rv-buy" href={fm.affiliate_link} target="_blank" rel="nofollow sponsored">Buy now{fm.price ? ` — £${fm.price}` : ''} →</a>}
-          {fm.shopify_link && <a class="rv-buy alt" href={fm.shopify_link} target="_blank">Buy from WSS →</a>}
+          <a class="rv-buy" href={buyUrl} target="_blank" rel={buyRel}>Buy now{fm.price ? ` — £${fm.price}` : ''} →</a>
+          {fm.shopify_link && fm.shopify_link !== buyUrl && <a class="rv-buy alt" href={fm.shopify_link} target="_blank">Buy from WSS →</a>}
         </div>
       )}
       {(fm.tested_by || fm.reviewer_bio) && (
