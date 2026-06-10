@@ -82,6 +82,12 @@ const schemaFaq = faqItems.length ? JSON.stringify({
         <span class="overall-num">{fm.overall_score}/5</span>
         <span class="wss-badge">WSS™ Reviewed</span>
       </div>
+      {fm.tested_by && (
+        <div class="hero-byline">
+          {fm.reviewer_avatar && <img class="hero-byline-img" src={fm.reviewer_avatar} alt={fm.tested_by} loading="lazy" />}
+          <span class="hero-byline-text">Reviewed by <strong>{fm.tested_by}</strong></span>
+        </div>
+      )}
     </div>
   </div>
 
@@ -153,6 +159,10 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 :global(.stars-fg){position:absolute;top:0;left:0;overflow:hidden;color:var(--pink);width:0}
 .review-hero :global(.stars-bg){color:rgba(255,255,255,.4)}
 .overall-num{font-size:1.25rem;font-weight:700;color:white}
+.hero-byline{display:flex;align-items:center;gap:.6rem;margin-top:1rem}
+.hero-byline-img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--pink);flex-shrink:0}
+.hero-byline-text{font-size:.85rem;color:rgba(255,255,255,.85)}
+.hero-byline-text strong{color:#fff}
 .review-layout{display:grid;grid-template-columns:300px 1fr;gap:2.5rem;padding-top:2.5rem;padding-bottom:3rem;align-items:start}
 .review-sidebar{position:sticky;top:80px}
 .score-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;box-shadow:var(--shadow-sm)}
