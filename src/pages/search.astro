@@ -85,7 +85,7 @@ const index = Object.entries(reviews)
 .search-box input { flex: 1; border: none; outline: none; font-size: 1rem; padding: .75rem .5rem; color: var(--text-primary); background: transparent; }
 .search-count { margin: 1rem 0 0; font-size: .8rem; opacity: .7; }
 .search-results-wrap { padding-top: 2rem; padding-bottom: 3rem; }
-.reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 1.5rem; }
 .search-item { display: contents; }
 .no-results { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); }
 .no-results-sub { font-size: .875rem; color: var(--text-muted); margin-top: .375rem; }

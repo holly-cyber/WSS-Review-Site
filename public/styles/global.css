@@ -20,7 +20,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
-body { font-family: var(--font); color: var(--text-primary); background: var(--white); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font); color: var(--text-primary); background: var(--white); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-wrap: break-word; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 h1,h2,h3,h4 { font-weight: 700; line-height: 1.2; color: var(--navy); }
@@ -41,3 +41,9 @@ h1,h2,h3,h4 { font-weight: 700; line-height: 1.2; color: var(--navy); }
 .pill-sports-bras { background: var(--light-pink); color: var(--pink); }
 .pill-nutrition { background: #e8f5e9; color: #388e3c; }
 @media (max-width: 768px) { .container { padding: 0 1rem; } }
+/* Gently tighten rem-based sizing (paddings, heroes, type) on phones. */
+@media (max-width: 600px) {
+  html { font-size: 15px; }
+  .btn { padding: .7rem 1.15rem; }
+}
+@media (max-width: 380px) { html { font-size: 14px; } }
