@@ -1,5 +1,6 @@
 ---
 export const prerender = true;
+import { taxonomy } from '../data/taxonomy.js';
 ---
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -209,9 +210,12 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <div><label>Size range</label><input id="pSizes" placeholder="—"/></div>
     </div>
     <div class="g4" style="margin-top:8px">
-      <div><label>Category</label><select id="pCategory"><option value="run">Run</option><option value="swim">Swim</option><option value="cycle">Cycle</option><option value="tri">Tri</option><option value="sports-bras">Sports Bras</option><option value="nutrition">Nutrition</option></select></div>
-      <div style="grid-column:span 3"><label>Key specs</label><textarea id="pSpecs" rows="2" placeholder="Key specifications found on the page…"></textarea></div>
+      <div><label>Category</label><select id="pCategory">{taxonomy.map((c)=>(<option value={c.slug}>{c.name}</option>))}</select></div>
+      <div><label>Subcategory</label><select id="pSubcategory"><option value="">— optional —</option></select></div>
+      <div><label>Sub-subcategory</label><select id="pSubsubcategory"><option value="">— optional —</option></select></div>
+      <div><label>&nbsp;</label><div style="font-size:11px;color:#aaa;line-height:1.3;padding-top:8px">Files the review into the menu taxonomy.</div></div>
     </div>
+    <div style="margin-top:8px"><label>Key specs</label><textarea id="pSpecs" rows="2" placeholder="Key specifications found on the page…"></textarea></div>
   </div>
 </div>
 
@@ -392,6 +396,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
   </div>
 </div>
 
+<script type="application/json" id="wss-taxonomy" set:html={JSON.stringify(taxonomy)}></script>
 <script>
 const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v2.0 — score 5 pillars ONLY (Pillars 4 and 6 are EXCLUDED):
 PILLAR 1 INCLUSIVE FIT & PROPORTIONAL SIZING: UK 16 must NOT be labelled XL. Size range should span UK 6-24+. Women's proportions, not scaled-down unisex.
@@ -758,6 +763,7 @@ async function runScrape(){
     document.getElementById('pSizes').value=scraped.sizes||'';
     document.getElementById('pSpecs').value=scraped.specs||'';
     document.getElementById('pCategory').value=type==='nutrition'?'nutrition':guessCategory();
+    populateSubcategory();
     document.getElementById('findings').style.display='block';
     setAlert('scrapeAlert','ok',`Found: ${esc(scraped.name||'product')}${scraped.brand?' by '+esc(scraped.brand):''}. Running research…`);
     document.getElementById('researchSection').style.display='block';
@@ -1230,7 +1236,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     reviewBody=linkifyFirstBold(reviewBody,name,brand,productUrl);
     reviewBody=tidyMd(polishBody(reviewBody));
     const reviewerBio=val('reviewerBio'),reviewerAvatar=val('reviewerAvatar');
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
+    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\nsubcategory: ${yaml(val('pSubcategory'))}\nsubsubcategory: ${yaml(val('pSubsubcategory'))}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
@@ -1530,6 +1536,25 @@ function openPreview(){
 document.getElementById('previewBtn').addEventListener('click',openPreview);
 document.getElementById('previewCloseBtn').addEventListener('click',()=>document.getElementById('previewOv').classList.remove('show'));
 document.getElementById('previewOv').addEventListener('click',e=>{if(e.target===document.getElementById('previewOv'))document.getElementById('previewOv').classList.remove('show')});
+
+// Taxonomy-driven subcategory / sub-subcategory selectors
+const TAXONOMY=(()=>{try{return JSON.parse(document.getElementById('wss-taxonomy').textContent||'[]');}catch{return[];}})();
+function taxoSlug(s){return String(s||'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+function populateSubcategory(){
+  const c=TAXONOMY.find(t=>t.slug===val('pCategory'));
+  const sel=document.getElementById('pSubcategory');if(!sel)return;
+  sel.innerHTML='<option value="">— optional —</option>'+(c?c.subs.map(s=>`<option value="${taxoSlug(s.name)}">${esc(s.name)}</option>`).join(''):'');
+  populateSubsub();
+}
+function populateSubsub(){
+  const c=TAXONOMY.find(t=>t.slug===val('pCategory'));
+  const s=c&&c.subs.find(x=>taxoSlug(x.name)===val('pSubcategory'));
+  const sel=document.getElementById('pSubsubcategory');if(!sel)return;
+  sel.innerHTML='<option value="">— optional —</option>'+(s?s.items.map(it=>`<option value="${taxoSlug(it)}">${esc(it)}</option>`).join(''):'');
+}
+document.getElementById('pCategory').addEventListener('change',populateSubcategory);
+document.getElementById('pSubcategory').addEventListener('change',populateSubsub);
+populateSubcategory();
 
 // Restore saved login so credentials persist across refreshes.
 loadCfg();
