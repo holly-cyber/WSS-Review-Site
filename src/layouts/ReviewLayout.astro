@@ -4,9 +4,16 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter: fm } = Astro.props;
 const category = fm.category || 'run';
 
-// Buy button URL: affiliate link first (sponsored), else the product/Shopify page.
-const buyUrl = fm.affiliate_link || fm.product_url || fm.shopify_link || '';
-const buyRel = fm.affiliate_link ? 'nofollow sponsored' : 'noopener';
+// Buy CTA buttons. Shopify = primary (nofollow); affiliate = secondary (nofollow sponsored).
+const shopLink = fm.shopify_link || '';
+const affLink = fm.affiliate_link || '';
+const prodLink = fm.product_url || '';
+const brandName = fm.brand || 'the brand';
+const priceLabel = fm.price ? ` — £${fm.price}` : '';
+const buyButtons: any[] = [];
+if (shopLink) buyButtons.push({ href: shopLink, rel: 'nofollow', text: `Buy from WSS store${priceLabel} →`, primary: true });
+if (affLink) buyButtons.push({ href: affLink, rel: 'nofollow sponsored', text: shopLink ? `Buy direct from ${brandName} →` : `Buy direct from ${brandName}${priceLabel} →`, primary: !shopLink });
+if (!buyButtons.length && prodLink) buyButtons.push({ href: prodLink, rel: 'nofollow', text: `Buy now${priceLabel} →`, primary: true });
 
 function starHtml(score: number) {
   const pct = Math.max(0, Math.min(100, (Number(score) / 5) * 100));
@@ -130,8 +137,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
           ))}
         </div>
       </div>
-      {buyUrl && <a href={buyUrl} class="btn btn-pink buy-btn" target="_blank" rel={buyRel}>Buy now{fm.price ? ` — £${fm.price}` : ''} →</a>}
-      {fm.shopify_link && fm.shopify_link !== buyUrl && <a href={fm.shopify_link} class="btn btn-navy buy-btn" target="_blank">Buy from WSS →</a>}
+      {buyButtons.map((b) => <a href={b.href} class={`btn ${b.primary ? 'btn-pink' : 'btn-navy'} buy-btn`} target="_blank" rel={b.rel}>{b.text}</a>)}
       <div class="quick-facts">
         <h4>Quick facts</h4>
         {fm.product_type && <div class="fact"><span>Type</span><span>{fm.product_type}</span></div>}
@@ -143,10 +149,9 @@ const schemaFaq = faqItems.length ? JSON.stringify({
     </aside>
     <article class="review-content">
       <slot />
-      {buyUrl && (
+      {buyButtons.length > 0 && (
         <div class="rv-cta">
-          <a class="rv-buy" href={buyUrl} target="_blank" rel={buyRel}>Buy now{fm.price ? ` — £${fm.price}` : ''} →</a>
-          {fm.shopify_link && fm.shopify_link !== buyUrl && <a class="rv-buy alt" href={fm.shopify_link} target="_blank">Buy from WSS →</a>}
+          {buyButtons.map((b) => <a class={`rv-buy${b.primary ? '' : ' alt'}`} href={b.href} target="_blank" rel={b.rel}>{b.text}</a>)}
         </div>
       )}
       {(fm.tested_by || fm.reviewer_bio) && (
@@ -245,6 +250,8 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-content :global(.pros-cons li){position:relative;padding-left:1.7rem;margin-bottom:.5rem;font-size:.9rem;line-height:1.5;color:var(--text-secondary)}
 .review-content :global(.pc-pros li::before){content:'✓';position:absolute;left:0;top:-1px;color:#2e9e5b;font-weight:800}
 .review-content :global(.pc-cons li::before){content:'✗';position:absolute;left:0;top:-1px;color:var(--pink);font-weight:800}
+.review-content :global(.pc-buy){margin:1rem 0 .25rem;font-weight:600;font-size:.95rem}
+.review-content :global(.pc-buy a){color:var(--pink);text-decoration:underline}
 @media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}
 @media(max-width:600px){.review-content :global(.pros-cons){grid-template-columns:1fr}}
 </style>
