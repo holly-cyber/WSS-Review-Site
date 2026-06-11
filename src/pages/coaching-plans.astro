@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Coaching Plans — Coming Soon" description="WSS™ coaching plans are coming soon — personalised, women-first training plans built around real female physiology.">
+  <section class="soon">
+    <div class="container soon-inner">
+      <div class="wss-badge">Coming Soon</div>
+      <h1>Coaching Plans</h1>
+      <p class="soon-lead">We're building personalised, women-first coaching plans — training built around real female physiology, not scaled-down men's programmes.</p>
+      <p class="soon-sub">We're putting them through the same rigour as every WSS™ review. Want to be first to know when they launch, and help shape them?</p>
+      <div class="soon-ctas">
+        <a class="btn btn-pink" href="https://womenssportsstore.com/coaching-plans-survey/" target="_blank" rel="noopener noreferrer">Register your interest →</a>
+        <a class="btn btn-ghost" href="/reviews/">Browse reviews</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.soon{background:var(--navy);color:#fff;padding:5rem 0;min-height:60vh;display:flex;align-items:center}
+.soon-inner{max-width:640px}
+.soon .wss-badge{margin-bottom:1.5rem}
+.soon h1{color:#fff;font-size:clamp(2.2rem,5vw,3.5rem);margin-bottom:1.25rem}
+.soon-lead{font-size:clamp(1.1rem,2vw,1.35rem);color:var(--pink);font-weight:600;line-height:1.5;margin-bottom:1rem}
+.soon-sub{font-size:1.05rem;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:2rem}
+.soon-ctas{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+</style>
