@@ -46,6 +46,9 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
   <meta property="og:type" content="website" />
   {ogImage && <meta property="og:image" content={ogImage} />}
   <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -57,10 +60,8 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
         <span></span><span></span><span></span>
       </button>
-      <a href="/reviews/" class="logo">
-        <span class="logo-wss">WSS</span>
-        <span class="logo-tm">™</span>
-        <span class="logo-text">Women's Sports Store</span>
+      <a href="/reviews/" class="logo" aria-label="Women's Sports Store — home">
+        <img src="/logo.svg" alt="Women's Sports Store" class="logo-img" width="48" height="48" />
       </a>
 
       <nav class="mega-nav" aria-label="Primary">
@@ -118,7 +119,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
   <div class="drawer-overlay" id="drawerOverlay" hidden></div>
   <aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
     <div class="drawer-head">
-      <a href="/reviews/" class="logo"><span class="logo-wss">WSS</span><span class="logo-tm">™</span><span class="logo-text">Women's Sports Store</span></a>
+      <a href="/reviews/" class="logo" aria-label="Women's Sports Store — home"><img src="/logo.svg" alt="Women's Sports Store" class="logo-img" width="44" height="44" /></a>
       <button class="drawer-close" aria-label="Close menu">✕</button>
     </div>
     <form class="drawer-search" action="/search" method="get" role="search">
@@ -251,10 +252,8 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
 <style>
 .site-header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
 .header-inner { display: flex; align-items: center; gap: 1.25rem; padding-top: .75rem; padding-bottom: .75rem; }
-.logo { display: flex; align-items: baseline; gap: .25rem; font-weight: 700; font-size: 1.1rem; color: var(--navy); flex-shrink: 0; }
-.logo-wss { color: var(--pink); font-size: 1.2rem; }
-.logo-tm { color: var(--pink); font-size: .7rem; }
-.logo-text { color: var(--navy); font-size: .9rem; }
+.logo { display: flex; align-items: center; flex-shrink: 0; line-height: 0; }
+.logo-img { display: block; width: 48px; height: 48px; }
 
 /* Desktop mega nav */
 .mega-nav { display: flex; gap: .25rem; margin-left: auto; }
@@ -345,5 +344,6 @@ body.drawer-open .drawer { transform: translateX(0); }
 }
 @media (max-width: 560px) {
   .footer-grid { grid-template-columns: 1fr; }
+  .logo-img { width: 40px; height: 40px; }
 }
 </style>
