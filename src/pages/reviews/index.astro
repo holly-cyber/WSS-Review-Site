@@ -75,21 +75,6 @@ const cats = [
     </div>
   </section>
 
-  <section class="categories-section">
-    <div class="container">
-      <h2 class="section-title">Browse by category</h2>
-      <div class="categories-grid">
-        {cats.map(cat => (
-          <a href={`/reviews/${cat.slug}/`} class="cat-card">
-            <h3>{cat.label}</h3>
-            <p>{cat.desc}</p>
-            <span class="cat-arrow">Browse reviews →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
   {sorted.length > 0 && (
     <section class="latest-section" id="latest">
       <div class="container">
@@ -102,6 +87,27 @@ const cats = [
       </div>
     </section>
   )}
+
+  <section class="categories-section" id="categories">
+    <div class="container">
+      <div class="carousel-head">
+        <h2 class="section-title">Browse by category</h2>
+        <div class="carousel-nav">
+          <button class="carousel-btn" type="button" data-dir="-1" aria-label="Scroll categories left">‹</button>
+          <button class="carousel-btn" type="button" data-dir="1" aria-label="Scroll categories right">›</button>
+        </div>
+      </div>
+      <div class="categories-track" id="catTrack">
+        {cats.map(cat => (
+          <a href={`/reviews/${cat.slug}/`} class="cat-card">
+            <h3>{cat.label}</h3>
+            <p>{cat.desc}</p>
+            <span class="cat-arrow">Browse reviews →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <section class="wss-explainer">
     <div class="container explainer-inner">
@@ -128,6 +134,18 @@ const cats = [
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const track = document.getElementById('catTrack');
+  if (track) {
+    document.querySelectorAll('.carousel-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const dir = Number(btn.getAttribute('data-dir')) || 1;
+        track.scrollBy({ left: dir * Math.min(track.clientWidth * 0.85, 560), behavior: 'smooth' });
+      });
+    });
+  }
+</script>
 <style>
 .hub-hero{background:var(--navy);color:white;padding:3.5rem 0;overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
@@ -164,8 +182,15 @@ const cats = [
 .mini-score .stars{font-size:.7rem}
 .section-title{font-size:1.5rem;margin-bottom:1.5rem}
 .categories-section{padding:3.5rem 0;background:var(--off-white)}
-.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.75rem}
-.cat-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.1rem;transition:all .2s}
+.carousel-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem}
+.carousel-head .section-title{margin-bottom:0}
+.carousel-nav{display:flex;gap:.5rem;flex-shrink:0}
+.carousel-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--navy);font-size:1.4rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.carousel-btn:hover{background:var(--pink);color:#fff;border-color:var(--pink)}
+.categories-track{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.75rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.categories-track::-webkit-scrollbar{height:6px}
+.categories-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.cat-card{flex:0 0 230px;scroll-snap-align:start;background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.1rem;transition:all .2s}
 .cat-card:hover{border-color:var(--pink);box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .cat-card h3{font-size:1rem;margin-bottom:.3rem}
 .cat-card p{font-size:.8rem;color:var(--text-secondary);margin-bottom:.65rem;line-height:1.45}
