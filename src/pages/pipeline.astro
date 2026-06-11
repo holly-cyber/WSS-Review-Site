@@ -268,7 +268,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 
 <div id="s-write" style="display:none">
   <div class="card">
-    <div class="sbar"><span class="sdesc">Writes the full WSS™ review — apparel (5 pillars + star scores, full SEO sections) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
+    <div class="sbar"><span class="sdesc">Writes the full WSS™ review — apparel (6 pillars + star scores, full SEO sections) or nutrition (4 weighted criteria).</span><button class="bp" id="writeBtn">Write review →</button></div>
     <div id="writeTypeInfo" style="margin-bottom:8px"></div>
     <div id="writeKw" class="kw" style="display:none"></div>
     <div class="al inf" style="margin-bottom:10px">Reviewer name, bio &amp; photo are set once in ⚙ Settings → Reviewer profile, then reused on every review.</div>
@@ -402,24 +402,26 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 
 <script type="application/json" id="wss-taxonomy" set:html={JSON.stringify(taxonomy)}></script>
 <script>
-const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v2.0 — score 5 pillars ONLY (Pillars 4 and 6 are EXCLUDED):
+const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v2.1 — score 6 pillars (Pillar 6 Diversity & Inclusion in Testing is EXCLUDED for now):
 PILLAR 1 INCLUSIVE FIT & PROPORTIONAL SIZING: UK 16 must NOT be labelled XL. Size range should span UK 6-24+. Women's proportions, not scaled-down unisex.
 PILLAR 2 FUNCTIONAL PERFORMANCE IN USE: Seam placement, waistband stability, torso coverage, chafe after 45+ min. Performance in the intended activity.
 PILLAR 3 ADEQUATE SUPPORT STANDARDS: Stated impact level vs experience, cup range A-HH. HARD RULE: a Pillar 3 FAIL caps the OVERALL score at a MAXIMUM of 2 stars.
+PILLAR 4 THERMAL REGULATION & MATERIAL PERFORMANCE: Breathability and moisture-wicking claims independently lab-tested under sustained exertion; materials must maintain performance after a minimum 30 wash cycles.
 PILLAR 5 GENUINE FEMALE DESIGN: Women-specific cutting, functional pockets, engineering not colour. No "pink it and shrink it".
 PILLAR 7 TRANSPARENCY & USER REVIEWS: Published testing data, substantiated claims. HARD RULE: MAXIMUM 3 stars overall without verifiable, published data.
 SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per pillar; the Overall may use a half-star.
-OVERALL = average of the five pillar scores, then APPLY the hard rules (Pillar 3 fail => max 2.0; no verifiable data => max 3.0).
+OVERALL = average of the six pillar scores, then APPLY the hard rules (Pillar 3 fail => max 2.0; no verifiable data => max 3.0).
 
 OUTPUT FORMAT — use these exact H2 headings, in this order. IMPORTANT: do NOT use the word "Pillar" anywhere in the output — use the criterion names only:
 ## Overview
 [Open in the first person with personal framing: the problem this product solves for active women, then a brief overall impression (your thesis). ~90 words.]
 ## WSS™ Assessment
-[For each criterion, an H3 heading EXACTLY in this form: "### Inclusive Fit & Proportional Sizing — X/5 ★★★★☆" (replace X with the score and show X filled ★ and (5−X) empty ☆ stars), then a short, experience-led paragraph (2–4 sentences) on how it performs, leading with strengths. Use the five criterion names: Inclusive Fit & Proportional Sizing; Functional Performance in Use; Adequate Support Standards; Genuine Female Design; Transparency & User Reviews.]
+[For each criterion, an H3 heading EXACTLY in this form: "### Inclusive Fit & Proportional Sizing — X/5 ★★★★☆" (replace X with the score and show X filled ★ and (5−X) empty ☆ stars), then a short, experience-led paragraph (2–4 sentences) on how it performs, leading with strengths. Use the six criterion names IN THIS ORDER: Inclusive Fit & Proportional Sizing; Functional Performance in Use; Adequate Support Standards; Thermal Regulation & Material Performance; Genuine Female Design; Transparency & User Reviews.]
 ## Scores
 Inclusive Fit & Proportional Sizing: X/5
 Functional Performance in Use: X/5
 Adequate Support Standards: X/5
+Thermal Regulation & Material Performance: X/5
 Genuine Female Design: X/5
 Transparency & User Reviews: X/5
 **Overall: X.X / 5 ★**
@@ -618,7 +620,7 @@ HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text i
 Raw JSON only. No markdown, no commentary.`;
 
 const SCORE_AREAS={
-  apparel:[['p1','Inclusive Fit & Proportional Sizing'],['p2','Functional Performance in Use'],['p3','Adequate Support Standards'],['p5','Genuine Female Design'],['p7','Transparency & User Reviews']],
+  apparel:[['p1','Inclusive Fit & Proportional Sizing'],['p2','Functional Performance in Use'],['p3','Adequate Support Standards'],['p4','Thermal Regulation & Material Performance'],['p5','Genuine Female Design'],['p7','Transparency & User Reviews']],
   nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']],
   footwear:[['f1','Female-Specific Last Geometry (25%)'],['f2','Functional Performance in Use (25%)'],['f3','Fit Accuracy & Size Range (20%)'],['f4','Female Biomechanics Consideration (20%)'],['f5','Transparency & User Reviews (10%)']],
   technology:[['t1','Female Data & Metrics (30%)'],['t2','Hardware Fit for Female Body (20%)'],['t3','Functional Accuracy in Use (25%)'],['t4','Software & App Usability (15%)'],['t5','Transparency & Independent Testing (10%)']],
