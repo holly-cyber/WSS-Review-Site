@@ -17,21 +17,21 @@ const pillars = [
 
 const team = [
   {
-    initials: 'HW', name: 'Holly Woodford', role: 'Co-Founder & Editor',
+    initials: 'HW', image: '/images/team/holly.jpg', name: 'Holly Woodford', role: 'Co-Founder & Editor',
     bio: "Holly is a long-time advocate for women in sport. An endurance athlete and self-confessed kit geek, she tests gear in real training conditions and cuts through the hype to find what actually works for women's bodies and lives. Holly built the Women's Sports Standard™ framework and oversees every review published on the site.",
     specialisms: ['Running', 'Trail', 'Triathlon', 'Kit & Gear', 'Technology'],
     instagram: { handle: '@challengehollyberry', url: 'https://instagram.com/challengehollyberry' },
     email: 'holly@womenssportsstore.com',
   },
   {
-    initials: 'MB', name: 'Mel Berry', role: 'Co-Founder & Editor',
+    initials: 'MB', image: '/images/team/mel.jpg', name: 'Mel Berry', role: 'Co-Founder & Editor',
     bio: "Mel believes we're all capable of more than we think. Growth comes from listening, adapting, and moving forward with purpose. As a coach her goal is to help athletes unlock their potential, enjoy the journey, and get access to great products that make it even more enjoyable. Mel leads testing across swim and triathlon categories and brings exacting standards to every product she reviews.",
     specialisms: ['Swimming', 'Triathlon', 'Cycling', 'Coaching', 'Equipment', 'Sports Bras'],
     instagram: { handle: '@melberrycoaching', url: 'https://instagram.com/melberrycoaching' },
     email: 'mel@womenssportsstore.com',
   },
   {
-    initials: 'GR', name: 'Gemma Richardson', role: "Women's Health Physio & Pilates Teacher",
+    initials: 'GR', image: '/images/team/gemma.jpg', name: 'Gemma Richardson', role: "Women's Health Physio & Pilates Teacher",
     bio: "Gemma is a specialist Women's Health Physiotherapist and Pilates teacher who helps women recover and move with confidence. She puts equipment and wellness products through everyday use, sharing honest insights grounded in clinical experience and real life. Her specialist background means she spots what other reviewers miss — how a product actually performs for women's bodies under real conditions.",
     specialisms: ['Running', 'Gym', 'Pilates', 'Wellness', 'Recovery'],
     instagram: { handle: '@her_physioandpilates', url: 'https://instagram.com/her_physioandpilates' },
@@ -92,7 +92,10 @@ const igIcon = '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentCol
       <div class="team-grid">
         {team.map((m) => (
           <article class="reviewer-card">
-            <div class="reviewer-avatar">{m.initials}</div>
+            <div class="reviewer-avatar">
+              <span class="reviewer-initials">{m.initials}</span>
+              {m.image && <img class="reviewer-photo" src={m.image} alt={m.name} loading="lazy" onerror="this.style.display='none'" />}
+            </div>
             <div class="reviewer-role">{m.role}</div>
             <h3 class="reviewer-name">{m.name}</h3>
             <p class="reviewer-bio">{m.bio}</p>
@@ -149,7 +152,8 @@ const igIcon = '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentCol
 .team-intro { color: var(--text-secondary); line-height: 1.7; max-width: 760px; margin-bottom: 2rem; }
 .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
 .reviewer-card { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 1.5rem; }
-.reviewer-avatar { width: 56px; height: 56px; border-radius: 50%; background: #FF5E84; color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+.reviewer-avatar { position: relative; width: 80px; height: 80px; border-radius: 50%; overflow: hidden; background: #FF5E84; color: #fff; font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+.reviewer-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .reviewer-role { color: #FF5E84; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: .35rem; }
 .reviewer-name { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 20px; color: #000036; margin-bottom: .75rem; }
 .reviewer-bio { color: #555; font-size: 14px; line-height: 1.7; margin-bottom: 1rem; }
