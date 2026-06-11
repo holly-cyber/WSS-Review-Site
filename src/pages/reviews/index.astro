@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReviewCard from '../../components/ReviewCard.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
 const mods = import.meta.glob('./*/*.md', { eager: true });
 const sorted = Object.entries(mods)
   .map(([path, mod]: [string, any]) => {
@@ -135,6 +136,8 @@ const cats = [
       </div>
     </div>
   </section>
+
+  <EmailSignup />
 </BaseLayout>
 
 <script>
@@ -149,12 +152,12 @@ const cats = [
   }
 </script>
 <style>
-.hub-hero{background:var(--navy);color:white;padding:3.5rem 0;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
-.hero-copy .wss-badge{margin-bottom:1.25rem}
-.hero-copy h1{font-size:clamp(2rem,3.6vw,3rem);color:white;margin-bottom:1rem;line-height:1.1}
-.hero-copy>p{font-size:1.05rem;opacity:.78;max-width:520px;margin-bottom:1.75rem;line-height:1.6}
-.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap}
+.hub-hero{background:var(--navy);color:white;padding:5rem 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center}
+.hero-copy .wss-badge{margin-bottom:1.75rem}
+.hero-copy h1{font-size:clamp(2rem,3.6vw,3rem);color:white;margin-bottom:1.5rem;line-height:1.18}
+.hero-copy>p{font-size:1.1rem;opacity:.8;max-width:540px;margin-bottom:2.25rem;line-height:1.75}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
 .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
 .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
 
