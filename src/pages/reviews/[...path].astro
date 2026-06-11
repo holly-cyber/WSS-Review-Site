@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+import { taxonomy, slugify, STATIC_CATEGORY_INDEXES } from '../../data/taxonomy.js';
+
+export async function getStaticPaths() {
+  const paths: any[] = [];
+  for (const cat of taxonomy) {
+    // Top-level only for categories without a hand-built index.astro.
+    if (!STATIC_CATEGORY_INDEXES.includes(cat.slug)) {
+      paths.push({ params: { path: cat.slug }, props: { level: 'category', cat, sub: null, item: null } });
+    }
+    for (const sub of cat.subs) {
+      const subSlug = slugify(sub.name);
+      paths.push({ params: { path: `${cat.slug}/${subSlug}` }, props: { level: 'subcategory', cat, sub, item: null } });
+      for (const item of sub.items) {
+        paths.push({ params: { path: `${cat.slug}/${subSlug}/${slugify(item)}` }, props: { level: 'subsub', cat, sub, item } });
+      }
+    }
+  }
+  return paths;
+}
+
+const { level, cat, sub, item } = Astro.props as any;
+
+const reviewMods = import.meta.glob('./*/*.md', { eager: true });
+const all = Object.entries(reviewMods).map(([p, m]: [string, any]) => {
+  const parts = p.split('/');
+  const slug = parts[parts.length - 1].replace('.md', '');
+  const fcat = parts[parts.length - 2];
+  const fm = m.frontmatter || {};
+  return { ...fm, slug, _cat: fcat };
+});
+
+let reviews = all.filter((r) => (r.category || r._cat) === cat.slug);
+if (level === 'subcategory') reviews = reviews.filter((r) => slugify(r.subcategory || '') === slugify(sub.name));
+if (level === 'subsub') reviews = reviews.filter((r) => slugify(r.subcategory || '') === slugify(sub.name) && slugify(r.subsubcategory || '') === slugify(item));
+reviews.sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+
+const heading = level === 'category' ? cat.name : level === 'subcategory' ? sub.name : item;
+const children = level === 'category'
+  ? cat.subs.map((s: any) => ({ name: s.name, href: `/reviews/${cat.slug}/${slugify(s.name)}/` }))
+  : level === 'subcategory'
+  ? sub.items.map((it: string) => ({ name: it, href: `/reviews/${cat.slug}/${slugify(sub.name)}/${slugify(it)}/` }))
+  : [];
+
+const pageTitle = `${heading} Reviews — Women's ${cat.name}`;
+---
+<BaseLayout title={pageTitle} description={`Independent ${heading} reviews for women, tested against the Women's Sports Standard™.`}>
+  <section class="cat-hero">
+    <div class="container">
+      <div class="crumb">
+        <a href="/reviews/">Reviews</a> / <a href={`/reviews/${cat.slug}/`}>{cat.name}</a>
+        {level !== 'category' && <span> / {level === 'subsub' ? <a href={`/reviews/${cat.slug}/${slugify(sub.name)}/`}>{sub.name}</a> : sub.name}</span>}
+        {level === 'subsub' && <span> / {item}</span>}
+      </div>
+      <h1>{heading} Reviews</h1>
+      <p>Every {heading.toLowerCase()} product reviewed against the Women's Sports Standard™. Independent, scored, women-first.</p>
+    </div>
+  </section>
+
+  <section class="container cat-body">
+    {children.length > 0 && (
+      <div class="chips" aria-label="Subcategories">
+        {children.map((c: any) => <a class="chip" href={c.href}>{c.name}</a>)}
+      </div>
+    )}
+
+    {reviews.length > 0 ? (
+      <div class="reviews-grid">
+        {reviews.map((r: any) => (
+          <ReviewCard title={r.title} brand={r.brand} slug={r.slug} category={r.category || r._cat} score={r.overall_score} excerpt={r.excerpt} image={r.hero_image} date={r.date} />
+        ))}
+      </div>
+    ) : (
+      <div class="empty">
+        <p>No {heading.toLowerCase()} reviews published here yet — they're on the way.</p>
+        <a class="btn btn-pink" href={`/reviews/${cat.slug}/`}>Browse all {cat.name} reviews →</a>
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+.cat-hero { background: var(--navy); color: #fff; padding: 2.5rem 0; }
+.crumb { font-size: .75rem; opacity: .65; margin-bottom: .9rem; }
+.crumb a { opacity: .85; }
+.cat-hero h1 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: .5rem; }
+.cat-hero p { opacity: .75; max-width: 560px; font-size: .95rem; }
+.cat-body { padding-top: 2rem; padding-bottom: 3rem; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+.chip { font-size: .8rem; font-weight: 500; color: var(--navy); background: #fff0f4; border: 1px solid #ffd5e1; padding: .4rem .85rem; border-radius: 999px; text-decoration: none; transition: background .15s, color .15s; }
+.chip:hover { background: var(--pink); color: #fff; }
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.empty { text-align: center; padding: 2.5rem 1rem; color: var(--text-secondary); }
+.empty .btn { margin-top: 1rem; }
+</style>

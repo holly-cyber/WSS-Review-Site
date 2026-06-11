@@ -1,4 +1,6 @@
 ---
+import { taxonomy, slugify } from '../data/taxonomy.js';
+
 export interface Props {
   title: string;
   description?: string;
@@ -7,6 +9,20 @@ export interface Props {
 }
 const { title, description = "Women's Sports Store — Independent product reviews tested against the Women's Sports Standard™.", ogImage, noindex } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
+
+// Latest review per category (for the mega-menu featured card).
+const reviewMods = import.meta.glob('../pages/reviews/*/*.md', { eager: true });
+const latestByCat: Record<string, any> = {};
+for (const [path, mod] of Object.entries(reviewMods)) {
+  const fm = (mod as any).frontmatter || {};
+  const parts = path.split('/');
+  const cat = parts[parts.length - 2];
+  const slug = parts[parts.length - 1].replace('.md', '');
+  const entry = { title: fm.title, brand: fm.brand, slug, cat, score: fm.overall_score, image: fm.hero_image, date: fm.date };
+  if (!latestByCat[cat] || new Date(entry.date).getTime() > new Date(latestByCat[cat].date).getTime()) latestByCat[cat] = entry;
+}
+const isActive = (slug: string) => currentPath === `/reviews/${slug}/` || currentPath.startsWith(`/reviews/${slug}/`);
 ---
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -31,25 +47,89 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <body>
   <header class="site-header">
     <div class="container header-inner">
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <span></span><span></span><span></span>
+      </button>
       <a href="/reviews/" class="logo">
         <span class="logo-wss">WSS</span>
         <span class="logo-tm">™</span>
         <span class="logo-text">Women's Sports Store</span>
       </a>
-      <nav class="main-nav">
-        <a href="/reviews/run/">Run</a>
-        <a href="/reviews/swim/">Swim</a>
-        <a href="/reviews/cycle/">Cycle</a>
-        <a href="/reviews/tri/">Tri</a>
-        <a href="/reviews/sports-bras/">Sports Bras</a>
-        <a href="/reviews/nutrition/">Nutrition</a>
+
+      <nav class="mega-nav" aria-label="Primary">
+        {taxonomy.map((cat) => (
+          <div class="mega-item">
+            <a class:list={["mega-trigger", isActive(cat.slug) && "active"]} href={`/reviews/${cat.slug}/`} aria-haspopup="true" aria-expanded="false">{cat.name}</a>
+            <div class="mega-panel" role="region" aria-label={`${cat.name} categories`}>
+              <div class="container mega-panel-inner">
+                <div class="mega-left">
+                  <div class="mega-head">{cat.name}</div>
+                  <div class="mega-subs">
+                    {cat.subs.map((sub) => (
+                      <a class="mega-sub" href={`/reviews/${cat.slug}/${slugify(sub.name)}/`}>
+                        <span class="mega-sub-name">{sub.name}</span>
+                        <span class="mega-sub-desc">{sub.items.slice(0, 4).join(' · ')}</span>
+                      </a>
+                    ))}
+                  </div>
+                  <a class="mega-all" href={`/reviews/${cat.slug}/`}>View all {cat.name} reviews →</a>
+                </div>
+                <div class="mega-feature">
+                  {latestByCat[cat.slug] ? (
+                    <a class="feature-card" href={`/reviews/${latestByCat[cat.slug].cat}/${latestByCat[cat.slug].slug}/`}>
+                      <span class="feature-label">Latest {cat.name} review</span>
+                      {latestByCat[cat.slug].image && <img class="feature-img" src={latestByCat[cat.slug].image} alt="" loading="lazy" />}
+                      <span class="feature-title">{latestByCat[cat.slug].title}</span>
+                      <span class="feature-meta">by {latestByCat[cat.slug].brand}{latestByCat[cat.slug].score ? ` · ${latestByCat[cat.slug].score}/5 ★` : ''}</span>
+                    </a>
+                  ) : (
+                    <a class="feature-card feature-empty" href={`/reviews/${cat.slug}/`}>
+                      <span class="feature-label">{cat.name}</span>
+                      <span class="feature-title">Explore {cat.name} reviews</span>
+                      <span class="feature-meta">Tested against the Women's Sports Standard™ →</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </nav>
+
       <form class="site-search" action="/search" method="get" role="search">
         <input type="search" name="q" placeholder="Search reviews…" aria-label="Search reviews" />
       </form>
-      <a href="https://shop.womenssportsstore.com" class="btn btn-pink shop-btn" target="_blank">Shop →</a>
+      <a href="https://shop.womenssportsstore.com" class="btn btn-pink shop-btn" target="_blank" rel="noopener">Shop →</a>
     </div>
   </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer-overlay" id="drawerOverlay" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+    <div class="drawer-head">
+      <a href="/reviews/" class="logo"><span class="logo-wss">WSS</span><span class="logo-tm">™</span><span class="logo-text">Women's Sports Store</span></a>
+      <button class="drawer-close" aria-label="Close menu">✕</button>
+    </div>
+    <form class="drawer-search" action="/search" method="get" role="search">
+      <input type="search" name="q" placeholder="Search reviews…" aria-label="Search reviews" />
+    </form>
+    <nav class="drawer-nav" aria-label="Mobile">
+      {taxonomy.map((cat) => (
+        <div class="drawer-cat">
+          <button class="drawer-cat-btn" aria-expanded="false" aria-controls={`d-${cat.slug}`}>
+            <span>{cat.name}</span><span class="chev" aria-hidden="true">›</span>
+          </button>
+          <div class="drawer-sub" id={`d-${cat.slug}`}>
+            <a class="drawer-sub-all" href={`/reviews/${cat.slug}/`}>All {cat.name} →</a>
+            {cat.subs.map((sub) => (
+              <a href={`/reviews/${cat.slug}/${slugify(sub.name)}/`}>{sub.name}</a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </nav>
+    <a href="https://shop.womenssportsstore.com" class="btn btn-pink drawer-shop" target="_blank" rel="noopener">Shop →</a>
+  </aside>
 
   <main>
     <slot />
@@ -64,12 +144,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <div class="footer-links">
         <div>
           <h4>Reviews</h4>
-          <a href="/reviews/run/">Run</a>
-          <a href="/reviews/swim/">Swim</a>
-          <a href="/reviews/cycle/">Cycle</a>
-          <a href="/reviews/tri/">Tri</a>
-          <a href="/reviews/sports-bras/">Sports Bras</a>
-          <a href="/reviews/nutrition/">Nutrition</a>
+          {taxonomy.map((cat) => <a href={`/reviews/${cat.slug}/`}>{cat.name}</a>)}
         </div>
         <div>
           <h4>WSS™</h4>
@@ -84,23 +159,126 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </div>
     </div>
   </footer>
+
+  <script>
+    const DELAY = 200;
+    const nav = document.querySelector('.mega-nav');
+    const items = Array.from(document.querySelectorAll('.mega-item'));
+    let openT, closeT, current = null;
+    const setOpen = (item, v) => { item.classList.toggle('open', v); const t = item.querySelector('.mega-trigger'); if (t) t.setAttribute('aria-expanded', v ? 'true' : 'false'); };
+    const openItem = (item) => { clearTimeout(closeT); if (current && current !== item) setOpen(current, false); setOpen(item, true); current = item; };
+    const closeAll = () => { if (current) { setOpen(current, false); current = null; } };
+    items.forEach((item) => {
+      item.addEventListener('mouseenter', () => { clearTimeout(closeT); clearTimeout(openT); openT = setTimeout(() => openItem(item), DELAY); });
+      item.addEventListener('mouseleave', () => { clearTimeout(openT); closeT = setTimeout(closeAll, DELAY); });
+      const t = item.querySelector('.mega-trigger');
+      t.addEventListener('focus', () => openItem(item));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); openItem(item); const link = item.querySelector('.mega-panel a'); if (link) link.focus(); }
+        else if (e.key === 'Escape') { closeAll(); t.blur(); }
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); const i = items.indexOf(item); const n = items[(i + (e.key === 'ArrowRight' ? 1 : items.length - 1)) % items.length]; n.querySelector('.mega-trigger').focus(); }
+      });
+    });
+    if (nav) {
+      nav.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeAll(); const t = current && current.querySelector('.mega-trigger'); if (t) t.focus(); } });
+      nav.addEventListener('focusout', (e) => { if (!nav.contains(e.relatedTarget)) closeAll(); });
+    }
+    document.addEventListener('click', (e) => { if (nav && !nav.contains(e.target)) closeAll(); });
+
+    // Mobile drawer
+    const ham = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawerOverlay');
+    const setDrawer = (v) => {
+      document.body.classList.toggle('drawer-open', v);
+      if (drawer) drawer.setAttribute('aria-hidden', v ? 'false' : 'true');
+      if (overlay) overlay.hidden = !v;
+      if (ham) ham.setAttribute('aria-expanded', v ? 'true' : 'false');
+      if (v) { const c = drawer && drawer.querySelector('.drawer-close'); if (c) c.focus(); } else if (ham) ham.focus();
+    };
+    if (ham) ham.addEventListener('click', () => setDrawer(!document.body.classList.contains('drawer-open')));
+    if (overlay) overlay.addEventListener('click', () => setDrawer(false));
+    const dc = drawer && drawer.querySelector('.drawer-close'); if (dc) dc.addEventListener('click', () => setDrawer(false));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('drawer-open')) setDrawer(false); });
+    if (drawer) drawer.querySelectorAll('.drawer-cat-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const exp = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', exp ? 'false' : 'true');
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        if (panel) panel.style.maxHeight = exp ? '' : panel.scrollHeight + 'px';
+      });
+    });
+  </script>
 </body>
 </html>
 
 <style>
 .site-header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-.header-inner { display: flex; align-items: center; gap: 2rem; padding-top: .875rem; padding-bottom: .875rem; }
-.logo { display: flex; align-items: baseline; gap: .25rem; font-weight: 700; font-size: 1.1rem; color: var(--navy); }
+.header-inner { display: flex; align-items: center; gap: 1.25rem; padding-top: .75rem; padding-bottom: .75rem; }
+.logo { display: flex; align-items: baseline; gap: .25rem; font-weight: 700; font-size: 1.1rem; color: var(--navy); flex-shrink: 0; }
 .logo-wss { color: var(--pink); font-size: 1.2rem; }
 .logo-tm { color: var(--pink); font-size: .7rem; }
 .logo-text { color: var(--navy); font-size: .9rem; }
-.main-nav { display: flex; gap: 1.5rem; margin-left: auto; }
-.main-nav a { font-size: .875rem; font-weight: 500; color: var(--text-secondary); transition: color .15s; }
-.main-nav a:hover { color: var(--pink); }
-.site-search input { font-size: .8rem; padding: .45rem .9rem; border: 1px solid var(--border); border-radius: 999px; width: 160px; outline: none; background: var(--off-white); color: var(--text-primary); transition: width .2s, border-color .15s, background .15s; }
+
+/* Desktop mega nav */
+.mega-nav { display: flex; gap: .25rem; margin-left: auto; }
+.mega-item { }
+.mega-trigger { display: block; font-size: .85rem; font-weight: 600; color: var(--navy); padding: .5rem .6rem; border-radius: 6px; border-bottom: 3px solid transparent; white-space: nowrap; cursor: pointer; }
+.mega-trigger:hover, .mega-item.open .mega-trigger { color: var(--pink); }
+.mega-trigger.active { border-bottom-color: var(--pink); }
+.mega-trigger:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+.mega-panel { position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-top: 4px solid var(--pink); box-shadow: 0 8px 32px rgba(0,0,30,0.12); opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .15s, transform .15s, visibility .15s; z-index: 90; }
+.mega-item.open .mega-panel { opacity: 1; visibility: visible; transform: translateY(0); }
+.mega-panel-inner { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; padding-top: 1.75rem; padding-bottom: 1.75rem; }
+.mega-head { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--navy); margin-bottom: 1rem; }
+.mega-subs { columns: 2; column-gap: 2rem; }
+.mega-sub { display: block; break-inside: avoid; margin-bottom: 1rem; text-decoration: none; }
+.mega-sub-name { display: block; font-size: 14px; font-weight: 500; color: var(--navy); }
+.mega-sub:hover .mega-sub-name { color: var(--pink); }
+.mega-sub-desc { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; line-height: 1.4; }
+.mega-sub:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-radius: 4px; }
+.mega-all { display: inline-block; margin-top: .5rem; font-size: 13px; font-weight: 600; color: var(--pink); }
+.mega-feature { }
+.feature-card { display: flex; flex-direction: column; background: #fff0f4; border-radius: var(--radius-md, 12px); padding: 1.1rem; text-decoration: none; height: 100%; transition: transform .15s; }
+.feature-card:hover { transform: translateY(-2px); }
+.feature-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--pink); font-weight: 700; margin-bottom: .6rem; }
+.feature-img { width: 100%; height: 130px; object-fit: cover; border-radius: 8px; margin-bottom: .7rem; }
+.feature-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+.feature-meta { font-size: 12px; color: var(--text-secondary); margin-top: .35rem; }
+.feature-card:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+
+.site-search { flex-shrink: 0; }
+.site-search input { font-size: .8rem; padding: .45rem .9rem; border: 1px solid var(--border); border-radius: 999px; width: 140px; outline: none; background: var(--off-white); color: var(--text-primary); transition: width .2s, border-color .15s, background .15s; }
 .site-search input::placeholder { color: var(--text-muted); }
-.site-search input:focus { width: 200px; border-color: var(--pink); background: #fff; box-shadow: 0 0 0 3px rgba(255,94,132,.1); }
-.shop-btn { font-size: .8rem; padding: .5rem 1rem; white-space: nowrap; }
+.site-search input:focus { width: 180px; border-color: var(--pink); background: #fff; box-shadow: 0 0 0 3px rgba(255,94,132,.1); }
+.shop-btn { font-size: .8rem; padding: .5rem 1rem; white-space: nowrap; flex-shrink: 0; }
+
+/* Hamburger */
+.hamburger { display: none; width: 44px; height: 44px; border: none; background: none; cursor: pointer; padding: 10px; margin-left: -10px; flex-direction: column; justify-content: center; gap: 4px; }
+.hamburger span { display: block; height: 2px; background: var(--navy); border-radius: 2px; transition: transform .2s, opacity .2s; }
+.hamburger:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+
+/* Mobile drawer */
+.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,30,.45); z-index: 200; }
+.drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 86%; max-width: 360px; background: #fff; z-index: 201; transform: translateX(-100%); transition: transform .25s ease; display: flex; flex-direction: column; }
+body.drawer-open .drawer { transform: translateX(0); }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); }
+.drawer-close { width: 44px; height: 44px; border: none; background: none; font-size: 20px; color: var(--navy); cursor: pointer; border-radius: 8px; }
+.drawer-close:focus-visible { outline: 2px solid var(--pink); }
+.drawer-search { padding: .75rem 1.1rem; border-bottom: 1px solid var(--border); }
+.drawer-search input { width: 100%; padding: .7rem .9rem; border: 1px solid var(--border); border-radius: 999px; font-size: 15px; outline: none; background: var(--off-white); }
+.drawer-nav { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.drawer-cat { border-bottom: 1px solid var(--border); }
+.drawer-cat-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 52px; padding: 0 1.1rem; border: none; background: none; font-size: 16px; font-weight: 600; color: var(--navy); cursor: pointer; text-align: left; }
+.drawer-cat-btn .chev { font-size: 22px; color: var(--text-muted); transition: transform .2s; }
+.drawer-cat-btn[aria-expanded="true"] .chev { transform: rotate(90deg); color: var(--pink); }
+.drawer-cat-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: -2px; }
+.drawer-sub { max-height: 0; overflow: hidden; transition: max-height .25s ease; background: var(--off-white); }
+.drawer-sub a { display: block; min-height: 44px; line-height: 44px; padding: 0 1.1rem 0 1.6rem; font-size: 15px; color: var(--navy); text-decoration: none; }
+.drawer-sub a:hover, .drawer-sub a:focus-visible { color: var(--pink); }
+.drawer-sub-all { font-weight: 600; color: var(--pink) !important; }
+.drawer-shop { display: block; margin: 1rem 1.1rem calc(1rem + env(safe-area-inset-bottom)); text-align: center; padding: .85rem; font-size: 15px; }
+
 .site-footer { background: var(--navy); color: rgba(255,255,255,.8); margin-top: 4rem; padding: 3rem 0 0; }
 .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; padding-bottom: 2rem; }
 .footer-logo { font-size: 1.5rem; font-weight: 700; color: var(--pink); margin-bottom: .75rem; }
@@ -112,11 +290,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding: 1rem 0; }
 .footer-bottom p { font-size: .75rem; opacity: .5; }
 .footer-bottom a { opacity: .75; text-decoration: underline; }
+
+@media (max-width: 1024px) {
+  .mega-nav, .site-search { display: none; }
+  .hamburger { display: flex; }
+  .logo { margin-right: auto; }
+}
+@media (min-width: 1025px) {
+  .drawer, .drawer-overlay { display: none; }
+}
 @media (max-width: 900px) {
-  .main-nav { display: none; }
-  .site-search { margin-left: auto; }
-  .site-search input { width: 130px; }
-  .site-search input:focus { width: 150px; }
   .footer-inner { grid-template-columns: 1fr; }
 }
 </style>
