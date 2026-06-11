@@ -4,6 +4,18 @@ import ReviewCard from '../../components/ReviewCard.astro';
 import { taxonomy, slugify, STATIC_CATEGORY_INDEXES } from '../../data/taxonomy.js';
 
 export async function getStaticPaths() {
+  // Which sub / sub-sub categories actually have at least one review. Only
+  // those get a listing page generated — empty ones stay hidden everywhere.
+  const reviewMods = import.meta.glob('./*/*.md', { eager: true });
+  const subWithReviews = new Set<string>();
+  const subsubWithReviews = new Set<string>();
+  for (const [p, m] of Object.entries(reviewMods)) {
+    const fm = (m as any).frontmatter || {};
+    const cat = fm.category || p.split('/').slice(-2)[0];
+    if (fm.subcategory) subWithReviews.add(`${cat}/${slugify(fm.subcategory)}`);
+    if (fm.subcategory && fm.subsubcategory) subsubWithReviews.add(`${cat}/${slugify(fm.subcategory)}/${slugify(fm.subsubcategory)}`);
+  }
+
   const paths: any[] = [];
   for (const cat of taxonomy) {
     // Top-level only for categories without a hand-built index.astro.
@@ -12,8 +24,10 @@ export async function getStaticPaths() {
     }
     for (const sub of cat.subs) {
       const subSlug = slugify(sub.name);
+      if (!subWithReviews.has(`${cat.slug}/${subSlug}`)) continue;
       paths.push({ params: { path: `${cat.slug}/${subSlug}` }, props: { level: 'subcategory', cat, sub, item: null } });
       for (const item of sub.items) {
+        if (!subsubWithReviews.has(`${cat.slug}/${subSlug}/${slugify(item)}`)) continue;
         paths.push({ params: { path: `${cat.slug}/${subSlug}/${slugify(item)}` }, props: { level: 'subsub', cat, sub, item } });
       }
     }
@@ -37,11 +51,24 @@ if (level === 'subcategory') reviews = reviews.filter((r) => slugify(r.subcatego
 if (level === 'subsub') reviews = reviews.filter((r) => slugify(r.subcategory || '') === slugify(sub.name) && slugify(r.subsubcategory || '') === slugify(item));
 reviews.sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
 
+// Which sub / sub-sub categories actually have reviews — only show populated chips.
+const subWithReviews = new Set<string>();
+const subsubWithReviews = new Set<string>();
+for (const r of all) {
+  const rcat = r.category || r._cat;
+  if (r.subcategory) subWithReviews.add(`${rcat}/${slugify(r.subcategory)}`);
+  if (r.subcategory && r.subsubcategory) subsubWithReviews.add(`${rcat}/${slugify(r.subcategory)}/${slugify(r.subsubcategory)}`);
+}
+
 const heading = level === 'category' ? cat.name : level === 'subcategory' ? sub.name : item;
 const children = level === 'category'
-  ? cat.subs.map((s: any) => ({ name: s.name, href: `/reviews/${cat.slug}/${slugify(s.name)}/` }))
+  ? cat.subs
+      .filter((s: any) => subWithReviews.has(`${cat.slug}/${slugify(s.name)}`))
+      .map((s: any) => ({ name: s.name, href: `/reviews/${cat.slug}/${slugify(s.name)}/` }))
   : level === 'subcategory'
-  ? sub.items.map((it: string) => ({ name: it, href: `/reviews/${cat.slug}/${slugify(sub.name)}/${slugify(it)}/` }))
+  ? sub.items
+      .filter((it: string) => subsubWithReviews.has(`${cat.slug}/${slugify(sub.name)}/${slugify(it)}`))
+      .map((it: string) => ({ name: it, href: `/reviews/${cat.slug}/${slugify(sub.name)}/${slugify(it)}/` }))
   : [];
 
 const pageTitle = `${heading} Reviews — Women's ${cat.name}`;
