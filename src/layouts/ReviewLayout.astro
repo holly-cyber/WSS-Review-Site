@@ -35,7 +35,7 @@ const criteriaLabels: Record<string, string> = {
   p1: 'Inclusive Fit & Sizing',
   p2: 'Functional Performance',
   p3: 'Support Standards',
-  p5: 'Genuine Female Design',
+  p5: 'Female Design',
   p7: 'Transparency',
   taste: 'Taste & Texture (25%)',
   nutrition: 'Nutrition Profile (30%)',
@@ -163,7 +163,9 @@ const schemaFaq = faqItems.length ? JSON.stringify({
         {fm.product_type && <div class="fact"><span>Type</span><span>{fm.product_type}</span></div>}
         {fm.price && <div class="fact"><span>Price</span><span>£{fm.price}</span></div>}
         {fm.sizes && <div class="fact"><span>Sizes</span><span>{fm.sizes}</span></div>}
-        {fm.tested_by && <div class="fact"><span>Tested by</span><span>{fm.tested_by}</span></div>}
+        {fm.tested_by && <div class="fact"><span>Tested by</span><span>{reviewer
+          ? <a class="fact-link" href={`/reviewers/${reviewer.slug}/`}>{reviewer.name}</a>
+          : fm.tested_by}</span></div>}
         {fm.date && <div class="fact"><span>Reviewed</span><span>{new Date(fm.date).toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span></div>}
       </div>
     </aside>
@@ -303,6 +305,8 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .fact:last-child{border-bottom:none}
 .fact span:first-child{color:var(--text-muted)}
 .fact span:last-child{font-weight:600;color:var(--navy);text-align:right;max-width:55%}
+.fact-link{color:var(--pink);text-decoration:none}
+.fact-link:hover{text-decoration:underline}
 .review-content{font-size:1rem;line-height:1.75}
 .review-content :global(h2){font-size:1.4rem;color:var(--navy);margin:1.7rem 0 .55rem}
 .review-content :global(h3){font-size:1.1rem;color:var(--navy);margin:1.1rem 0 .4rem}
