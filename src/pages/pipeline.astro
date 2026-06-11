@@ -612,12 +612,15 @@ const REEL_SYS=`WSS social content director. 60-second direct-to-camera Reel scr
 [HOOK 0-3s] [BEAT 1 3-20s] [BEAT 2 20-35s] [BEAT 3 35-45s] [VERDICT 45-55s] [CTA 55-60s]
 Hook = the most surprising WSS finding. Each Beat = one specific finding. Verdict = binary. CTA must be exactly: "Full review and buy link in bio." and nothing else. On-screen text in [brackets]. British English.`;
 
-const EMAIL_SYS=`WSS email writer. Return ONLY a valid JSON array of 3 objects, each with: subject, preview_text, body_html.
+const EMAIL_SYS=`WSS email writer. Return ONLY a valid JSON array of exactly 3 objects, each with keys: subject, preview_text, body_html.
 Email 1 Review Drop: best WSS finding, link to the review, clear CTA.
-Email 2 Buy Nudge (day 4): 3 bullet WSS findings, "Shop now" CTA.
+Email 2 Buy Nudge (day 4): 3 bullet WSS findings, Shop now CTA.
 Email 3 Social Proof (day 7): community framing, softer sell.
 HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text in #000036. CTA button style: background:#FF5E84;color:#ffffff;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
-Raw JSON only. No markdown, no commentary.`;
+CRITICAL — the output MUST parse with JSON.parse, so:
+- Use SINGLE QUOTES for EVERY HTML attribute inside body_html, e.g. <a href='URL' style='color:#FF5E84'>. NEVER use a double quote (") anywhere inside any string value.
+- Keep each value on ONE line — no real line breaks inside strings; use <br> for spacing in the HTML.
+- Output raw JSON only: no markdown fences, no commentary, nothing before the opening [ or after the closing ].`;
 
 const SCORE_AREAS={
   apparel:[['p1','Inclusive Fit & Proportional Sizing'],['p2','Functional Performance in Use'],['p3','Adequate Support Standards'],['p4','Thermal Regulation & Material Performance'],['p5','Genuine Female Design'],['p7','Transparency & User Reviews']],
@@ -644,6 +647,15 @@ function getReview(){return(document.getElementById('writeEdit').value||'').trim
 function slugify(s){return(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function val(id){return(document.getElementById(id).value||'').trim()}
 function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim()}
+// Tolerant parse for the email sequence: strips fences/prose, then retries with
+// literal control chars (stray newlines/tabs inside HTML strings) collapsed.
+function parseEmails(raw){
+  let s=cleanJson(raw);
+  const a=s.indexOf('['),b=s.lastIndexOf(']');
+  if(a>=0&&b>a)s=s.slice(a,b+1);
+  try{return JSON.parse(s);}catch(e){}
+  return JSON.parse(s.replace(/[\u0000-\u001F]+/g,' '));
+}
 function stripHtml(h){const d=document.createElement('div');d.innerHTML=h||'';return(d.textContent||'').replace(/\s+/g,' ').trim()}
 
 // Settings
@@ -1329,7 +1341,7 @@ async function runEmails(fb){
   document.getElementById('emailsOut').innerHTML='<div class="out"><span class="cursor"></span></div>';
   try{
     const raw=await aiCollect([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS,3000);
-    state.emails=JSON.parse(cleanJson(raw));
+    state.emails=parseEmails(raw);
     renderEmails();document.getElementById('emailsFB').style.display='block';
   }catch(e){document.getElementById('emailsOut').innerHTML=`<div class="out">Error: ${esc(e.message)} — try regenerating.</div>`;}
   busy=false;btn.disabled=false;btn.textContent='Regenerate';
