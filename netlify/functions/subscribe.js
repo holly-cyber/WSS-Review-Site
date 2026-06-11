@@ -39,6 +39,11 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         email: String(email).trim().toLowerCase(),
         groups: [groupId || DEFAULT_GROUP],
+        // Double opt-in: create as unconfirmed so MailerLite sends the
+        // confirmation email and the subscriber only becomes active after
+        // they click the verification link. Requires "Double opt-in for API
+        // and integrations" to be enabled in the MailerLite account settings.
+        status: 'unconfirmed',
         ...(source ? { fields: { source: String(source).slice(0, 191) } } : {}),
       }),
     });
