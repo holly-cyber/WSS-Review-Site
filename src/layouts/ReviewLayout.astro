@@ -235,5 +235,15 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .rv-reviewer-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.2rem}
 .rv-reviewer-name{font-weight:700;color:var(--navy)}
 .rv-reviewer-bio{font-size:.9rem;color:var(--text-secondary);margin:.35rem 0 0;line-height:1.55}
+.review-content :global(.pros-cons){display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.25rem 0}
+.review-content :global(.pc-col){border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.1rem;background:var(--off-white)}
+.review-content :global(.pc-pros){border-top:4px solid #2e9e5b}
+.review-content :global(.pc-cons){border-top:4px solid var(--pink)}
+.review-content :global(.pc-h){font-weight:700;color:var(--navy);margin-bottom:.6rem;font-size:.95rem}
+.review-content :global(.pros-cons ul){list-style:none;margin:0;padding:0}
+.review-content :global(.pros-cons li){position:relative;padding-left:1.7rem;margin-bottom:.5rem;font-size:.9rem;line-height:1.5;color:var(--text-secondary)}
+.review-content :global(.pc-pros li::before){content:'✓';position:absolute;left:0;top:-1px;color:#2e9e5b;font-weight:800}
+.review-content :global(.pc-cons li::before){content:'✗';position:absolute;left:0;top:-1px;color:var(--pink);font-weight:800}
 @media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}
+@media(max-width:600px){.review-content :global(.pros-cons){grid-template-columns:1fr}}
 </style>
