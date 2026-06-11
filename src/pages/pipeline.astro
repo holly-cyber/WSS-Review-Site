@@ -186,7 +186,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
   <div class="slbl"><div class="dot">1</div>Product URL</div>
   <div class="row">
     <div style="flex:2"><label>Product URL *</label><input id="pUrl" type="url" placeholder="https://brand.com/products/product-name"/></div>
-    <div style="flex:1"><label>Product type *</label><select id="pType"><option value="apparel">Apparel</option><option value="nutrition">Nutrition</option></select></div>
+    <div style="flex:1"><label>Product type *</label><select id="pType"><option value="apparel">Apparel</option><option value="equipment">Equipment</option><option value="footwear">Footwear</option><option value="nutrition">Nutrition</option><option value="technology">Technology</option></select></div>
     <div><button class="bp" id="scrapeBtn" style="white-space:nowrap">Scrape →</button></div>
   </div>
   <div id="scrapeAlert" style="margin-top:8px"></div>
@@ -464,6 +464,123 @@ VOICE & STYLE — follow closely:
 - NEVER use the words "honest" or "honestly" anywhere in the review.
 - Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words overall. British English throughout.`;
 
+const WSS_FOOTWEAR=`WSS FOOTWEAR REVIEW FRAMEWORK v1.0 — 5 weighted criteria. Overall = weighted average (one decimal); half-stars for the Overall only.
+F1 FEMALE-SPECIFIC LAST GEOMETRY (25%): Built on a women's last (not a men's last scaled down) — narrower heel, wider forefoot relative to heel, toe-box shape for female foot anatomy. Brand must confirm last origin. HARD RULE: a confirmed men's last caps F1 at 2/5.
+F2 FUNCTIONAL PERFORMANCE IN USE (25%): Tested in the intended activity (road, trail, gym, cycle) — cushioning consistency over distance, outsole grip, upper durability, lacing stability under load. Minimum 3 sessions.
+F3 FIT ACCURACY & SIZE RANGE (20%): True to size vs the sizing guide, half sizes, UK 3–9+ covered, width options, fit consistent across the range (not just median sizes). Note size worn vs usual.
+F4 FEMALE BIOMECHANICS CONSIDERATION (20%): Heel-to-toe drop appropriate for female gait, stack height/cushioning tuned for lighter average female bodyweight, adaptations for female Q-angle/pronation. Distinguish genuine design from marketing.
+F5 TRANSPARENCY & USER REVIEWS (10%): Published testing methodology, women in test panels, substantiated claims. HARD RULE: max 3/5 without verifiable testing data.
+SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per criterion; the Overall may use a half-star.
+OUTPUT FORMAT — use these exact H2 headings, in this order:
+## Overview
+[Open in the first person with personal framing: the problem this solves for active women, then a brief overall impression. ~90 words.]
+## WSS™ Assessment
+[For each criterion an H3 heading EXACTLY like "### Female-Specific Last Geometry — X/5 ★★★★☆" (X filled ★ and 5−X empty ☆), then a short experience-led paragraph leading with strengths. Criteria in order: Female-Specific Last Geometry; Functional Performance in Use; Fit Accuracy & Size Range; Female Biomechanics Consideration; Transparency & User Reviews.]
+## Scores
+Female-Specific Last Geometry (25%): X/5
+Functional Performance in Use (25%): X/5
+Fit Accuracy & Size Range (20%): X/5
+Female Biomechanics Consideration (20%): X/5
+Transparency & User Reviews (10%): X/5
+**Overall: X.X / 5 ★**
+## Pros & Cons
+[Two short, benefit-focused lists: what I loved, then a few gentle watch-outs (kept light).]
+## Who It's For / Who It's Not For
+## Size & Fit
+## How It Compares
+[A Markdown table comparing with 2-3 named competing women's shoes. Header row + separator row. Columns: Product | Price | Size Range | Key Strength | WSS Verdict. THIS product in the first row. Short cells.]
+## The Verdict
+[60–90 words. Warm and decisive — who should buy it and why.]
+## FAQ
+[Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+VOICE & STYLE — follow closely:
+- Write in the FIRST PERSON as the named reviewer ("I ran in", "I found", "for me"). Warm, enthusiastic and experience-led — never clinical testing language and never "the tester".
+- Talk directly to the reader. Bold the product name, key features and important terms; use the odd italic, short fragment, colon, parentheses and quotation marks for coined terms.
+- Describe benefits in simple, evaluative terms ("true to size", "grippy", "plush", "stable").
+- Lead with what works. Score fairly and apply the hard rules, but frame constructively — avoid blunt criticism. Where you can't verify something, flag it as "Not independently verified — based on product page claims only", never as a failing.
+- Never fabricate testing you didn't do. NEVER use the words "honest" or "honestly".
+- Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words. British English throughout.`;
+
+const WSS_TECHNOLOGY=`WSS TECHNOLOGY REVIEW FRAMEWORK v1.0 — for GPS watches, heart-rate monitors, cycling computers, smart trainers and fitness trackers. 5 weighted criteria. Overall = weighted average (one decimal); half-stars for the Overall only.
+T1 FEMALE DATA & METRICS (30%): Tracks female-specific metrics — minimum: menstrual-cycle tracking with training-load adjustment, HRV trends across cycle phases, resting-HR baseline for female physiology. Premium: peri/menopause symptom tracking, female-specific recovery algorithms. HARD RULE: zero female-specific metrics caps T1 at 2/5.
+T2 HARDWARE FIT FOR FEMALE BODY (20%): Tested on female wrist circumferences (UK average 14–17cm), sensor accuracy maintained on smaller wrists, smaller strap options included in box (not sold separately); chest straps fit-tested across chest sizes.
+T3 FUNCTIONAL ACCURACY IN USE (25%): GPS accuracy on real road and trail routes, HR accuracy vs a chest-strap reference, pace/distance accuracy over 30+ minute sessions; cycling power vs a calibrated reference. Data tested, not taken from the spec sheet.
+T4 SOFTWARE & APP USABILITY (15%): Tested by women in the target age range (32–58); female health dashboard prominent (not buried), cycle/recovery insights actionable; data export compatible with TrainingPeaks, Garmin Connect, Strava.
+T5 TRANSPARENCY & INDEPENDENT TESTING (10%): Accuracy claims independently verified, female testers in development, public firmware history, battery life verified in real use. HARD RULE: max 3/5 without independent accuracy verification.
+SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per criterion; the Overall may use a half-star.
+OUTPUT FORMAT — use these exact H2 headings, in this order:
+## Overview
+[Open in the first person with personal framing: the problem this solves for active women, then a brief overall impression. ~90 words.]
+## WSS™ Assessment
+[For each criterion an H3 heading EXACTLY like "### Female Data & Metrics — X/5 ★★★★☆" (X filled ★ and 5−X empty ☆), then a short experience-led paragraph leading with strengths. Criteria in order: Female Data & Metrics; Hardware Fit for Female Body; Functional Accuracy in Use; Software & App Usability; Transparency & Independent Testing.]
+## Scores
+Female Data & Metrics (30%): X/5
+Hardware Fit for Female Body (20%): X/5
+Functional Accuracy in Use (25%): X/5
+Software & App Usability (15%): X/5
+Transparency & Independent Testing (10%): X/5
+**Overall: X.X / 5 ★**
+## Pros & Cons
+[Two short, benefit-focused lists: what I loved, then a few gentle watch-outs (kept light).]
+## Who It's For / Who It's Not For
+## Compatibility & Setup
+## How It Compares
+[A Markdown table comparing with 2-3 named competing women's devices. Header row + separator row. Columns: Product | Price | Key Metric | Battery | WSS Verdict. THIS product in the first row. Short cells.]
+## The Verdict
+[60–90 words. Warm and decisive — who should buy it and why.]
+## FAQ
+[Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+VOICE & STYLE — follow closely:
+- Write in the FIRST PERSON as the named reviewer ("I trained with", "I found", "for me"). Warm, enthusiastic and experience-led — never clinical testing language and never "the tester".
+- Talk directly to the reader. Bold the product name, key features and important terms; use the odd italic, short fragment, colon, parentheses and quotation marks for coined terms.
+- Describe benefits in simple, evaluative terms ("accurate", "intuitive", "reliable", "actionable").
+- Lead with what works. Score fairly and apply the hard rules, but frame constructively — avoid blunt criticism. Where you can't verify something, flag it as "Not independently verified — based on product page claims only", never as a failing.
+- Never fabricate testing you didn't do. NEVER use the words "honest" or "honestly".
+- Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words. British English throughout.`;
+
+const WSS_EQUIPMENT=`WSS EQUIPMENT REVIEW FRAMEWORK v1.0 — for bikes, turbo trainers, swim aids, strength equipment, yoga mats, foam rollers, resistance bands, hydration packs, helmets, goggles, wetsuits and similar. 5 weighted criteria. Overall = weighted average (one decimal); half-stars for the Overall only.
+E1 FEMALE-SPECIFIC DESIGN & SIZING (25%): Proportioned for female body geometry (not unisex assumed to fit all) — frame geometry for shorter torso/reach (bikes), harness fit for female shoulder width (packs), goggle seal for female facial structure, wetsuit torso length and hip-to-shoulder ratio. Women involved at design/prototype stage. HARD RULE: confirmed unisex with no female-specific adaptation caps E1 at 2/5.
+E2 FUNCTIONAL PERFORMANCE IN USE (25%): Tested in the intended activity by women in the WSS athlete profile (Elle: 32–44 serious amateur endurance; Maya: 44–58 peri/post-menopausal). Claims verified through real use, not lab spec. Minimum: 3 sessions for consumable kit, 4 weeks for durable equipment.
+E3 FIT, ADJUSTABILITY & SIZE RANGE (20%): Adjustment range covers female sizing without compromise; sized equipment (helmets, wetsuits, packs) tested across small/medium/large minimum; fit accurate to the guide; adjustability functional under load and movement.
+E4 SAFETY & PERFORMANCE STANDARDS (20%): Relevant certifications current (helmets EN1078/CPSC, wetsuits buoyancy standards), performance claims independently tested, construction assessed under stress, weight ratings tested, sustainability claims verified.
+E5 TRANSPARENCY & USER REVIEWS (10%): Published testing methodology and certification details, women in test panels, user reviews support claims, complaints mechanism exists. HARD RULE: max 3/5 without verifiable testing or certification data.
+SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per criterion; the Overall may use a half-star.
+OUTPUT FORMAT — use these exact H2 headings, in this order:
+## Overview
+[Open in the first person with personal framing: the problem this solves for active women, then a brief overall impression. ~90 words.]
+## WSS™ Assessment
+[For each criterion an H3 heading EXACTLY like "### Female-Specific Design & Sizing — X/5 ★★★★☆" (X filled ★ and 5−X empty ☆), then a short experience-led paragraph leading with strengths. Criteria in order: Female-Specific Design & Sizing; Functional Performance in Use; Fit, Adjustability & Size Range; Safety & Performance Standards; Transparency & User Reviews.]
+## Scores
+Female-Specific Design & Sizing (25%): X/5
+Functional Performance in Use (25%): X/5
+Fit, Adjustability & Size Range (20%): X/5
+Safety & Performance Standards (20%): X/5
+Transparency & User Reviews (10%): X/5
+**Overall: X.X / 5 ★**
+## Pros & Cons
+[Two short, benefit-focused lists: what I loved, then a few gentle watch-outs (kept light).]
+## Who It's For / Who It's Not For
+## Fit & Sizing
+## How It Compares
+[A Markdown table comparing with 2-3 named competing women's products. Header row + separator row. Columns: Product | Price | Size Range | Key Strength | WSS Verdict. THIS product in the first row. Short cells.]
+## The Verdict
+[60–90 words. Warm and decisive — who should buy it and why.]
+## FAQ
+[Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+VOICE & STYLE — follow closely:
+- Write in the FIRST PERSON as the named reviewer ("I tested", "I found", "for me"). Warm, enthusiastic and experience-led — never clinical testing language and never "the tester".
+- Talk directly to the reader. Bold the product name, key features and important terms; use the odd italic, short fragment, colon, parentheses and quotation marks for coined terms.
+- Describe benefits in simple, evaluative terms ("sturdy", "well-fitting", "stable", "premium").
+- Lead with what works. Score fairly and apply the hard rules, but frame constructively — avoid blunt criticism. Where you can't verify something, flag it as "Not independently verified — based on product page claims only", never as a failing.
+- Never fabricate testing you didn't do. NEVER use the words "honest" or "honestly".
+- Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words. British English throughout.`;
+
+const FRAMEWORKS={apparel:WSS_APPAREL,nutrition:WSS_NUTRITION,footwear:WSS_FOOTWEAR,technology:WSS_TECHNOLOGY,equipment:WSS_EQUIPMENT};
+const TYPE_LABELS={apparel:'Apparel',nutrition:'Nutrition',footwear:'Footwear',technology:'Technology',equipment:'Equipment'};
+
 const TONES=[
   'TONE NUDGE: Lean a little more story-led — open with a vivid personal moment from using it.',
   'TONE NUDGE: Lean a little more practical — focus on real-world use and the takeaways that matter.',
@@ -483,7 +600,10 @@ Raw JSON only. No markdown, no commentary.`;
 
 const SCORE_AREAS={
   apparel:[['p1','Inclusive Fit & Proportional Sizing'],['p2','Functional Performance in Use'],['p3','Adequate Support Standards'],['p5','Genuine Female Design'],['p7','Transparency & User Reviews']],
-  nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']]
+  nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']],
+  footwear:[['f1','Female-Specific Last Geometry (25%)'],['f2','Functional Performance in Use (25%)'],['f3','Fit Accuracy & Size Range (20%)'],['f4','Female Biomechanics Consideration (20%)'],['f5','Transparency & User Reviews (10%)']],
+  technology:[['t1','Female Data & Metrics (30%)'],['t2','Hardware Fit for Female Body (20%)'],['t3','Functional Accuracy in Use (25%)'],['t4','Software & App Usability (15%)'],['t5','Transparency & Independent Testing (10%)']],
+  equipment:[['e1','Female-Specific Design & Sizing (25%)'],['e2','Functional Performance in Use (25%)'],['e3','Fit, Adjustability & Size Range (20%)'],['e4','Safety & Performance Standards (20%)'],['e5','Transparency & User Reviews (10%)']]
 };
 
 const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:'',reviewerBio:'',reviewerAvatar:''};
@@ -669,7 +789,8 @@ async function scrapeProduct(url,type){
     }
   }catch{}
   // 2) Fall back to ai-proxy extraction from the URL/slug
-  const raw=await aiCall([{role:'user',content:`Extract product details for a women's ${type} review from this URL.\nURL: ${url}\nInfer brand and product name from the domain and slug, and your knowledge of the product if you recognise it.\nReturn ONLY this JSON (no prose): {"name":"","brand":"","price":"","sizes":"","specs":""}\nUse "" for anything you cannot determine. Never invent a price.`}],'Product data extractor for WSS. Return only valid JSON. Never fabricate prices or specs.',800);
+  const specHint={apparel:'size range, fabric, support level, fit',nutrition:'flavour, macros per serving, ingredients, serving size',footwear:'last/fit, heel-to-toe drop, weight, terrain, size range',technology:'sensors, battery life, connectivity, compatible apps, metrics tracked',equipment:'dimensions/sizing, materials, safety certifications, weight, adjustability'}[type]||'key specifications';
+  const raw=await aiCall([{role:'user',content:`Extract product details for a women's ${type} review from this URL.\nURL: ${url}\nInfer brand and product name from the domain and slug, and your knowledge of the product if you recognise it. For "specs", focus on: ${specHint}.\nReturn ONLY this JSON (no prose): {"name":"","brand":"","price":"","sizes":"","specs":""}\nUse "" for anything you cannot determine. Never invent a price.`}],'Product data extractor for WSS. Return only valid JSON. Never fabricate prices or specs.',800);
   const obj=JSON.parse(cleanJson(raw));
   obj.images=[];
   return obj;
@@ -682,9 +803,10 @@ async function runResearch(url,type){
   const price=val('pPrice');
   const specs=val('pSpecs');
   const resOut=document.getElementById('researchOut');
-  const prompt=type==='apparel'
-    ?`Pre-assess this women's apparel product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PILLAR PRE-ASSESSMENT (Pillars 1, 2, 3, 5, 7 — note likely scores and the evidence/gaps for each)\n2. RED FLAGS (sizing labelling, "pink it shrink it", unsubstantiated claims, support gaps)\n3. CUSTOMER SENTIMENT SUMMARY (what buyers commonly say; be clear about data limitations)\n4. PRICE-TO-VALUE (vs comparable women's products)\nBe precise and sceptical. Flag anything that needs independent verification. British English.`
-    :`Pre-assess this women's nutrition product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PRE-ASSESSMENT across Taste & Texture, Nutrition Profile, Performance, Value (likely scores + evidence/gaps)\n2. RED FLAGS (additives, unsubstantiated claims, female-physiology gaps)\n3. CUSTOMER SENTIMENT SUMMARY (be clear about data limitations)\n4. PRICE-TO-VALUE (price per serving vs comparables)\nBe precise and sceptical. British English.`;
+  const areas=SCORE_AREAS[type]||SCORE_AREAS.apparel;
+  const critList=areas.map(([k,l])=>l).join('; ');
+  const typeLabel=(TYPE_LABELS[type]||'product').toLowerCase();
+  const prompt=`Pre-assess this women's ${typeLabel} product for a WSS™ review.\nURL: ${url}\nProduct: ${name}\nBrand: ${brand}\nPrice: £${price}\nSpecs found: ${specs}\n\nProvide:\n1. WSS PRE-ASSESSMENT across these criteria (likely score 1-5 + the evidence/gaps for each): ${critList}\n2. RED FLAGS specific to this ${typeLabel} (unsubstantiated female-specific claims, sizing/fit gaps, missing certifications or testing data, "pink it and shrink it")\n3. CUSTOMER SENTIMENT SUMMARY (what buyers commonly say; be clear about data limitations)\n4. PRICE-TO-VALUE vs comparable women's products\nBe precise and sceptical. Where evidence is missing, say so. British English.`;
   const text=await aiStream([{role:'user',content:prompt}],'Senior WSS research analyst. British English. Never fabricate. Be sceptical and specific.',resOut,null,'',2000);
   state.researchText=text||'';
   fetchCustomerReviews(url,name,brand);
@@ -858,9 +980,7 @@ async function runWrite(fb){
   const keyword=`${brand} ${name} Review — Women's ${category}`.replace(/\s+/g,' ').trim();
   document.getElementById('writeKw').style.display='block';
   document.getElementById('writeKw').innerHTML=`🔑 Target keyword: <strong>${esc(keyword)}</strong>`;
-  document.getElementById('writeTypeInfo').innerHTML=pType==='apparel'
-    ?'<div class="al inf">Apparel — 5 WSS™ pillars (1,2,3,5,7). Hard rules: Pillar 3 fail caps at 2★; no verifiable data caps at 3★.</div>'
-    :'<div class="al inf">Nutrition — 4 criteria: Taste 25%, Nutrition 30%, Performance 30%, Value 15%.</div>';
+  document.getElementById('writeTypeInfo').innerHTML=`<div class="al inf">${TYPE_LABELS[pType]||'Review'} — ${(SCORE_AREAS[pType]||SCORE_AREAS.apparel).map(([k,l])=>l).join(', ')}.</div>`;
   let reviewContext='';
   if(state.customerReviews.length){
     if(state.customerReviews[0].rating!==undefined)reviewContext='\n\nCUSTOMER REVIEWS:\n'+state.customerReviews.slice(0,5).map(r=>`${r.rating}★: ${r.text}`).join('\n');
@@ -869,7 +989,7 @@ async function runWrite(fb){
   const reviewer=val('reviewerName');
   cfg.reviewer=reviewer;cfg.reviewerBio=val('reviewerBio');cfg.reviewerAvatar=val('reviewerAvatar');saveCfg();
   const reviewerSection=reviewer?`\n\nREVIEWER (author — write the whole review in this person's first-person voice as "I"): ${reviewer}`:'\n\nREVIEWER: a WSS tester (write in the first person as "I").';
-  const testerSection=testerNotes?`\n\nMY TESTING NOTES (write these up in the first person as my own experience; use only this, never invent more):\n${testerNotes}`:'\n\nMY TESTING NOTES: Not supplied. Flag any finding that needs hands-on evidence as "Not independently verified."';
+  const testerSection=testerNotes?`\n\nMY TESTING NOTES (write these up in the first person as my own experience; use only this, never invent more):\n${testerNotes}`:'\n\nMY TESTING NOTES: Not supplied. Flag any finding that needs hands-on evidence as "Not independently verified — based on product page claims only."';
   const provided=getProvidedScores(pType);
   state.providedScores=provided;
   let scoreDirective='';
@@ -880,7 +1000,7 @@ async function runWrite(fb){
   const tone=TONES[Math.floor(Math.random()*TONES.length)];
   const note=fb?`\n\nHOLLY'S FEEDBACK: ${fb}\nAddress this directly in the rewrite.`:'';
   const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${reviewerSection}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Write the whole review in the first person ("I"). End at the FAQ — do NOT write a Buy section or any link.\n${tone}\nBritish English throughout.`;
-  const text=await aiStream([{role:'user',content:prompt}],`You are a WSS reviewer writing a warm, first-person, experience-led product review for active women. Lead with strengths, talk directly to the reader, avoid blunt criticism and anything you can't verify, and keep it grounded in real use. Never fabricate testing. British English.\n\n${pType==='apparel'?WSS_APPAREL:WSS_NUTRITION}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
+  const text=await aiStream([{role:'user',content:prompt}],`You are a WSS reviewer writing a warm, first-person, experience-led product review for active women. Lead with strengths, talk directly to the reader, avoid blunt criticism and anything you can't verify, and keep it grounded in real use. Never fabricate testing. British English.\n\n${FRAMEWORKS[pType]||WSS_APPAREL}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
   if(text){
     state.reviewText=text;
     document.getElementById('writeEdit').value=text;
@@ -1102,12 +1222,15 @@ function guessCategory(){
   return'run';
 }
 function extractPillarScores(review,pType){
+  const areas=SCORE_AREAS[pType]||SCORE_AREAS.apparel;
   const scores={};
-  if(pType==='apparel'){
-    [['p1','Inclusive Fit'],['p2','Functional Performance'],['p3','Support Standards'],['p5','Genuine Female Design'],['p7','Transparency']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:\\n]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
-  }else{
-    [['taste','Taste'],['nutrition','Nutrition Profile'],['performance','Performance'],['value','Value']].forEach(([key,label])=>{const m=review.match(new RegExp(label+'[^:\\n]*:\\s*(\\d)'));scores[key]=m?parseInt(m[1]):3;});
-  }
+  areas.forEach(([key,label])=>{
+    const frag=label.replace(/\s*\(\d+%\)\s*/,'').trim();
+    const esc=s=>s.replace(/[-/\\^$*+?.()|[\]{}&]/g,'\\$&');
+    let m=review.match(new RegExp(esc(frag)+'[^:\\n]*:\\s*(\\d)','i'));
+    if(!m){const two=frag.split(/\s+/).slice(0,2).map(esc).join('\\s+');m=review.match(new RegExp(two+'[^:\\n]*:\\s*(\\d)','i'));}
+    scores[key]=m?parseInt(m[1]):3;
+  });
   return scores;
 }
 
