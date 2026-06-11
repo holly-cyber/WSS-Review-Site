@@ -11,18 +11,25 @@ const { title, description = "Women's Sports Store — Independent product revie
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPath = Astro.url.pathname;
 
-// Latest review per category (for the mega-menu featured card).
+// Latest review per category (for the mega-menu featured card) + which sub /
+// sub-sub categories actually have reviews (only those are shown in nav).
 const reviewMods = import.meta.glob('../pages/reviews/*/*.md', { eager: true });
 const latestByCat: Record<string, any> = {};
+const subWithReviews = new Set<string>();
+const subsubWithReviews = new Set<string>();
 for (const [path, mod] of Object.entries(reviewMods)) {
   const fm = (mod as any).frontmatter || {};
   const parts = path.split('/');
-  const cat = parts[parts.length - 2];
+  const cat = fm.category || parts[parts.length - 2];
   const slug = parts[parts.length - 1].replace('.md', '');
   const entry = { title: fm.title, brand: fm.brand, slug, cat, score: fm.overall_score, image: fm.hero_image, date: fm.date };
   if (!latestByCat[cat] || new Date(entry.date).getTime() > new Date(latestByCat[cat].date).getTime()) latestByCat[cat] = entry;
+  if (fm.subcategory) subWithReviews.add(`${cat}/${slugify(fm.subcategory)}`);
+  if (fm.subcategory && fm.subsubcategory) subsubWithReviews.add(`${cat}/${slugify(fm.subcategory)}/${slugify(fm.subsubcategory)}`);
 }
 const isActive = (slug: string) => currentPath === `/reviews/${slug}/` || currentPath.startsWith(`/reviews/${slug}/`);
+const visibleSubs = (cat: any) => cat.subs.filter((s: any) => subWithReviews.has(`${cat.slug}/${slugify(s.name)}`));
+const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string) => subsubWithReviews.has(`${catSlug}/${slugify(sub.name)}/${slugify(it)}`));
 ---
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -64,14 +71,18 @@ const isActive = (slug: string) => currentPath === `/reviews/${slug}/` || curren
               <div class="container mega-panel-inner">
                 <div class="mega-left">
                   <div class="mega-head">{cat.name}</div>
-                  <div class="mega-subs">
-                    {cat.subs.map((sub) => (
-                      <a class="mega-sub" href={`/reviews/${cat.slug}/${slugify(sub.name)}/`}>
-                        <span class="mega-sub-name">{sub.name}</span>
-                        <span class="mega-sub-desc">{sub.items.slice(0, 4).join(' · ')}</span>
-                      </a>
-                    ))}
-                  </div>
+                  {visibleSubs(cat).length > 0 ? (
+                    <div class="mega-subs">
+                      {visibleSubs(cat).map((sub: any) => (
+                        <a class="mega-sub" href={`/reviews/${cat.slug}/${slugify(sub.name)}/`}>
+                          <span class="mega-sub-name">{sub.name}</span>
+                          {visibleItems(cat.slug, sub).length > 0 && <span class="mega-sub-desc">{visibleItems(cat.slug, sub).slice(0, 4).join(' · ')}</span>}
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <p class="mega-soon">Reviews coming soon — browse everything in {cat.name}.</p>
+                  )}
                   <a class="mega-all" href={`/reviews/${cat.slug}/`}>View all {cat.name} reviews →</a>
                 </div>
                 <div class="mega-feature">
@@ -121,7 +132,7 @@ const isActive = (slug: string) => currentPath === `/reviews/${slug}/` || curren
           </button>
           <div class="drawer-sub" id={`d-${cat.slug}`}>
             <a class="drawer-sub-all" href={`/reviews/${cat.slug}/`}>All {cat.name} →</a>
-            {cat.subs.map((sub) => (
+            {visibleSubs(cat).map((sub: any) => (
               <a href={`/reviews/${cat.slug}/${slugify(sub.name)}/`}>{sub.name}</a>
             ))}
           </div>
@@ -262,6 +273,7 @@ const isActive = (slug: string) => currentPath === `/reviews/${slug}/` || curren
 .mega-sub:hover .mega-sub-name { color: var(--pink); }
 .mega-sub-desc { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; line-height: 1.4; }
 .mega-sub:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-radius: 4px; }
+.mega-soon { font-size: 13px; color: var(--text-muted); margin: 0 0 .75rem; }
 .mega-all { display: inline-block; margin-top: .5rem; font-size: 13px; font-weight: 600; color: var(--pink); }
 .mega-feature { }
 .feature-card { display: flex; flex-direction: column; background: #fff0f4; border-radius: var(--radius-md, 12px); padding: 1.1rem; text-decoration: none; height: 100%; transition: transform .15s; }
