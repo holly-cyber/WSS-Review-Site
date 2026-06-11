@@ -612,15 +612,19 @@ const REEL_SYS=`WSS social content director. 60-second direct-to-camera Reel scr
 [HOOK 0-3s] [BEAT 1 3-20s] [BEAT 2 20-35s] [BEAT 3 35-45s] [VERDICT 45-55s] [CTA 55-60s]
 Hook = the most surprising WSS finding. Each Beat = one specific finding. Verdict = binary. CTA must be exactly: "Full review and buy link in bio." and nothing else. On-screen text in [brackets]. British English.`;
 
-const EMAIL_SYS=`WSS email writer. Return ONLY a valid JSON array of exactly 3 objects, each with keys: subject, preview_text, body_html.
+const EMAIL_SYS=`WSS email writer. Write a 3-email MailerLite sequence.
 Email 1 Review Drop: best WSS finding, link to the review, clear CTA.
 Email 2 Buy Nudge (day 4): 3 bullet WSS findings, Shop now CTA.
 Email 3 Social Proof (day 7): community framing, softer sell.
 HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text in #000036. CTA button style: background:#FF5E84;color:#ffffff;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
-CRITICAL — the output MUST parse with JSON.parse, so:
-- Use SINGLE QUOTES for EVERY HTML attribute inside body_html, e.g. <a href='URL' style='color:#FF5E84'>. NEVER use a double quote (") anywhere inside any string value.
-- Keep each value on ONE line — no real line breaks inside strings; use <br> for spacing in the HTML.
-- Output raw JSON only: no markdown fences, no commentary, nothing before the opening [ or after the closing ].`;
+
+OUTPUT FORMAT — output the three emails using EXACTLY these delimiters and labels, and NOTHING else (no JSON, no markdown fences, no commentary). Repeat this block three times:
+[EMAIL]
+SUBJECT: one-line subject here
+PREVIEW: one-line preview text here
+BODY:
+the full email HTML here (it may span multiple lines and use any quotes you like)
+[/EMAIL]`;
 
 const SCORE_AREAS={
   apparel:[['p1','Inclusive Fit & Proportional Sizing'],['p2','Functional Performance in Use'],['p3','Adequate Support Standards'],['p4','Thermal Regulation & Material Performance'],['p5','Genuine Female Design'],['p7','Transparency & User Reviews']],
@@ -647,14 +651,23 @@ function getReview(){return(document.getElementById('writeEdit').value||'').trim
 function slugify(s){return(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function val(id){return(document.getElementById(id).value||'').trim()}
 function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim()}
-// Tolerant parse for the email sequence: strips fences/prose, then retries with
-// literal control chars (stray newlines/tabs inside HTML strings) collapsed.
+// Parse the 3-email sequence from the delimiter format ([EMAIL] ... [/EMAIL]).
+// Avoids JSON entirely so HTML quotes/newlines can't break it. Falls back to
+// legacy JSON output if the model returns that instead.
 function parseEmails(raw){
-  let s=cleanJson(raw);
-  const a=s.indexOf('['),b=s.lastIndexOf(']');
-  if(a>=0&&b>a)s=s.slice(a,b+1);
-  try{return JSON.parse(s);}catch(e){}
-  return JSON.parse(s.replace(/[\u0000-\u001F]+/g,' '));
+  const txt=cleanJson(raw);
+  const parts=txt.split(/\[EMAIL\]/i).slice(1);
+  const out=parts.map(p=>{
+    p=p.replace(/\[\/EMAIL\][\s\S]*$/i,'').trim();
+    const subject=((p.match(/^\s*SUBJECT:\s*(.*)$/im)||[])[1]||'').trim();
+    const preview_text=((p.match(/^\s*PREVIEW(?:_TEXT)?:\s*(.*)$/im)||[])[1]||'').trim();
+    const bm=p.match(/^\s*BODY(?:_HTML)?:\s*([\s\S]*)$/im);
+    const body_html=(bm?bm[1]:'').trim();
+    return {subject,preview_text,body_html};
+  }).filter(e=>e.subject||e.body_html);
+  if(out.length)return out;
+  let s=txt;const a=s.indexOf('['),b=s.lastIndexOf(']');if(a>=0&&b>a)s=s.slice(a,b+1);
+  return JSON.parse(s);
 }
 function stripHtml(h){const d=document.createElement('div');d.innerHTML=h||'';return(d.textContent||'').replace(/\s+/g,' ').trim()}
 
