@@ -160,6 +160,16 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .pv-reviewer .lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af}
 .pv-reviewer .nm{font-weight:700;color:#000036}
 .pv-reviewer .bio{font-size:.85rem;color:#555;margin:.3rem 0 0;line-height:1.5}
+.pv-content .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.25rem 0}
+.pv-content .pc-col{border:1px solid #eee;border-radius:10px;padding:1rem 1.1rem;background:#f7f7f7}
+.pv-content .pc-pros{border-top:4px solid #2e9e5b}
+.pv-content .pc-cons{border-top:4px solid #FF5E84}
+.pv-content .pc-h{font-weight:700;color:#000036;margin-bottom:.6rem;font-size:.95rem}
+.pv-content .pros-cons ul{list-style:none;margin:0;padding:0}
+.pv-content .pros-cons li{position:relative;padding-left:1.7rem;margin-bottom:.5rem;font-size:.9rem;line-height:1.5;color:#374151}
+.pv-content .pc-pros li::before{content:'✓';position:absolute;left:0;color:#2e9e5b;font-weight:800}
+.pv-content .pc-cons li::before{content:'✗';position:absolute;left:0;color:#FF5E84;font-weight:800}
+@media(max-width:600px){.pv-content .pros-cons{grid-template-columns:1fr}}
 .pv-stars-wrap{position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em;font-size:18px}
 .pv-stars-bg{color:rgba(255,255,255,.35)}
 .pv-stars-fg{position:absolute;top:0;left:0;overflow:hidden;color:#FF5E84;width:0}
@@ -409,12 +419,12 @@ Transparency & User Reviews: X/5
 ## Who It's For / Who It's Not For
 ## Size & Fit
 ## How It Compares
-[A Markdown table comparing this product with 2-3 named competing women's products. Use proper Markdown table syntax with a header row and a separator row. Columns: Product | Price | Size Range | Key Strength | WSS Verdict. Put THIS product in the first row. Keep each cell short (a few words).]
+[A Markdown table comparing this product with 2-3 named competing women's products. Use proper Markdown table syntax with a header row and a separator row. Columns: Product | Price | Size Range | Key Strength | Our Verdict. Put THIS product in the first row. Keep each cell short (a few words).]
 ## The Verdict
 [60–90 words. Warm and decisive — who should buy it and why.]
 ## FAQ
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
-END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button. Start directly with ## Overview — no title, no H1, no "Reviewed by" byline. The Scores section is plain text lines (NEVER a table) and must NOT include any calculation, methodology or weighted-sum working.
 VOICE & STYLE — follow closely:
 - Write in the FIRST PERSON as the named reviewer ("I found", "I've used", "for me", "in my sessions"). Warm, enthusiastic and experience-led — a conversational review voice, never clinical testing language and never "the tester".
 - Talk directly to the reader.
@@ -448,12 +458,12 @@ Value (15%): X/5
 ## Who It's For / Who It's Not For
 ## Taste & Usage
 ## How It Compares
-[A Markdown table comparing this product with 2-3 named competing women's nutrition products. Use proper Markdown table syntax with a header row and a separator row. Columns: Product | Price | Key Macro | Taste | WSS Verdict. Put THIS product in the first row. Keep each cell short.]
+[A Markdown table comparing this product with 2-3 named competing women's nutrition products. Use proper Markdown table syntax with a header row and a separator row. Columns: Product | Price | Key Macro | Taste | Our Verdict. Put THIS product in the first row. Keep each cell short.]
 ## The Verdict
 [60–90 words. Warm and decisive — who should buy it and why.]
 ## FAQ
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words.]
-END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button. Start directly with ## Overview — no title, no H1, no "Reviewed by" byline. The Scores section is plain text lines (NEVER a table) and must NOT include any calculation, methodology or weighted-sum working.
 VOICE & STYLE — follow closely:
 - Write in the FIRST PERSON as the named reviewer ("I tasted", "I found", "for me", "mid-ride"). Warm, enthusiastic and experience-led — a conversational review voice, never clinical testing language and never "the tester".
 - Talk directly to the reader.
@@ -488,12 +498,12 @@ Transparency & User Reviews (10%): X/5
 ## Who It's For / Who It's Not For
 ## Size & Fit
 ## How It Compares
-[A Markdown table comparing with 2-3 named competing women's shoes. Header row + separator row. Columns: Product | Price | Size Range | Key Strength | WSS Verdict. THIS product in the first row. Short cells.]
+[A Markdown table comparing with 2-3 named competing women's shoes. Header row + separator row. Columns: Product | Price | Size Range | Key Strength | Our Verdict. THIS product in the first row. Short cells.]
 ## The Verdict
 [60–90 words. Warm and decisive — who should buy it and why.]
 ## FAQ
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
-END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button. Start directly with ## Overview — no title, no H1, no "Reviewed by" byline. The Scores section is plain text lines (NEVER a table) and must NOT include any calculation, methodology or weighted-sum working.
 VOICE & STYLE — follow closely:
 - Write in the FIRST PERSON as the named reviewer ("I ran in", "I found", "for me"). Warm, enthusiastic and experience-led — never clinical testing language and never "the tester".
 - Talk directly to the reader. Bold the product name, key features and important terms; use the odd italic, short fragment, colon, parentheses and quotation marks for coined terms.
@@ -526,12 +536,12 @@ Transparency & Independent Testing (10%): X/5
 ## Who It's For / Who It's Not For
 ## Compatibility & Setup
 ## How It Compares
-[A Markdown table comparing with 2-3 named competing women's devices. Header row + separator row. Columns: Product | Price | Key Metric | Battery | WSS Verdict. THIS product in the first row. Short cells.]
+[A Markdown table comparing with 2-3 named competing women's devices. Header row + separator row. Columns: Product | Price | Key Metric | Battery | Our Verdict. THIS product in the first row. Short cells.]
 ## The Verdict
 [60–90 words. Warm and decisive — who should buy it and why.]
 ## FAQ
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
-END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button. Start directly with ## Overview — no title, no H1, no "Reviewed by" byline. The Scores section is plain text lines (NEVER a table) and must NOT include any calculation, methodology or weighted-sum working.
 VOICE & STYLE — follow closely:
 - Write in the FIRST PERSON as the named reviewer ("I trained with", "I found", "for me"). Warm, enthusiastic and experience-led — never clinical testing language and never "the tester".
 - Talk directly to the reader. Bold the product name, key features and important terms; use the odd italic, short fragment, colon, parentheses and quotation marks for coined terms.
@@ -564,12 +574,12 @@ Transparency & User Reviews (10%): X/5
 ## Who It's For / Who It's Not For
 ## Fit & Sizing
 ## How It Compares
-[A Markdown table comparing with 2-3 named competing women's products. Header row + separator row. Columns: Product | Price | Size Range | Key Strength | WSS Verdict. THIS product in the first row. Short cells.]
+[A Markdown table comparing with 2-3 named competing women's products. Header row + separator row. Columns: Product | Price | Size Range | Key Strength | Our Verdict. THIS product in the first row. Short cells.]
 ## The Verdict
 [60–90 words. Warm and decisive — who should buy it and why.]
 ## FAQ
 [Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
-END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button.
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button. Start directly with ## Overview — no title, no H1, no "Reviewed by" byline. The Scores section is plain text lines (NEVER a table) and must NOT include any calculation, methodology or weighted-sum working.
 VOICE & STYLE — follow closely:
 - Write in the FIRST PERSON as the named reviewer ("I tested", "I found", "for me"). Warm, enthusiastic and experience-led — never clinical testing language and never "the tester".
 - Talk directly to the reader. Bold the product name, key features and important terms; use the odd italic, short fragment, colon, parentheses and quotation marks for coined terms.
@@ -1031,6 +1041,41 @@ function tidyMd(md){return(md||'').replace(/\r/g,'').replace(/[ \t]+\n/g,'\n').r
 function reviewHeading(brand,name){brand=(brand||'').trim();name=(name||'').trim();let t=name;if(brand&&!name.toLowerCase().startsWith(brand.toLowerCase()))t=(brand+' '+name);t=t.replace(/\s+/g,' ').trim();return(t||'Product')+' Review';}
 // Drop any AI-written "Buy"/CTA section and stray [AFFILIATE_LINK] tokens — the page adds its own buy button.
 function stripBuy(md){return(md||'').replace(/\n#{2,3}[ \t]*(Buy|Where to Buy|Get It|Shop)\b[\s\S]*$/i,'\n').replace(/\[AFFILIATE_LINK\]/g,'').trim();}
+// Minimal inline markdown -> HTML for items placed inside raw HTML blocks.
+function inlineMd(t){return(t||'').replace(/!\[[^\]]*\]\([^)]*\)/g,'').replace(/\[([^\]]+)\]\(([^)\s]+)[^)]*\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*]+)\*(?!\*)/g,'$1<em>$2</em>');}
+// Turn the Pros & Cons section into a styled two-column box with ✓ / ✗.
+function stylePros(md){
+  const hm=md.match(/^##[ \t]*Pros[^\n]*$/im);
+  if(!hm)return md;
+  const afterHead=hm.index+hm[0].length;
+  const rest=md.slice(afterHead);const nx=rest.search(/\n##\s/);
+  const end=nx>=0?afterHead+nx:md.length;
+  const content=md.slice(afterHead,end);
+  const lines=content.split('\n');let pros=[],cons=[],side='pros';
+  for(const ln of lines){const t=ln.trim();if(!t)continue;
+    if(!/^[-*]\s/.test(t)){if(/watch|cons|downside|drawback|against|negative/i.test(t)){side='cons';}else if(/loved|love|pros|liked|like|good|highlight|positive/i.test(t)){side='pros';}continue;}
+    (side==='pros'?pros:cons).push(inlineMd(t.replace(/^[-*]\s+/,'')));
+  }
+  if(!pros.length&&!cons.length)return md;
+  const li=a=>a.map(x=>`<li>${x}</li>`).join('');
+  const box=`<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul>${li(pros)}</ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul>${li(cons)}</ul></div></div>`;
+  return md.slice(0,hm.index)+'## Pros & Cons\n\n'+box+'\n'+md.slice(end);
+}
+// Final clean-up of a built review body before publish/preview.
+function polishBody(md){
+  md=md||'';
+  // 4) drop any leading title/byline before the first H2
+  const fi=md.search(/^##\s/m);if(fi>0)md=md.slice(fi);
+  md=md.replace(/^#[ \t]+[^\n]*$/gm,'');                 // stray single-# titles
+  md=md.replace(/^[>\s]*\*{0,2}reviewed by\b[^\n]*$/gim,''); // 'Reviewed by …' lines
+  // 3) remove the Scores tally section and any methodology working (sidebar shows scores)
+  md=md.replace(/\n#{2,3}[ \t]*Scores\b[\s\S]*?(?=\n##\s|$)/i,'\n');
+  md=md.replace(/^.*\b(calculated|weighted (?:average|sum)|rounded (?:to|up|down)|exact weighted)\b.*$/gim,'');
+  md=md.replace(/^[>\s]*\*{0,2}overall:\s*[\d.]+\s*\/\s*5.*$/gim,'');
+  // 5) style pros & cons
+  md=stylePros(md);
+  return md;
+}
 // Link the first product/brand mention out to the affiliate/product URL (SEO link-out).
 function linkifyFirstBold(md,name,brand,url){
   if(!url)return md;
@@ -1183,6 +1228,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     // In-content link-out prefers the affiliate link, falls back to the product page.
     const productUrl=affLink||productPage;
     reviewBody=linkifyFirstBold(reviewBody,name,brand,productUrl);
+    reviewBody=tidyMd(polishBody(reviewBody));
     const reviewerBio=val('reviewerBio'),reviewerAvatar=val('reviewerAvatar');
     const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
@@ -1464,6 +1510,7 @@ function openPreview(){
   body=body.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
   const productPage=val('destUrl')||val('pUrl')||'',affLink=state.affLink||'';
   body=linkifyFirstBold(body,name,brand,affLink||productPage);
+  body=tidyMd(polishBody(body));
   const om=review.match(/Overall:\s*([\d.]+)\s*\/\s*5/i),overall=om?om[1]:'4.0';
   const reviewer=val('reviewerName'),bio=val('reviewerBio'),avatar=val('reviewerAvatar');
   const buyUrl=affLink||productPage,title=reviewHeading(brand,name);
