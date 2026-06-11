@@ -121,7 +121,7 @@ const pageTitle = `${member.name} — Reviewer`;
 .rv-group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 2px solid var(--pink); padding-bottom: .5rem; margin-bottom: 1.25rem; }
 .rv-group-head h3 { font-size: 1.1rem; color: var(--navy); }
 .rv-group-all { font-size: .8rem; font-weight: 600; color: var(--pink); white-space: nowrap; }
-.rv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.rv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 1.5rem; }
 .rv-empty { color: var(--text-secondary); padding: 1rem 0 2rem; }
 @media (max-width: 600px) { .rv-avatar { width: 100px; height: 100px; font-size: 2rem; } }
 </style>

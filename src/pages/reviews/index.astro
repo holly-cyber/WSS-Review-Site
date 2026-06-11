@@ -201,7 +201,7 @@ const cats = [
 .cat-card p{font-size:.8rem;color:var(--text-secondary);margin-bottom:.65rem;line-height:1.45}
 .cat-arrow{font-size:.75rem;font-weight:600;color:var(--pink)}
 .latest-section{padding:3.5rem 0}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:1.5rem}
 .wss-explainer{padding:4rem 0;background:var(--off-white)}
 .explainer-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .explainer-text .wss-badge{margin-bottom:1rem}
@@ -219,5 +219,6 @@ const cats = [
 .stat-card p{font-size:.875rem;color:var(--text-secondary)}
 .stat-source{font-size:.7rem;color:var(--text-muted);margin-top:.25rem}
 @media(max-width:900px){.explainer-inner{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr;gap:2rem}}
+@media(max-width:600px){.hub-hero{padding:2.75rem 0}.categories-section,.latest-section{padding:2.5rem 0}.wss-explainer{padding:2.75rem 0}.hero-ctas .btn{flex:1;justify-content:center}}
 @media(max-width:480px){.mini-latest{grid-template-columns:1fr 1fr}.mini-latest .mini-card:last-child{display:none}}
 </style>
