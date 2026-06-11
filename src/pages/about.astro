@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const stats = [
+  { num: '80%', label: 'of women have experienced poor product fit' },
+  { num: '86%', label: 'more likely to buy a WSS™-certified product' },
+  { num: '98%', label: 'want clearer independent standards' },
+];
+
+const pillars = [
+  { n: '1', name: 'Inclusive Fit & Proportional Sizing' },
+  { n: '2', name: 'Functional Performance in Use' },
+  { n: '3', name: 'Adequate Support Standards' },
+  { n: '5', name: 'Genuine Female Design' },
+  { n: '7', name: 'Transparency & Independent Verification' },
+];
+
+const team = [
+  {
+    initials: 'HW', name: 'Holly Woodford', role: 'Co-Founder & Editor',
+    bio: "Holly is a long-time advocate for women in sport. An endurance athlete and self-confessed kit geek, she tests gear in real training conditions and cuts through the hype to find what actually works for women's bodies and lives. Holly built the Women's Sports Standard™ framework and oversees every review published on the site.",
+    specialisms: ['Running', 'Trail', 'Triathlon', 'Kit & Gear', 'Technology'],
+    instagram: { handle: '@challengehollyberry', url: 'https://instagram.com/challengehollyberry' },
+    email: 'holly@womenssportsstore.com',
+  },
+  {
+    initials: 'MB', name: 'Mel Berry', role: 'Co-Founder & Editor',
+    bio: "Mel believes we're all capable of more than we think. Growth comes from listening, adapting, and moving forward with purpose. As a coach her goal is to help athletes unlock their potential, enjoy the journey, and get access to great products that make it even more enjoyable. Mel leads testing across swim and triathlon categories and brings exacting standards to every product she reviews.",
+    specialisms: ['Swimming', 'Triathlon', 'Cycling', 'Coaching', 'Equipment', 'Sports Bras'],
+    instagram: { handle: '@melberrycoaching', url: 'https://instagram.com/melberrycoaching' },
+    email: 'mel@womenssportsstore.com',
+  },
+  {
+    initials: 'GR', name: 'Gemma Richardson', role: "Women's Health Physio & Pilates Teacher",
+    bio: "Gemma is a specialist Women's Health Physiotherapist and Pilates teacher who helps women recover and move with confidence. She puts equipment and wellness products through everyday use, sharing honest insights grounded in clinical experience and real life. Her specialist background means she spots what other reviewers miss — how a product actually performs for women's bodies under real conditions.",
+    specialisms: ['Running', 'Gym', 'Pilates', 'Wellness', 'Recovery'],
+    instagram: { handle: '@her_physioandpilates', url: 'https://instagram.com/her_physioandpilates' },
+    email: '',
+  },
+];
+
+const igIcon = '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 01-1.38-.9 3.72 3.72 0 01-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.94c-3.14 0-3.51.01-4.75.07-1.15.05-1.77.24-2.18.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.18-.06 1.24-.07 1.61-.07 4.75s.01 3.51.07 4.75c.05 1.15.24 1.77.4 2.18.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.18.4 1.24.06 1.61.07 4.75.07s3.51-.01 4.75-.07c1.15-.05 1.77-.24 2.18-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.18.06-1.24.07-1.61.07-4.75s-.01-3.51-.07-4.75c-.05-1.15-.24-1.77-.4-2.18a3.66 3.66 0 00-.88-1.35 3.66 3.66 0 00-1.35-.88c-.41-.16-1.03-.35-2.18-.4-1.24-.06-1.61-.07-4.75-.07zm0 3.3a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 7.59a2.99 2.99 0 100-5.98 2.99 2.99 0 000 5.98zm5.85-7.81a1.08 1.08 0 11-2.15 0 1.08 1.08 0 012.15 0z"/></svg>';
+---
+<BaseLayout
+  title="About Us — Women's Sports Store"
+  description="Meet the team behind Women's Sports Store — the UK's first certified women's sports retail destination. Independent reviews tested against the Women's Sports Standard™."
+>
+  <section class="about-hero">
+    <div class="container">
+      <span class="wss-badge">WSS™ Independent Reviews</span>
+      <h1>About Women's Sports Store</h1>
+      <p class="hero-sub">Sports products were never designed for women. We're changing that.</p>
+      <p class="hero-body">Women's Sports Store is the UK's first certified women's sports retail destination. Every product we review is independently tested against the Women's Sports Standard™ — five rigorous pillars that measure what actually matters to active women. No brand bias. No vague praise. Just honest, evidence-based assessments.</p>
+    </div>
+  </section>
+
+  <section class="about-why">
+    <div class="container">
+      <h2>Why we exist</h2>
+      <div class="stat-grid">
+        {stats.map((s) => (
+          <div class="stat-card">
+            <div class="stat-num">{s.num}</div>
+            <p>{s.label}</p>
+          </div>
+        ))}
+      </div>
+      <p class="why-body">We built the Women's Sports Standard™ because the sports industry has spent decades designing products for men and shrinking them down for women. Our independent review framework holds brands accountable to real standards — tested by active women, scored transparently, published regardless of commercial relationships.</p>
+      <p class="stat-source">Source: WSS consumer survey, n=331.</p>
+    </div>
+  </section>
+
+  <section class="about-standard">
+    <div class="container">
+      <h2>The Women's Sports Standard™</h2>
+      <p class="standard-intro">Every review is scored against five independent pillars. <a href="https://womenssportsstandard.com" target="_blank" rel="noopener noreferrer">Read the full standard →</a></p>
+      <ol class="pillar-list">
+        {pillars.map((p) => (
+          <li class="pillar-item">
+            <span class="pillar-dot">{p.n}</span>
+            <span class="pillar-name">{p.name}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="about-team" id="team">
+    <div class="container">
+      <h2>Our review team</h2>
+      <p class="team-intro">Every review is written by an active woman who has tested the product in real conditions. Our team combines editorial expertise, specialist clinical knowledge, and first-hand experience of the fit and performance issues women face every day.</p>
+      <div class="team-grid">
+        {team.map((m) => (
+          <article class="reviewer-card">
+            <div class="reviewer-avatar">{m.initials}</div>
+            <div class="reviewer-role">{m.role}</div>
+            <h3 class="reviewer-name">{m.name}</h3>
+            <p class="reviewer-bio">{m.bio}</p>
+            <div class="reviewer-tags">
+              {m.specialisms.map((s) => <span class="tag">{s}</span>)}
+            </div>
+            <div class="reviewer-contact">
+              <a class="reviewer-ig" href={m.instagram.url} target="_blank" rel="noopener noreferrer"><span class="ig-icon" set:html={igIcon} />{m.instagram.handle}</a>
+              {m.email && <a class="reviewer-email" href={`mailto:${m.email}`}>{m.email}</a>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="about-contact">
+    <div class="container">
+      <h2>Get in touch</h2>
+      <p>For review submissions, brand partnerships, or press enquiries, contact us at:</p>
+      <p><a class="contact-email" href="mailto:hello@womenssportsstore.com">hello@womenssportsstore.com</a></p>
+      <p class="contact-standard"><a href="https://womenssportsstandard.com" target="_blank" rel="noopener noreferrer">womenssportsstandard.com →</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.about-hero { background: #000036; color: #fff; padding: 4rem 0 3.5rem; }
+.about-hero .wss-badge { margin-bottom: 1.25rem; }
+.about-hero h1 { color: #fff; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+.hero-sub { font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--pink); font-weight: 600; margin-bottom: 1.25rem; max-width: 640px; }
+.hero-body { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,.8); max-width: 680px; }
+
+.about-why { background: #f8f8f6; padding: 3.5rem 0; }
+.about-why h2 { font-size: 1.75rem; margin-bottom: 1.75rem; }
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+.stat-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; }
+.stat-num { font-size: 2.75rem; font-weight: 700; color: var(--pink); line-height: 1; margin-bottom: .5rem; }
+.stat-card p { font-size: .9rem; color: var(--text-secondary); line-height: 1.5; }
+.why-body { font-size: 1rem; line-height: 1.75; color: var(--text-secondary); max-width: 760px; }
+.stat-source { font-size: .75rem; color: var(--text-muted); margin-top: .75rem; }
+
+.about-standard { padding: 3.5rem 0; }
+.about-standard h2 { font-size: 1.75rem; margin-bottom: .5rem; }
+.standard-intro { color: var(--text-secondary); margin-bottom: 1.75rem; }
+.standard-intro a { color: var(--pink); font-weight: 600; }
+.pillar-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .875rem; max-width: 640px; }
+.pillar-item { display: flex; align-items: center; gap: 1rem; }
+.pillar-dot { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--pink); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: .95rem; }
+.pillar-name { font-size: 1.05rem; font-weight: 600; color: var(--navy); }
+
+.about-team { background: #f8f8f6; padding: 3.5rem 0; }
+.about-team h2 { font-size: 1.75rem; margin-bottom: .75rem; }
+.team-intro { color: var(--text-secondary); line-height: 1.7; max-width: 760px; margin-bottom: 2rem; }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.reviewer-card { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 1.5rem; }
+.reviewer-avatar { width: 56px; height: 56px; border-radius: 50%; background: #FF5E84; color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+.reviewer-role { color: #FF5E84; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: .35rem; }
+.reviewer-name { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 20px; color: #000036; margin-bottom: .75rem; }
+.reviewer-bio { color: #555; font-size: 14px; line-height: 1.7; margin-bottom: 1rem; }
+.reviewer-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1rem; }
+.tag { background: #fff0f4; color: #FF5E84; font-size: 12px; border-radius: 20px; padding: 3px 10px; }
+.reviewer-contact { display: flex; flex-direction: column; gap: .35rem; }
+.reviewer-ig { display: inline-flex; align-items: center; gap: .4rem; color: #FF5E84; font-size: 13px; font-weight: 600; }
+.reviewer-ig .ig-icon { display: inline-flex; line-height: 0; }
+.reviewer-email { color: #888; font-size: 13px; }
+
+.about-contact { padding: 3.5rem 0; }
+.about-contact h2 { font-size: 1.75rem; margin-bottom: .75rem; }
+.about-contact p { color: var(--text-secondary); margin-bottom: .5rem; }
+.contact-email { color: var(--pink); font-weight: 700; font-size: 1.1rem; }
+.contact-standard a { color: var(--pink); font-weight: 600; }
+
+@media (max-width: 700px) {
+  .stat-grid { grid-template-columns: 1fr; }
+}
+</style>

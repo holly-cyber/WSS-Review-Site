@@ -136,26 +136,51 @@ const isActive = (slug: string) => currentPath === `/reviews/${slug}/` || curren
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
+    <div class="container footer-grid">
+      <div class="footer-col footer-brand">
         <div class="footer-logo">WSS™</div>
-        <p>The UK's first certified women's sports retail destination. Independent reviews tested against the Women's Sports Standard™.</p>
+        <p class="footer-tag">The UK's first dedicated Women's Sports Store. Independent reviews tested against the Women's Sports Standard™.</p>
+        <p class="footer-copy">© 2025 Active AI Ltd. All rights reserved.</p>
       </div>
-      <div class="footer-links">
-        <div>
-          <h4>Reviews</h4>
-          {taxonomy.map((cat) => <a href={`/reviews/${cat.slug}/`}>{cat.name}</a>)}
-        </div>
-        <div>
-          <h4>WSS™</h4>
-          <a href="https://womenssportsstandard.com" target="_blank">The Standard</a>
-          <a href="https://shop.womenssportsstore.com" target="_blank">Shop</a>
+      <div class="footer-col">
+        <h4>Reviews</h4>
+        <a href="/reviews/run/">Run</a>
+        <a href="/reviews/swim/">Swim</a>
+        <a href="/reviews/cycle/">Cycle</a>
+        <a href="/reviews/tri/">Tri</a>
+        <a href="/reviews/sports-bras/">Sports Bras</a>
+        <a href="/reviews/nutrition/">Nutrition</a>
+        <a href="/reviews/technology/">Technology</a>
+        <a href="/reviews/equipment/">Equipment</a>
+      </div>
+      <div class="footer-col">
+        <h4>WSS™</h4>
+        <a href="https://womenssportsstandard.com" target="_blank" rel="noopener noreferrer">The Women's Sports Standard</a>
+        <a href="https://shop.womenssportsstore.com" target="_blank" rel="noopener noreferrer">Shop</a>
+        <a href="/about/">About Us</a>
+        <a href="/about/#team">Our Team</a>
+        <a href="https://womenssportsstore.com/coaching-plans-survey/" target="_blank" rel="noopener noreferrer">Coaching Plans</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal &amp; Social</h4>
+        <a href="https://womenssportsstore.com/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+        <a href="https://womenssportsstore.com/cookie-policy/" target="_blank" rel="noopener noreferrer">Cookie Policy</a>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/womenssportsstore" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6 4.39 10.97 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.96H15.83c-1.49 0-1.95.93-1.95 1.87v2.26h3.32l-.53 3.47h-2.79v8.38C19.61 23.04 24 18.07 24 12.07z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/womenssportsstore_com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 01-1.38-.9 3.72 3.72 0 01-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.94c-3.14 0-3.51.01-4.75.07-1.15.05-1.77.24-2.18.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.18-.06 1.24-.07 1.61-.07 4.75s.01 3.51.07 4.75c.05 1.15.24 1.77.4 2.18.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.18.4 1.24.06 1.61.07 4.75.07s3.51-.01 4.75-.07c1.15-.05 1.77-.24 2.18-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.18.06-1.24.07-1.61.07-4.75s-.01-3.51-.07-4.75c-.05-1.15-.24-1.77-.4-2.18a3.66 3.66 0 00-.88-1.35 3.66 3.66 0 00-1.35-.88c-.41-.16-1.03-.35-2.18-.4-1.24-.06-1.61-.07-4.75-.07zm0 3.3a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 7.59a2.99 2.99 0 100-5.98 2.99 2.99 0 000 5.98zm5.85-7.81a1.08 1.08 0 11-2.15 0 1.08 1.08 0 012.15 0z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@womenssportsstore" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 01-1.04-2.82h-3.1v12.4a2.59 2.59 0 01-2.59 2.5 2.59 2.59 0 01-2.59-2.59 2.59 2.59 0 012.59-2.59c.27 0 .53.04.77.12v-3.16a5.7 5.7 0 00-.77-.05A5.73 5.73 0 004.2 15.36a5.73 5.73 0 0010.27 3.5 5.7 5.7 0 001.12-3.4V9.01a7.35 7.35 0 004.3 1.38V7.28a4.28 4.28 0 01-3.29-1.46z"/></svg>
+          </a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="container">
-        <p>© {new Date().getFullYear()} Women's Sports Store · Active AI Ltd · All reviews independent · <a href="https://womenssportsstandard.com">WSS™ framework</a></p>
+        <p>Independent reviews · Tested against the WSS™ framework · <a href="https://womenssportsstandard.com" target="_blank" rel="noopener noreferrer">womenssportsstandard.com</a></p>
       </div>
     </div>
   </footer>
@@ -279,17 +304,20 @@ body.drawer-open .drawer { transform: translateX(0); }
 .drawer-sub-all { font-weight: 600; color: var(--pink) !important; }
 .drawer-shop { display: block; margin: 1rem 1.1rem calc(1rem + env(safe-area-inset-bottom)); text-align: center; padding: .85rem; font-size: 15px; }
 
-.site-footer { background: var(--navy); color: rgba(255,255,255,.8); margin-top: 4rem; padding: 3rem 0 0; }
-.footer-inner { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; padding-bottom: 2rem; }
+.site-footer { background: #000036; color: rgba(255,255,255,.75); padding: 3rem 0 0; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 2.5rem; }
 .footer-logo { font-size: 1.5rem; font-weight: 700; color: var(--pink); margin-bottom: .75rem; }
-.footer-brand p { font-size: .875rem; line-height: 1.6; opacity: .7; max-width: 320px; }
-.footer-links { display: flex; gap: 3rem; }
-.footer-links h4 { color: white; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .75rem; }
-.footer-links a { display: block; font-size: .875rem; opacity: .65; margin-bottom: .4rem; transition: opacity .15s; }
-.footer-links a:hover { opacity: 1; }
+.footer-tag { font-size: .875rem; line-height: 1.6; color: rgba(255,255,255,.75); max-width: 320px; margin-bottom: 1rem; }
+.footer-copy { font-size: .8rem; color: rgba(255,255,255,.5); }
+.footer-col h4 { color: #fff; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1rem; }
+.footer-col a { display: block; font-size: .875rem; color: rgba(255,255,255,.65); margin-bottom: .55rem; transition: color .15s; }
+.footer-col a:hover { color: var(--pink); }
+.footer-social { display: flex; gap: 1rem; margin-top: 1.1rem; }
+.footer-social a { color: rgba(255,255,255,.65); margin-bottom: 0; line-height: 0; transition: color .15s; }
+.footer-social a:hover { color: var(--pink); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding: 1rem 0; }
-.footer-bottom p { font-size: .75rem; opacity: .5; }
-.footer-bottom a { opacity: .75; text-decoration: underline; }
+.footer-bottom p { font-size: 12px; opacity: .45; }
+.footer-bottom a { color: inherit; text-decoration: underline; }
 
 @media (max-width: 1024px) {
   .mega-nav, .site-search { display: none; }
@@ -300,6 +328,10 @@ body.drawer-open .drawer { transform: translateX(0); }
   .drawer, .drawer-overlay { display: none; }
 }
 @media (max-width: 900px) {
-  .footer-inner { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; }
 }
 </style>
