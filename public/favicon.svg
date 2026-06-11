@@ -5,11 +5,4 @@
   <circle cx="250" cy="250" r="195" fill="#B8E4C9"/>
   <circle cx="250" cy="250" r="177" fill="#FF5E84"/>
   <circle cx="250" cy="250" r="160" fill="#000036"/>
-  <text x="250" y="212" text-anchor="middle" fill="#FF5E84"
-        font-family="'Poppins','Arial Black','Helvetica Neue',Arial,sans-serif"
-        font-weight="800" font-size="62" letter-spacing="-1">
-    <tspan x="250">Women&#8217;s</tspan>
-    <tspan x="250" dy="60">Sports</tspan>
-    <tspan x="250" dy="60">Store</tspan>
-  </text>
 </svg>
