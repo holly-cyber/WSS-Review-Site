@@ -171,6 +171,8 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .pv-content .pros-cons li{position:relative;padding-left:1.7rem;margin-bottom:.5rem;font-size:.9rem;line-height:1.5;color:#374151}
 .pv-content .pc-pros li::before{content:'✓';position:absolute;left:0;color:#2e9e5b;font-weight:800}
 .pv-content .pc-cons li::before{content:'✗';position:absolute;left:0;color:#FF5E84;font-weight:800}
+.pv-content .pc-buy{margin:1rem 0 .25rem;font-weight:600}
+.pv-content .pc-buy a{color:#FF5E84;text-decoration:underline}
 @media(max-width:600px){.pv-content .pros-cons{grid-template-columns:1fr}}
 .pv-stars-wrap{position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em;font-size:18px}
 .pv-stars-bg{color:rgba(255,255,255,.35)}
@@ -217,6 +219,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <div><label>&nbsp;</label><div style="font-size:11px;color:#aaa;line-height:1.3;padding-top:8px">Files the review into the menu taxonomy.</div></div>
     </div>
     <div style="margin-top:8px"><label>Key specs</label><textarea id="pSpecs" rows="2" placeholder="Key specifications found on the page…"></textarea></div>
+    <div style="margin-top:8px"><label>WSS store (Shopify) link — optional; primary buy link when set</label><input id="pShopify" placeholder="https://shop.womenssportsstore.com/products/…"/></div>
   </div>
 </div>
 
@@ -1016,7 +1019,7 @@ async function runWrite(fb){
   }
   const tone=TONES[Math.floor(Math.random()*TONES.length)];
   const note=fb?`\n\nHOLLY'S FEEDBACK: ${fb}\nAddress this directly in the rewrite.`:'';
-  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${reviewerSection}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Write the whole review in the first person ("I"). End at the FAQ — do NOT write a Buy section or any link.\n${tone}\nBritish English throughout.`;
+  const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${reviewerSection}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Write the whole review in the first person ("I"). End at the FAQ — do NOT write a "## Buy" section (the page adds the buy buttons automatically).\n\nAFFILIATE LINK PLACEMENT — insert purchase links at EXACTLY these four in-content points, using markdown links whose target is the LITERAL token shown (never invent a URL):\n1. OVERVIEW: link the FIRST mention of the product name, in the form "The [Product] (£${price}) is …". Target: (SHOPIFY_URL).\n2. END OF THE WSS™ ASSESSMENT: a closing sentence after the final criterion that references the overall score, e.g. "At £${price} and an overall WSS™ score of [X]/5, the [Product] is [value] — [linked phrase]". Target: (AFFILIATE_URL).\n3. PROS & CONS: immediately AFTER the pros list, ONE short standalone line only, e.g. "[Shop the [Product] →]". Target: (SHOPIFY_URL).\n4. WHO IT'S FOR: inside the primary athlete-persona paragraph, tie a use-case phrase to a link, e.g. "…the [Product] is worth the investment". Target: (AFFILIATE_URL).\nLINK RULES: anchor text is a descriptive 3-6 word PHRASE (never a whole sentence, never the words "click here", "buy now", "here" or "this link"); vary the wording across the four placements; use markdown syntax [anchor](SHOPIFY_URL) or [anchor](AFFILIATE_URL) with those literal tokens.\n${tone}\nBritish English throughout.`;
   const text=await aiStream([{role:'user',content:prompt}],`You are a WSS reviewer writing a warm, first-person, experience-led product review for active women. Lead with strengths, talk directly to the reader, avoid blunt criticism and anything you can't verify, and keep it grounded in real use. Never fabricate testing. British English.\n\n${FRAMEWORKS[pType]||WSS_APPAREL}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
   if(text){
     state.reviewText=text;
@@ -1058,15 +1061,28 @@ function stylePros(md){
   const rest=md.slice(afterHead);const nx=rest.search(/\n##\s/);
   const end=nx>=0?afterHead+nx:md.length;
   const content=md.slice(afterHead,end);
-  const lines=content.split('\n');let pros=[],cons=[],side='pros';
+  const lines=content.split('\n');let pros=[],cons=[],side='pros',extra=[];
   for(const ln of lines){const t=ln.trim();if(!t)continue;
-    if(!/^[-*]\s/.test(t)){if(/watch|cons|downside|drawback|against|negative/i.test(t)){side='cons';}else if(/loved|love|pros|liked|like|good|highlight|positive/i.test(t)){side='pros';}continue;}
-    (side==='pros'?pros:cons).push(inlineMd(t.replace(/^[-*]\s+/,'')));
+    if(/^[-*]\s/.test(t)){(side==='pros'?pros:cons).push(inlineMd(t.replace(/^[-*]\s+/,'')));continue;}
+    if(/\]\(/.test(t)){extra.push(t);continue;} // a standalone link line (placement 3 buy link) — keep it
+    if(/watch|cons|downside|drawback|against|negative/i.test(t)){side='cons';}else if(/loved|love|pros|liked|like|good|highlight|positive/i.test(t)){side='pros';}
   }
   if(!pros.length&&!cons.length)return md;
   const li=a=>a.map(x=>`<li>${x}</li>`).join('');
   const box=`<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul>${li(pros)}</ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul>${li(cons)}</ul></div></div>`;
-  return md.slice(0,hm.index)+'## Pros & Cons\n\n'+box+'\n'+md.slice(end);
+  const buyLine=extra.length?'\n\n<p class="pc-buy">'+extra.map(inlineMd).join(' ')+'</p>':'';
+  return md.slice(0,hm.index)+'## Pros & Cons\n\n'+box+buyLine+'\n'+md.slice(end);
+}
+// Replace the SHOPIFY_URL / AFFILIATE_URL placement tokens with real anchors (correct rel), or flag for Mel.
+function replaceLinkTokens(md,aff,shop){
+  const A=(aff||'').trim(),S=(shop||'').trim();
+  const mkA=(t)=>A?`<a href="${A}" rel="nofollow sponsored" target="_blank">${t}</a>`:`${t} [AFFILIATE_LINK_NEEDED]`;
+  const mkS=(t)=>S?`<a href="${S}" rel="nofollow" target="_blank">${t}</a>`:(A?`<a href="${A}" rel="nofollow sponsored" target="_blank">${t}</a>`:`${t} [SHOPIFY_LINK_NEEDED]`);
+  return (md||'')
+    .replace(/<a href="SHOPIFY_URL"[^>]*>([\s\S]*?)<\/a>/g,(m,t)=>mkS(t))
+    .replace(/<a href="AFFILIATE_URL"[^>]*>([\s\S]*?)<\/a>/g,(m,t)=>mkA(t))
+    .replace(/\[([^\]]+)\]\(\s*SHOPIFY_URL\s*\)/g,(m,t)=>mkS(t))
+    .replace(/\[([^\]]+)\]\(\s*AFFILIATE_URL\s*\)/g,(m,t)=>mkA(t));
 }
 // Final clean-up of a built review body before publish/preview.
 function polishBody(md){
@@ -1230,14 +1246,13 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     let reviewBody=tidyMd(buildReviewBody(stripBuy(review),val('reviewerName'),selImgs,`${brand} ${name}`));
     // Task 1: first heading becomes the product name + "Review"
     reviewBody=reviewBody.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
-    // Product page URL (brand/Shopify page) — always captured for buy buttons + SEO link-outs.
+    // Product page URL (brand page) — captured for buy-button fallback + SEO.
     const productPage=val('destUrl')||val('pUrl')||'';
-    // In-content link-out prefers the affiliate link, falls back to the product page.
-    const productUrl=affLink||productPage;
-    reviewBody=linkifyFirstBold(reviewBody,name,brand,productUrl);
+    const shopifyLink=val('pShopify');
     reviewBody=tidyMd(polishBody(reviewBody));
+    reviewBody=replaceLinkTokens(reviewBody,affLink,shopifyLink);
     const reviewerBio=val('reviewerBio'),reviewerAvatar=val('reviewerAvatar');
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\nsubcategory: ${yaml(val('pSubcategory'))}\nsubsubcategory: ${yaml(val('pSubsubcategory'))}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ""\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
+    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\nsubcategory: ${yaml(val('pSubcategory'))}\nsubsubcategory: ${yaml(val('pSubsubcategory'))}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ${yaml(shopifyLink)}\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
@@ -1478,31 +1493,36 @@ async function deleteArticle(f,fromEditor){
 function mdToHtml(md){
   const escTxt=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   function inline(t){
-    t=t.replace(/!\[([^\]]*)\]\(([^)\s]+)[^)]*\)/g,(m,a,u)=>`<img src="${u}" alt="${a}">`);
-    t=t.replace(/\[([^\]]+)\]\(([^)\s]+)[^)]*\)/g,(m,a,u)=>`<a href="${u}" target="_blank" rel="noopener">${a}</a>`);
-    t=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
-    t=t.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<em>$2</em>');
-    t=t.replace(/`([^`]+)`/g,'<code>$1</code>');
-    return t;
+    // Preserve raw <a>…</a> anchors (placement links already have rel); format the rest.
+    return String(t).split(/(<a\b[^>]*>[\s\S]*?<\/a>)/g).map((part,idx)=>{
+      if(idx%2===1)return part;
+      part=escTxt(part);
+      part=part.replace(/!\[([^\]]*)\]\(([^)\s]+)[^)]*\)/g,(m,a,u)=>`<img src="${u}" alt="${a}">`);
+      part=part.replace(/\[([^\]]+)\]\(([^)\s]+)[^)]*\)/g,(m,a,u)=>`<a href="${u}" target="_blank" rel="noopener">${a}</a>`);
+      part=part.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+      part=part.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<em>$2</em>');
+      part=part.replace(/`([^`]+)`/g,'<code>$1</code>');
+      return part;
+    }).join('');
   }
   const lines=(md||'').replace(/\r/g,'').split('\n');let html='',i=0;
   while(i<lines.length){
     const line=lines[i];
     if(!line.trim()){i++;continue;}
-    if(/^\s*</.test(line)){html+=line;i++;continue;}
+    if(/^\s*<(?!a\b)/.test(line)){html+=line;i++;continue;}
     const hm=line.match(/^(#{2,6})\s+(.*)$/);
-    if(hm){const lvl=Math.min(hm[1].length,6);html+=`<h${lvl}>${inline(escTxt(hm[2]))}</h${lvl}>`;i++;continue;}
+    if(hm){const lvl=Math.min(hm[1].length,6);html+=`<h${lvl}>${inline(hm[2])}</h${lvl}>`;i++;continue;}
     if(/^\s*\|/.test(line)&&i+1<lines.length&&/-/.test(lines[i+1])&&/^\s*\|?[\s:|-]+$/.test(lines[i+1])){
       const splitRow=l=>l.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(x=>x.trim());
       const head=splitRow(line);i+=2;const rows=[];
       while(i<lines.length&&/^\s*\|/.test(lines[i])){rows.push(splitRow(lines[i]));i++;}
-      html+='<table><thead><tr>'+head.map(c=>`<th>${inline(escTxt(c))}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${inline(escTxt(c))}</td>`).join('')+'</tr>').join('')+'</tbody></table>';continue;
+      html+='<table><thead><tr>'+head.map(c=>`<th>${inline(c)}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${inline(c)}</td>`).join('')+'</tr>').join('')+'</tbody></table>';continue;
     }
-    if(/^\s*([-*]|\d+\.)\s+/.test(line)){const ordered=/^\s*\d+\./.test(line);const items=[];while(i<lines.length&&/^\s*([-*]|\d+\.)\s+/.test(lines[i])){items.push(lines[i].replace(/^\s*([-*]|\d+\.)\s+/,''));i++;}html+=`<${ordered?'ol':'ul'}>`+items.map(it=>`<li>${inline(escTxt(it))}</li>`).join('')+`</${ordered?'ol':'ul'}>`;continue;}
-    if(/^\s*>/.test(line)){const q=[];while(i<lines.length&&/^\s*>/.test(lines[i])){q.push(lines[i].replace(/^\s*>\s?/,''));i++;}html+=`<blockquote>${inline(escTxt(q.join(' ')))}</blockquote>`;continue;}
+    if(/^\s*([-*]|\d+\.)\s+/.test(line)){const ordered=/^\s*\d+\./.test(line);const items=[];while(i<lines.length&&/^\s*([-*]|\d+\.)\s+/.test(lines[i])){items.push(lines[i].replace(/^\s*([-*]|\d+\.)\s+/,''));i++;}html+=`<${ordered?'ol':'ul'}>`+items.map(it=>`<li>${inline(it)}</li>`).join('')+`</${ordered?'ol':'ul'}>`;continue;}
+    if(/^\s*>/.test(line)){const q=[];while(i<lines.length&&/^\s*>/.test(lines[i])){q.push(lines[i].replace(/^\s*>\s?/,''));i++;}html+=`<blockquote>${inline(q.join(' '))}</blockquote>`;continue;}
     const para=[line];i++;
-    while(i<lines.length&&lines[i].trim()&&!/^\s*(#{2,6}\s|[-*]\s|\d+\.\s|>|\||<)/.test(lines[i])){para.push(lines[i]);i++;}
-    html+=`<p>${inline(escTxt(para.join(' ')))}</p>`;
+    while(i<lines.length&&lines[i].trim()&&!/^\s*(#{2,6}\s|[-*]\s|\d+\.\s|>|\||<(?!a\b))/.test(lines[i])){para.push(lines[i]);i++;}
+    html+=`<p>${inline(para.join(' '))}</p>`;
   }
   return html;
 }
@@ -1515,19 +1535,23 @@ function openPreview(){
   const selImgs=state.selectedImages.map(i=>state.allImages[i]).filter(Boolean);
   let body=tidyMd(buildReviewBody(stripBuy(review),val('reviewerName'),selImgs,`${brand} ${name}`));
   body=body.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
-  const productPage=val('destUrl')||val('pUrl')||'',affLink=state.affLink||'';
-  body=linkifyFirstBold(body,name,brand,affLink||productPage);
+  const productPage=val('destUrl')||val('pUrl')||'',affLink=state.affLink||'',shopifyLink=val('pShopify');
   body=tidyMd(polishBody(body));
+  body=replaceLinkTokens(body,affLink,shopifyLink);
   const om=review.match(/Overall:\s*([\d.]+)\s*\/\s*5/i),overall=om?om[1]:'4.0';
   const reviewer=val('reviewerName'),bio=val('reviewerBio'),avatar=val('reviewerAvatar');
-  const buyUrl=affLink||productPage,title=reviewHeading(brand,name);
+  const title=reviewHeading(brand,name);
+  const buyBtns=[];
+  if(shopifyLink)buyBtns.push(`<a class="pv-buy" href="${esc(shopifyLink)}" target="_blank" rel="nofollow">Buy from WSS store${price?' — £'+esc(price):''} →</a>`);
+  if(affLink)buyBtns.push(`<a class="pv-buy${shopifyLink?' alt':''}" href="${esc(affLink)}" target="_blank" rel="nofollow sponsored">${shopifyLink?'Buy direct from '+esc(brand||'brand')+' →':'Buy direct from '+esc(brand||'brand')+(price?' — £'+esc(price):'')+' →'}</a>`);
+  if(!buyBtns.length&&productPage)buyBtns.push(`<a class="pv-buy" href="${esc(productPage)}" target="_blank" rel="nofollow">Buy now${price?' — £'+esc(price):''} →</a>`);
   const pct=Math.max(0,Math.min(100,(parseFloat(overall)/5)*100));
   const stars=`<span class="pv-stars-wrap"><span class="pv-stars-bg">★★★★★</span><span class="pv-stars-fg" style="width:${pct}%">★★★★★</span></span>`;
   let h=`<div class="pv-hero"><div class="pv-pill">${esc(category.replace('-',' '))}</div><div class="pv-title">${esc(title)}</div><div class="pv-brand">by <strong>${esc(brand)}</strong>${price?' · £'+esc(price):''}</div><div class="pv-score">${stars}<span class="overall-num">${esc(overall)}/5</span><span class="pv-badge">WSS™ Reviewed</span></div>`;
   if(reviewer)h+=`<div class="pv-byline">${avatar?`<img src="${esc(avatar)}" alt=""/>`:''}<span>Reviewed by <strong>${esc(reviewer)}</strong></span></div>`;
   h+=`</div>`;
   let c=`<div class="pv-content">${mdToHtml(body)}`;
-  if(buyUrl)c+=`<div class="pv-cta"><a class="pv-buy" href="${esc(buyUrl)}" target="_blank">Buy now${price?' — £'+esc(price):''} →</a></div>`;
+  if(buyBtns.length)c+=`<div class="pv-cta">${buyBtns.join('')}</div>`;
   if(reviewer||bio)c+=`<div class="pv-reviewer">${avatar?`<img src="${esc(avatar)}" alt=""/>`:''}<div><div class="lbl">About the reviewer</div>${reviewer?`<div class="nm">${esc(reviewer)}</div>`:''}${bio?`<p class="bio">${esc(bio)}</p>`:''}</div></div>`;
   c+=`</div>`;
   document.getElementById('previewBody').innerHTML=h+c;
