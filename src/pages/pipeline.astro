@@ -666,7 +666,18 @@ function parseEmails(raw){
     return {subject,preview_text,body_html};
   }).filter(e=>e.subject||e.body_html);
   if(out.length)return out;
+  // The model returned JSON instead. Try a strict parse; if it fails (unescaped
+  // quotes/newlines inside body_html), extract the fields tolerantly.
   let s=txt;const a=s.indexOf('['),b=s.lastIndexOf(']');if(a>=0&&b>a)s=s.slice(a,b+1);
+  try{const j=JSON.parse(s);if(Array.isArray(j)&&j.length)return j;}catch(e){}
+  const unesc=v=>(v||'').split('\\n').join('\n').split('\\t').join(' ').split('\\"').join('"').split('\\\\').join('\\').trim();
+  const objs=s.replace(/^\s*\[/,'').replace(/\]\s*$/,'').split(/\}\s*,\s*\{/);
+  const out2=objs.map(o=>({
+    subject:unesc((o.match(/"subject"\s*:\s*"([\s\S]*?)"\s*,\s*"preview/i)||o.match(/"subject"\s*:\s*"([^"]*)"/i)||[])[1]),
+    preview_text:unesc((o.match(/"preview_text"\s*:\s*"([\s\S]*?)"\s*,\s*"body/i)||o.match(/"preview_text"\s*:\s*"([^"]*)"/i)||[])[1]),
+    body_html:unesc((o.match(/"body_html"\s*:\s*"([\s\S]*?)"\s*\}?\s*$/i)||[])[1])
+  })).filter(e=>e.subject||e.body_html);
+  if(out2.length)return out2;
   return JSON.parse(s);
 }
 function stripHtml(h){const d=document.createElement('div');d.innerHTML=h||'';return(d.textContent||'').replace(/\s+/g,' ').trim()}
