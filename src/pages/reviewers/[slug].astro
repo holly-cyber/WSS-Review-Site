@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+import { team, findReviewer, igIcon } from '../../data/team.js';
+import { taxonomy, slugify } from '../../data/taxonomy.js';
+
+export async function getStaticPaths() {
+  const reviewMods = import.meta.glob('../reviews/*/*.md', { eager: true });
+  const all = Object.entries(reviewMods).map(([p, m]: [string, any]) => {
+    const parts = p.split('/');
+    const slug = parts[parts.length - 1].replace('.md', '');
+    const fcat = parts[parts.length - 2];
+    const fm = m.frontmatter || {};
+    return { ...fm, slug, _cat: fcat };
+  });
+
+  return team.map((member) => {
+    const reviews = all
+      .filter((r) => findReviewer(r.tested_by)?.slug === member.slug)
+      .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+    return { params: { slug: member.slug }, props: { member, reviews } };
+  });
+}
+
+const { member, reviews } = Astro.props as any;
+
+// Display-name lookups from the taxonomy.
+const catName = (slug: string) => taxonomy.find((c: any) => c.slug === slug)?.name || slug.replace('-', ' ');
+const subName = (catSlug: string, subSlug: string) => {
+  const cat = taxonomy.find((c: any) => c.slug === catSlug);
+  const sub = cat?.subs.find((s: any) => slugify(s.name) === subSlug);
+  return sub?.name || subSlug.replace('-', ' ');
+};
+
+// Group a reviewer's reviews by subcategory, falling back to the top-level
+// category when a review has no subcategory tagged yet.
+const groupsMap: Record<string, { label: string; href: string; items: any[] }> = {};
+for (const r of reviews) {
+  const cat = r.category || r._cat;
+  const subSlug = r.subcategory ? slugify(r.subcategory) : '';
+  const key = subSlug ? `${cat}/${subSlug}` : cat;
+  if (!groupsMap[key]) {
+    groupsMap[key] = {
+      label: subSlug ? `${catName(cat)} · ${subName(cat, subSlug)}` : catName(cat),
+      href: subSlug ? `/reviews/${cat}/${subSlug}/` : `/reviews/${cat}/`,
+      items: [],
+    };
+  }
+  groupsMap[key].items.push(r);
+}
+const groups = Object.values(groupsMap).sort((a, b) => a.label.localeCompare(b.label));
+
+const firstName = member.name.split(' ')[0];
+const pageTitle = `${member.name} — Reviewer`;
+---
+<BaseLayout title={pageTitle} description={`${member.name}, ${member.role} at Women's Sports Store. ${member.bio}`}>
+  <section class="rv-hero">
+    <div class="container rv-hero-inner">
+      <div class="rv-avatar">
+        <span class="rv-initials">{member.initials}</span>
+        {member.image && <img class="rv-photo" src={member.image} alt={member.name} loading="lazy" onerror="this.style.display='none'" />}
+      </div>
+      <div class="rv-hero-text">
+        <div class="rv-crumb"><a href="/about/">About</a> / <a href="/about/#team">Our team</a></div>
+        <div class="rv-role">{member.role}</div>
+        <h1>{member.name}</h1>
+        <p class="rv-bio">{member.bio}</p>
+        <div class="rv-specialisms">
+          {member.specialisms.map((s: string) => <span class="rv-tag">{s}</span>)}
+        </div>
+        <div class="rv-contact">
+          {member.instagram && <a class="rv-ig" href={member.instagram.url} target="_blank" rel="noopener noreferrer"><span class="ig-icon" set:html={igIcon} />{member.instagram.handle}</a>}
+          {member.email && <a class="rv-email" href={`mailto:${member.email}`}>{member.email}</a>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container rv-body">
+    <h2 class="rv-reviews-head">Reviews by {firstName}</h2>
+    {groups.length > 0 ? (
+      groups.map((g) => (
+        <div class="rv-group">
+          <div class="rv-group-head">
+            <h3>{g.label}</h3>
+            <a class="rv-group-all" href={g.href}>View all →</a>
+          </div>
+          <div class="rv-grid">
+            {g.items.map((r: any) => (
+              <ReviewCard title={r.title} brand={r.brand} slug={r.slug} category={r.category || r._cat} score={r.overall_score} excerpt={r.excerpt} image={r.hero_image} date={r.date} />
+            ))}
+          </div>
+        </div>
+      ))
+    ) : (
+      <p class="rv-empty">No published reviews from {firstName} yet — they're on the way.</p>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+.rv-hero { background: var(--navy); color: #fff; padding: 3rem 0; }
+.rv-hero-inner { display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+.rv-avatar { position: relative; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; background: var(--pink); color: #fff; font-weight: 700; font-size: 2.6rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 3px solid rgba(255,255,255,.15); }
+.rv-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.rv-hero-text { flex: 1; min-width: 260px; }
+.rv-crumb { font-size: .75rem; opacity: .65; margin-bottom: .75rem; }
+.rv-crumb a { opacity: .85; }
+.rv-role { color: var(--pink); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin-bottom: .35rem; }
+.rv-hero-text h1 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: .9rem; }
+.rv-bio { color: rgba(255,255,255,.82); line-height: 1.7; max-width: 680px; margin-bottom: 1.1rem; }
+.rv-specialisms { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.1rem; }
+.rv-tag { background: rgba(255,255,255,.1); color: #fff; font-size: 12px; border-radius: 20px; padding: 4px 11px; }
+.rv-contact { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.rv-ig { display: inline-flex; align-items: center; gap: .4rem; color: #fff; font-size: 14px; font-weight: 600; }
+.rv-ig .ig-icon { display: inline-flex; line-height: 0; }
+.rv-email { color: rgba(255,255,255,.8); font-size: 14px; }
+.rv-body { padding-top: 2.5rem; padding-bottom: 3.5rem; }
+.rv-reviews-head { font-size: 1.4rem; margin-bottom: 1.5rem; }
+.rv-group { margin-bottom: 2.5rem; }
+.rv-group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 2px solid var(--pink); padding-bottom: .5rem; margin-bottom: 1.25rem; }
+.rv-group-head h3 { font-size: 1.1rem; color: var(--navy); }
+.rv-group-all { font-size: .8rem; font-weight: 600; color: var(--pink); white-space: nowrap; }
+.rv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.rv-empty { color: var(--text-secondary); padding: 1rem 0 2rem; }
+@media (max-width: 600px) { .rv-avatar { width: 100px; height: 100px; font-size: 2rem; } }
+</style>
