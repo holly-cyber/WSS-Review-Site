@@ -35,11 +35,6 @@ const cats = [
           <a href="#latest" class="btn btn-pink">See the latest reviews →</a>
           <a href="https://shop.womenssportsstore.com" class="btn btn-ghost" target="_blank" rel="noopener">Visit the shop</a>
         </div>
-        <div class="hero-stats">
-          <div class="stat"><span class="stat-n">{sorted.length}</span><span class="stat-l">Reviews published</span></div>
-          <div class="stat"><span class="stat-n">5</span><span class="stat-l">WSS™ pillars tested</span></div>
-          <div class="stat"><span class="stat-n">331</span><span class="stat-l">Women surveyed</span></div>
-        </div>
       </div>
 
       {featured && (
@@ -140,13 +135,9 @@ const cats = [
 .hero-copy .wss-badge{margin-bottom:1.25rem}
 .hero-copy h1{font-size:clamp(2rem,3.6vw,3rem);color:white;margin-bottom:1rem;line-height:1.1}
 .hero-copy>p{font-size:1.05rem;opacity:.78;max-width:520px;margin-bottom:1.75rem;line-height:1.6}
-.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem}
+.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap}
 .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
 .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
-.hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap}
-.stat{text-align:left}
-.stat-n{display:block;font-size:1.9rem;font-weight:700;color:var(--pink);line-height:1}
-.stat-l{font-size:.72rem;opacity:.6;text-transform:uppercase;letter-spacing:.08em}
 
 /* Featured latest review */
 .hero-feature{display:flex;flex-direction:column;gap:1rem}
@@ -198,6 +189,6 @@ const cats = [
 .stat-pct{font-size:2.5rem;font-weight:700;color:var(--pink);line-height:1;margin-bottom:.375rem}
 .stat-card p{font-size:.875rem;color:var(--text-secondary)}
 .stat-source{font-size:.7rem;color:var(--text-muted)}
-@media(max-width:900px){.explainer-inner{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr;gap:2rem}.hero-stats{gap:1.5rem}}
+@media(max-width:900px){.explainer-inner{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr;gap:2rem}}
 @media(max-width:480px){.mini-latest{grid-template-columns:1fr 1fr}.mini-latest .mini-card:last-child{display:none}}
 </style>
