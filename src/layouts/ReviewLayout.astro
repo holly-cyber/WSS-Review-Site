@@ -1,8 +1,18 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { findReviewer } from '../data/team.js';
+import { slugify } from '../data/taxonomy.js';
 
 const { frontmatter: fm } = Astro.props;
 const category = fm.category || 'run';
+
+// Clickable category trail (category › subcategory › sub-subcategory).
+const subSlug = fm.subcategory ? slugify(fm.subcategory) : '';
+const subsubSlug = fm.subsubcategory ? slugify(fm.subsubcategory) : '';
+
+// Link the byline / reviewer box to the reviewer's own page when we can match.
+const reviewer = findReviewer(fm.tested_by);
+const bylineAvatar = fm.reviewer_avatar || reviewer?.image;
 
 // Buy CTA buttons. Shopify = primary (nofollow); affiliate = secondary (nofollow sponsored).
 const shopLink = fm.shopify_link || '';
@@ -100,7 +110,13 @@ const schemaFaq = faqItems.length ? JSON.stringify({
       <div class="breadcrumb">
         <a href="/reviews/">Reviews</a> / <a href={`/reviews/${category}/`}>{category.replace('-',' ')}</a> / <span>{fm.brand}</span>
       </div>
-      <span class={`pill pill-${category}`}>{category.replace('-',' ')}</span>
+      <div class="rv-cats">
+        <a class="rv-cat" href={`/reviews/${category}/`}>{category.replace('-',' ')}</a>
+        {subSlug && <span class="rv-cat-sep">›</span>}
+        {subSlug && <a class="rv-cat" href={`/reviews/${category}/${subSlug}/`}>{fm.subcategory}</a>}
+        {subsubSlug && <span class="rv-cat-sep">›</span>}
+        {subsubSlug && <a class="rv-cat" href={`/reviews/${category}/${subSlug}/${subsubSlug}/`}>{fm.subsubcategory}</a>}
+      </div>
       <h1>{fm.title}</h1>
       <p class="review-brand">by <strong>{fm.brand}</strong>{fm.price ? ` · £${fm.price}` : ''}</p>
       <div class="hero-score">
@@ -110,8 +126,12 @@ const schemaFaq = faqItems.length ? JSON.stringify({
       </div>
       {fm.tested_by && (
         <div class="hero-byline">
-          {fm.reviewer_avatar && <img class="hero-byline-img" src={fm.reviewer_avatar} alt={fm.tested_by} loading="lazy" />}
-          <span class="hero-byline-text">Reviewed by <strong>{fm.tested_by}</strong></span>
+          {bylineAvatar && (reviewer
+            ? <a href={`/reviewers/${reviewer.slug}/`}><img class="hero-byline-img" src={bylineAvatar} alt={reviewer.name} loading="lazy" /></a>
+            : <img class="hero-byline-img" src={bylineAvatar} alt={fm.tested_by} loading="lazy" />)}
+          <span class="hero-byline-text">Reviewed by {reviewer
+            ? <a class="hero-byline-link" href={`/reviewers/${reviewer.slug}/`}><strong>{fm.tested_by}</strong></a>
+            : <strong>{fm.tested_by}</strong>}</span>
         </div>
       )}
     </div>
@@ -154,13 +174,18 @@ const schemaFaq = faqItems.length ? JSON.stringify({
           {buyButtons.map((b) => <a class={`rv-buy${b.primary ? '' : ' alt'}`} href={b.href} target="_blank" rel={b.rel}>{b.text}</a>)}
         </div>
       )}
-      {(fm.tested_by || fm.reviewer_bio) && (
+      {(fm.tested_by || fm.reviewer_bio || reviewer) && (
         <div class="rv-reviewer">
-          {fm.reviewer_avatar && <img class="rv-reviewer-img" src={fm.reviewer_avatar} alt={fm.tested_by || 'Reviewer'} loading="lazy" />}
+          {bylineAvatar && (reviewer
+            ? <a href={`/reviewers/${reviewer.slug}/`}><img class="rv-reviewer-img" src={bylineAvatar} alt={reviewer.name} loading="lazy" /></a>
+            : <img class="rv-reviewer-img" src={bylineAvatar} alt={fm.tested_by || 'Reviewer'} loading="lazy" />)}
           <div class="rv-reviewer-body">
             <div class="rv-reviewer-label">About the reviewer</div>
-            {fm.tested_by && <div class="rv-reviewer-name">{fm.tested_by}</div>}
-            {fm.reviewer_bio && <p class="rv-reviewer-bio">{fm.reviewer_bio}</p>}
+            {fm.tested_by && <div class="rv-reviewer-name">{reviewer
+              ? <a href={`/reviewers/${reviewer.slug}/`}>{fm.tested_by}</a>
+              : fm.tested_by}</div>}
+            {(fm.reviewer_bio || reviewer?.bio) && <p class="rv-reviewer-bio">{fm.reviewer_bio || reviewer.bio}</p>}
+            {reviewer && <a class="rv-reviewer-link" href={`/reviewers/${reviewer.slug}/`}>View all reviews by {reviewer.name.split(' ')[0]} →</a>}
           </div>
         </div>
       )}
@@ -237,6 +262,10 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-hero .container{position:relative}
 .breadcrumb{font-size:.75rem;opacity:.6;margin-bottom:1rem}
 .breadcrumb a{opacity:.8}
+.rv-cats{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.rv-cat{display:inline-block;padding:.25rem .8rem;border-radius:20px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:rgba(255,255,255,.14);color:#fff;text-decoration:none;transition:background .15s}
+.rv-cat:hover{background:var(--pink)}
+.rv-cat-sep{color:rgba(255,255,255,.5);font-size:.95rem;line-height:1}
 .review-hero h1{font-size:clamp(1.5rem,3vw,2.5rem);color:white;margin-bottom:.4rem}
 .review-brand{font-size:.9rem;opacity:.7;margin-bottom:1rem}
 .hero-score{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
@@ -250,6 +279,9 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .hero-byline-img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--pink);flex-shrink:0}
 .hero-byline-text{font-size:.85rem;color:rgba(255,255,255,.85)}
 .hero-byline-text strong{color:#fff}
+.hero-byline-link{color:#fff}
+.hero-byline-link:hover strong{color:var(--pink)}
+.hero-byline-img{display:block}
 .review-layout{display:grid;grid-template-columns:300px 1fr;gap:2.5rem;padding-top:2.5rem;padding-bottom:3rem;align-items:start}
 .review-sidebar{position:sticky;top:80px}
 .score-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;box-shadow:var(--shadow-sm)}
@@ -303,7 +335,11 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .rv-reviewer-img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--pink)}
 .rv-reviewer-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.2rem}
 .rv-reviewer-name{font-weight:700;color:var(--navy)}
+.rv-reviewer-name a{color:var(--navy);text-decoration:none}
+.rv-reviewer-name a:hover{color:var(--pink)}
 .rv-reviewer-bio{font-size:.9rem;color:var(--text-secondary);margin:.35rem 0 0;line-height:1.55}
+.rv-reviewer-link{display:inline-block;margin-top:.6rem;font-size:.85rem;font-weight:600;color:var(--pink)}
+.rv-reviewer-link:hover{text-decoration:underline}
 .review-content :global(.pros-cons){display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.25rem 0}
 .review-content :global(.pc-col){border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.1rem;background:var(--off-white)}
 .review-content :global(.pc-pros){border-top:4px solid #bde1c9}
