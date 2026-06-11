@@ -81,7 +81,6 @@ const cats = [
       <div class="categories-grid">
         {cats.map(cat => (
           <a href={`/reviews/${cat.slug}/`} class="cat-card">
-            <div class="cat-emoji">{cat.emoji}</div>
             <h3>{cat.label}</h3>
             <p>{cat.desc}</p>
             <span class="cat-arrow">Browse reviews →</span>
@@ -165,13 +164,12 @@ const cats = [
 .mini-score .stars{font-size:.7rem}
 .section-title{font-size:1.5rem;margin-bottom:1.5rem}
 .categories-section{padding:3.5rem 0;background:var(--off-white)}
-.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.cat-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;transition:all .2s}
+.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.75rem}
+.cat-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.1rem;transition:all .2s}
 .cat-card:hover{border-color:var(--pink);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.cat-emoji{font-size:2rem;margin-bottom:.75rem}
-.cat-card h3{font-size:1.1rem;margin-bottom:.4rem}
-.cat-card p{font-size:.875rem;color:var(--text-secondary);margin-bottom:.875rem;line-height:1.5}
-.cat-arrow{font-size:.8rem;font-weight:600;color:var(--pink)}
+.cat-card h3{font-size:1rem;margin-bottom:.3rem}
+.cat-card p{font-size:.8rem;color:var(--text-secondary);margin-bottom:.65rem;line-height:1.45}
+.cat-arrow{font-size:.75rem;font-weight:600;color:var(--pink)}
 .latest-section{padding:3.5rem 0}
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
 .wss-explainer{padding:4rem 0;background:var(--off-white)}
