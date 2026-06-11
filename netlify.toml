@@ -34,3 +34,8 @@
   from = "/api/avelon-proxy"
   to = "/.netlify/functions/avelon-proxy"
   status = 200
+
+[[redirects]]
+  from = "/api/subscribe"
+  to = "/.netlify/functions/subscribe"
+  status = 200
