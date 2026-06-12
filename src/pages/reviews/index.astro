@@ -33,7 +33,7 @@ const cats = [
         <h1>Real testing. Female physiology. No fluff.</h1>
         <p>Every product we review is scored against the Women's Sports Standard™ — the certification framework we built to assess whether women's kit actually works for women. Seven pillars, independently scored. The brand can't buy a better result.</p>
         <div class="hero-ctas">
-          <a href="#latest" class="btn btn-pink">See the latest reviews →</a>
+          <a href="#latest" class="btn btn-pink">See the latest reviews<span class="cta-arrow"> →</span></a>
           <a href="https://shop.womenssportsstore.com" class="btn btn-ghost" target="_blank" rel="noopener">Visit the shop</a>
         </div>
       </div>
@@ -219,6 +219,6 @@ const cats = [
 .stat-card p{font-size:.875rem;color:var(--text-secondary)}
 .stat-source{font-size:.7rem;color:var(--text-muted);margin-top:.25rem}
 @media(max-width:900px){.explainer-inner{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr;gap:2rem}}
-@media(max-width:600px){.hub-hero{padding:2.75rem 0}.categories-section,.latest-section{padding:2.5rem 0}.wss-explainer{padding:2.75rem 0}.hero-ctas .btn{flex:1;justify-content:center}}
+@media(max-width:600px){.hub-hero{padding:2.75rem 0}.categories-section,.latest-section{padding:2.5rem 0}.wss-explainer{padding:2.75rem 0}.hero-ctas .btn{flex:1;justify-content:center}.cta-arrow{display:none}}
 @media(max-width:480px){.mini-latest{grid-template-columns:1fr 1fr}.mini-latest .mini-card:last-child{display:none}}
 </style>
