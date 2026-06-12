@@ -262,6 +262,83 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
       });
     });
   </script>
+
+  <!-- Cookie consent banner — sets wss_cookie_consent so the Avelon loader
+       below knows whether marketing (affiliate tracking) cookies are allowed. -->
+  <div id="cookieConsent" class="cookie-consent" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+    <div class="cookie-consent-inner">
+      <p class="cookie-consent-text">We use cookies to understand how the site is used and to track affiliate referrals that help fund our independent reviews. Accept marketing cookies, or reject them and only essential cookies are used. See our <a href="https://womenssportsstore.com/cookie-policy/" target="_blank" rel="noopener noreferrer">Cookie Policy</a>.</p>
+      <div class="cookie-consent-actions">
+        <button type="button" class="cookie-btn cookie-reject" id="cookieReject">Reject</button>
+        <button type="button" class="cookie-btn cookie-accept" id="cookieAccept">Accept all</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var KEY = 'wss_cookie_consent';
+      var banner = document.getElementById('cookieConsent');
+      function save(marketing) {
+        try { localStorage.setItem(KEY, JSON.stringify({ marketing: marketing, ts: Date.now() })); } catch (e) {}
+        if (banner) banner.hidden = true;
+        // Fire only when marketing is granted, so the Avelon loader can react
+        // without a page reload.
+        if (marketing) window.dispatchEvent(new CustomEvent('wss:consent-updated'));
+      }
+      var stored = null;
+      try { stored = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+      if (!stored || typeof stored.marketing !== 'boolean') { if (banner) banner.hidden = false; }
+      var a = document.getElementById('cookieAccept'), r = document.getElementById('cookieReject');
+      if (a) a.addEventListener('click', function () { save(true); });
+      if (r) r.addEventListener('click', function () { save(false); });
+    })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- AVELON AUTO URL CONVERTER                           -->
+  <!-- Converts outbound product URLs to affiliate links   -->
+  <!-- Only loads after marketing cookie consent given     -->
+  <!--                                                     -->
+  <!-- TO DISABLE the Avelon URL Converter:                -->
+  <!--  - Open src/layouts/BaseLayout.astro in GitHub      -->
+  <!--  - Delete this marked block (from this line...)     -->
+  <!--  - Commit changes                                   -->
+  <!--  - Netlify auto-deploys in ~60 seconds              -->
+  <!--  - All links revert to standard product URLs        -->
+  <!--    instantly                                        -->
+  <!--  - No other files need changing                     -->
+  <!--  - No review content is affected                    -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <script>
+  (function() {
+    const AVELON_SRC = 'https://avln.me/affiliate/script/JufojTjFAbux/urlrw.js';
+
+    function loadAvelon() {
+      if (document.querySelector('script[src="' + AVELON_SRC + '"]')) return;
+      const script = document.createElement('script');
+      script.src = AVELON_SRC;
+      script.async = true;
+      document.head.appendChild(script);
+    }
+
+    function checkConsent() {
+      try {
+        const consent = JSON.parse(
+          localStorage.getItem('wss_cookie_consent') || '{}'
+        );
+        if (consent.marketing === true) loadAvelon();
+      } catch(e) {}
+    }
+
+    // Check on page load
+    checkConsent();
+
+    // Check when consent updated (fires when user accepts banner)
+    window.addEventListener('wss:consent-updated', checkConsent);
+  })();
+  </script>
+  <!-- ...to here. All links revert to standard URLs instantly -->
+  <!-- ═══════════════════════════════════════════════════ -->
 </body>
 </html>
 
@@ -269,6 +346,21 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
 .site-header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
 .header-inner { display: flex; align-items: center; gap: 1.25rem; padding-top: .75rem; padding-bottom: .75rem; }
 .logo { display: flex; align-items: center; flex-shrink: 0; line-height: 0; }
+
+/* Cookie consent banner */
+.cookie-consent { position: fixed; left: 0; right: 0; bottom: 0; z-index: 200; background: var(--navy); color: #fff; box-shadow: 0 -4px 24px rgba(0,0,30,.25); }
+.cookie-consent[hidden] { display: none; }
+.cookie-consent-inner { max-width: 1100px; margin: 0 auto; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.cookie-consent-text { font-size: .85rem; line-height: 1.6; color: rgba(255,255,255,.85); margin: 0; flex: 1; min-width: 240px; }
+.cookie-consent-text a { color: #fff; text-decoration: underline; }
+.cookie-consent-actions { display: flex; gap: .6rem; flex-shrink: 0; margin-left: auto; }
+.cookie-btn { padding: .6rem 1.4rem; border-radius: 8px; font-size: .85rem; font-weight: 700; cursor: pointer; border: 1px solid transparent; white-space: nowrap; }
+.cookie-accept { background: var(--pink); color: #fff; border-color: var(--pink); }
+.cookie-accept:hover { background: #e04470; }
+.cookie-reject { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+.cookie-reject:hover { border-color: #fff; }
+@media (max-width: 600px) { .cookie-consent-actions { width: 100%; } .cookie-btn { flex: 1; } }
+
 .logo-img { display: none; width: 48px; height: 48px; }
 .logo-wordmark { display: block; font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.1; white-space: nowrap; }
 
