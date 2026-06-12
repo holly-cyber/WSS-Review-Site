@@ -1432,7 +1432,15 @@ document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
   if(!group){setAlert('emailsPushAlert','er','Pick a recipient group.');return}
   cfg.mlFromName=fromName;cfg.mlFrom=from;cfg.mlGroup=group;saveCfg();
   const product=val('pName')||'product';
-  const heroImg=(state.selectedImages.length?state.allImages[state.selectedImages[0]]?.url:'')||'';
+  // Give each email its own product image: pick up to 3, spread across the
+  // images chosen for the review (so 3 of the 4 are used, visually distinct).
+  const selUrls=state.selectedImages.map(i=>state.allImages[i]?.url).filter(Boolean);
+  const emailImgs=(()=>{
+    const n=state.emails.length||3;
+    if(!selUrls.length)return Array(n).fill('');
+    if(selUrls.length<=n)return Array.from({length:n},(_,i)=>selUrls[i%selUrls.length]);
+    return Array.from({length:n},(_,i)=>selUrls[Math.round(i*(selUrls.length-1)/(n-1))]);
+  })();
   const slug=slugify((val('pBrand')||'')+'-'+product)||'review';
   const reviewUrl=`https://wss-review-site-tool.netlify.app/reviews/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`;
   const labels=['Review Drop','Buy Nudge','Social Proof'];
@@ -1441,7 +1449,7 @@ document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
   for(let i=0;i<state.emails.length;i++){
     const subject=(document.getElementById('es'+i)?.value||state.emails[i].subject||'').trim();
     const rawBody=document.getElementById('eb'+i)?.value||state.emails[i].body_html||'';
-    const content=wrapEmailHtml(rawBody,{image:heroImg,product,link:reviewUrl});
+    const content=wrapEmailHtml(rawBody,{image:emailImgs[i]||'',product,link:reviewUrl});
     btn.textContent=`Pushing ${i+1}/${state.emails.length}…`;
     setAlert('emailsPushAlert','inf',`Creating draft ${i+1} of ${state.emails.length}…`);
     const payload={name:`${product} — Email ${i+1}: ${labels[i]||''}`.trim(),subject,from,from_name:fromName,content,group};
