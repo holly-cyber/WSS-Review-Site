@@ -313,28 +313,38 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
   (function() {
     const AVELON_SRC = 'https://avln.me/affiliate/script/JufojTjFAbux/urlrw.js';
 
-    function loadAvelon() {
+    function loadAvelon(forceRescan) {
       if (document.querySelector('script[src="' + AVELON_SRC + '"]')) return;
       const script = document.createElement('script');
       script.src = AVELON_SRC;
       script.async = true;
+      // Safeguard: when consent is granted mid-session the page has already
+      // finished loading, so a converter that only binds to DOMContentLoaded
+      // would never fire. Re-dispatch a synthetic DOMContentLoaded once the
+      // script loads so it scans (and rewrites) the links already on the page.
+      if (forceRescan) {
+        script.onload = function () {
+          document.dispatchEvent(new Event('DOMContentLoaded'));
+        };
+      }
       document.head.appendChild(script);
     }
 
-    function checkConsent() {
+    function checkConsent(forceRescan) {
       try {
         const consent = JSON.parse(
           localStorage.getItem('wss_cookie_consent') || '{}'
         );
-        if (consent.marketing === true) loadAvelon();
+        if (consent.marketing === true) loadAvelon(forceRescan);
       } catch(e) {}
     }
 
-    // Check on page load
-    checkConsent();
+    // Check on page load — rely on the natural DOMContentLoaded, no rescan.
+    checkConsent(false);
 
-    // Check when consent updated (fires when user accepts banner)
-    window.addEventListener('wss:consent-updated', checkConsent);
+    // Check when consent updated (fires when user accepts banner) — the page is
+    // already loaded, so force a rescan after the script loads.
+    window.addEventListener('wss:consent-updated', function () { checkConsent(true); });
   })();
   </script>
   <!-- ...to here. All links revert to standard URLs instantly -->
