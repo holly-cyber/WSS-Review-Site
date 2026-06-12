@@ -626,7 +626,8 @@ const EMAIL_SYS=`WSS email writer. Write a 3-email MailerLite sequence.
 Email 1 Review Drop: best WSS finding, link to the review, clear CTA.
 Email 2 Buy Nudge (day 4): 3 bullet WSS findings, Shop now CTA.
 Email 3 Social Proof (day 7): community framing, softer sell.
-HTML: inline styles only, max-width 600px, headings/CTAs in #FF5E84, body text in #000036. CTA button style: background:#FF5E84;color:#ffffff;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
+BODY ONLY: write just the inner message for each email — do NOT add a logo, header, greeting salutation, footer, company address, product image, or unsubscribe link. Those are added automatically by a branded template. Start each email with its headline.
+HTML: inline styles only, headings/CTAs in #FF5E84, body text in #000036. CTA button style: background:#FF5E84;color:#ffffff;padding:12px 24px;border-radius:4px;font-weight:bold;text-decoration:none;display:inline-block
 
 OUTPUT FORMAT — output the three emails using EXACTLY these delimiters and labels, and NOTHING else (no JSON, no markdown fences, no commentary). Repeat this block three times:
 [EMAIL]
@@ -661,6 +662,36 @@ function getReview(){return(document.getElementById('writeEdit').value||'').trim
 function slugify(s){return(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function val(id){return(document.getElementById(id).value||'').trim()}
 function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim()}
+// Wrap an email body in the WSS branded template: site-matching navy header
+// (ring logo + wordmark), the feature product image, the body, and a footer
+// with the MailerLite unsubscribe merge tag.
+function wrapEmailHtml(body,opts){
+  opts=opts||{};
+  const site='https://wss-review-site-tool.netlify.app';
+  const logo=site+'/favicon-192.png';
+  const alt=(opts.product||'Featured product').replace(/"/g,'&quot;');
+  const link=opts.link||(site+'/reviews/');
+  const imgRow=opts.image?`<tr><td style="padding:0"><a href="${link}"><img src="${opts.image}" alt="${alt}" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0"/></a></td></tr>`:'';
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;padding:0;background:#f4f4f6">
+<tr><td align="center" style="padding:24px 12px">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:'Poppins',Helvetica,Arial,sans-serif">
+<tr><td style="background:#000036;padding:18px 24px;text-align:center">
+<img src="${logo}" width="40" height="40" alt="" style="display:inline-block;vertical-align:middle;border:0;border-radius:50%"/>
+<span style="color:#ffffff;font-size:18px;font-weight:700;vertical-align:middle;margin-left:10px">Women&rsquo;s Sports Store</span>
+<div style="color:#FF5E84;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:6px">WSS&trade; Independent Reviews</div>
+</td></tr>
+${imgRow}
+<tr><td style="padding:28px 28px 8px;color:#000036;font-size:16px;line-height:1.65">
+${body}
+</td></tr>
+<tr><td style="padding:18px 28px 28px;border-top:1px solid #eeeeee;text-align:center;color:#888888;font-size:12px;line-height:1.7">
+<p style="margin:0 0 6px">Women&rsquo;s Sports Store &mdash; independent reviews tested against the Women&rsquo;s Sports Standard&trade;.</p>
+<p style="margin:0"><a href="{$unsubscribe}" style="color:#888888;text-decoration:underline">Unsubscribe</a> &nbsp;&middot;&nbsp; <a href="${site}/reviews/" style="color:#888888;text-decoration:underline">Visit the site</a></p>
+</td></tr>
+</table>
+</td></tr>
+</table>`;
+}
 // Parse the 3-email sequence from the delimiter format ([EMAIL] ... [/EMAIL]).
 // Avoids JSON entirely so HTML quotes/newlines can't break it. Falls back to
 // legacy JSON output if the model returns that instead.
@@ -1418,13 +1449,17 @@ document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
   if(!group){setAlert('emailsPushAlert','er','Pick a recipient group.');return}
   cfg.mlFromName=fromName;cfg.mlFrom=from;cfg.mlGroup=group;saveCfg();
   const product=val('pName')||'product';
+  const heroImg=(state.selectedImages.length?state.allImages[state.selectedImages[0]]?.url:'')||'';
+  const slug=slugify((val('pBrand')||'')+'-'+product)||'review';
+  const reviewUrl=`https://wss-review-site-tool.netlify.app/reviews/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`;
   const labels=['Review Drop','Buy Nudge','Social Proof'];
   const btn=document.getElementById('emailsPushMlBtn');const orig=btn.textContent;btn.disabled=true;
   let ok=0;const errs=[];
   for(let i=0;i<state.emails.length;i++){
     const subject=(document.getElementById('es'+i)?.value||state.emails[i].subject||'').trim();
     const preview=(document.getElementById('ep'+i)?.value||state.emails[i].preview_text||'').trim();
-    const content=document.getElementById('eb'+i)?.value||state.emails[i].body_html||'';
+    const rawBody=document.getElementById('eb'+i)?.value||state.emails[i].body_html||'';
+    const content=wrapEmailHtml(rawBody,{image:heroImg,product,link:reviewUrl});
     btn.textContent=`Pushing ${i+1}/${state.emails.length}…`;
     setAlert('emailsPushAlert','inf',`Creating draft ${i+1} of ${state.emails.length}…`);
     const payload={name:`${product} — Email ${i+1}: ${labels[i]||''}`.trim(),type:'regular',emails:[{subject,from_name:fromName,from,content,reply_to:from,preheader:preview}],groups:[group]};
