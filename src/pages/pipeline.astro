@@ -668,18 +668,28 @@ function wrapEmailHtml(body,opts){
   const alt=(opts.product||'Featured product').replace(/"/g,'&quot;');
   const link=opts.link||(site+'/reviews/');
   const imgRow=opts.image?`<tr><td style="padding:0"><a href="${link}"><img src="${opts.image}" alt="${alt}" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0"/></a></td></tr>`:'';
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;padding:0;background:#f4f4f6">
-<tr><td align="center" style="padding:24px 12px">
-<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:'Poppins',Helvetica,Arial,sans-serif">
-<tr><td style="background:#000036;padding:24px;text-align:center">
-<img src="${logo}" width="96" height="96" alt="Women&rsquo;s Sports Store" style="display:inline-block;border:0"/>
+  return `<style>
+@media only screen and (max-width:600px){
+  .wss-shell{padding:0 !important}
+  .wss-card{border-radius:0 !important}
+  .wss-head{padding:22px 16px !important}
+  .wss-logo{width:76px !important;height:76px !important}
+  .wss-body{padding:22px 18px 6px !important;font-size:16px !important}
+  .wss-foot{padding:16px 18px 24px !important}
+}
+</style>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;padding:0;background:#f4f4f6">
+<tr><td class="wss-shell" align="center" style="padding:24px 12px">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" class="wss-card" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:'Poppins',Helvetica,Arial,sans-serif">
+<tr><td class="wss-head" style="background:#000036;padding:24px;text-align:center">
+<img src="${logo}" width="96" height="96" alt="Women&rsquo;s Sports Store" class="wss-logo" style="display:inline-block;border:0"/>
 <div style="color:#FF5E84;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px">WSS&trade; Independent Reviews</div>
 </td></tr>
 ${imgRow}
-<tr><td style="padding:28px 28px 8px;color:#000036;font-size:16px;line-height:1.65">
+<tr><td class="wss-body" style="padding:28px 28px 8px;color:#000036;font-size:16px;line-height:1.65">
 ${body}
 </td></tr>
-<tr><td style="padding:18px 28px 28px;border-top:1px solid #eeeeee;text-align:center;color:#888888;font-size:12px;line-height:1.7">
+<tr><td class="wss-foot" style="padding:18px 28px 28px;border-top:1px solid #eeeeee;text-align:center;color:#888888;font-size:12px;line-height:1.7">
 <p style="margin:0 0 6px">Women&rsquo;s Sports Store &mdash; independent reviews tested against the Women&rsquo;s Sports Standard&trade;.</p>
 <p style="margin:0"><a href="{$unsubscribe}" style="color:#888888;text-decoration:underline">Unsubscribe</a> &nbsp;&middot;&nbsp; <a href="${site}/reviews/" style="color:#888888;text-decoration:underline">Visit the site</a></p>
 </td></tr>
