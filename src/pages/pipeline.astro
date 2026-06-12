@@ -1,6 +1,7 @@
 ---
 export const prerender = true;
 import { taxonomy } from '../data/taxonomy.js';
+import AuthGate from '../components/AuthGate.astro';
 ---
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -178,8 +179,10 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .pv-stars-bg{color:rgba(255,255,255,.35)}
 .pv-stars-fg{position:absolute;top:0;left:0;overflow:hidden;color:#FF5E84;width:0}
 </style>
+<script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+<AuthGate>
 <div class="wrap">
 
 <div class="hdr">
@@ -399,6 +402,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div id="previewBody" class="pv-scroll"></div>
   </div>
 </div>
+</AuthGate>
 
 <script type="application/json" id="wss-taxonomy" set:html={JSON.stringify(taxonomy)}></script>
 <script>
