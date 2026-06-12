@@ -1,11 +1,26 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import EmailSignup from '../components/EmailSignup.astro';
+import ReviewCard from '../components/ReviewCard.astro';
 import { findReviewer } from '../data/team.js';
 import { slugify } from '../data/taxonomy.js';
 
 const { frontmatter: fm } = Astro.props;
 const category = fm.category || 'run';
+
+// Other reviews in the same category (excluding the one being viewed).
+const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop();
+const reviewMods = import.meta.glob('../pages/reviews/*/*.md', { eager: true });
+const relatedReviews = Object.entries(reviewMods)
+  .map(([p, m]: [string, any]) => {
+    const parts = p.split('/');
+    const slug = parts[parts.length - 1].replace('.md', '');
+    const _cat = parts[parts.length - 2];
+    return { ...(m.frontmatter || {}), slug, _cat };
+  })
+  .filter((r) => (r.category || r._cat) === category && r.slug !== currentSlug)
+  .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
+  .slice(0, 3);
 
 // Clickable category trail (category › subcategory › sub-subcategory).
 const subSlug = fm.subcategory ? slugify(fm.subcategory) : '';
@@ -196,6 +211,20 @@ const schemaFaq = faqItems.length ? JSON.stringify({
     </article>
   </div>
 
+  {relatedReviews.length > 0 && (
+    <section class="more-reviews container">
+      <div class="more-reviews-head">
+        <h2>More {category.replace('-', ' ')} reviews</h2>
+        <a class="more-reviews-all" href={`/reviews/${category}/`}>View all →</a>
+      </div>
+      <div class="more-reviews-grid">
+        {relatedReviews.map((r: any) => (
+          <ReviewCard title={r.title} brand={r.brand} slug={r.slug} category={r.category || r._cat} score={r.overall_score} excerpt={r.excerpt} image={r.hero_image} date={r.date} />
+        ))}
+      </div>
+    </section>
+  )}
+
   <EmailSignup />
 </BaseLayout>
 
@@ -312,6 +341,12 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-content :global(.pc-cons li::before){content:'✗';position:absolute;left:0;top:-1px;color:var(--pink);font-weight:800}
 .review-content :global(.pc-buy){margin:1rem 0 .25rem;font-weight:600;font-size:.95rem}
 .review-content :global(.pc-buy a){color:var(--pink);text-decoration:underline}
+.more-reviews{padding-bottom:3.5rem}
+.more-reviews-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--pink);padding-bottom:.5rem;margin-bottom:1.5rem}
+.more-reviews-head h2{font-size:1.4rem;color:var(--navy);text-transform:capitalize}
+.more-reviews-all{font-size:.8rem;font-weight:600;color:var(--pink);white-space:nowrap}
+.more-reviews-all:hover{text-decoration:underline}
+.more-reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:1.5rem}
 @media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}
 @media(max-width:600px){
   .review-content :global(.pros-cons){grid-template-columns:1fr}
