@@ -1041,23 +1041,77 @@ async function runWrite(fb){
 }
 // Safeguard: flag any "How It Compares" competitor that has no verified URL, so
 // Holly can confirm it's real and purchasable (or remove it) before publishing.
+let flaggedComp=[];
 function checkComparison(review){
+  flaggedComp=[];
   const el=document.getElementById('compareWarn');if(el)el.innerHTML='';
   const sec=sectionText(review,'How It Compares');if(!sec)return;
   const norm=s=>(s||'').toLowerCase().replace(/\[|\]|\(|\)|\*/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
   const others=getOtherProducts().map(o=>norm(o.name)).filter(Boolean);
   // Table rows after dropping the header separator: [header, this product, ...competitors].
   const rows=sec.split('\n').filter(l=>l.trim().startsWith('|')&&!/^\|[\s|:-]+\|?\s*$/.test(l.trim()));
-  const unverified=[];
   rows.slice(2).forEach(r=>{
-    const cell=(r.split('|')[1]||'').replace(/\*\*/g,'').replace(/\[([^\]]+)\][\s\S]*/,'$1').trim();
+    const raw=r.split('|')[1]||'';
+    const hasLink=/\]\(\s*https?:/i.test(raw)||/<a\s[^>]*href=["']?https?:/i.test(raw);
+    const cell=raw.replace(/<a\s[^>]*>([\s\S]*?)<\/a>/gi,'$1').replace(/\*\*/g,'').replace(/\[([^\]]+)\][\s\S]*/,'$1').trim();
     const n=norm(cell);if(!n)return;
-    const ok=others.some(o=>o&&(n.includes(o)||o.includes(n)));
-    if(!ok)unverified.push(cell);
+    const ok=hasLink||others.some(o=>o&&(n.includes(o)||o.includes(n)));
+    if(!ok)flaggedComp.push(cell);
   });
-  if(unverified.length){
-    setAlert('compareWarn','wr',`⚠ Check these compared products are real and currently on sale: <strong>${unverified.map(esc).join(', ')}</strong>. They have no verified URL — add each under "Other products to link" to link them, or edit/remove any you can't confirm.`);
+  if(flaggedComp.length){
+    setAlert('compareWarn','wr',`⚠ These compared products have no verified URL — confirm they're real and on sale: <strong>${flaggedComp.map(esc).join(', ')}</strong>. <button class="bg" id="swapCompBtn" style="margin-left:6px;padding:4px 10px">↺ Swap in real, verified competitors</button>`);
   }
+}
+// Replace flagged competitors with real, currently-purchasable rivals: ask the
+// AI for alternatives + their real product URLs, verify each URL resolves
+// server-side, then rebuild the table keeping only the ones that check out.
+document.getElementById('compareWarn').addEventListener('click',e=>{
+  if(e.target&&e.target.id==='swapCompBtn')swapCompetitors();
+});
+async function checkUrl(url){
+  try{const r=await fetch('/.netlify/functions/url-check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});const d=await r.json().catch(()=>({}));return !!d.ok;}catch(e){return false;}
+}
+async function swapCompetitors(){
+  if(!flaggedComp.length)return;
+  const review=getReview();
+  const sec=sectionText(review,'How It Compares');
+  if(!sec){setAlert('compareWarn','er','No comparison table found.');return;}
+  const btn=document.getElementById('swapCompBtn');if(btn){btn.disabled=true;btn.textContent='Finding verified competitors…';}
+  const category=catLabel(val('pCategory')||(val('pType')==='nutrition'?'nutrition':guessCategory()));
+  const name=val('pName')||'this product',brand=val('pBrand')||'';
+  // Ask for one verified replacement per flagged competitor (delimited, not JSON).
+  const ask=`The reviewed product is "${name}" by ${brand} (women's ${category}). In a "How It Compares" table I need to REPLACE these competitor entries with real, currently-purchasable alternatives:\n${flaggedComp.map((c,i)=>`${i+1}. ${c}`).join('\n')}\n\nFor EACH, give ONE genuinely real competing women's ${category} product that is on sale right now, with its REAL product-page URL on the brand's own site (no marketplaces, no search pages, no invented URLs). If you cannot be confident a URL is real, omit that item entirely.\nReturn ONLY blocks in this exact format, nothing else:\n[ALT]\nreplaces: <the original name>\nname: <new product full name>\nurl: <https://real-product-page>\nprice: <e.g. £65 or ->\ncol3: <value for the 3rd column, e.g. size range / key metric — keep short>\nstrength: <key strength, a few words>\nverdict: <short verdict>\n[/ALT]`;
+  let raw='';
+  try{raw=await aiCollect([{role:'user',content:ask}],'You are a meticulous research assistant. Only ever cite real, currently-purchasable products and their real product-page URLs. Never invent a product or a URL. British English.',1500);}catch(err){setAlert('compareWarn','er','Could not fetch alternatives: '+esc(err.message));return;}
+  const blocks=raw.split(/\[ALT\]/i).slice(1).map(b=>b.replace(/\[\/ALT\][\s\S]*$/i,''));
+  const field=(b,k)=>((b.match(new RegExp('^\\s*'+k+':\\s*(.*)$','im'))||[])[1]||'').trim();
+  const cand=blocks.map(b=>({replaces:field(b,'replaces'),name:field(b,'name'),url:field(b,'url'),price:field(b,'price'),col3:field(b,'col3'),strength:field(b,'strength'),verdict:field(b,'verdict')})).filter(c=>c.name&&/^https?:\/\//i.test(c.url));
+  if(btn)btn.textContent='Verifying URLs…';
+  const verified=[];
+  await Promise.all(cand.map(async c=>{ if(await checkUrl(c.url)) verified.push(c); }));
+  if(!verified.length){setAlert('compareWarn','er','Couldn\'t verify a real URL for any replacement. Leave the table as-is, or add competitors manually under "Other products to link".');if(btn){btn.disabled=false;btn.textContent='↺ Swap in real, verified competitors';}return;}
+  // Walk the section line by line so any non-table content is preserved; only
+  // swap competitor rows (table row index 3+; 0=header,1=separator,2=this product).
+  const norm=s=>(s||'').toLowerCase().replace(/<a\s[^>]*>([\s\S]*?)<\/a>/gi,'$1').replace(/\[|\]|\(|\)|\*/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+  let swapped=0,tRow=-1;
+  const newSec=sec.split('\n').map(line=>{
+    if(!line.trim().startsWith('|'))return line;
+    tRow++;
+    if(tRow<3)return line;
+    const first=norm(line.split('|')[1]||'');
+    const match=verified.find(v=>{const o=norm(v.replaces);return o&&(first.includes(o)||o.includes(first));});
+    if(!match)return line;
+    swapped++;
+    const link=`<a href="${match.url}" rel="nofollow sponsored" target="_blank">${esc(match.name)}</a>`;
+    return `| ${link} | ${esc(match.price||'—')} | ${esc(match.col3||'—')} | ${esc(match.strength||'—')} | ${esc(match.verdict||'—')} |`;
+  }).join('\n');
+  const newReview=review.replace(sec,newSec);
+  state.reviewText=newReview;
+  const ed=document.getElementById('writeEdit');if(ed)ed.value=newReview;
+  harvestReview();
+  checkComparison(newReview);
+  const dropped=flaggedComp.length-swapped;
+  setAlert('compareWarn',swapped?'ok':'wr',`✓ Swapped in ${swapped} verified competitor${swapped===1?'':'s'}${dropped>0?` · ${dropped} could not be verified and ${dropped===1?'was':'were'} left for you to review`:''}.`);
 }
 function harvestReview(){
   const review=getReview();
