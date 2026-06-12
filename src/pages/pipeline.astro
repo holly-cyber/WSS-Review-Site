@@ -270,7 +270,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <div id="scoreInputs" class="g4"></div>
     </div>
     <div style="margin-bottom:10px"><label>Tester notes (optional — never fabricated; gaps flagged "Not independently verified")</label><textarea id="testerNotes" rows="2" placeholder="e.g. Tested size 12. Run-tested 3 sessions including 16km trail."></textarea></div>
-    <div style="margin-bottom:10px"><label>Other products to link (optional) — one per line: <code>Product name | https://product-url</code>. Named products get linked; Avelon auto-converts any on your programme.</label><textarea id="otherProducts" rows="3" placeholder="Sweaty Betty Velocity 8&quot; Run Shorts | https://www.sweatybetty.com/products/velocity-running-shorts&#10;Ronhill Core Shorts | https://www.ronhill.com/products/core-short"></textarea></div>
+    <div style="margin-bottom:10px"><label>Other products to link (optional) — one per line: just <code>https://product-url</code>, or <code>Product name | https://product-url</code> to set the name. These get referenced &amp; linked; Avelon auto-converts any on your programme.</label><textarea id="otherProducts" rows="3" placeholder="https://bimbleandbolt.com/products/cream-ankle-socks&#10;Velocity Run Shorts | https://www.sweatybetty.com/products/velocity-running-shorts"></textarea></div>
     <div id="compareWarn"></div>
     <div id="writeOut" class="out empty">Output will appear here…</div>
     <div id="writeEditWrap" style="display:none;margin-top:8px"><label>Edit before publishing:</label><textarea id="writeEdit" rows="16" style="margin-top:4px"></textarea></div>
@@ -1026,7 +1026,7 @@ async function runWrite(fb){
   // Each gets a literal token so the model never invents a URL; tokens are
   // swapped for real anchors at publish time and Avelon converts the eligible ones.
   const others=getOtherProducts();
-  const othersDirective=others.length?`\n\nADDITIONAL PRODUCT LINKS — these OTHER products may be named in the review (e.g. in the "How It Compares" table or "who it's for" comparisons). When you mention one, turn its name into a markdown link using the matching LITERAL token below (never invent a URL). Link only the FIRST mention of each; anchor text is the product name itself; do NOT link the main reviewed product with these:\n${others.map((o,i)=>`${i+1}. "${o.name}" → (OTHER_URL_${i+1})`).join('\n')}`:'';
+  const othersDirective=others.length?`\n\nADDITIONAL PRODUCT LINKS — reference EACH of these OTHER products at least once where it fits naturally (e.g. in the "How It Compares" table, a "from the same range" aside, or a brief "you might also like" mention), and turn its name into a markdown link using the matching LITERAL token below (never invent a URL). Link only the FIRST mention of each; the anchor text is the product name itself; do NOT link the main reviewed product with these:\n${others.map((o,i)=>`${i+1}. "${o.name}" → (OTHER_URL_${i+1})`).join('\n')}`:'';
   const comparisonIntegrity=`\n\nCOMPARISON TABLE INTEGRITY — In "How It Compares", only name real products that are genuinely on sale right now. NEVER invent products, model names, prices, sizes or specs. If you cannot be sure a competitor exists and is currently purchasable, leave it out — a shorter, truthful table (even just this product plus one genuine rival) is better than a padded one.${others.length?' Prefer the verified products listed under ADDITIONAL PRODUCT LINKS above.':''} If you are not confident of a competitor's current price, put "—" rather than guessing.`;
   const prompt=`Write a full WSS™ product review for Women's Sports Store.\n\nProduct: ${name} by ${brand}\nPrice: £${price}\nSize range: ${sizes}\nType: ${pType}\nKey specs: ${specs}\nSEO target keyword: "${keyword}" — work it naturally into the Overview and at least one H2.\n\nSEO SUBHEADING: Immediately AFTER the "## Overview" heading and BEFORE the opening paragraph, write ONE strong, keyword-rich H3 subheading (a benefit-led strapline in Title Case, 5–10 words, no trailing punctuation) that naturally works in the target keyword. It must read like a compelling section strapline, not a generic label like "Introduction".\n\nRESEARCH & PRE-ASSESSMENT:\n${state.researchText||'See product URL.'}${reviewerSection}${testerSection}${reviewContext}${scoreDirective}${note}\n\nApply the framework EXACTLY: every H2 heading in order, all per-pillar scores, the Overall rating with hard rules applied, a 50-80 word verdict, and exactly 5 FAQ questions as H3. Write the whole review in the first person ("I"). End at the FAQ — do NOT write a "## Buy" section (the page adds the buy buttons automatically).\n\nAFFILIATE LINK PLACEMENT — insert purchase links at EXACTLY these four in-content points, using markdown links whose target is the LITERAL token shown (never invent a URL):\n1. OVERVIEW: link the FIRST mention of the product name, in the form "The [Product] (£${price}) is …". Target: (SHOPIFY_URL).\n2. END OF THE WSS™ ASSESSMENT: a closing sentence after the final criterion that references the overall score, e.g. "At £${price} and an overall WSS™ score of [X]/5, the [Product] is [value] — [linked phrase]". Target: (AFFILIATE_URL).\n3. PROS & CONS: immediately AFTER the pros list, ONE short standalone line only, e.g. "[Shop the [Product] →]". Target: (SHOPIFY_URL).\n4. WHO IT'S FOR: inside the primary athlete-persona paragraph, tie a use-case phrase to a link, e.g. "…the [Product] is worth the investment". Target: (AFFILIATE_URL).\nLINK RULES: anchor text is a descriptive 3-6 word PHRASE (never a whole sentence, never the words "click here", "buy now", "here" or "this link"); vary the wording across the four placements; use markdown syntax [anchor](SHOPIFY_URL) or [anchor](AFFILIATE_URL) with those literal tokens.${othersDirective}${comparisonIntegrity}\n${tone}\nBritish English throughout.`;
   const text=await aiStream([{role:'user',content:prompt}],`You are a WSS reviewer writing a warm, first-person, experience-led product review for active women. Lead with strengths, talk directly to the reader, avoid blunt criticism and anything you can't verify, and keep it grounded in real use. Never fabricate testing. British English.\n\n${FRAMEWORKS[pType]||WSS_APPAREL}`,document.getElementById('writeOut'),document.getElementById('writeBtn'),'Regenerate',4000);
@@ -1114,12 +1114,24 @@ function replaceLinkTokens(md,aff,shop){
     .replace(/\[([^\]]+)\]\(\s*SHOPIFY_URL\s*\)/g,(m,t)=>mkS(t))
     .replace(/\[([^\]]+)\]\(\s*AFFILIATE_URL\s*\)/g,(m,t)=>mkA(t));
 }
-// Parse the optional "Other products to link" field: "Name | https://url" per line.
+// Derive a readable product name from a URL's last path segment.
+function nameFromUrl(url){
+  try{const seg=(new URL(url).pathname.split('/').filter(Boolean).pop()||'').replace(/\.[a-z0-9]+$/i,'');
+    return seg.replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,c=>c.toUpperCase());
+  }catch{return '';}
+}
+// Parse the optional "Other products to link" field. Each line is either
+// "Name | https://url" or just "https://url" (name derived from the URL slug).
 function getOtherProducts(){
   return (val('otherProducts')||'').split('\n').map(l=>{
-    const i=l.indexOf('|');if(i<0)return null;
-    const name=l.slice(0,i).trim(),url=l.slice(i+1).trim();
-    return (name&&/^https?:\/\//i.test(url))?{name,url}:null;
+    l=l.trim();if(!l)return null;
+    const i=l.indexOf('|');
+    let name='',url='';
+    if(i>=0){name=l.slice(0,i).trim();url=l.slice(i+1).trim();}
+    else{url=l;}
+    if(!/^https?:\/\//i.test(url))return null;
+    if(!name)name=nameFromUrl(url);
+    return name?{name,url}:null;
   }).filter(Boolean);
 }
 // Swap OTHER_URL_n placement tokens for real anchors (rel=nofollow sponsored so
