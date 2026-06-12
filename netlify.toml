@@ -49,3 +49,8 @@
   from = "/api/sheet-log"
   to = "/.netlify/functions/sheet-log"
   status = 200
+
+[[redirects]]
+  from = "/api/github-proxy"
+  to = "/.netlify/functions/github-proxy"
+  status = 200
