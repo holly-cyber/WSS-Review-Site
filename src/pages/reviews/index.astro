@@ -29,8 +29,10 @@ const cats = [
   <section class="hub-hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <img src="/logo.svg" alt="Women's Sports Store" class="hero-logo" width="84" height="84" />
-        <div class="wss-badge">WSS™ Independent Reviews</div>
+        <div class="hero-top">
+          <div class="wss-badge">WSS™ Independent Reviews</div>
+          <img src="/logo.svg" alt="Women's Sports Store" class="hero-logo" width="120" height="120" />
+        </div>
         <h1>Real testing. Female physiology. No fluff.</h1>
         <p>Every product we review is scored against the Women's Sports Standard™ — the certification framework we built to assess whether women's kit actually works for women. Seven pillars, independently scored. The brand can't buy a better result.</p>
         <div class="hero-ctas">
@@ -155,8 +157,9 @@ const cats = [
 <style>
 .hub-hero{background:var(--navy);color:white;padding:5rem 0;overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center}
-.hero-logo{display:block;width:84px;height:84px;margin-bottom:1.5rem}
-.hero-copy .wss-badge{margin-bottom:1.75rem}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.75rem}
+.hero-logo{display:block;width:120px;height:120px;flex-shrink:0}
+.hero-top .wss-badge{margin-bottom:0}
 .hero-copy h1{font-size:clamp(2rem,3.6vw,3rem);color:white;margin-bottom:1.5rem;line-height:1.18}
 .hero-copy>p{font-size:1.1rem;opacity:.8;max-width:540px;margin-bottom:2.25rem;line-height:1.75}
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
@@ -221,6 +224,6 @@ const cats = [
 .stat-card p{font-size:.875rem;color:var(--text-secondary)}
 .stat-source{font-size:.7rem;color:var(--text-muted);margin-top:.25rem}
 @media(max-width:900px){.explainer-inner{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr;gap:2rem}}
-@media(max-width:600px){.hub-hero{padding:2.75rem 0}.categories-section,.latest-section{padding:2.5rem 0}.wss-explainer{padding:2.75rem 0}.hero-ctas .btn{flex:1;justify-content:center}.cta-arrow{display:none}}
+@media(max-width:600px){.hub-hero{padding:2.75rem 0}.categories-section,.latest-section{padding:2.5rem 0}.wss-explainer{padding:2.75rem 0}.hero-ctas .btn{flex:1;justify-content:center}.cta-arrow{display:none}.hero-logo{width:72px;height:72px}}
 @media(max-width:480px){.mini-latest{grid-template-columns:1fr 1fr}.mini-latest .mini-card:last-child{display:none}}
 </style>
