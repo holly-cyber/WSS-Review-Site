@@ -1464,12 +1464,11 @@ document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
   let ok=0;const errs=[];
   for(let i=0;i<state.emails.length;i++){
     const subject=(document.getElementById('es'+i)?.value||state.emails[i].subject||'').trim();
-    const preview=(document.getElementById('ep'+i)?.value||state.emails[i].preview_text||'').trim();
     const rawBody=document.getElementById('eb'+i)?.value||state.emails[i].body_html||'';
     const content=wrapEmailHtml(rawBody,{image:heroImg,product,link:reviewUrl});
     btn.textContent=`Pushing ${i+1}/${state.emails.length}…`;
     setAlert('emailsPushAlert','inf',`Creating draft ${i+1} of ${state.emails.length}…`);
-    const payload={name:`${product} — Email ${i+1}: ${labels[i]||''}`.trim(),type:'regular',emails:[{subject,from_name:fromName,from,content,reply_to:from,preheader:preview}],groups:[group]};
+    const payload={name:`${product} — Email ${i+1}: ${labels[i]||''}`.trim(),subject,from,from_name:fromName,content,group};
     try{await mlApi('create',payload);ok++;}catch(e){errs.push(`Email ${i+1}: ${e.message}`);}
   }
   btn.disabled=false;btn.textContent=orig;
