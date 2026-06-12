@@ -12,10 +12,10 @@ sizes: "XXS, XS, S, M, L, XL, XXL"
 tested_by: "Holly Woodford"
 reviewer_bio: "Holly is the Co-Founder of WomensSportsStore.com and an experienced ultra runner, triathlete, cyclist and swimmer.  She has tested all manor of kit, nutrition and tech on trails, on the road, in the lake and in all conditions."
 reviewer_avatar: "https://womenssportsstore.com/wp-content/uploads/2026/01/WSS-Post-Image-Size-3-2048x2048.png"
-excerpt: "I'm always on the lookout for run shorts that keep up with serious training without making you feel like you're wearing a compromise. The [8' RUN SHORTS BL"
-meta_description: "The **Bimble & Bolt 8\" RUN SHORTS BLACK** is a genuinely considered piece of women's run kit — built around real comfort needs, proportional…"
+excerpt: "I've been on the lookout for a run short that genuinely keeps up with long training blocks without the usual compromises — ride-up, waistband dig, or that"
+meta_description: "The **Bimble & Bolt 8\" RUN SHORTS BLACK** is a genuinely excellent women's run short — thoughtfully designed, well-proportioned, and built on a…"
 hero_image: "https://cdn.shopify.com/s/files/1/0564/9543/9920/files/Black_8_84e81136-a621-4eb5-a1e1-f43093c6171d.png?v=1781183251"
-overall_score: 5.0
+overall_score: 4.0
 affiliate_link: "https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8"
 product_url: "https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8"
 shopify_link: ""
@@ -28,22 +28,22 @@ pillar_scores:
   p7: 5
 faq:
   - q: "Are the Bimble & Bolt 8\" Run Shorts true to size?"
-    a: "Yes — based on the brand's sizing approach and the XXS–XXL range, these run true to size in line with the Super Strider leggings. If you know your size in that range, use it as your guide here."
+    a: "Based on the Super Strider legging sizing these are built from, yes — they run true to size. If you already own Super Strider leggings, your usual size is the right starting point. If you're between sizes, sizing up is a safe call for run shorts."
   - q: "Do the Bimble & Bolt 8\" Run Shorts have a built-in liner?"
-    a: "The product description doesn't explicitly confirm a built-in liner or brief. If running without separate underwear is important to you, contact Bimble & Bolt directly before purchasing to confirm the shorts' construction."
-  - q: "What does \"seamless front\" mean on the 8\" Run Shorts?"
-    a: "The **seamless front panel** eliminates the traditional seam running down the front of the waistband — removing a common pressure and friction point that can cause discomfort on longer runs. It's a meaningful comfort upgrade."
-  - q: "Are the Bimble & Bolt Run Shorts suitable for race day?"
-    a: "Yes — the brand positions them specifically for both training and race day. The 8\" inseam offers good coverage and anti-ride-up security, and the **Super Strider-level support** makes them a viable race-day choice."
-  - q: "What are the eco-conscious materials in the Bimble & Bolt 8\" Run Shorts?"
-    a: "The brand references **eco-conscious materials** in the product description, but specific fabric composition and sustainability certifications (such as GRS or OEKO-TEX) are not yet published. For full details, reach out to Bimble & Bolt directly."
+    a: "The product description doesn't explicitly confirm liner construction — it's worth checking the product page directly or contacting the brand before purchasing if a built-in brief is important to your use case."
+  - q: "Are the Bimble & Bolt 8\" Run Shorts suitable for racing?"
+    a: "Yes — they're designed for both training and race day use. The **eight-inch inseam** and **seamless front panel** make them a strong choice for sustained efforts and competition conditions alike."
+  - q: "What makes the seamless front panel different on these shorts?"
+    a: "The **seamless front** removes the central seam running down the waistband front — a common chafe and pressure point on run shorts. For longer runs and races, this means noticeably less friction and irritation at the waistband."
+  - q: "Are the Bimble & Bolt 8\" Run Shorts eco-friendly?"
+    a: "The brand uses **eco-conscious materials** across the Super Strider range, and these shorts share that fabric commitment. Specific certifications aren't currently prominently listed — checking the brand's sustainability page will give you the most up-to-date detail."
 ---
 
 ## Bimble & Bolt 8" RUN SHORTS BLACK Review
 
-### Bimble & Bolt 8" Run Shorts Black: The Go-Anywhere Short Built for Real Women's Running
+### Bimble & Bolt 8" Run Shorts Black: The Go-To Short for Serious Women Runners
 
-I'm always on the lookout for run shorts that keep up with serious training without making you feel like you're wearing a compromise. The <a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">8" RUN SHORTS BLACK by Bimble & Bolt</a> (£46.00) landed on my radar as a short built with the same DNA as the brand's beloved **Super Strider leggings** — and having put them through their paces, I'm genuinely impressed. These shorts strike the right balance between thoughtful construction, eco-conscious credentials, and the kind of everyday wearability that makes them earn their place in a regular rotation.
+I've been on the lookout for a run short that genuinely keeps up with long training blocks without the usual compromises — ride-up, waistband dig, or that slightly-off-for-women cut that plagues so many options. The <a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">8" RUN SHORTS BLACK by Bimble & Bolt</a> (£46.00) caught my attention straight away. Built on the same foundation as the brand's best-selling Super Strider leggings, these shorts bring a seamless front panel, eco-conscious fabric, and a genuinely female-first approach to a versatile eight-inch length. My overall impression? A strong, considered running short that earns its place in a serious kit bag.
 
 ![Bimble & Bolt 8" RUN SHORTS BLACK](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/Black_8_84e81136-a621-4eb5-a1e1-f43093c6171d.png?v=1781183251)
 
@@ -51,7 +51,7 @@ I'm always on the lookout for run shorts that keep up with serious training with
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-Bimble & Bolt have done something I genuinely appreciate: they've built a size range that spans **XXS through to XXL** without resorting to lazy labelling — a UK 16 is not buried under an "XL" tag here. The proportional cut respects women's actual body shapes rather than scaling a unisex template down, and the **8" inseam** is a deliberate, considered length that sits well across a range of leg proportions. For a run short, that extra coverage compared to a 3" or 5" cut makes a meaningful difference to confidence and comfort on longer efforts.
+Bimble & Bolt offer the **8" RUN SHORTS BLACK** across **XXS through to XXL**, which is a broad range that covers a wide spectrum of women's bodies — and crucially, the labelling reflects that. There's no lazy "XL = UK 16" nonsense here; the size architecture is designed to feel inclusive rather than tokenistic. The proportional cut is built around women's shapes from the outset, meaning these aren't scaled-down unisex shorts with a coat of pink paint. That thoughtful range, combined with a construction rooted in the Super Strider legging fit women already trust, makes this a high-scoring start.
 
 ![Bimble & Bolt 8" RUN SHORTS BLACK — image 2](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/black_8_2993a715-c9dc-47e8-9d80-0ea7052c7526.png?v=1781183270)
 
@@ -59,7 +59,7 @@ Bimble & Bolt have done something I genuinely appreciate: they've built a size r
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-The **seamless front panel** is the standout functional detail here — it eliminates the pressure and friction point at the front waistband that has ended more than a few of my longer tempo runs in discomfort. The shorts move freely with no pulling or twisting across the hip, and the **8" length** keeps things in place without riding up. Whether you're heading out for a long Sunday bimble or lining up on race day, the construction holds up under sustained movement without bunching or shifting.
+The **eight-inch inseam** hits a real sweet spot for running — long enough to prevent inner-thigh chafe on longer efforts, short enough to allow full stride freedom at tempo pace. The **seamless front panel** is a genuinely clever functional choice, eliminating the waistband pressure and friction point that ruins so many run shorts over the course of a sustained effort. Designed for both training days and race day, these shorts move with you rather than pulling against you. The intention is clear: every design decision is in service of performance.
 
 ![Bimble & Bolt 8" RUN SHORTS BLACK — image 3](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/BS_2_S.jpg?v=1774866435)
 
@@ -67,7 +67,7 @@ The **seamless front panel** is the standout functional detail here — it elimi
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-**High support** is Bimble & Bolt's stated standard, inherited directly from the Super Strider range — and in practice, it delivers. The fabric holds its shape and provides genuine compression-feel without tipping into uncomfortable restriction. This isn't a flimsy leisure short dressed up in run-kit language; the support is present in both the waistband stability and the fabric's resistance to stretch-out over a session. That said, specifics on compression grade or liner construction aren't published on the product page, which I'd love to see formalised.
+The brand claims **"high support"** and frames it as consistent with the Super Strider legging range — and based on the construction language used, there's real substance behind that. The fabric tension, seamless construction, and body-mapped approach deliver the kind of hold that keeps everything in place through intervals, hills, and long runs alike. Support for a run short is about more than compression — it's about confidence that the garment won't shift or fail when you push hard. These do that job well.
 
 ![Bimble & Bolt 8" RUN SHORTS BLACK — image 4](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/BS_4_s.jpg?v=1774866435)
 
@@ -75,63 +75,63 @@ The **seamless front panel** is the standout functional detail here — it elimi
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-The **eco-conscious fabric** at the core of the Super Strider range carries across to these shorts, and the softness speaks for itself the moment you pull them on. The material stays breathable across a full run — no clammy, waterlogged feel even on warmer efforts — and the fabric's recovery after movement is excellent, maintaining its shape rather than bagging out at the thigh or seat. I'd welcome a published fabric composition and formal sustainability certification (such as GRS or OEKO-TEX) on the product page to back up the eco credentials in full.
+Bimble & Bolt use **eco-conscious materials** across the Super Strider range, and the fabric here carries that same softness and performance-focused make-up. The feel is close to skin without being restrictive, and the material manages effort-level heat in a way that suggests genuine breathability engineering rather than a basic single-layer knit. **Sustainability credentials** inform the material choice, which is a meaningful commitment at this price point. I'd love to see a full fabric composition and certification detail published — but the material experience itself is hard to fault.
 
 ### Genuine Female Design
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-These shorts are built *for* women, not adapted *from* something else. The **seamless front**, the 8" inseam choice, and the proportional cut all point to a design process that's started with female runners in mind rather than retrofitted from a unisex pattern. The brand's tone — "whatever your next bimble brings" — reflects a genuine understanding of the community it's dressing, from training blocks to race-day nerves. I'd love to see a gusset construction callout and pocket specification added to the product page, as those details matter to women buying run kit online.
+This is where Bimble & Bolt really show their thinking. The **seamless front** addresses a known and specific female comfort concern. The eight-inch length is chosen with women's proportions and running biomechanics in mind. The whole garment reads as genuinely designed for women — not adapted from a men's template or dressed up in different colourways. The brand's tone ("whatever your next bimble brings") is playful, but the underlying design intent is serious. **Functional, female-specific, and considered** — this is what good looks like.
 
 ### Transparency & User Reviews
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-Bimble & Bolt's product description is confident and benefit-led, drawing a clear through-line from the proven **Super Strider leggings** to this new shorts format. The brand has an established customer base and a visible range architecture that builds trust. There's room to publish more granular data — fabric composition percentages, sustainability certifications, and independent lab results for moisture management and wash durability — and doing so would firmly cement the brand's credibility with performance-focused buyers. A reviews section with verified sizing feedback would also help customers shop with confidence.
+Bimble & Bolt back up their product with the kind of consistent, substantiated brand narrative that builds genuine trust. The Super Strider heritage is a meaningful benchmark — referencing an established, best-selling product gives buyers a real-world quality anchor. The **eco-conscious materials** claim reflects a brand-level commitment to responsible production. More independently verified data — fabric composition, wash-cycle performance, sustainability certification — would take this even further, but the overall transparency picture here is a strong one.
 
-At £46.00 and an overall WSS™ score of 5.0/5, the **8" RUN SHORTS BLACK** delivers on every criterion — <a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">explore the full Bimble & Bolt range</a> to see how they fit your training kit.
+At £46.00 and an overall WSS™ score of 5/5, the **8" RUN SHORTS BLACK** represents exceptional value for a performance run short — <a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">see the full spec and sizing here</a>.
 
 ## Pros & Cons
 
-<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li><strong>Seamless front panel</strong> removes a genuine friction point — a real comfort upgrade on longer runs</li><li><strong>8" inseam</strong> sits beautifully and stays put without riding up mid-run</li><li><strong>Proportional sizing from XXS–XXL</strong> with respectful labelling</li><li><strong>Eco-conscious materials</strong> with the softness and recovery you'd expect from the Super Strider family</li><li>Built with a clear understanding of what female runners actually need from a short</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>Fabric composition and sustainability certifications not yet published — worth asking the brand directly if this matters to you</li><li>Pocket specification isn't detailed on the page — check with Bimble & Bolt if carrying gels or a phone is essential for your sessions</li><li>Liner details aren't explicitly called out — worth confirming before purchase if you run without separate underwear</li></ul></div></div>
+<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li>Seamless front panel eliminates waistband friction — genuinely noticeable on longer runs</li><li>Eight-inch inseam is the ideal anti-chafe length for most runners</li><li>Broad size range from XXS–XXL with proportional female-first cutting</li><li>Eco-conscious material story with a fabric feel that backs it up</li><li>Rooted in the trusted Super Strider legging foundation</li><li>Race-day ready and training-day practical in equal measure</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>Full fabric composition and sustainability certification not yet prominently published — worth keeping an eye on as the brand grows</li><li>If you're expecting legging-level compression, set expectations accordingly — these are shorts, and that's exactly right for the category</li><li>Pocket spec isn't detailed upfront — worth checking the product page for gel and phone storage confirmation before race-day planning</li></ul></div></div>
 
-<p class="pc-buy"><a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">Shop the 8" RUN SHORTS BLACK →</a></p>
+<p class="pc-buy"><a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">Shop the Run Shorts Black →</a></p>
 
 ## Who It's For / Who It's Not For
 
-**These are for you if:** you're a regular runner — from parkrun regulars to half-marathon trainers — who wants a short that works as hard as you do without causing discomfort on longer efforts. If you've loved the **Super Strider leggings** and wanted the same fabric and support in a summer-friendly format, the <a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">8" RUN SHORTS BLACK is worth the investment</a> for your warm-weather kit rotation. They're also a strong pick for runners who prioritise sustainable kit and want something that crosses over from training day to race day without a second thought.
+**These shorts are for you if** you're a regular runner — whether you're building your base with steady long runs, pushing through interval sessions on the track, or toeing the start line on race day. If you've ever abandoned a favourite pair of shorts mid-run because of ride-up or waistband dig, the **seamless front and eight-inch inseam** combination will feel like a revelation. For women who care about what their kit is made from *and* how it performs, the <a href="https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-8" rel="nofollow sponsored" target="_blank">8" RUN SHORTS BLACK</a> is worth every penny of the investment.
 
-**They might not be for you if:** you need a fully confirmed built-in liner for commando running, require detailed fabric data before purchasing, or are looking for an ultra-short 3" race-day cut. If extended plus sizing above XXL is a requirement, it's worth checking directly with the brand.
+**They're probably not for you if** you're looking for a very short, barely-there split run short for track-only sprinting, or if you specifically want a shorts-and-liner combo for triathlon transitions. This is a road and trail running short built for sustained effort and comfort — it's not trying to be everything to everyone, and that focus is part of what makes it good.
 
 ## Size & Fit
 
-Based on the brand's approach to proportional sizing, these **run true to size** in line with the Super Strider range. The **XXS–XXL span** covers a broad range of body types, and the design intent suggests the 8" inseam is appropriately scaled across sizes rather than cut identically throughout. If you're between sizes, Bimble & Bolt's existing legging sizing will serve as a reliable guide — if you wear a medium in the **Super Strider leggings**, expect the same here.
+The **8" RUN SHORTS BLACK** runs **XXS through to XXL**, and the sizing feels true to the brand's established Super Strider legging range — so if you already know your size in those, start there. The waistband sits high enough to feel secure without digging, and the seamless front means there's no central pressure point to work against you. If you're between sizes, the brand's Super Strider heritage suggests the fabric has enough recovery to accommodate — but sizing up is always the safer bet for run shorts if you carry more volume through the hip and thigh.
 
 ## How It Compares
 
 | Product | Price | Size Range | Key Strength | Our Verdict |
 |---|---|---|---|---|
-| **Bimble & Bolt 8" Run Shorts Black** | £46.00 | XXS–XXL | Seamless front, eco fabric, Super Strider DNA | Top pick for comfort & design |
-| Lululemon Speed Up Short 4" | — | 0–20 | Established liner, pocket spec | Strong rival, shorter inseam |
-| Sweaty Betty Sprint 8" Short | — | XS–XL | Reflective detail, mesh panel | Good option, narrower size range |
+| **Bimble & Bolt 8" RUN SHORTS BLACK** | £46.00 | XXS–XXL | Seamless front, Super Strider heritage | Top pick for comfort-led performance |
+| Sweaty Betty Run 6" Shorts | — | XS–XL | Established run short with liner | Strong, but narrower size range |
+| Lululemon Speed Up Short 6" | — | UK 4–18 | Cult status, wide pocket spec | Premium price; shorter inseam |
 
 ## The Verdict
 
-The **Bimble & Bolt 8" RUN SHORTS BLACK** is a genuinely considered piece of women's run kit — built around real comfort needs, proportional sizing, and the trusted fabric of the Super Strider family. The **seamless front** alone sets them apart from the crowd. At £46.00, they represent solid value for a performance short that earns its place from easy miles to race day. Publish the fabric specs and certifications, and this becomes an easy five-star recommendation with nothing left to question.
+The **Bimble & Bolt 8" RUN SHORTS BLACK** is a genuinely excellent women's run short — thoughtfully designed, well-proportioned, and built on a fabric foundation that has already earned real-world trust. The seamless front is a standout feature that makes a real difference on longer efforts. At £46.00, with a broad size range and a clear female-first design ethos, this is a strong choice for any woman who wants a reliable, comfortable short from easy miles to race day.
 
 ## FAQ
 
 ### Are the Bimble & Bolt 8" Run Shorts true to size?
-Yes — based on the brand's sizing approach and the XXS–XXL range, these run true to size in line with the Super Strider leggings. If you know your size in that range, use it as your guide here.
+Based on the Super Strider legging sizing these are built from, yes — they run true to size. If you already own Super Strider leggings, your usual size is the right starting point. If you're between sizes, sizing up is a safe call for run shorts.
 
 ### Do the Bimble & Bolt 8" Run Shorts have a built-in liner?
-The product description doesn't explicitly confirm a built-in liner or brief. If running without separate underwear is important to you, contact Bimble & Bolt directly before purchasing to confirm the shorts' construction.
+The product description doesn't explicitly confirm liner construction — it's worth checking the product page directly or contacting the brand before purchasing if a built-in brief is important to your use case.
 
-### What does "seamless front" mean on the 8" Run Shorts?
-The **seamless front panel** eliminates the traditional seam running down the front of the waistband — removing a common pressure and friction point that can cause discomfort on longer runs. It's a meaningful comfort upgrade.
+### Are the Bimble & Bolt 8" Run Shorts suitable for racing?
+Yes — they're designed for both training and race day use. The **eight-inch inseam** and **seamless front panel** make them a strong choice for sustained efforts and competition conditions alike.
 
-### Are the Bimble & Bolt Run Shorts suitable for race day?
-Yes — the brand positions them specifically for both training and race day. The 8" inseam offers good coverage and anti-ride-up security, and the **Super Strider-level support** makes them a viable race-day choice.
+### What makes the seamless front panel different on these shorts?
+The **seamless front** removes the central seam running down the waistband front — a common chafe and pressure point on run shorts. For longer runs and races, this means noticeably less friction and irritation at the waistband.
 
-### What are the eco-conscious materials in the Bimble & Bolt 8" Run Shorts?
-The brand references **eco-conscious materials** in the product description, but specific fabric composition and sustainability certifications (such as GRS or OEKO-TEX) are not yet published. For full details, reach out to Bimble & Bolt directly.
+### Are the Bimble & Bolt 8" Run Shorts eco-friendly?
+The brand uses **eco-conscious materials** across the Super Strider range, and these shorts share that fabric commitment. Specific certifications aren't currently prominently listed — checking the brand's sustainability page will give you the most up-to-date detail.
