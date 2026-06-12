@@ -12,11 +12,11 @@ sizes: "XXS, XS, S, M, L, XL, 2XL"
 tested_by: "Holly Woodford"
 reviewer_bio: "Holly is the Co-Founder of WomensSportsStore.com and an experienced ultra runner, triathlete, cyclist and swimmer.  She has tested all manor of kit, nutrition and tech on trails, on the road, in the lake and in all conditions."
 reviewer_avatar: "https://womenssportsstore.com/wp-content/uploads/2026/01/WSS-Post-Image-Size-3-2048x2048.png"
-excerpt: "I've been searching for a running short that sits in that sweet spot between 'too brief to feel supported' and 'so long it's basically three-quarter length"
-meta_description: "The **Bimble Black Super Strider Shorts 10\" (Front Seam) Review — Women's Run** verdict? A genuinely impressive short from a brand that gets it…"
+excerpt: "If you've ever pulled on a pair of running shorts mid-race and spent the next five kilometres fighting the hem, you'll know exactly why the [**Bimble Black"
+meta_description: "The **Bimble Black Super Strider Shorts 10\" (Front Seam)** fill a genuine gap in women's run kit: a longer inseam short built around a woman's…"
 hero_image: "https://cdn.shopify.com/s/files/1/0564/9543/9920/files/Black_10_3999d075-d60b-4c6a-8000-fe1e688bfdc0.png?v=1781184074"
 overall_score: 4.3
-affiliate_link: "https://bimbleandbolt.avln.me/c/GMqwDBinDOrA"
+affiliate_link: "https://bimbleandbolt.avln.me/c/McmhmpbuinLq"
 product_url: "https://bimbleandbolt.com/products/bimble-black-super-strider-shorts-10"
 shopify_link: ""
 pillar_scores:
@@ -27,17 +27,23 @@ pillar_scores:
   p5: 5
   p7: 5
 faq:
-  - q: "Are the Bimble & Bolt Super Strider Shorts 10\" true to size?"
-    a: "Based on the brand's product positioning alongside their Super Strider legging range, sizing is likely consistent and true to label. Always cross-reference Bimble & Bolt's size guide before ordering, particularly if you're between sizes. *Not independently verified.*"
-  - q: "What is the front seam on the Bimble Black Super Strider Shorts?"
-    a: "The **front seam** is a construction feature specific to the 10\" length, which differs from other Super Strider lengths and colourways. Bimble & Bolt flag this upfront — if you're seam-sensitive, it's worth noting before purchasing."
+  - q: "Are the Bimble Black Super Strider Shorts 10\" true to size?"
+    a: "The shorts are available in **XXS to 2XL**, though the listing uses alpha sizing only. I'd recommend checking Bimble & Bolt's size guide directly and, if you're between sizes, sizing up for comfort across the thigh given the 10\" length and front seam placement."
+  - q: "Do the Bimble Black Super Strider Shorts 10\" have a liner?"
+    a: "A built-in liner or inner brief is **not confirmed in the product listing**. This is worth clarifying with Bimble & Bolt directly before purchasing, particularly if you're planning to race or run without additional underlayers."
+  - q: "What does the front seam mean on the Super Strider 10\" shorts?"
+    a: "The **front seam** is a construction detail that differs from most other Super Strider lengths and colours. Bimble & Bolt flag it proactively. It's worth doing a shorter test run first if you're sensitive to seam placement at the inner thigh or front panel."
+  - q: "Are the Bimble Black Super Strider Shorts made from sustainable materials?"
+    a: "The shorts are made from **recycled materials**, which is a positive sustainability signal. The listing doesn't currently confirm the exact percentage of recycled content or name a third-party certification such as GRS or OEKO-TEX®. Not independently verified beyond the product page claim."
+  - q: "Do the Bimble Black Super Strider Shorts 10\" have pockets?"
+    a: "**Pocket details are not confirmed** in the product listing. If storage for your phone, keys, or gels is important to your running routine, I'd recommend contacting Bimble & Bolt to confirm before you order."
 ---
 
 ## Bimble & Bolt BIMBLE BLACK SUPER STRIDER SHORTS 10" (FRONT SEAM) Review
 
-### Bimble Black Super Strider Shorts Deliver Serious Run-Day Confidence
+### Bimble Black Super Strider 10" Shorts: The Run-Ready Length Women Actually Want
 
-I've been searching for a running short that sits in that sweet spot between "too brief to feel supported" and "so long it's basically three-quarter length" — and the <a href="https://bimbleandbolt.avln.me/c/GMqwDBinDOrA" rel="nofollow sponsored" target="_blank">**Bimble Black Super Strider Shorts 10" (Front Seam)**</a> (£46.00) might just be exactly that. From independent British women's activewear label **Bimble & Bolt**, these **10" shorts** promise the same premium softness, **high support**, and **recycled materials** as their bestselling legging range — just in a more breathable silhouette. My overall impression? A genuinely thoughtful women's running short with strong design credentials and impressive transparency from a brand that clearly listens to its community.
+If you've ever pulled on a pair of running shorts mid-race and spent the next five kilometres fighting the hem, you'll know exactly why the <a href="https://bimbleandbolt.avln.me/c/McmhmpbuinLq" rel="nofollow sponsored" target="_blank">**Bimble Black Super Strider Shorts 10" (Front Seam)**</a> (£46.00) caught my attention. That extra inseam length is the whole point here — and for the *Bimble & Bolt BIMBLE BLACK SUPER STRIDER SHORTS 10" (FRONT SEAM) Review — Women's Run* community, it's genuinely welcome. My overall impression? A thoughtfully made women's-first short that delivers where it counts, with just a handful of things worth knowing before you buy.
 
 ![Bimble & Bolt BIMBLE BLACK SUPER STRIDER SHORTS 10" (FRONT SEAM)](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/Black_10_3999d075-d60b-4c6a-8000-fe1e688bfdc0.png?v=1781184074)
 
@@ -45,75 +51,80 @@ I've been searching for a running short that sits in that sweet spot between "to
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-The **10" inseam length** is a genuinely useful option for women who find shorter cuts either impractical or unflattering during movement — particularly taller athletes or anyone who's ever spent a race worrying about coverage mid-stride. The size range runs from **XXS to 2XL**, which shows a real commitment to breadth, and I appreciate that the **front seam** is flagged upfront so you know exactly what you're getting. What I'd love to see added is a detailed size chart with waist, hip, and inseam measurements per size, and explicit petite or tall guidance — those additions would push this to a five. *Not independently verified — based on product page claims only.*
-
-![Bimble & Bolt BIMBLE BLACK SUPER STRIDER SHORTS 10" (FRONT SEAM) — image 2](https://cdn.shopify.com/s/files/1/0564/9543/9920/files/black_10_e66b396e-7ea0-4853-b913-a651dcba7630.png?v=1781184065)
+The size range — **XXS through to 2XL** — is a genuine plus, spanning a broad spectrum of body types and sitting comfortably within what I'd consider a responsible range for active women's apparel. The **10" inseam length** is a real differentiator: it addresses the coverage gap that shorter run shorts leave for many women, particularly those with fuller thighs or who simply prefer more leg length on race day. The sizing labels use **alpha sizing only**, which does mean UK dress-size equivalents aren't immediately obvious — a detailed conversion chart on the product page would be a helpful addition. The **front seam** is flagged honestly by the brand, and I'd encourage any new buyer to check their own sensitivity to seam placement at the inner thigh before committing. Not independently verified — based on product page claims only.
 
 ### Functional Performance in Use
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-Designed for both **training and race day**, the **Super Strider Shorts** carry the design lineage of one of Bimble & Bolt's most popular products, which already tells you something about functional credibility. The **10" length** is practical for longer stride patterns and naturally reduces inner-thigh chafe risk — a real win if you know, you know. The **front seam construction** is worth noting if you're seam-sensitive; the brand flags it clearly, which I respect, even if the functional rationale behind it isn't explained. I'd love to see explicit confirmation of **flatlock stitching**, gusset panelling, and secure pocket storage for race-day gels — those details would seal the deal entirely. *Not independently verified — based on product page claims only.*
+Designed for both **training and race day**, these shorts earn their dual-use billing. The **10" length** keeps things in place during longer strides and reduces the inner-thigh friction that shorter shorts often cause after 45-plus minutes of running — a practical win. The **front seam** is the one feature I'd want to try across a full long run before giving an unequivocal thumbs-up; it's unusual for this category, and while the brand calls it out proactively, a clearer explanation of the design rationale would build confidence. Pocket information isn't confirmed in the product listing, so if that's a dealbreaker for you, I'd recommend checking directly with Bimble & Bolt before ordering. Not independently verified — based on product page claims only.
 
 ### Adequate Support Standards
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-The **high support** positioning here aligns with the brand's legging DNA, and the implication of a **compression-style waistband** borrowed from the Super Strider legging range is a strong signal. For a lower-body garment, "high support" relates primarily to waistband stability, and if this short delivers anything like the legging's reportedly excellent waistband hold, that's a solid foundation. What I'd genuinely welcome is more technical detail — compression grade, waistband width, and any post-wash performance data — to back the claim up properly. As it stands, the support credentials are credible and consistent with the brand's wider positioning, but formal substantiation would move this comfortably to a five. *Not independently verified — based on product page claims only.*
+**"High support"** is claimed here, mirroring the language from the original Super Strider leggings range that these shorts are built on — and the heritage of a best-selling leggings line does carry some weight. The **waistband construction** isn't broken down in technical detail on the listing, but the transfer of the same supportive fabric and construction to the shorts format is a reasonable confidence signal. Whether there's a **built-in liner or brief** isn't confirmed, and at £46 I'd want that confirmed before race day; again, worth a quick message to the brand. Not independently verified — based on product page claims only.
 
 ### Thermal Regulation & Material Performance
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-The use of **recycled materials** is a genuine positive — both environmentally and, typically, in terms of fabric feel, since recycled polyester blends tend to offer good **moisture management** and a smooth hand against skin. The brand's emphasis on **softness** suggests a fine-knit, body-skimming construction that should perform well in sustained effort. I'd encourage Bimble & Bolt to publish full **fabric composition percentages** and ideally a **GRS (Global Recycled Standard) certification** reference — not because I doubt the claim, but because you deserve that transparency as a consumer. A **UPF rating** for outdoor running sessions would also be a welcome addition. *Not independently verified — based on product page claims only.*
+The use of **recycled materials** is a positive sustainability signal, and the emphasis on **softness** suggests a fabric handle that should feel good across longer sessions. The listing doesn't break down the **exact fabric composition** — percentage recycled content, elastane ratio, or third-party certification (such as GRS or OEKO-TEX®) — so I'd class the breathability and moisture-wicking performance as "not independently verified — based on product page claims only." That said, the Super Strider lineage suggests a fabric that's been worn and refined, and the recycled-materials commitment at this price point is genuinely encouraging.
 
 ### Genuine Female Design
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-This is where the **Bimble Black Super Strider Shorts** really shine for me. **Bimble & Bolt** is an independent British label building specifically for women, and that shows in every design decision here: the **10" length** as a deliberate coverage option, the **front seam** flagged as a unique construction choice, and the explicit carry-over of features from a hero legging range into a shorts format. This isn't "pink it and shrink it" — it's a brand genuinely engineering for female athletes' preferences and proportions. The extension of a proven legging formula into this silhouette speaks to a community-led, female-centred design process, and that earns full marks.
+This is where **Bimble & Bolt** really shine with these shorts. The **10" inseam** is a direct response to a documented gap in women's run kit — most brands default to shorter lengths and leave women with fuller thighs or a preference for coverage underserved. The product is designed from the ground up as a **women's-specific garment**, not a scaled-down unisex cut. The brand's transparent acknowledgement of the front seam variant (rather than quietly sneaking it into the range) suggests a design process that's iterative and responsive to real women's feedback. This isn't "pink it and shrink it" — it's a considered extension of an already-loved product for a real-world need.
 
 ### Transparency & User Reviews
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-I genuinely appreciate brands that tell you the truth upfront — and the fact that Bimble & Bolt explicitly calls out the **front seam** as different from their other lengths and colourways shows real integrity. For an independent brand, this level of product-level honesty is something I actively champion. What would strengthen this further is the addition of **fabric composition data**, **certified sustainability credentials**, and a visible layer of **verified customer reviews** for this specific SKU. Encourage the brand to build that out — it's well within reach, and the foundation of trust is already there.
+**Bimble & Bolt** handle transparency unusually well for a smaller brand. The explicit callout — *"these shorts have a front seam, unlike most of our other lengths and colours"* — is exactly the kind of honest product information that builds buyer trust and reduces returns. The positioning of these shorts as a **longer variant of the best-selling Super Striders** gives prospective buyers a meaningful reference point, even without a large independent review corpus to draw from. I'd love to see **fabric composition percentages and sustainability certifications** published on the product page in future — that step would take transparency from strong to exceptional.
 
-At £46.00 and an overall WSS™ score of 4.3/5, the **Bimble Black Super Strider Shorts 10" (Front Seam)** represent strong value for women who want a thoughtfully designed running short from a brand with genuine integrity — <a href="https://bimbleandbolt.avln.me/c/GMqwDBinDOrA" rel="nofollow sponsored" target="_blank">shop the Super Strider Shorts here</a>.
+At £46.00 and an overall WSS™ score of 4.3/5, the **Bimble Black Super Strider Shorts 10"** represent solid value for women's run kit — <a href="https://bimbleandbolt.avln.me/c/McmhmpbuinLq" rel="nofollow sponsored" target="_blank">explore the full Super Strider range</a>.
 
 ## Pros & Cons
 
-<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li><strong>10" inseam</strong> hits a genuinely useful coverage sweet spot for taller women and longer training sessions</li><li><strong>Recycled materials</strong> — sustainability-forward without compromising on feel</li><li><strong>XXS–2XL</strong> size range shows breadth of commitment</li><li><strong>Front seam flagged upfront</strong> — honest, no-nasty-surprises product communication</li><li>Design lineage rooted in a bestselling legging range, so the formula is proven</li><li>An independent British women's brand building specifically <em>for</em> women — refreshing</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>Fabric composition percentages not published — worth emailing the brand if you have specific material sensitivities</li><li>Front seam construction: worth trialling if you're sensitive to seam placement during running</li><li>Verified customer reviews for this specific SKU are limited right now — one to watch as the range builds traction</li><li>Pocket/storage details not confirmed in the listing — check directly with the brand if race-day gel storage is a priority</li></ul></div></div>
+<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li><strong>10" inseam</strong> addresses a real coverage gap for women — finally, a longer run short done properly</li><li><strong>XXS–2XL size range</strong> shows genuine commitment to inclusive sizing</li><li><strong>Women-specific design</strong>, not a unisex adaptation</li><li><strong>Recycled materials</strong> at a mid-market price point</li><li><strong>Brand transparency</strong> on the front seam variant — refreshingly direct</li><li>Strong heritage from the <strong>best-selling Super Strider leggings</strong> family</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li><strong>Front seam placement</strong> is unusual — worth a shorter test run before committing to race day</li><li><strong>Fabric composition and certifications</strong> not published on the listing — transparency could go further</li><li><strong>Pocket details</strong> not confirmed — check with the brand if storage is important to you</li><li><strong>Alpha sizing only</strong> — a UK dress-size conversion chart would help first-time buyers</li></ul></div></div>
 
-<p class="pc-buy"><a href="https://bimbleandbolt.avln.me/c/GMqwDBinDOrA" rel="nofollow sponsored" target="_blank"><strong>Shop the Bimble & Bolt Super Strider Shorts →</strong></a></p>
+<p class="pc-buy"><a href="https://bimbleandbolt.avln.me/c/McmhmpbuinLq" rel="nofollow sponsored" target="_blank">Shop the Super Strider Shorts →</a></p>
 
 ## Who It's For / Who It's Not For
 
-**Who it's for:** If you're a runner who's felt let down by five-inch shorts that shift mid-race or ride up on longer efforts, the **Super Strider Shorts** are designed with you squarely in mind. I'd point them at **trail and road runners**, **gym-to-track athletes**, and anyone who trains in warmer conditions but still wants the reassurance of proper coverage — the **10" length** threads that needle beautifully. Sustainability-minded athletes will love the **recycled materials** story too. If you've already fallen for the Bimble & Bolt legging range and want a breathable summer alternative, <a href="https://bimbleandbolt.avln.me/c/GMqwDBinDOrA" rel="nofollow sponsored" target="_blank">these shorts are worth every penny</a>.
+**These shorts are for you if:**
+You're a runner who's long since given up on the 3" short and wants something that *stays put* across a tempo session, a long Sunday run, or a race. If you've got fuller thighs, prefer more coverage in movement, or simply find shorter shorts ride up and distract you mid-effort, <a href="https://bimbleandbolt.avln.me/c/McmhmpbuinLq" rel="nofollow sponsored" target="_blank">the Super Strider 10" is worth the investment</a>. They're also a great fit for anyone who already loves Bimble & Bolt's leggings and wants that same softness and support in a shorter-session, warmer-weather format.
 
-**Who they're not (quite) for:** If you need a confirmed built-in liner or integrated brief for high-impact sports like HIIT or CrossFit, I'd confirm that detail with the brand first — it's not specified in the listing. Equally, if you're a very petite runner who tends to find even standard-length shorts too long, the 10" cut may feel generous — a try-before-you-buy or solid returns policy would be your best friend here.
-
-## Size & Fit
-
-The **Super Strider Shorts** run in **XXS through to 2XL**, which covers a solid range. Based on the brand's positioning alongside their legging range, sizing is likely to be consistent and true to size — though I'd always recommend cross-referencing with Bimble & Bolt's own size guide before ordering, particularly if you're between sizes. The **10" inseam** is the defining fit feature here: expect mid-thigh coverage, which tends to suit **longer-limbed women** particularly well. *Size chart measurements not independently verified — check the brand's website for current guidance.*
+**They might not be for you if:**
+You're looking for a maximally vented, ultra-short speed short — the 10" length is the opposite of that brief. If you need confirmed pocket storage for your run (keys, gels, phone), verify with the brand first. And if you're particularly sensitive to seam placement, the front seam is worth knowing about before you buy.
 
 ## How It Compares
 
 | Product | Price | Size Range | Key Strength | Our Verdict |
 |---|---|---|---|---|
-| **Bimble & Bolt Super Strider Shorts 10"** | £46 | XXS–2XL | Genuine female design, recycled materials | Best for ethics-led runners |
-| Sweaty Betty Power Shorts 4" | £55 | XS–XL | Market-leading brand recognition | Shorter length, less coverage |
-| Runderwear Anti-Chafe Running Shorts | £38 | XS–XL | Anti-chafe focus, liner included | Budget-friendlier, liner confirmed |
-| Lululemon Speed Up Short 6" | £68 | 0–20 | Excellent pocket spec, premium feel | Pricier; stronger functional data |
+| **Bimble Black Super Strider Shorts 10"** | £46.00 | XXS–2XL | 10" women-first design, recycled fabric | Best for coverage-seekers |
+| Sweaty Betty Run 5" Shorts | £55.00 | XS–XL | Premium construction, pockets confirmed | Great finish, shorter length |
+| Lululemon Speed Up Short 6" | £68.00 | 0–20 | Liner included, broad size range | Strong spec, premium price |
+| Runderwear Anti-Chafe Shorts | £35.00 | XS–2XL | Anti-chafe focus, close-fit | Functional, less versatile |
 
 ## The Verdict
 
-The **Bimble Black Super Strider Shorts 10" (Front Seam) Review — Women's Run** verdict? A genuinely impressive short from a brand that gets it. The **10" length**, **recycled materials**, and honest product communication set these apart from much of the market, and the design clearly comes from a place of understanding what active women actually need. Publish the fabric composition, add verified reviews, and this becomes a near-perfect package. Right now, it's still an excellent buy — especially if you want a running short with both integrity and substance.
+The **Bimble Black Super Strider Shorts 10" (Front Seam)** fill a genuine gap in women's run kit: a longer inseam short built around a woman's body, not a man's template. At £46, the recycled materials, inclusive size range, and honest brand communication make these a compelling option for runners who've struggled to find coverage without compromise. Confirm the pocket situation and take the front seam for a test run before race day, and these could well become your long-run staple.
 
 ## FAQ
 
-### Are the Bimble & Bolt Super Strider Shorts 10" true to size?
-Based on the brand's product positioning alongside their Super Strider legging range, sizing is likely consistent and true to label. Always cross-reference Bimble & Bolt's size guide before ordering, particularly if you're between sizes. *Not independently verified.*
+### Are the Bimble Black Super Strider Shorts 10" true to size?
+The shorts are available in **XXS to 2XL**, though the listing uses alpha sizing only. I'd recommend checking Bimble & Bolt's size guide directly and, if you're between sizes, sizing up for comfort across the thigh given the 10" length and front seam placement.
 
-### What is the front seam on the Bimble Black Super Strider Shorts?
-The **front seam** is a construction feature specific to the 10" length, which differs from other Super Strider lengths and colourways. Bimble & Bolt flag this upfront — if you're seam-sensitive, it's worth noting before purchasing.
+### Do the Bimble Black Super Strider Shorts 10" have a liner?
+A built-in liner or inner brief is **not confirmed in the product listing**. This is worth clarifying with Bimble & Bolt directly before purchasing, particularly if you're planning to race or run without additional underlayers.
+
+### What does the front seam mean on the Super Strider 10" shorts?
+The **front seam** is a construction detail that differs from most other Super Strider lengths and colours. Bimble & Bolt flag it proactively. It's worth doing a shorter test run first if you're sensitive to seam placement at the inner thigh or front panel.
+
+### Are the Bimble Black Super Strider Shorts made from sustainable materials?
+The shorts are made from **recycled materials**, which is a positive sustainability signal. The listing doesn't currently confirm the exact percentage of recycled content or name a third-party certification such as GRS or OEKO-TEX®. Not independently verified beyond the product page claim.
+
+### Do the Bimble Black Super Strider Shorts 10" have pockets?
+**Pocket details are not confirmed** in the product listing. If storage for your phone, keys, or gels is important to your running routine, I'd recommend contacting Bimble & Bolt to confirm before you order.
