@@ -363,18 +363,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 <div class="ov" id="settingsOv">
   <div class="mo">
     <div class="moh"><div class="mot">Settings</div><button class="mox" id="modalCloseBtn">×</button></div>
-    <div class="slbl" style="margin-bottom:8px"><div class="dot b">GH</div>GitHub</div>
-    <div class="ht"><strong>Personal Access Token:</strong> github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → tick <strong>repo</strong> scope → copy (shown once only)</div>
-    <div class="mof"><label>GitHub username</label><input id="ghUser" placeholder="holly-cyber"/></div>
-    <div class="mof"><label>Repository</label><input id="ghRepo" placeholder="WSS-Review-Site"/></div>
-    <div class="mof"><label>Personal access token</label><input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx"/></div>
-    <div class="mof"><label>Branch</label><input id="ghBranch" value="main"/></div>
-    <hr class="div">
-    <div class="slbl" style="margin-bottom:8px"><div class="dot" style="background:#f5a623">AV</div>Avelon</div>
-    <div class="ht"><strong>Avelon credentials:</strong> your Avelon publisher login. Calls are routed through a Netlify function (avelon-proxy) to avoid CORS.</div>
-    <div class="mof"><label>Avelon email</label><input id="avEmail" placeholder="your@email.com"/></div>
-    <div class="mof"><label>Avelon password</label><input type="password" id="avPass" placeholder="password"/></div>
-    <hr class="div">
+    <div class="al inf" style="margin-bottom:12px">GitHub &amp; Avelon are connected centrally — you don't need to add any keys. Just set your reviewer profile below so reviews carry your name, bio and photo.</div>
     <div class="slbl" style="margin-bottom:8px"><div class="dot" style="background:#FF5E84">RV</div>Reviewer profile</div>
     <div class="ht">Shown as the byline (with photo) at the top of each review and in the "About the reviewer" card at the foot. Reviews are written in this person's first-person voice.</div>
     <div class="mof"><label>Reviewer name &amp; credentials</label><input id="reviewerName" placeholder="e.g. Holly Woodford, WSS co-founder and endurance athlete"/></div>
@@ -385,7 +374,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <button class="bg" id="cancelSettingsBtn">Cancel</button>
       <button class="bg" id="forgetSettingsBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Forget saved login</button>
     </div>
-    <div class="mnote">Saved in this browser (on this device) so you stay logged in between refreshes — use "Forget saved login" to wipe them. Sent directly to GitHub, and to Avelon via the site's own Netlify function — never to any third party.</div>
+    <div class="mnote">Your reviewer profile is saved in this browser only. GitHub and Avelon are connected centrally on the server, so reviewers never handle any keys.</div>
   </div>
 </div>
 
@@ -652,19 +641,19 @@ const SCORE_AREAS={
   equipment:[['e1','Female-Specific Design & Sizing (25%)'],['e2','Functional Performance in Use (25%)'],['e3','Fit, Adjustability & Size Range (20%)'],['e4','Safety & Performance Standards (20%)'],['e5','Transparency & User Reviews (10%)']]
 };
 
-const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:'',reviewerBio:'',reviewerAvatar:'',mlFromName:'WomensSportsStore.com',mlFrom:'holly@womenssportsstore.com',mlGroup:'',gsheetUrl:''};
+const CFG_DEFAULTS={reviewer:'',reviewerBio:'',reviewerAvatar:'',mlFromName:'WomensSportsStore.com',mlFrom:'holly@womenssportsstore.com',mlGroup:'',gsheetUrl:''};
 const CFG_KEY='wss_pipeline_cfg_v1';
 let cfg={...CFG_DEFAULTS};
 function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
 function loadCfg(){try{const s=localStorage.getItem(CFG_KEY);if(s)Object.assign(cfg,JSON.parse(s));}catch{}}
-function reflectConnected(){const btn=document.getElementById('settingsBtn');const on=cfg.ghToken||cfg.avEmail;btn.classList.toggle('on',!!on);btn.textContent='⚙ '+(cfg.ghToken&&cfg.avEmail?'All connected':cfg.ghToken?'GitHub connected':cfg.avEmail?'Avelon connected':'Settings');}
+function reflectConnected(){const btn=document.getElementById('settingsBtn');const on=!!cfg.reviewer;btn.classList.toggle('on',on);btn.textContent=on?('⚙ '+cfg.reviewer.split(/[ ,]/)[0]):'⚙ Reviewer profile';}
 let state={product:{name:'',brand:'',price:'',sizes:'',specs:''},researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[],metaDescription:'',faq:[],providedScores:null};
 let done=new Set();
 let busy=false;
 
 function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function setAlert(id,type,msg){const el=document.getElementById(id);if(el)el.innerHTML=msg?`<div class="al ${type}">${msg}</div>`:''}
-function avAuth(){return'Basic '+btoa(cfg.avEmail+':'+cfg.avPass)}
+// Avelon auth is handled server-side (admin credentials in Netlify env).
 function getReview(){return(document.getElementById('writeEdit').value||'').trim()||state.reviewText}
 function slugify(s){return(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function val(id){return(document.getElementById(id).value||'').trim()}
@@ -733,7 +722,6 @@ function stripHtml(h){const d=document.createElement('div');d.innerHTML=h||'';re
 // Settings
 function fillReviewerInputs(){const r=document.getElementById('reviewerName');if(r)r.value=cfg.reviewer||'';const b=document.getElementById('reviewerBio');if(b)b.value=cfg.reviewerBio||'';const a=document.getElementById('reviewerAvatar');if(a)a.value=cfg.reviewerAvatar||'';}
 document.getElementById('settingsBtn').addEventListener('click',()=>{
-  ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)el.value=cfg[k]||''});
   fillReviewerInputs();
   document.getElementById('settingsOv').classList.add('show');
 });
@@ -741,18 +729,14 @@ document.getElementById('modalCloseBtn').addEventListener('click',()=>document.g
 document.getElementById('cancelSettingsBtn').addEventListener('click',()=>document.getElementById('settingsOv').classList.remove('show'));
 document.getElementById('settingsOv').addEventListener('click',e=>{if(e.target===document.getElementById('settingsOv'))document.getElementById('settingsOv').classList.remove('show')});
 document.getElementById('saveSettingsBtn').addEventListener('click',()=>{
-  ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)cfg[k]=el.value.trim()});
   cfg.reviewer=val('reviewerName');cfg.reviewerBio=val('reviewerBio');cfg.reviewerAvatar=val('reviewerAvatar');
-  if(!cfg.ghBranch)cfg.ghBranch='main';
   saveCfg();
   reflectConnected();
   document.getElementById('settingsOv').classList.remove('show');
-  if(cfg.avEmail&&cfg.avPass)loadRetailers();
 });
 document.getElementById('forgetSettingsBtn').addEventListener('click',()=>{
   try{localStorage.removeItem(CFG_KEY);}catch{}
   cfg={...CFG_DEFAULTS};
-  ['ghUser','ghRepo','ghToken','ghBranch','avEmail','avPass'].forEach(k=>{const el=document.getElementById(k);if(el)el.value=cfg[k]||''});
   fillReviewerInputs();
   reflectConnected();
   document.getElementById('retailerList').innerHTML='<div class="out empty" style="margin:0;border:none;background:none">Connect Avelon in Settings to load retailers…</div>';
@@ -994,11 +978,10 @@ function addManualImage(){
 
 // STAGE 4 — Avelon (via avelon-proxy)
 async function loadRetailers(){
-  if(!cfg.avEmail||!cfg.avPass)return;
   const el=document.getElementById('retailerList');
   el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">Loading…</div>';
   try{
-    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'retailers',auth:avAuth()})});
+    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'retailers'})});
     if(!r.ok)throw new Error('HTTP '+r.status);
     const data=await r.json();
     const list=Array.isArray(data)?data:(data.retailers||data.data||[]);
@@ -1020,7 +1003,6 @@ function autoMatchRetailer(){
   if(idx>=0){sel.value=String(idx);state.selectedRetailer=state.retailers[idx];setAlert('affAlert','ok','Auto-matched retailer: '+(state.retailers[idx].name||state.retailers[idx].pk||'')+'. Change it above if wrong.');}
 }
 document.getElementById('affBtn').addEventListener('click',async()=>{
-  if(!cfg.avEmail||!cfg.avPass){setAlert('affAlert','er','Connect Avelon in Settings first.');return}
   if(!state.selectedRetailer)autoMatchRetailer();
   if(!state.selectedRetailer){setAlert('affAlert','er','Pick a retailer from the dropdown first.');return}
   const dest=val('destUrl');
@@ -1034,7 +1016,7 @@ document.getElementById('affBtn').addEventListener('click',async()=>{
     let handle='link';try{handle=new URL(dest).pathname.split('/').filter(Boolean).pop()||'link';}catch{}
     const alias=((slugify(val('pBrand')+'-'+handle)||'wss-link').slice(0,40))+'-'+Math.random().toString(36).slice(2,6);
     const payload={retailer:retailerId,destination:dest,alias};
-    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'create',auth:avAuth(),payload})});
+    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'create',payload})});
     const raw=await r.text();
     let data={};try{data=JSON.parse(raw);}catch{}
     if(!r.ok){
@@ -1304,7 +1286,6 @@ function extractExcerpt(review){
 
 // STAGE 6 — GitHub push
 document.getElementById('pushBtn').addEventListener('click',async()=>{
-  if(!cfg.ghToken){setAlert('pushAlert','er','Add your GitHub Personal Access Token in Settings first.');return}
   const review=getReview();
   if(!review){setAlert('pushAlert','er','Write the review first.');return}
   harvestReview();
@@ -1342,13 +1323,9 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     const path=`src/pages/reviews/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
-    try{const check=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}?ref=${cfg.ghBranch}`,{headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'}});if(check.ok){const d=await check.json();sha=d.sha;}}catch{}
-    const reqBody={message:`Add review: ${brand} ${name}`,content,branch:cfg.ghBranch};
-    if(sha)reqBody.sha=sha;
-    const res=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(reqBody)});
-    if(!res.ok){const err=await res.json().catch(()=>({}));throw new Error(err.message||'HTTP '+res.status);}
-    const result=await res.json();
-    const commitUrl=result.commit?.html_url||`https://github.com/${cfg.ghUser}/${cfg.ghRepo}/blob/${cfg.ghBranch}/${path}`;
+    try{const d=await ghApi('get',{path});sha=d.sha||'';}catch{}
+    const result=await ghApi('put',{path,content,message:`Add review: ${brand} ${name}`,sha});
+    const commitUrl=result.commit?.html_url||`https://github.com/holly-cyber/WSS-Review-Site/blob/main/${path}`;
     setAlert('pushAlert','','');
     document.getElementById('pushResult').style.display='block';
     document.getElementById('pushBadge').textContent=`✓ Pushed — ${path}`;
@@ -1563,7 +1540,7 @@ document.getElementById('addImgBtn').addEventListener('click',addManualImage);
 document.getElementById('manualImgUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addManualImage();}});
 
 // Manage articles (edit / delete) via the GitHub API
-function ghHeaders(){return{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'};}
+async function ghApi(action,params){const r=await fetch('/api/github-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...params})});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.message||('HTTP '+r.status));return data;}
 function b64decode(b){const clean=(b||'').replace(/\n/g,'');try{return decodeURIComponent(escape(atob(clean)));}catch{return atob(clean);}}
 let manageFiles=[],editingPath='',editingSha='';
 document.getElementById('manageBtn').addEventListener('click',openManage);
@@ -1571,7 +1548,6 @@ document.getElementById('manageCloseBtn').addEventListener('click',()=>document.
 document.getElementById('manageOv').addEventListener('click',e=>{if(e.target===document.getElementById('manageOv'))document.getElementById('manageOv').classList.remove('show')});
 document.getElementById('meBackBtn').addEventListener('click',showManageList);
 async function openManage(){
-  if(!cfg.ghToken){setAlert('manageAlert','er','Add your GitHub token in Settings first.');document.getElementById('manageOv').classList.add('show');return}
   document.getElementById('manageOv').classList.add('show');
   showManageList();
   loadArticles();
@@ -1582,9 +1558,7 @@ async function loadArticles(){
   list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">Loading articles…</div>';
   setAlert('manageAlert','','');
   try{
-    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/git/trees/${cfg.ghBranch}?recursive=1&_=${Date.now()}`,{headers:ghHeaders()});
-    if(!r.ok)throw new Error('HTTP '+r.status+(r.status===404?' — check repo/branch in Settings':''));
-    const d=await r.json();
+    const d=await ghApi('tree',{});
     manageFiles=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/reviews\/.+\.md$/.test(t.path)).sort((a,b)=>a.path.localeCompare(b.path));
     renderManageList();
   }catch(e){list.innerHTML=`<div style="padding:10px;color:#c00;font-size:13px">Could not load: ${esc(e.message)}</div>`;}
@@ -1602,9 +1576,7 @@ document.getElementById('manageList').addEventListener('click',e=>{
 async function editArticle(f){
   setAlert('manageAlert','inf','Loading '+f.path+'…');
   try{
-    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}?ref=${cfg.ghBranch}`,{headers:ghHeaders()});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const d=await r.json();
+    const d=await ghApi('get',{path:f.path});
     editingPath=f.path;editingSha=d.sha;
     document.getElementById('meContent').value=b64decode(d.content);
     document.getElementById('meName').textContent=f.path;
@@ -1617,10 +1589,7 @@ document.getElementById('meSaveBtn').addEventListener('click',async()=>{
   const btn=document.getElementById('meSaveBtn');btn.disabled=true;btn.textContent='Saving…';
   setAlert('manageAlert','inf','Saving…');
   try{
-    const body={message:`Edit review: ${editingPath}`,content:b64(document.getElementById('meContent').value),branch:cfg.ghBranch,sha:editingSha};
-    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${editingPath}`,{method:'PUT',headers:{...ghHeaders(),'Content-Type':'application/json'},body:JSON.stringify(body)});
-    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'HTTP '+r.status);}
-    const d=await r.json();editingSha=d.content.sha;
+    const d=await ghApi('put',{path:editingPath,content:b64(document.getElementById('meContent').value),message:`Edit review: ${editingPath}`,sha:editingSha});editingSha=d.content.sha;
     setAlert('manageAlert','ok','Saved ✓ Netlify will redeploy within ~60s.');
   }catch(e){setAlert('manageAlert','er','Save failed: '+e.message);}
   btn.disabled=false;btn.textContent='Save changes';
@@ -1631,12 +1600,8 @@ async function deleteArticle(f,fromEditor){
   setAlert('manageAlert','inf','Deleting…');
   try{
     // Re-fetch the file's current sha on this branch (robust against stale tree shas).
-    const g=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}?ref=${encodeURIComponent(cfg.ghBranch)}`,{headers:ghHeaders()});
-    if(!g.ok){const ge=await g.json().catch(()=>({}));throw new Error(`couldn't locate the file on branch "${cfg.ghBranch}" (HTTP ${g.status}${ge.message?': '+ge.message:''})`);}
-    const sha=(await g.json()).sha;
-    const body={message:`Delete review: ${f.path}`,sha,branch:cfg.ghBranch};
-    const r=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${f.path}`,{method:'DELETE',headers:{...ghHeaders(),'Content-Type':'application/json'},body:JSON.stringify(body)});
-    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error((e.message||'HTTP '+r.status)+(r.status===403?' — the token needs write access to this repo':''));}
+    const g=await ghApi('get',{path:f.path});const sha=g.sha;
+    await ghApi('delete',{path:f.path,message:`Delete review: ${f.path}`,sha});
     setAlert('manageAlert','ok','Deleted ✓ It will disappear from the site on the next deploy.');
     manageFiles=manageFiles.filter(x=>x.path!==f.path);
     renderManageList();
@@ -1740,7 +1705,7 @@ populateSubcategory();
 loadCfg();
 reflectConnected();
 {const rn=document.getElementById('reviewerName');if(rn)rn.value=cfg.reviewer||'';const rb=document.getElementById('reviewerBio');if(rb)rb.value=cfg.reviewerBio||'';const ra=document.getElementById('reviewerAvatar');if(ra)ra.value=cfg.reviewerAvatar||'';}
-if(cfg.avEmail&&cfg.avPass)loadRetailers();
+loadRetailers();
 </script>
 </body>
 </html>

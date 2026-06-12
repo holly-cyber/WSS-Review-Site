@@ -18,9 +18,14 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { action, auth, payload } = JSON.parse(event.body || '{}');
+    const { action, auth: reqAuth, payload } = JSON.parse(event.body || '{}');
+    // Prefer the shared admin credentials from the environment so invited
+    // reviewers don't need their own Avelon login; fall back to any provided.
+    const auth = (process.env.AVELON_EMAIL && process.env.AVELON_PASS)
+      ? 'Basic ' + Buffer.from(`${process.env.AVELON_EMAIL}:${process.env.AVELON_PASS}`).toString('base64')
+      : reqAuth;
     if (!auth) {
-      return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Missing Avelon credentials' }) };
+      return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Avelon is not configured — add AVELON_EMAIL and AVELON_PASS in the Netlify environment variables.' }) };
     }
 
     let url, method, body;
