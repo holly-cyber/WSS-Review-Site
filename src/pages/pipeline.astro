@@ -242,31 +242,20 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <p style="font-size:11px;color:#aaa;margin-top:6px">Pick up to 4 images. The first one (★ Featured) becomes the hero; the rest are spread through the article.</p>
   </div>
   <div class="card">
-    <div class="slbl"><div class="dot">4</div>Generate affiliate link (Avelon)</div>
-    <p style="font-size:13px;color:#777;margin-bottom:8px">Select retailer:</p>
-    <div id="retailerList" class="retlist"><div class="out empty" style="margin:0;border:none;background:none">Connect Avelon in Settings to load retailers…</div></div>
-    <div style="margin-top:10px;display:flex;gap:8px;align-items:flex-end">
-      <div style="flex:2"><label>Destination URL</label><input id="destUrl" placeholder="https://brand.com/products/…"/></div>
-      <button class="bp" id="affBtn" style="white-space:nowrap;padding:9px 14px">Generate link</button>
-    </div>
-    <div id="affAlert" style="margin-top:6px"></div>
-    <div id="affResult" style="display:none;margin-top:8px">
-      <label>Affiliate tracking link</label>
-      <div style="display:flex;gap:8px;margin-top:4px">
-        <input id="affLink" readonly style="background:#f9f9f9;font-size:12px"/>
-        <button class="bg" id="affCopyBtn" style="white-space:nowrap;padding:8px 12px">Copy</button>
-      </div>
+    <div class="al ok" style="margin:0">
+      <strong>✓ Affiliate links handled automatically</strong><br/>
+      The Avelon Auto URL Converter is installed on the site. All product URLs are automatically converted to tracked affiliate links for site visitors. Just use the standard product URL from the brand's website — no manual link generation needed.
     </div>
   </div>
 </div>
 
 <div class="tabs" id="tabs" style="display:none">
-  <div class="tab" data-s="write">5. Write Review</div>
-  <div class="tab" data-s="push">6. Push to GitHub</div>
-  <div class="tab" data-s="reel">7. Reel Script</div>
-  <div class="tab" data-s="emails">8. Emails</div>
-  <div class="tab" data-s="social">9. Social Copy</div>
-  <div class="tab" data-s="approve">10. Holly Approves</div>
+  <div class="tab" data-s="write">4. Write Review</div>
+  <div class="tab" data-s="push">5. Push to GitHub</div>
+  <div class="tab" data-s="reel">6. Reel Script</div>
+  <div class="tab" data-s="emails">7. Emails</div>
+  <div class="tab" data-s="social">8. Social Copy</div>
+  <div class="tab" data-s="approve">9. Holly Approves</div>
 </div>
 
 <div id="s-write" style="display:none">
@@ -363,7 +352,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 <div class="ov" id="settingsOv">
   <div class="mo">
     <div class="moh"><div class="mot">Settings</div><button class="mox" id="modalCloseBtn">×</button></div>
-    <div class="al inf" style="margin-bottom:12px">GitHub &amp; Avelon are connected centrally — you don't need to add any keys. Just set your reviewer profile below so reviews carry your name, bio and photo.</div>
+    <div class="al inf" style="margin-bottom:12px">GitHub is connected centrally — you don't need to add any keys. Affiliate links are handled automatically on the site by the Avelon Auto URL Converter. Just set your reviewer profile below so reviews carry your name, bio and photo.</div>
     <div class="slbl" style="margin-bottom:8px"><div class="dot" style="background:#FF5E84">RV</div>Reviewer profile</div>
     <div class="ht">Shown as the byline (with photo) at the top of each review and in the "About the reviewer" card at the foot. Reviews are written in this person's first-person voice.</div>
     <div class="mof"><label>Reviewer name &amp; credentials</label><input id="reviewerName" placeholder="e.g. Holly Woodford, WSS co-founder and endurance athlete"/></div>
@@ -374,7 +363,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <button class="bg" id="cancelSettingsBtn">Cancel</button>
       <button class="bg" id="forgetSettingsBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Forget saved login</button>
     </div>
-    <div class="mnote">Your reviewer profile is saved in this browser only. GitHub and Avelon are connected centrally on the server, so reviewers never handle any keys.</div>
+    <div class="mnote">Your reviewer profile is saved in this browser only. GitHub is connected centrally on the server, so reviewers never handle any keys.</div>
   </div>
 </div>
 
@@ -647,16 +636,17 @@ let cfg={...CFG_DEFAULTS};
 function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
 function loadCfg(){try{const s=localStorage.getItem(CFG_KEY);if(s)Object.assign(cfg,JSON.parse(s));}catch{}}
 function reflectConnected(){const btn=document.getElementById('settingsBtn');const on=!!cfg.reviewer;btn.classList.toggle('on',on);btn.textContent=on?('⚙ '+cfg.reviewer.split(/[ ,]/)[0]):'⚙ Reviewer profile';}
-let state={product:{name:'',brand:'',price:'',sizes:'',specs:''},researchText:'',customerReviews:[],selectedImages:[],allImages:[],affLink:'',retailers:[],selectedRetailer:null,reviewText:'',emails:[],metaDescription:'',faq:[],providedScores:null};
+let state={product:{name:'',brand:'',price:'',sizes:'',specs:''},researchText:'',customerReviews:[],selectedImages:[],allImages:[],reviewText:'',emails:[],metaDescription:'',faq:[],providedScores:null};
 let done=new Set();
 let busy=false;
 
 function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function setAlert(id,type,msg){const el=document.getElementById(id);if(el)el.innerHTML=msg?`<div class="al ${type}">${msg}</div>`:''}
-// Avelon auth is handled server-side (admin credentials in Netlify env).
+// Affiliate links are converted on the live site by the Avelon Auto URL Converter
+// (see the marked block in BaseLayout.astro) — no API call from the pipeline.
 function getReview(){return(document.getElementById('writeEdit').value||'').trim()||state.reviewText}
 function slugify(s){return(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
-function val(id){return(document.getElementById(id).value||'').trim()}
+function val(id){const el=document.getElementById(id);return el?(el.value||'').trim():''}
 function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim()}
 // Wrap an email body in the WSS branded template: site-matching navy header
 // (ring logo + wordmark), the feature product image, the body, and a footer
@@ -748,9 +738,7 @@ document.getElementById('forgetSettingsBtn').addEventListener('click',()=>{
   cfg={...CFG_DEFAULTS};
   fillReviewerInputs();
   reflectConnected();
-  document.getElementById('retailerList').innerHTML='<div class="out empty" style="margin:0;border:none;background:none">Connect Avelon in Settings to load retailers…</div>';
-  state.selectedRetailer=null;state.retailers=[];
-  setAlert('affAlert','inf','Saved login cleared from this browser.');
+  setAlert('manageAlert','inf','Saved login cleared from this browser.');
 });
 
 // AI helpers
@@ -835,8 +823,6 @@ async function runScrape(){
   const btn=document.getElementById('scrapeBtn');
   btn.disabled=true;btn.textContent='Scraping…';
   setAlert('scrapeAlert','inf','Scraping the product page…');
-  document.getElementById('destUrl').value=url;
-  autoMatchRetailer();
   try{
     const scraped=await scrapeProduct(url,type);
     state.product=scraped;
@@ -985,69 +971,7 @@ function addManualImage(){
   inp.value='';
 }
 
-// STAGE 4 — Avelon (via avelon-proxy)
-async function loadRetailers(){
-  const el=document.getElementById('retailerList');
-  el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">Loading…</div>';
-  try{
-    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'retailers'})});
-    const data=await r.json().catch(()=>({}));
-    if(!r.ok)throw new Error(data.error||data.message||('HTTP '+r.status));
-    const list=Array.isArray(data)?data:(data.retailers||data.data||[]);
-    state.retailers=list;
-    if(!list.length){el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">No approved retailers found.</div>';return}
-    const opts=list.map((r,i)=>`<option value="${i}">${esc(r.name||r.retailerName||'Retailer '+i)} — ${esc(String(r.pk||r.id||r.slug||''))}</option>`).join('');
-    el.innerHTML=`<select id="retSelect"><option value="">— Select a retailer —</option>${opts}</select>`;
-    const sel=document.getElementById('retSelect');
-    sel.addEventListener('change',()=>{const i=parseInt(sel.value);state.selectedRetailer=isNaN(i)?null:state.retailers[i];setAlert('affAlert','','');});
-    autoMatchRetailer();
-  }catch(e){el.innerHTML=`<div style="padding:10px;font-size:12px;color:#c00">Could not load retailers: ${esc(e.message)}</div>`;}
-}
-function autoMatchRetailer(){
-  const sel=document.getElementById('retSelect');if(!sel||!state.retailers.length)return;
-  let host='';try{host=new URL(val('destUrl')).hostname.replace(/^www\./,'').split('.')[0].toLowerCase();}catch{return;}
-  if(!host)return;
-  const norm=s=>(s==null?'':String(s)).toLowerCase().replace(/[^a-z0-9]/g,'');
-  const idx=state.retailers.findIndex(r=>{const id=norm(r.pk||r.id||r.slug);const nm=norm(r.name||r.retailerName);return id===host||(id&&(id.includes(host)||host.includes(id)))||(nm&&(nm.includes(host)||host.includes(nm)));});
-  if(idx>=0){sel.value=String(idx);state.selectedRetailer=state.retailers[idx];setAlert('affAlert','ok','Auto-matched retailer: '+(state.retailers[idx].name||state.retailers[idx].pk||'')+'. Change it above if wrong.');}
-}
-document.getElementById('affBtn').addEventListener('click',async()=>{
-  if(!state.selectedRetailer)autoMatchRetailer();
-  if(!state.selectedRetailer){setAlert('affAlert','er','Pick a retailer from the dropdown first.');return}
-  const dest=val('destUrl');
-  if(!dest){setAlert('affAlert','er','Enter a destination URL.');return}
-  setAlert('affAlert','','');
-  const btn=document.getElementById('affBtn');btn.disabled=true;btn.textContent='Generating…';
-  try{
-    const ret=state.selectedRetailer;
-    // Avelon requires: retailer (the slug/pk e.g. "veloforte"), destination (URL), alias (unique slug)
-    const retailerId=ret.pk||ret.slug||ret.id;
-    let handle='link';try{handle=new URL(dest).pathname.split('/').filter(Boolean).pop()||'link';}catch{}
-    const alias=((slugify(val('pBrand')+'-'+handle)||'wss-link').slice(0,40))+'-'+Math.random().toString(36).slice(2,6);
-    const payload={retailer:retailerId,destination:dest,alias};
-    const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'create',payload})});
-    const raw=await r.text();
-    let data={};try{data=JSON.parse(raw);}catch{}
-    if(!r.ok){
-      const detail=(data.error||data.message||data.detail||(raw&&raw.trim())||'(empty response body)').toString().slice(0,400);
-      console.log('Avelon create error',r.status,raw);
-      throw new Error('Avelon '+r.status+' — '+detail);
-    }
-    const link=data.url||data.link||data.affiliateUrl||data.trackingUrl||data.shortUrl||data.short_url||data.trackingLink||data.shortlink||'';
-    if(!link){console.log('Avelon create success raw:',raw);throw new Error('Link created, but the URL field was not found. Raw response: '+(raw||'(empty)').slice(0,300));}
-    state.affLink=link;
-    document.getElementById('affLink').value=link;
-    document.getElementById('affResult').style.display='block';
-    setAlert('affAlert','ok','Affiliate link generated.');
-  }catch(e){setAlert('affAlert','er','Could not generate: '+e.message);}
-  btn.disabled=false;btn.textContent='Generate link';
-});
-document.getElementById('affCopyBtn').addEventListener('click',()=>{
-  const v=document.getElementById('affLink').value;
-  if(v)navigator.clipboard.writeText(v).then(()=>setAlert('affAlert','ok','Copied.'));
-});
-
-// STAGE 5 — Write
+// STAGE 4 — Write
 let scoreType='';
 function renderScoreInputs(pType){
   const areas=SCORE_AREAS[pType]||SCORE_AREAS.apparel;
@@ -1071,7 +995,6 @@ async function runWrite(fb){
   const sizes=val('pSizes');
   const specs=val('pSpecs');
   const pType=val('pType');
-  const affLink=state.affLink||'[AFFILIATE_LINK]';
   const testerNotes=val('testerNotes');
   const category=catLabel(val('pCategory')||(pType==='nutrition'?'nutrition':guessCategory()));
   const keyword=`${brand} ${name} Review — Women's ${category}`.replace(/\s+/g,' ').trim();
@@ -1293,7 +1216,7 @@ function extractExcerpt(review){
   return(lines[0]||'').slice(0,155).replace(/"/g,"'");
 }
 
-// STAGE 6 — GitHub push
+// STAGE 5 — GitHub push
 document.getElementById('pushBtn').addEventListener('click',async()=>{
   const review=getReview();
   if(!review){setAlert('pushAlert','er','Write the review first.');return}
@@ -1303,7 +1226,9 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
   const price=val('pPrice');
   const sizes=val('pSizes');
   const pType=val('pType');
-  const affLink=state.affLink||'';
+  // Affiliate links are handled on-site by the Avelon Auto URL Converter, so the
+  // affiliate target is simply the standard product URL (Avelon rewrites it live).
+  const affLink=val('pUrl')||'';
   const slug=slugify(`${brand}-${name}`);
   const category=val('pCategory')||(pType==='nutrition'?'nutrition':guessCategory());
   setAlert('pushAlert','inf','Pushing to GitHub…');
@@ -1323,7 +1248,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     // Task 1: first heading becomes the product name + "Review"
     reviewBody=reviewBody.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
     // Product page URL (brand page) — captured for buy-button fallback + SEO.
-    const productPage=val('destUrl')||val('pUrl')||'';
+    const productPage=val('pUrl')||'';
     const shopifyLink=val('pShopify');
     reviewBody=tidyMd(polishBody(reviewBody));
     reviewBody=replaceLinkTokens(reviewBody,affLink,shopifyLink);
@@ -1374,7 +1299,7 @@ function extractPillarScores(review,pType){
   return scores;
 }
 
-// STAGE 7 — Reel
+// STAGE 6 — Reel
 document.getElementById('reelBtn').addEventListener('click',()=>runReel());
 document.getElementById('reelRegenBtn').addEventListener('click',()=>runReel(document.getElementById('reelFBText').value));
 document.getElementById('reelApproveBtn').addEventListener('click',()=>approve('reel'));
@@ -1386,7 +1311,7 @@ async function runReel(fb){
   if(text)document.getElementById('reelFB').style.display='block';
 }
 
-// STAGE 8 — Emails
+// STAGE 7 — Emails
 document.getElementById('emailsBtn').addEventListener('click',()=>runEmails());
 document.getElementById('emailsRegenBtn').addEventListener('click',()=>runEmails(document.getElementById('emailsFBText').value));
 document.getElementById('emailsApproveBtn').addEventListener('click',()=>approve('emails'));
@@ -1398,7 +1323,7 @@ async function runEmails(fb){
   const btn=document.getElementById('emailsBtn');btn.disabled=true;btn.textContent='Writing…';
   document.getElementById('emailsOut').innerHTML='<div class="out"><span class="cursor"></span></div>';
   try{
-    const raw=await aiCollect([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${state.affLink||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS,3000);
+    const raw=await aiCollect([{role:'user',content:`3-email MailerLite sequence.\nProduct: ${name} by ${brand}\nAffiliate: ${val('pUrl')||''}\nReview:\n${getReview()}${note}`}],EMAIL_SYS,3000);
     state.emails=parseEmails(raw);
     renderEmails();document.getElementById('emailsFB').style.display='block';
   }catch(e){document.getElementById('emailsOut').innerHTML=`<div class="out">Error: ${esc(e.message)} — try regenerating.</div>`;}
@@ -1470,7 +1395,7 @@ document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
   else setAlert('emailsPushAlert','ok',`✓ ${ok} draft campaign(s) created in MailerLite. Review &amp; schedule them in your MailerLite dashboard.`);
 });
 
-// STAGE 9 — Social
+// STAGE 8 — Social
 document.getElementById('socialBtn').addEventListener('click',()=>runSocial());
 document.getElementById('socialRegenBtn').addEventListener('click',()=>runSocial(document.getElementById('socialFBText').value));
 document.getElementById('socialApproveBtn').addEventListener('click',()=>approve('social'));
@@ -1495,7 +1420,7 @@ function markDone(s){done.add(s);document.querySelectorAll('.tab').forEach(t=>{i
 function approve(s){markDone(s);const next=STAGES[STAGES.indexOf(s)+1];if(next)goStage(next);}
 document.getElementById('tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t&&t.dataset.s)goStage(t.dataset.s)});
 
-// STAGE 10 — Holly approves
+// STAGE 9 — Holly approves
 function buildChecklist(){
   const items=[['write','Full WSS™ review (pillars, scores, FAQ, meta)'],['push','Pushed to GitHub (Netlify auto-deploys)'],['reel','60s Reel script'],['emails','3-email series'],['social','Instagram caption + Stories + carousel']];
   document.getElementById('checklist').innerHTML=items.map(([id,label])=>{const ok=done.has(id);return`<div class="ci"><div class="ck ${ok?'yes':''}">${ok?'✓':''}</div><span class="cl ${ok?'yes':''}">${label}</span>${!ok?`<button class="cr" data-goto="${id}">Review</button>`:''}</div>`;}).join('');
@@ -1525,7 +1450,7 @@ function gatherApprovedContent(){
     'Overall Score':overall,'Pillar Scores':state.providedScores?JSON.stringify(state.providedScores):'',
     'Meta Description':state.metaDescription||'','Excerpt':extractExcerpt(review),
     'Review URL':`https://wss-review-site-tool.netlify.app/reviews/${cat}/${slug}/`,
-    'Affiliate Link':state.affLink||'','Product URL':val('pUrl'),
+    'Affiliate Link':val('pUrl')||'','Product URL':val('pUrl'),
     'Hero Image':selImgs[0]||'','Images':selImgs.join(', '),
     'Review (Markdown)':review,
     'FAQ':(state.faq||[]).map(f=>f.q+' — '+f.a).join('\n'),
@@ -1687,7 +1612,7 @@ function openPreview(){
   const selImgs=state.selectedImages.map(i=>state.allImages[i]).filter(Boolean);
   let body=tidyMd(buildReviewBody(stripBuy(review),val('reviewerName'),selImgs,`${brand} ${name}`));
   body=body.replace(/^##[ \t]*Overview\b[^\n]*$/im,'## '+reviewHeading(brand,name));
-  const productPage=val('destUrl')||val('pUrl')||'',affLink=state.affLink||'',shopifyLink=val('pShopify');
+  const productPage=val('pUrl')||'',affLink=val('pUrl')||'',shopifyLink=val('pShopify');
   body=tidyMd(polishBody(body));
   body=replaceLinkTokens(body,affLink,shopifyLink);
   const om=review.match(/Overall:\s*([\d.]+)\s*\/\s*5/i),overall=om?om[1]:'4.0';
@@ -1737,7 +1662,6 @@ populateSubcategory();
 loadCfg();
 reflectConnected();
 {const rn=document.getElementById('reviewerName');if(rn)rn.value=cfg.reviewer||'';const rb=document.getElementById('reviewerBio');if(rb)rb.value=cfg.reviewerBio||'';const ra=document.getElementById('reviewerAvatar');if(ra)ra.value=cfg.reviewerAvatar||'';}
-loadRetailers();
 </script>
 </body>
 </html>
