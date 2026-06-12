@@ -318,9 +318,9 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-content :global(h2+p),.review-content :global(h3+p){margin-top:0}
 .review-content :global(strong){color:var(--text-primary)}
 /* In-content links (incl. affiliate links Avelon converts) — make them clearly clickable. */
-.review-content :global(p a),.review-content :global(li a){color:var(--pink);text-decoration:underline;text-underline-offset:2px;font-weight:600}
-.review-content :global(p a:hover),.review-content :global(li a:hover){color:#e04470}
-.review-content :global(p a strong),.review-content :global(li a strong){color:inherit}
+.review-content :global(p a),.review-content :global(li a),.review-content :global(td a){color:var(--pink);text-decoration:underline;text-underline-offset:2px;font-weight:600}
+.review-content :global(p a:hover),.review-content :global(li a:hover),.review-content :global(td a:hover){color:#e04470}
+.review-content :global(p a strong),.review-content :global(li a strong),.review-content :global(td a strong){color:inherit}
 .review-content :global(ul),.review-content :global(ol){margin:0 0 1rem 1.25rem;color:var(--text-secondary)}
 .review-content :global(li){margin-bottom:.375rem}
 .review-content :global(img){border-radius:var(--radius-md);margin:1.5rem 0;width:100%}
