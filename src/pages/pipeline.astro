@@ -982,8 +982,8 @@ async function loadRetailers(){
   el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">Loading…</div>';
   try{
     const r=await fetch('/.netlify/functions/avelon-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'retailers'})});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const data=await r.json();
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(data.error||data.message||('HTTP '+r.status));
     const list=Array.isArray(data)?data:(data.retailers||data.data||[]);
     state.retailers=list;
     if(!list.length){el.innerHTML='<div style="padding:10px;font-size:12px;color:#aaa">No approved retailers found.</div>';return}

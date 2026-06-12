@@ -20,12 +20,16 @@ exports.handler = async (event) => {
   try {
     const { action, auth: reqAuth, payload } = JSON.parse(event.body || '{}');
     // Prefer the shared admin credentials from the environment so invited
-    // reviewers don't need their own Avelon login; fall back to any provided.
-    const auth = (process.env.AVELON_EMAIL && process.env.AVELON_PASS)
-      ? 'Basic ' + Buffer.from(`${process.env.AVELON_EMAIL}:${process.env.AVELON_PASS}`).toString('base64')
+    // reviewers don't need their own Avelon login; accept a few common var
+    // names, and fall back to any auth the browser provided.
+    const email = process.env.AVELON_EMAIL || process.env.AVELON_USER || process.env.AVALON_EMAIL;
+    const pass = process.env.AVELON_PASS || process.env.AVELON_PASSWORD || process.env.AVALON_PASS;
+    const auth = (email && pass)
+      ? 'Basic ' + Buffer.from(`${email}:${pass}`).toString('base64')
       : reqAuth;
     if (!auth) {
-      return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Avelon is not configured — add AVELON_EMAIL and AVELON_PASS in the Netlify environment variables.' }) };
+      const missing = [!email && 'AVELON_EMAIL', !pass && 'AVELON_PASS'].filter(Boolean).join(' and ');
+      return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: `Avelon is not configured — set ${missing || 'AVELON_EMAIL and AVELON_PASS'} in the Netlify environment variables (then redeploy).` }) };
     }
 
     let url, method, body;
