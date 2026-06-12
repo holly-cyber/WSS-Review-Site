@@ -44,3 +44,8 @@
   from = "/api/mailerlite-campaign"
   to = "/.netlify/functions/mailerlite-campaign"
   status = 200
+
+[[redirects]]
+  from = "/api/sheet-log"
+  to = "/.netlify/functions/sheet-log"
+  status = 200

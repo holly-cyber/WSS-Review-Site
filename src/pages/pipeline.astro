@@ -348,6 +348,13 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     <div class="slbl"><div class="dot g">✓</div>Final sign-off — Holly</div>
     <div id="checklist"></div>
     <div id="mlPrompt" style="display:none" class="mlb"><p>Your 3 emails can be pushed straight to MailerLite as draft campaigns from the <strong>Emails</strong> step (⬆ Push 3 drafts to MailerLite), then reviewed and scheduled in your MailerLite dashboard.</p></div>
+    <div style="margin-top:14px;border-top:1px solid #eee;padding-top:12px">
+      <div style="font-weight:600;font-size:13px;margin-bottom:8px">Archive all approved content to Google Sheet</div>
+      <label>Google Apps Script web app URL (ends in /exec)</label>
+      <input id="gsheetUrl" placeholder="https://script.google.com/macros/s/AKfy…/exec"/>
+      <button class="bp" id="gsheetBtn" style="margin-top:10px">✓ Holly approves — save everything to Google Sheet</button>
+      <div id="gsheetAlert" style="margin-top:8px"></div>
+    </div>
   </div>
 </div>
 
@@ -645,7 +652,7 @@ const SCORE_AREAS={
   equipment:[['e1','Female-Specific Design & Sizing (25%)'],['e2','Functional Performance in Use (25%)'],['e3','Fit, Adjustability & Size Range (20%)'],['e4','Safety & Performance Standards (20%)'],['e5','Transparency & User Reviews (10%)']]
 };
 
-const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:'',reviewerBio:'',reviewerAvatar:'',mlFromName:'WomensSportsStore.com',mlFrom:'holly@womenssportsstore.com',mlGroup:''};
+const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:'',reviewerBio:'',reviewerAvatar:'',mlFromName:'WomensSportsStore.com',mlFrom:'holly@womenssportsstore.com',mlGroup:'',gsheetUrl:''};
 const CFG_KEY='wss_pipeline_cfg_v1';
 let cfg={...CFG_DEFAULTS};
 function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
@@ -1503,8 +1510,55 @@ function buildChecklist(){
   if(state.emails.length){
     document.getElementById('mlPrompt').style.display='block';
   }
+  document.getElementById('gsheetUrl').value=cfg.gsheetUrl||'';
 }
 let checklistBound=false;
+
+// Collect every generated + approved asset into one flat record (keys match the
+// Google Sheet header row in the Apps Script).
+function gatherApprovedContent(){
+  const review=getReview();
+  const product=val('pName'),brand=val('pBrand');
+  const slug=slugify(brand+'-'+product)||'review';
+  const cat=val('pCategory')||(val('pType')==='nutrition'?'nutrition':guessCategory());
+  const selImgs=state.selectedImages.map(i=>state.allImages[i]).filter(Boolean).map(x=>x.url);
+  const overall=(review.match(/Overall:\s*([\d.]+)\s*\/\s*5/i)||[])[1]||'';
+  const E=i=>({s:document.getElementById('es'+i)?.value||state.emails[i]?.subject||'',b:document.getElementById('eb'+i)?.value||state.emails[i]?.body_html||''});
+  const e0=E(0),e1=E(1),e2=E(2);
+  return {
+    'Timestamp':new Date().toISOString(),
+    'Product':product,'Brand':brand,'Price':val('pPrice'),'Type':val('pType'),
+    'Category':cat,'Subcategory':val('pSubcategory'),'Sub-subcategory':val('pSubsubcategory'),
+    'Overall Score':overall,'Pillar Scores':state.providedScores?JSON.stringify(state.providedScores):'',
+    'Meta Description':state.metaDescription||'','Excerpt':extractExcerpt(review),
+    'Review URL':`https://wss-review-site-tool.netlify.app/reviews/${cat}/${slug}/`,
+    'Affiliate Link':state.affLink||'','Product URL':val('pUrl'),
+    'Hero Image':selImgs[0]||'','Images':selImgs.join(', '),
+    'Review (Markdown)':review,
+    'FAQ':(state.faq||[]).map(f=>f.q+' — '+f.a).join('\n'),
+    'Reel Script':document.getElementById('reelOut')?.innerText||'',
+    'Social Copy':document.getElementById('socialOut')?.innerText||'',
+    'Email 1 Subject':e0.s,'Email 1 Body':e0.b,
+    'Email 2 Subject':e1.s,'Email 2 Body':e1.b,
+    'Email 3 Subject':e2.s,'Email 3 Body':e2.b
+  };
+}
+document.getElementById('gsheetBtn').addEventListener('click',async()=>{
+  if(!getReview()){setAlert('gsheetAlert','er','Write the review first.');return}
+  const url=(val('gsheetUrl')||'').trim();
+  if(url){cfg.gsheetUrl=url;saveCfg();}
+  const payload=gatherApprovedContent();
+  const btn=document.getElementById('gsheetBtn');const orig=btn.textContent;btn.disabled=true;btn.textContent='Saving…';
+  setAlert('gsheetAlert','inf','Saving all approved content to Google Sheet…');
+  try{
+    const r=await fetch('/api/sheet-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:cfg.gsheetUrl||url,payload})});
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok||data.ok===false)throw new Error(data.message||data.error||('HTTP '+r.status));
+    ['write','push','reel','emails','social','approve'].forEach(markDone);
+    setAlert('gsheetAlert','ok','✓ Approved — all content saved to your Google Sheet.');
+  }catch(e){setAlert('gsheetAlert','er','Could not save: '+e.message);}
+  btn.disabled=false;btn.textContent=orig;
+});
 
 document.getElementById('addImgBtn').addEventListener('click',addManualImage);
 document.getElementById('manualImgUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addManualImage();}});
