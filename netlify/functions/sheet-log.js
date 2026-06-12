@@ -31,10 +31,24 @@ exports.handler = async (event) => {
       redirect: 'follow',
     });
     const text = await res.text();
+    const ct = res.headers.get('content-type') || '';
+    // A restricted (Workspace-only) deployment rejects anonymous calls with a
+    // 401/403, or silently redirects to a Google login HTML page. Either way the
+    // append never happens — surface a clear, actionable message.
+    const looksLikeLogin = /text\/html/i.test(ct) || /<html|accounts\.google\.com|ServiceLogin|Sign in/i.test(text.slice(0, 600));
+    if (!res.ok || looksLikeLogin) {
+      return {
+        statusCode: 502,
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `Google rejected the request${res.status ? ` (HTTP ${res.status})` : ''}. The Apps Script web app must be deployed with "Who has access: Anyone" — a Google Workspace-restricted deployment (URL containing /a/macros/yourdomain.com/) blocks server calls. Re-deploy with Anyone access and update the /exec URL.`,
+        }),
+      };
+    }
     return {
-      statusCode: res.ok ? 200 : res.status,
+      statusCode: 200,
       headers: { ...CORS, 'Content-Type': 'application/json' },
-      body: text || JSON.stringify({ ok: res.ok }),
+      body: text || JSON.stringify({ ok: true }),
     };
   } catch (err) {
     return { statusCode: 500, headers: CORS, body: JSON.stringify({ message: err.message }) };
