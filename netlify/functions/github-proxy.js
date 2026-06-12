@@ -32,6 +32,8 @@ exports.handler = async (event) => {
       res = await fetch(`${api}/contents/${path}?ref=${encodeURIComponent(ref || DEFAULT_BRANCH)}`, { headers });
     } else if (action === 'tree') {
       res = await fetch(`${api}/git/trees/${encodeURIComponent(ref || DEFAULT_BRANCH)}?recursive=1&_=${Date.now()}`, { headers });
+    } else if (action === 'commits') {
+      res = await fetch(`${api}/commits?path=${encodeURIComponent(path)}&sha=${encodeURIComponent(ref || DEFAULT_BRANCH)}&per_page=30&_=${Date.now()}`, { headers });
     } else if (action === 'put') {
       const b = { message, content, branch: branch || DEFAULT_BRANCH };
       if (sha) b.sha = sha;

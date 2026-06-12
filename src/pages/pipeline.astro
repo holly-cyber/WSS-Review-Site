@@ -1571,12 +1571,24 @@ async function loadArticles(){
     const d=await ghApi('tree',{});
     manageFiles=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/reviews\/.+\.md$/.test(t.path)).sort((a,b)=>a.path.localeCompare(b.path));
     renderManageList();
+    // Fill in the date/time each review was added (its earliest commit).
+    await Promise.all(manageFiles.map(async f=>{
+      try{const c=await ghApi('commits',{path:f.path});
+        if(Array.isArray(c)&&c.length){const first=c[c.length-1];f.added=first.commit?.author?.date||first.commit?.committer?.date||'';}
+      }catch(e){}
+    }));
+    renderManageList();
   }catch(e){list.innerHTML=`<div style="padding:10px;color:#c00;font-size:13px">Could not load: ${esc(e.message)}</div>`;}
+}
+function fmtAdded(iso){
+  if(!iso)return '';
+  const d=new Date(iso);if(isNaN(d))return '';
+  return 'Added '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
 }
 function renderManageList(){
   const list=document.getElementById('manageList');
   if(!manageFiles.length){list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">No review articles found.</div>';return}
-  list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}</div><div class="retd">${esc(cat)}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
+  list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();const added=fmtAdded(f.added);return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}</div><div class="retd">${esc(cat)}${added?` · ${esc(added)}`:''}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
 }
 document.getElementById('manageList').addEventListener('click',e=>{
   const ed=e.target.closest('[data-edit]'),dl=e.target.closest('[data-del]');
