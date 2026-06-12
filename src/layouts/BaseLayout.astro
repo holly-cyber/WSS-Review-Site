@@ -54,6 +54,20 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles/global.css" />
+  <!-- Netlify Identity: loaded site-wide so invite / recovery links (which land
+       on the public site root) are handled. Public pages stay fully public. -->
+  <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script is:inline>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/pipeline/";
+          });
+        }
+      });
+    }
+  </script>
 </head>
 <body>
   <header class="site-header">

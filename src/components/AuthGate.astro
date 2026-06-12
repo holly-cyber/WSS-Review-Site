@@ -1,0 +1,73 @@
+---
+// Client-side auth gate for the pipeline tool using the Netlify Identity widget.
+// Renders nothing until the widget reports the auth state: a logged-in user
+// sees the slotted content; everyone else gets a login prompt (and the Netlify
+// Identity modal opens automatically). The widget script must be loaded on the
+// page (it is added in the pipeline page <head>).
+---
+<div class="auth-locked" id="authLocked" hidden>
+  <div class="auth-card">
+    <h1>WSS™ Review Pipeline</h1>
+    <p>This tool is private. Please sign in with your invited account to continue.</p>
+    <button class="auth-btn" id="authLoginBtn" type="button">Sign in</button>
+  </div>
+</div>
+
+<div class="auth-content" id="authContent" hidden>
+  <button class="auth-signout" id="authSignout" type="button">Sign out</button>
+  <slot />
+</div>
+
+<style>
+.auth-locked { min-height: 75vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+.auth-card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 2.5rem 2rem; text-align: center; max-width: 400px; box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+.auth-card h1 { font-size: 1.4rem; margin-bottom: .6rem; color: #000036; }
+.auth-card p { color: #666; font-size: .92rem; line-height: 1.6; margin-bottom: 1.6rem; }
+.auth-btn { background: #FF5E84; color: #fff; padding: .75rem 1.8rem; border-radius: 8px; font-weight: 600; font-size: .95rem; border: none; cursor: pointer; }
+.auth-btn:hover { background: #e04470; }
+.auth-signout { position: fixed; top: 1rem; right: 1rem; z-index: 60; background: #000036; color: #fff; padding: .45rem 1.1rem; border-radius: 999px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; }
+.auth-signout:hover { background: #1a1a5c; }
+</style>
+
+<script>
+  const locked = document.getElementById('authLocked');
+  const content = document.getElementById('authContent');
+  const loginBtn = document.getElementById('authLoginBtn');
+  const signout = document.getElementById('authSignout');
+
+  function render(user: any) {
+    const ok = !!user;
+    if (content) content.hidden = !ok;
+    if (locked) locked.hidden = ok;
+  }
+
+  function attach(ni: any) {
+    let handled = false;
+    const apply = (user: any) => { handled = true; render(user); };
+
+    ni.on('init', (user: any) => { apply(user); if (!user) ni.open('login'); });
+    ni.on('login', (user: any) => { apply(user); ni.close(); });
+    ni.on('logout', () => render(null));
+
+    loginBtn?.addEventListener('click', () => ni.open('login'));
+    signout?.addEventListener('click', () => ni.logout());
+
+    // If the widget had already initialised before our listeners attached,
+    // 'init' won't fire again — reconcile from currentUser().
+    setTimeout(() => {
+      if (handled) return;
+      const user = ni.currentUser ? ni.currentUser() : null;
+      render(user);
+      if (!user) ni.open('login');
+    }, 800);
+  }
+
+  function boot(tries: number) {
+    const ni = (window as any).netlifyIdentity;
+    if (ni) { attach(ni); return; }
+    if (tries <= 0) { if (locked) locked.hidden = false; return; } // widget failed to load
+    setTimeout(() => boot(tries - 1), 150);
+  }
+
+  boot(40);
+</script>
