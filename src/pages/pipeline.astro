@@ -320,7 +320,13 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <div class="fbr"><button class="bp" id="emailsApproveBtn">✓ Approve</button><button class="bg" id="emailsRegenBtn">↺ Regenerate</button></div>
     </div>
     <div id="emailsPush" style="display:none;margin-top:12px;border-top:1px solid #eee;padding-top:12px">
-      <button class="bp" id="emailsToClaudeBtn">⬆ Send emails to Claude (for MailerLite)</button>
+      <div style="font-weight:600;font-size:13px;margin-bottom:8px">Push to MailerLite (as draft campaigns)</div>
+      <div class="g4" style="grid-template-columns:1fr 1fr">
+        <div><label>Sender name</label><input id="mlFromName" placeholder="WomensSportsStore.com"/></div>
+        <div><label>Sender email (verified)</label><input id="mlFrom" placeholder="holly@womenssportsstore.com"/></div>
+      </div>
+      <div style="margin-top:8px"><label>Recipient group</label><select id="mlGroup"><option value="">Loading groups…</option></select></div>
+      <button class="bp" id="emailsPushMlBtn" style="margin-top:10px">⬆ Push 3 drafts to MailerLite</button>
       <div id="emailsPushAlert" style="margin-top:8px"></div>
     </div>
   </div>
@@ -341,7 +347,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
   <div class="card">
     <div class="slbl"><div class="dot g">✓</div>Final sign-off — Holly</div>
     <div id="checklist"></div>
-    <div id="mlPrompt" style="display:none" class="mlb"><p>Paste into Claude chat to push emails to MailerLite via MCP:</p><code id="mlCode"></code></div>
+    <div id="mlPrompt" style="display:none" class="mlb"><p>Your 3 emails can be pushed straight to MailerLite as draft campaigns from the <strong>Emails</strong> step (⬆ Push 3 drafts to MailerLite), then reviewed and scheduled in your MailerLite dashboard.</p></div>
   </div>
 </div>
 
@@ -638,7 +644,7 @@ const SCORE_AREAS={
   equipment:[['e1','Female-Specific Design & Sizing (25%)'],['e2','Functional Performance in Use (25%)'],['e3','Fit, Adjustability & Size Range (20%)'],['e4','Safety & Performance Standards (20%)'],['e5','Transparency & User Reviews (10%)']]
 };
 
-const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:'',reviewerBio:'',reviewerAvatar:''};
+const CFG_DEFAULTS={ghUser:'holly-cyber',ghRepo:'WSS-Review-Site',ghToken:'',ghBranch:'main',avEmail:'',avPass:'',reviewer:'',reviewerBio:'',reviewerAvatar:'',mlFromName:'WomensSportsStore.com',mlFrom:'holly@womenssportsstore.com',mlGroup:''};
 const CFG_KEY='wss_pipeline_cfg_v1';
 let cfg={...CFG_DEFAULTS};
 function saveCfg(){try{localStorage.setItem(CFG_KEY,JSON.stringify(cfg));}catch{}}
@@ -1379,33 +1385,54 @@ function renderEmails(){
   const labels=['Email 1 — Review Drop','Email 2 — Buy Nudge (day 4)','Email 3 — Social Proof (day 7)'];
   document.getElementById('emailsOut').innerHTML=state.emails.map((e,i)=>`<div class="ec"><div class="eh" data-toggle="${i}"><div class="eht">${labels[i]||'Email '+(i+1)}</div><div id="ech${i}">▼</div></div><div id="ecb${i}" class="eb" style="${i>0?'display:none':''}"><div class="ef"><div class="efl">Subject</div><input id="es${i}" value="${esc(e.subject||'')}"/></div><div class="ef"><div class="efl">Preview text</div><input id="ep${i}" value="${esc(e.preview_text||'')}"/></div><div class="ef"><div class="efl">Body HTML</div><textarea id="eb${i}" rows="6" style="font-family:monospace;font-size:12px">${esc(e.body_html||'')}</textarea></div></div></div>`).join('');
   if(!emailsBound){document.getElementById('emailsOut').addEventListener('click',e=>{const h=e.target.closest('[data-toggle]');if(h){const i=h.dataset.toggle;const b=document.getElementById('ecb'+i);const c=document.getElementById('ech'+i);b.style.display=b.style.display==='none'?'block':'none';c.textContent=b.style.display==='none'?'▼':'▲';}});emailsBound=true;}
-  document.getElementById('emailsPush').style.display='block';
+  const push=document.getElementById('emailsPush');push.style.display='block';
+  document.getElementById('mlFromName').value=cfg.mlFromName||'WomensSportsStore.com';
+  document.getElementById('mlFrom').value=cfg.mlFrom||'holly@womenssportsstore.com';
+  loadMlGroups();
 }
-// Commit the (edited) emails to the repo so Claude can read + push them to MailerLite via MCP.
-async function putRepoFile(path,str,message){
-  let sha='';
-  try{const c=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}?ref=${cfg.ghBranch}`,{headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json'}});if(c.ok){sha=(await c.json()).sha;}}catch{}
-  const body={message,content:b64(str),branch:cfg.ghBranch};if(sha)body.sha=sha;
-  const res=await fetch(`https://api.github.com/repos/${cfg.ghUser}/${cfg.ghRepo}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${cfg.ghToken}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||'HTTP '+res.status);}
-  return res.json();
+// Push the (edited) emails straight to MailerLite as draft campaigns, via the
+// /api/mailerlite-campaign Netlify function (API key stays server-side).
+async function mlApi(action,payload){
+  const r=await fetch('/api/mailerlite-campaign',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,payload})});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(data.message||data.error||('HTTP '+r.status));
+  return data;
 }
-document.getElementById('emailsToClaudeBtn').addEventListener('click',async()=>{
-  if(!cfg.ghToken){setAlert('emailsPushAlert','er','Add your GitHub token in Settings first (same one used to publish reviews).');return}
-  if(!state.emails.length){setAlert('emailsPushAlert','er','Generate the emails first.');return}
-  const emails=state.emails.map((e,i)=>({label:['Review Drop','Buy Nudge (day 4)','Social Proof (day 7)'][i]||('Email '+(i+1)),subject:document.getElementById('es'+i)?.value??e.subject,preview_text:document.getElementById('ep'+i)?.value??e.preview_text,body_html:document.getElementById('eb'+i)?.value??e.body_html}));
-  const name=val('pName')||'product';const brand=val('pBrand')||'';
-  const slug=slugify(brand+'-'+name)||'review';
-  const payload={product:name,brand,slug,review_url:`https://wss-review-site-tool.netlify.app/reviews/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`,affiliate_link:state.affLink||'',generated_at:new Date().toISOString(),emails};
-  const json=JSON.stringify(payload,null,2);
-  const btn=document.getElementById('emailsToClaudeBtn');btn.disabled=true;btn.textContent='Sending…';
-  setAlert('emailsPushAlert','inf','Saving emails to the repo…');
+let mlGroupsLoaded=false;
+async function loadMlGroups(){
+  const sel=document.getElementById('mlGroup');if(!sel||mlGroupsLoaded)return;
   try{
-    await putRepoFile('pipeline-output/emails-latest.json',json,`Pipeline emails: ${brand} ${name}`);
-    await putRepoFile(`pipeline-output/emails-${slug}.json`,json,`Pipeline emails: ${brand} ${name}`);
-    setAlert('emailsPushAlert','ok','Sent ✓ Now tell Claude in chat: “Push the latest pipeline emails to MailerLite as drafts.”');
-  }catch(e){setAlert('emailsPushAlert','er','Could not send: '+e.message);}
-  btn.disabled=false;btn.textContent='⬆ Send emails to Claude (for MailerLite)';
+    const data=await mlApi('groups');
+    const groups=(data&&data.data)||[];
+    sel.innerHTML='<option value="">— select a group —</option>'+groups.map(g=>`<option value="${g.id}">${esc(g.name)} (${g.active_count??0})</option>`).join('');
+    if(cfg.mlGroup)sel.value=cfg.mlGroup;
+    mlGroupsLoaded=true;
+  }catch(e){sel.innerHTML=`<option value="">Could not load groups — ${esc(e.message)}</option>`;}
+}
+document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
+  if(!state.emails.length){setAlert('emailsPushAlert','er','Generate the emails first.');return}
+  const fromName=(val('mlFromName')||'WomensSportsStore.com').trim();
+  const from=(val('mlFrom')||'').trim();
+  const group=document.getElementById('mlGroup').value;
+  if(!from){setAlert('emailsPushAlert','er','Enter a verified sender email.');return}
+  if(!group){setAlert('emailsPushAlert','er','Pick a recipient group.');return}
+  cfg.mlFromName=fromName;cfg.mlFrom=from;cfg.mlGroup=group;saveCfg();
+  const product=val('pName')||'product';
+  const labels=['Review Drop','Buy Nudge','Social Proof'];
+  const btn=document.getElementById('emailsPushMlBtn');const orig=btn.textContent;btn.disabled=true;
+  let ok=0;const errs=[];
+  for(let i=0;i<state.emails.length;i++){
+    const subject=(document.getElementById('es'+i)?.value||state.emails[i].subject||'').trim();
+    const preview=(document.getElementById('ep'+i)?.value||state.emails[i].preview_text||'').trim();
+    const content=document.getElementById('eb'+i)?.value||state.emails[i].body_html||'';
+    btn.textContent=`Pushing ${i+1}/${state.emails.length}…`;
+    setAlert('emailsPushAlert','inf',`Creating draft ${i+1} of ${state.emails.length}…`);
+    const payload={name:`${product} — Email ${i+1}: ${labels[i]||''}`.trim(),type:'regular',emails:[{subject,from_name:fromName,from,content,reply_to:from,preheader:preview}],groups:[group]};
+    try{await mlApi('create',payload);ok++;}catch(e){errs.push(`Email ${i+1}: ${e.message}`);}
+  }
+  btn.disabled=false;btn.textContent=orig;
+  if(errs.length)setAlert('emailsPushAlert','er',`Created ${ok}/${state.emails.length} draft(s). ${errs.join(' · ')}`);
+  else setAlert('emailsPushAlert','ok',`✓ ${ok} draft campaign(s) created in MailerLite. Review &amp; schedule them in your MailerLite dashboard.`);
 });
 
 // STAGE 9 — Social
@@ -1439,8 +1466,6 @@ function buildChecklist(){
   document.getElementById('checklist').innerHTML=items.map(([id,label])=>{const ok=done.has(id);return`<div class="ci"><div class="ck ${ok?'yes':''}">${ok?'✓':''}</div><span class="cl ${ok?'yes':''}">${label}</span>${!ok?`<button class="cr" data-goto="${id}">Review</button>`:''}</div>`;}).join('');
   if(!checklistBound){document.getElementById('checklist').addEventListener('click',e=>{const b=e.target.closest('[data-goto]');if(b)goStage(b.dataset.goto)});checklistBound=true;}
   if(state.emails.length){
-    const name=val('pName')||'product';
-    document.getElementById('mlCode').textContent=`Push these 3 approved emails to MailerLite as draft campaigns for "${name}":\nEmail 1: ${document.getElementById('es0')?.value||state.emails[0]?.subject||''}\nEmail 2: ${document.getElementById('es1')?.value||state.emails[1]?.subject||''}\nEmail 3: ${document.getElementById('es2')?.value||state.emails[2]?.subject||''}\nSender: holly@womenssportsstore.com / WomensSportsStore.com`;
     document.getElementById('mlPrompt').style.display='block';
   }
 }

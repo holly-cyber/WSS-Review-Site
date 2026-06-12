@@ -39,3 +39,8 @@
   from = "/api/subscribe"
   to = "/.netlify/functions/subscribe"
   status = 200
+
+[[redirects]]
+  from = "/api/mailerlite-campaign"
+  to = "/.netlify/functions/mailerlite-campaign"
+  status = 200
