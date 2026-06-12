@@ -199,6 +199,20 @@ const schemaFaq = faqItems.length ? JSON.stringify({
   <EmailSignup />
 </BaseLayout>
 
+<script>
+  // Label each comparison-table cell with its column header so the mobile
+  // stacked-card layout can show "Header: value". Works for every review.
+  document.querySelectorAll('.review-content table').forEach((table) => {
+    const heads = Array.from(table.querySelectorAll('thead th')).map((th) => (th.textContent || '').trim());
+    if (!heads.length) return;
+    table.querySelectorAll('tbody tr').forEach((tr) => {
+      Array.from(tr.children).forEach((td, i) => {
+        if (heads[i]) td.setAttribute('data-label', heads[i]);
+      });
+    });
+  });
+</script>
+
 <style>
 .review-hero{background:var(--navy);color:white;padding:2.5rem 0;background-size:cover;background-position:center;position:relative}
 .review-hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,30,.75)}
@@ -299,5 +313,22 @@ const schemaFaq = faqItems.length ? JSON.stringify({
 .review-content :global(.pc-buy){margin:1rem 0 .25rem;font-weight:600;font-size:.95rem}
 .review-content :global(.pc-buy a){color:var(--pink);text-decoration:underline}
 @media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-sidebar{position:static}}
-@media(max-width:600px){.review-content :global(.pros-cons){grid-template-columns:1fr}.review-layout{gap:1.5rem;padding-top:1.75rem}.rv-cta{flex-direction:column;gap:.6rem}.rv-buy{width:100%}.review-content :global(table){table-layout:fixed}}
+@media(max-width:600px){
+  .review-content :global(.pros-cons){grid-template-columns:1fr}
+  .review-layout{gap:1.5rem;padding-top:1.75rem}
+  .rv-cta{flex-direction:column;gap:.6rem}
+  .rv-buy{width:100%}
+  /* Comparison table -> stacked cards (each product a card, cells labelled). */
+  .review-content :global(table){display:block;border:none;border-radius:0;background:transparent;font-size:.92rem}
+  .review-content :global(thead){display:none}
+  .review-content :global(tbody){display:block}
+  .review-content :global(tbody tr){display:block;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--white);padding:.85rem 1rem;margin-bottom:1rem}
+  .review-content :global(tbody tr:nth-child(odd)){background:var(--white)}
+  .review-content :global(tbody tr:first-child){background:var(--light-pink);border-color:#ffd5e1}
+  .review-content :global(td){display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-top:1px solid var(--border);text-align:right;overflow-wrap:anywhere}
+  .review-content :global(td::before){content:attr(data-label);flex:0 0 40%;text-align:left;font-weight:700;color:var(--navy);text-transform:uppercase;font-size:.66rem;letter-spacing:.03em;line-height:1.5}
+  .review-content :global(tr td:first-child){display:block;text-align:left;border-top:none;font-weight:700;font-size:1.02rem;color:var(--navy);padding:0 0 .55rem;margin-bottom:.45rem;border-bottom:2px solid var(--pink)}
+  .review-content :global(tr td:first-child::before){display:none}
+  .review-content :global(tbody tr:first-child td){font-weight:600}
+}
 </style>
