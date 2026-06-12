@@ -1529,9 +1529,12 @@ document.getElementById('gsheetBtn').addEventListener('click',async()=>{
   try{
     const r=await fetch('/api/sheet-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:cfg.gsheetUrl||url,payload})});
     const data=await r.json().catch(()=>({}));
-    if(!r.ok||data.ok===false)throw new Error(data.message||data.error||('HTTP '+r.status));
+    if(!r.ok)throw new Error(data.message||data.error||('HTTP '+r.status));
+    // Only treat it as saved if the Apps Script explicitly confirms it (ok:true).
+    if(data.ok!==true)throw new Error('The Google Sheet script ran but did not confirm a save — re-deploy a NEW version of the Apps Script (Deploy → Manage deployments → Edit → New version). Response: '+JSON.stringify(data).slice(0,200));
     ['write','push','reel','emails','social','approve'].forEach(markDone);
-    setAlert('gsheetAlert','ok','✓ Approved — all content saved to your Google Sheet.');
+    const where=data.sheet?` to the "${esc(data.sheet)}" tab${data.row?', row '+data.row:''}`:'';
+    setAlert('gsheetAlert','ok',`✓ Approved — saved${where}. Open your Google Sheet to check.`);
   }catch(e){setAlert('gsheetAlert','er','Could not save: '+e.message);}
   btn.disabled=false;btn.textContent=orig;
 });
