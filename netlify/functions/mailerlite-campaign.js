@@ -27,7 +27,16 @@ exports.handler = async (event) => {
     } else if (action === 'create') {
       url = `${BASE}/campaigns`;
       method = 'POST';
-      body = JSON.stringify(payload || {});
+      // Build the exact shape MailerLite expects (subject/from_name/from/content
+      // only inside each email — no reply_to/preheader, which the API rejects).
+      const p = payload || {};
+      const ml = {
+        name: p.name,
+        type: 'regular',
+        emails: [{ subject: p.subject, from_name: p.from_name, from: p.from, content: p.content }],
+      };
+      if (p.group) ml.groups = [String(p.group)];
+      body = JSON.stringify(ml);
     } else {
       return { statusCode: 400, headers: CORS, body: JSON.stringify({ message: 'Unknown action' }) };
     }
