@@ -18,6 +18,7 @@ pillar_scores:
   nutrition: 3
   performance: 3
   value: 3
+draft: true
 ---
 
 # Veloforte Mixed Energy Chews Review — Women's Nutrition
