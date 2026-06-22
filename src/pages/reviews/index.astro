@@ -8,6 +8,7 @@ const sorted = Object.entries(mods)
     const parts = path.split('/');
     return { ...mod.frontmatter, slug: parts[parts.length - 1].replace('.md',''), _cat: parts[parts.length - 2] };
   })
+  .filter((r: any) => import.meta.env.PROD ? r.draft !== true : true)
   .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 function starHtml(score: number) {

@@ -4,6 +4,7 @@ import ReviewCard from '../components/ReviewCard.astro';
 
 const reviews = import.meta.glob('./reviews/*/*.md', { eager: true });
 const index = Object.entries(reviews)
+  .filter(([, mod]: [string, any]) => import.meta.env.PROD ? mod.frontmatter?.draft !== true : true)
   .map(([path, mod]: [string, any]) => {
     const parts = path.split('/');
     const slug = parts.pop()!.replace('.md', '');

@@ -9,6 +9,7 @@ const sorted = Object.entries(mods)
     ...mod.frontmatter,
     slug: path.split('/').pop()?.replace('.md','')
   }))
+  .filter((r: any) => import.meta.env.PROD ? r.draft !== true : true)
   .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 <BaseLayout title={`${label} Reviews — Women's Sports Standard™`} description={`Independent ${label.toLowerCase()} product reviews tested against the WSS™ framework.`}>
