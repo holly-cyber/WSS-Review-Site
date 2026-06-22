@@ -1626,10 +1626,15 @@ async function loadArticles(){
     const d=await ghApi('tree',{});
     manageFiles=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/reviews\/.+\.md$/.test(t.path)).sort((a,b)=>a.path.localeCompare(b.path));
     renderManageList();
-    // Fill in the date/time each review was added (its earliest commit).
+    // Fill in the date/time each review was added (its earliest commit) and its
+    // current draft status (from frontmatter), so each row can show Edit/Draft/Delete.
     await Promise.all(manageFiles.map(async f=>{
       try{const c=await ghApi('commits',{path:f.path});
         if(Array.isArray(c)&&c.length){const first=c[c.length-1];f.added=first.commit?.author?.date||first.commit?.committer?.date||'';}
+      }catch(e){}
+      try{const d=await ghApi('get',{path:f.path});f.sha=d.sha;f.content=b64decode(d.content);
+        const fm=f.content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+        f.draft=fm?/^\s*draft\s*:\s*true\s*$/im.test(fm[1]):false;
       }catch(e){}
     }));
     renderManageList();
@@ -1643,13 +1648,40 @@ function fmtAdded(iso){
 function renderManageList(){
   const list=document.getElementById('manageList');
   if(!manageFiles.length){list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">No review articles found.</div>';return}
-  list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();const added=fmtAdded(f.added);return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}</div><div class="retd">${esc(cat)}${added?` · ${esc(added)}`:''}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
+  const badge=(f)=>{if(f.draft===undefined)return '';const base='margin-left:8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:10px;padding:1px 7px';return f.draft
+    ?`<span style="${base};color:#8a5a00;background:#fffaf0;border:1px solid #f3d9a3">Draft</span>`
+    :`<span style="${base};color:#0a7a33;background:#f0fff4;border:1px solid #b6e8c4">Live</span>`;};
+  list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();const added=fmtAdded(f.added);const draftLabel=f.draft?'Publish':'Draft';return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}${badge(f)}</div><div class="retd">${esc(cat)}${added?` · ${esc(added)}`:''}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-draft="${i}" style="padding:5px 11px">${draftLabel}</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
 }
 document.getElementById('manageList').addEventListener('click',e=>{
-  const ed=e.target.closest('[data-edit]'),dl=e.target.closest('[data-del]');
+  const ed=e.target.closest('[data-edit]'),dr=e.target.closest('[data-draft]'),dl=e.target.closest('[data-del]');
   if(ed)editArticle(manageFiles[parseInt(ed.dataset.edit)]);
+  else if(dr)toggleDraft(parseInt(dr.dataset.draft));
   else if(dl)deleteArticle(manageFiles[parseInt(dl.dataset.del)],false);
 });
+// Add or remove `draft: true` in a review's frontmatter (leaving the body untouched).
+function setDraftFlag(src,makeDraft){
+  src=src||'';
+  const m=src.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if(!m)return src;
+  let fm=m[1].replace(/^\s*draft\s*:.*$/gim,'').replace(/\n{2,}/g,'\n').replace(/^\n+|\n+$/g,'');
+  if(makeDraft)fm=fm+'\ndraft: true';
+  return src.replace(m[0],'---\n'+fm+'\n---');
+}
+async function toggleDraft(i){
+  const f=manageFiles[i];if(!f)return;
+  const makeDraft=!f.draft;
+  setAlert('manageAlert','inf',(makeDraft?'Setting to draft… ':'Publishing… ')+f.path);
+  try{
+    // Re-fetch fresh content+sha so the save can't collide with a stale revision.
+    const d=await ghApi('get',{path:f.path});
+    const updated=setDraftFlag(b64decode(d.content),makeDraft);
+    const r=await ghApi('put',{path:f.path,content:b64(updated),message:`${makeDraft?'Draft':'Publish'} review: ${f.path}`,sha:d.sha});
+    f.content=updated;f.sha=r.content?.sha||d.sha;f.draft=makeDraft;
+    renderManageList();
+    setAlert('manageAlert','ok',`${makeDraft?'Set to draft':'Published'} ✓ Netlify redeploys within ~60s.`);
+  }catch(e){setAlert('manageAlert','er','Could not update status: '+e.message);}
+}
 async function editArticle(f){
   setAlert('manageAlert','inf','Loading '+f.path+'…');
   try{
