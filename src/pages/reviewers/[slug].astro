@@ -12,7 +12,7 @@ export async function getStaticPaths() {
     const fcat = parts[parts.length - 2];
     const fm = m.frontmatter || {};
     return { ...fm, slug, _cat: fcat };
-  });
+  }).filter((r) => import.meta.env.PROD ? r.draft !== true : true);
 
   return team.map((member) => {
     const reviews = all

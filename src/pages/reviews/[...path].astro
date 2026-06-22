@@ -11,6 +11,8 @@ export async function getStaticPaths() {
   const subsubWithReviews = new Set<string>();
   for (const [p, m] of Object.entries(reviewMods)) {
     const fm = (m as any).frontmatter || {};
+    // Hide draft reviews in production; show them in dev.
+    if (import.meta.env.PROD && fm.draft === true) continue;
     const cat = fm.category || p.split('/').slice(-2)[0];
     if (fm.subcategory) subWithReviews.add(`${cat}/${slugify(fm.subcategory)}`);
     if (fm.subcategory && fm.subsubcategory) subsubWithReviews.add(`${cat}/${slugify(fm.subcategory)}/${slugify(fm.subsubcategory)}`);
@@ -44,7 +46,7 @@ const all = Object.entries(reviewMods).map(([p, m]: [string, any]) => {
   const fcat = parts[parts.length - 2];
   const fm = m.frontmatter || {};
   return { ...fm, slug, _cat: fcat };
-});
+}).filter((r) => import.meta.env.PROD ? r.draft !== true : true);
 
 let reviews = all.filter((r) => (r.category || r._cat) === cat.slug);
 if (level === 'subcategory') reviews = reviews.filter((r) => slugify(r.subcategory || '') === slugify(sub.name));

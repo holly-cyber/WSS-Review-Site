@@ -19,6 +19,8 @@ const subWithReviews = new Set<string>();
 const subsubWithReviews = new Set<string>();
 for (const [path, mod] of Object.entries(reviewMods)) {
   const fm = (mod as any).frontmatter || {};
+  // Hide draft reviews in production; show them in dev.
+  if (import.meta.env.PROD && fm.draft === true) continue;
   const parts = path.split('/');
   const cat = fm.category || parts[parts.length - 2];
   const slug = parts[parts.length - 1].replace('.md', '');

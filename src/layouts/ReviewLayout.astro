@@ -18,7 +18,7 @@ const relatedReviews = Object.entries(reviewMods)
     const _cat = parts[parts.length - 2];
     return { ...(m.frontmatter || {}), slug, _cat };
   })
-  .filter((r) => (r.category || r._cat) === category && r.slug !== currentSlug)
+  .filter((r) => (r.category || r._cat) === category && r.slug !== currentSlug && (import.meta.env.PROD ? r.draft !== true : true))
   .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
   .slice(0, 3);
 
@@ -117,7 +117,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
   })),
 }) : null;
 ---
-<BaseLayout title={`${fm.title} Review`} description={fm.meta_description || fm.excerpt} ogImage={fm.hero_image}>
+<BaseLayout title={`${fm.title} Review`} description={fm.meta_description || fm.excerpt} ogImage={fm.hero_image} noindex={import.meta.env.PROD && fm.draft === true}>
   <script type="application/ld+json" set:html={schemaReview} />
   <script type="application/ld+json" set:html={schemaProduct} />
   {schemaFaq && <script type="application/ld+json" set:html={schemaFaq} />}
