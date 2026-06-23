@@ -54,3 +54,14 @@
   from = "/api/github-proxy"
   to = "/.netlify/functions/github-proxy"
   status = 200
+
+# ---------------------------------------------------------------------------
+# Migrated WordPress review URLs → new /reviews/<category>/<slug>/ structure.
+# These preserve the old root-level WomensSportsStore.com permalinks with a
+# 301 (permanent) redirect so existing links and SEO ranking carry over.
+# Add one entry per migrated review.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/runderwear-power-running-bra/"
+  to = "/reviews/run/runderwear-power-running-bra/"
+  status = 301
