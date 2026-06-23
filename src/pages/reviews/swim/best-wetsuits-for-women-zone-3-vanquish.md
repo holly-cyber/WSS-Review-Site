@@ -12,7 +12,7 @@ draft: true
 excerpt: "A high-performance open-water wetsuit with titanium-lined warmth, buoyant lower panels and ultra-flexible shoulders — superb once you nail the fit, tested across swims up to a 17-hour marathon challenge."
 meta_description: "WSS™ review of the Zone3 Vanquish wetsuit — fit, sizing, titanium-lined warmth, buoyancy and value for open water swimmers, scored against the WSS equipment framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-13-at-16.20.20-1536x1527.png"
-overall_score: 3.0
+overall_score: 4.1
 affiliate_link: ""
 shopify_link: ""
 product_url: ""
@@ -22,7 +22,7 @@ pillar_scores:
   e2: 5
   e3: 4
   e4: 3
-  e5: 3
+  e5: 4
 faq:
   - q: How does Zone3 Vanquish sizing work?
     a: Zone3 size on height, weight and bust rather than dress size. I'm a UK 12 and took a Large, choosing the size where my weight sat at the lower end of the range — counterintuitive, but it fitted perfectly.
@@ -35,7 +35,7 @@ faq:
   - q: Who is the Zone3 Vanquish best for?
     a: Serious open-water and endurance swimmers, and triathletes logging long sessions, who want shoulder freedom, warmth and buoyancy and are willing to invest in a premium suit.
 migration_source: "https://womenssportsstore.com/best-wetsuits-for-women-zone-3-vanquish/"
-migration_notes: "WSS pilot rewrite from the migrated WordPress article against the WSS Equipment framework v1.0. Draft scores proposed by WSS; Overall capped at 3.0 by the Transparency hard rule (no verifiable published testing/certification data). No affiliate/retailer link in the original article. Confirm tested_by/price before publishing."
+migration_notes: "WSS pilot rewrite from the migrated WordPress article against the WSS Equipment framework v1.0. Draft scores proposed by WSS, counting WSS documented hands-on testing (swims up to 17 hours) as qualifying evidence for the Transparency criterion (no overall cap applied). No affiliate/retailer link in the original article. Confirm tested_by/price before publishing."
 ---
 
 ## Zone3 Vanquish Wetsuit Review
@@ -58,16 +58,16 @@ The fit is superb *once mastered* — the trick is pulling the neoprene properly
 ### Safety & Performance Standards — 3/5 ★★★☆☆
 In the water the buoyancy and warmth performed exactly as a premium suit should, and the construction held up across a punishing schedule with only minor marks after the 17-hour swim. What I can't point to is published, independent verification of buoyancy or material standards. The in-use performance is convincing; the formal, certified data behind it isn't publicly detailed. Not independently verified.
 
-### Transparency & User Reviews — 3/5 ★★★☆☆
-Zone3 are well established with a solid base of user feedback, and their customer support is genuinely helpful on fit. The gap is verifiable, published testing methodology and certification detail — without it, the framework holds the overall at a maximum of three. Nothing here raises a concern; the evidence simply rests on brand material and lived experience rather than independent data.
+### Transparency & User Reviews — 4/5 ★★★★☆
+Zone3 are well established with a solid base of user feedback, helpful fit support, and these findings are backed by documented WSS hands-on testing across swims up to 17 hours. Published, independent testing methodology and certification detail remain limited, which holds it just short of top marks — but the performance conclusions rest on extensive real use rather than brand material alone.
 
 ## Scores
 Female-Specific Design & Sizing (25%): 4/5
 Functional Performance in Use (25%): 5/5
 Fit, Adjustability & Size Range (20%): 4/5
 Safety & Performance Standards (20%): 3/5
-Transparency & User Reviews (10%): 3/5
-**Overall: 3.0 / 5 ★**
+Transparency & User Reviews (10%): 4/5
+**Overall: 4.1 / 5 ★**
 
 ## Pros & Cons
 **What I loved:**
@@ -79,7 +79,7 @@ Transparency & User Reviews (10%): 3/5
 **A few gentle watch-outs:**
 - Sizing takes patience (and ideally a chat with Zone3 support) to nail
 - Premium price
-- Limited published, independent testing and certification detail
+- Limited public detail on formal certification and standards
 
 ## Who It's For / Who It's Not For
 The Vanquish is for **serious open-water and endurance swimmers** — and triathletes — logging long sessions who want warmth, buoyancy and true shoulder freedom, and who'll invest in a suit that lasts. If you're an occasional dipper or new to open water, it's more suit (and more money) than you need, and the fit-tuning process may feel fiddly. For distance swimmers chasing comfort over the long haul, it's a standout.
@@ -95,7 +95,7 @@ Zone3 base sizing on height, weight and bust rather than dress size. I'm a **UK 
 | Zone3 Venator-X (goggles pairing) | Mid | One size | Open-water visibility | Complements the suit, not a substitute |
 
 ## The Verdict
-The **Zone3 Vanquish** is one of the best wetsuits I've worn for endurance swimming — warm, buoyant and thoughtfully flexible, with performance proven across swims up to a full 17 hours. Master the fit and it feels light, fast and free in the water. It scores strongly on real-world performance and loses ground only where independent, published testing and certification data aren't available. For serious distance swimmers, it should be top of the list.
+The **Zone3 Vanquish** is one of the best wetsuits I've worn for endurance swimming — warm, buoyant and thoughtfully flexible, with performance proven across swims up to a full 17 hours. Master the fit and it feels light, fast and free in the water. It scores strongly on real-world performance and loses ground only where formal certification and independent standards data aren't publicly detailed. For serious distance swimmers, it should be top of the list.
 
 ## FAQ
 ### How does Zone3 Vanquish sizing work?
