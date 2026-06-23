@@ -65,3 +65,174 @@
   from = "/runderwear-power-running-bra/"
   to = "/reviews/run/runderwear-power-running-bra/"
   status = 301
+
+[[redirects]]
+  from = "/beeline-velo-2-review-for-cycling/"
+  to = "/reviews/cycle/beeline-velo-2-review-for-cycling/"
+  status = 301
+
+[[redirects]]
+  from = "/best-womens-cycling-jacket-luca-momentum-review/"
+  to = "/reviews/cycle/best-womens-cycling-jacket-luca-momentum-review/"
+  status = 301
+
+[[redirects]]
+  from = "/bib-shorts-for-women-luca-road-all-in-one/"
+  to = "/reviews/cycle/bib-shorts-for-women-luca-road-all-in-one/"
+  status = 301
+
+[[redirects]]
+  from = "/luca-momentum-womens-cycling-jacket-grey/"
+  to = "/reviews/cycle/luca-momentum-womens-cycling-jacket-grey/"
+  status = 301
+
+[[redirects]]
+  from = "/trail-and-bloom-best-womens-mtb-jersey/"
+  to = "/reviews/cycle/trail-and-bloom-best-womens-mtb-jersey/"
+  status = 301
+
+[[redirects]]
+  from = "/trail-bloom-the-best-womens-mtb-trousers/"
+  to = "/reviews/cycle/trail-bloom-the-best-womens-mtb-trousers/"
+  status = 301
+
+[[redirects]]
+  from = "/best-energy-bars-voom-pocket-rocket-review/"
+  to = "/reviews/nutrition/best-energy-bars-voom-pocket-rocket-review/"
+  status = 301
+
+[[redirects]]
+  from = "/best-overnight-oats-for-acitve-women-velofortes-overnight-oats-review/"
+  to = "/reviews/nutrition/best-overnight-oats-for-acitve-women-velofortes-overnight-oats-review/"
+  status = 301
+
+[[redirects]]
+  from = "/best-protein-powder-for-women-u-perform-active-whey-and-collagen/"
+  to = "/reviews/nutrition/best-protein-powder-for-women-u-perform-active-whey-and-collagen/"
+  status = 301
+
+[[redirects]]
+  from = "/natural-energy-gels-that-actually-taste-good/"
+  to = "/reviews/nutrition/natural-energy-gels-that-actually-taste-good/"
+  status = 301
+
+[[redirects]]
+  from = "/natural-organic-protein-panterre-op-16/"
+  to = "/reviews/nutrition/natural-organic-protein-panterre-op-16/"
+  status = 301
+
+[[redirects]]
+  from = "/one-good-thing-wrapper-free-energy-bars/"
+  to = "/reviews/nutrition/one-good-thing-wrapper-free-energy-bars/"
+  status = 301
+
+[[redirects]]
+  from = "/the-best-collagen-for-women-veloforte-proactive/"
+  to = "/reviews/nutrition/the-best-collagen-for-women-veloforte-proactive/"
+  status = 301
+
+[[redirects]]
+  from = "/veloforte-high-protein-crunch-bar-for-women/"
+  to = "/reviews/nutrition/veloforte-high-protein-crunch-bar-for-women/"
+  status = 301
+
+[[redirects]]
+  from = "/veloforte-nova-protein-recovery-shake-review/"
+  to = "/reviews/nutrition/veloforte-nova-protein-recovery-shake-review/"
+  status = 301
+
+[[redirects]]
+  from = "/veloforte-passo-hydration-electrolyte-powder-review/"
+  to = "/reviews/nutrition/veloforte-passo-hydration-electrolyte-powder-review/"
+  status = 301
+
+[[redirects]]
+  from = "/voom-best-low-sugar-protein-powder-for-women/"
+  to = "/reviews/nutrition/voom-best-low-sugar-protein-powder-for-women/"
+  status = 301
+
+[[redirects]]
+  from = "/best-lightweight-trail-running-poles-for-women/"
+  to = "/reviews/run/best-lightweight-trail-running-poles-for-women/"
+  status = 301
+
+[[redirects]]
+  from = "/discover-the-best-absolute360-workout-shorts-for-women/"
+  to = "/reviews/run/discover-the-best-absolute360-workout-shorts-for-women/"
+  status = 301
+
+[[redirects]]
+  from = "/period-underwear-you-can-lift-squat-run-in/"
+  to = "/reviews/run/period-underwear-you-can-lift-squat-run-in/"
+  status = 301
+
+[[redirects]]
+  from = "/running-underwear-runderwear-womens-briefs/"
+  to = "/reviews/run/running-underwear-runderwear-womens-briefs/"
+  status = 301
+
+[[redirects]]
+  from = "/runr-stuttgart-blackout-technical-running-cap/"
+  to = "/reviews/run/runr-stuttgart-blackout-technical-running-cap/"
+  status = 301
+
+[[redirects]]
+  from = "/the-best-running-leggings-for-women-2025-bimble-bolt/"
+  to = "/reviews/run/the-best-running-leggings-for-women-2025-bimble-bolt/"
+  status = 301
+
+[[redirects]]
+  from = "/ultimate-womens-running-shorts-soar-x-altra/"
+  to = "/reviews/run/ultimate-womens-running-shorts-soar-x-altra/"
+  status = 301
+
+[[redirects]]
+  from = "/best-all-weather-changing-robe-for-active-women/"
+  to = "/reviews/swim/best-all-weather-changing-robe-for-active-women/"
+  status = 301
+
+[[redirects]]
+  from = "/best-open-water-goggles-for-women-zone-3-venator-x-review/"
+  to = "/reviews/swim/best-open-water-goggles-for-women-zone-3-venator-x-review/"
+  status = 301
+
+[[redirects]]
+  from = "/best-swim-goggles-zoggs-predator-clear/"
+  to = "/reviews/swim/best-swim-goggles-zoggs-predator-clear/"
+  status = 301
+
+[[redirects]]
+  from = "/best-wetsuits-for-women-zone-3-vanquish/"
+  to = "/reviews/swim/best-wetsuits-for-women-zone-3-vanquish/"
+  status = 301
+
+[[redirects]]
+  from = "/tri-fit-rapid-x-goggles-best-swimming-goggles/"
+  to = "/reviews/swim/tri-fit-rapid-x-goggles-best-swimming-goggles/"
+  status = 301
+
+[[redirects]]
+  from = "/zoggs-boronia-high-front-swimsuit-review/"
+  to = "/reviews/swim/zoggs-boronia-high-front-swimsuit-review/"
+  status = 301
+
+[[redirects]]
+  from = "/zoggs-fusion-air-best-swimming-goggles-for-women/"
+  to = "/reviews/swim/zoggs-fusion-air-best-swimming-goggles-for-women/"
+  status = 301
+
+[[redirects]]
+  from = "/zoggs-fusion-air-review-excellent-vision-questionable-stability/"
+  to = "/reviews/swim/zoggs-fusion-air-review-excellent-vision-questionable-stability/"
+  status = 301
+
+[[redirects]]
+  from = "/zoggs-predator-flex-review-polarised-but-problematic/"
+  to = "/reviews/swim/zoggs-predator-flex-review-polarised-but-problematic/"
+  status = 301
+
+[[redirects]]
+  from = "/zoggs-silver-lined-sea-tribe-open-water-swimsuit/"
+  to = "/reviews/swim/zoggs-silver-lined-sea-tribe-open-water-swimsuit/"
+  status = 301
+
