@@ -931,15 +931,13 @@ async function fetchImages(url){
   const el=document.getElementById('imageGrid');
   el.innerHTML='<p style="font-size:12px;color:#aaa">Fetching images…</p>';
   try{
-    const r=await fetch(url);const html=await r.text();
-    const set=new Set();
-    [...html.matchAll(/og:image["']?\s*content=["']([^"']+)["']/gi)].forEach(m=>set.add(m[1]));
-    [...html.matchAll(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp)[^"']*)["']/gi)].forEach(m=>set.add(m[1]));
-    const found=[...set].filter(u=>!/icon|logo|sprite|favicon/i.test(u)).slice(0,12).map((u,i)=>({url:u.startsWith('//')?'https:'+u:u,type:i===0?'hero':'product',alt:'Product image'}));
+    const r=await fetch('/api/scrape-images',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+    const data=await r.json().catch(()=>({}));
+    const found=(data.images||[]).map((u,i)=>({url:u,type:i===0?'hero':'product',alt:'Product image'}));
     if(found.length){state.allImages=found;renderImages(found,true);}
     else{el.innerHTML='<p style="font-size:12px;color:#aaa">No images found automatically. Paste an image URL below to add one.</p>';updateImgStatus();}
   }catch{
-    el.innerHTML='<p style="font-size:12px;color:#aaa">Could not fetch images automatically (the site may block cross-origin requests). Paste an image URL below to add one.</p>';updateImgStatus();
+    el.innerHTML='<p style="font-size:12px;color:#aaa">Could not fetch images automatically. Paste an image URL below to add one.</p>';updateImgStatus();
   }
 }
 let imgGridBound=false;
@@ -1743,14 +1741,12 @@ async function meFindImages(){
   if(!src){setAlert('meImageAlert','inf','No buy link in this review — paste an image URL below instead.');return;}
   setAlert('meImageAlert','inf','Fetching images from the buy link…');
   try{
-    const r=await fetch(src);const html=await r.text();
-    const set=new Set();
-    [...html.matchAll(/og:image["']?\s*content=["']([^"']+)["']/gi)].forEach(m=>set.add(m[1]));
-    [...html.matchAll(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp)[^"']*)["']/gi)].forEach(m=>set.add(m[1]));
-    const found=[...set].filter(u=>!/icon|logo|sprite|favicon/i.test(u)).slice(0,12).map(u=>({url:u.startsWith('//')?'https:'+u:u}));
-    if(found.length){meImgs=found;meSel=[0];meRenderImages();setAlert('meImageAlert','ok',found.length+' image(s) found — first is selected as the hero. Click to add up to 4.');}
-    else setAlert('meImageAlert','wr','No images found automatically — paste an image URL below.');
-  }catch{setAlert('meImageAlert','wr','Could not fetch automatically (the retailer may block cross-origin requests). Paste image URLs below instead.');}
+    const r=await fetch('/api/scrape-images',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:src})});
+    const data=await r.json().catch(()=>({}));
+    const found=(data.images||[]).map(u=>({url:u}));
+    if(found.length){meImgs=found;meSel=[0];meRenderImages();setAlert('meImageAlert','ok',found.length+' image(s) found — first is selected as the hero. Click to add up to 4, then Insert.');}
+    else setAlert('meImageAlert','wr','No images found automatically — paste the product image URLs below instead.');
+  }catch{setAlert('meImageAlert','wr','Could not fetch automatically — paste the product image URLs below instead.');}
 }
 function meRenderImages(){
   const el=document.getElementById('meImageGrid');if(!el)return;

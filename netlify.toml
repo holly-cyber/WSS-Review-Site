@@ -55,6 +55,11 @@
   to = "/.netlify/functions/github-proxy"
   status = 200
 
+[[redirects]]
+  from = "/api/scrape-images"
+  to = "/.netlify/functions/scrape-images"
+  status = 200
+
 # ---------------------------------------------------------------------------
 # Migrated WordPress review URLs → new /reviews/<category>/<slug>/ structure.
 # These preserve the old root-level WomensSportsStore.com permalinks with a
