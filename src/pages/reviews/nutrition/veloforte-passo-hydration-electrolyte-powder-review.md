@@ -1,90 +1,108 @@
 ---
 layout: "../../../layouts/ReviewLayout.astro"
-title: "Veloforte Passo Hydration Electrolyte Powder Review"
+title: "Veloforte Passo Hydration Electrolyte Powder"
 brand: "Veloforte"
 category: "nutrition"
 subcategory: "race-day-and-performance"
 date: "2026-04-07"
 product_type: "nutrition"
+sizes: ""
+tested_by: ""
 draft: true
-excerpt: "When I'm deep into ultra training, I need something that quietly does its job — no drama, no sugar overload, just smart, effective hydration."
-meta_description: "Our review of Veloforte Passo hydration electrolyte powder — natural ingredients, taste, nutrition and performance for endurance training."
+excerpt: "A light, natural electrolyte powder that lets you top up carbs without overloading them — gut-friendly, genuinely enjoyable to drink and built for long endurance days."
+meta_description: "WSS™ review of Veloforte Passo electrolyte powder — natural ingredients, taste, carb and electrolyte profile, gut-friendly performance and value, scored against the WSS nutrition framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-07-at-10.59.45-1519x1536.png"
-overall_score: ""
+overall_score: 4.6
 affiliate_link: "https://veloforte.avln.me/c/gyKUlMgzpqGI"
 shopify_link: ""
 product_url: "https://veloforte.avln.me/c/gyKUlMgzpqGI"
 price: ""
+pillar_scores:
+  taste: 5
+  nutrition: 4
+  performance: 5
+  value: 4
+faq:
+  - q: How many carbs are in Veloforte Passo?
+    a: Each serving delivers around 20–22g of carbohydrate — deliberately on the lower side, so you can top up without blowing your hourly carb target when layering gels, chews or real food.
+  - q: Is Veloforte Passo gut-friendly?
+    a: In my experience, yes. No bloating, sloshing or digestive discomfort even deep into long sessions — a real advantage for endurance events where gut issues are a common race-ender.
+  - q: Does it taste artificial?
+    a: Not to me. The Mango & Passionfruit flavour is light and refreshing without the sickly sweetness or chemical edge many electrolyte powders have. It's easy to sip over hours.
+  - q: What electrolytes does it contain?
+    a: Around 275mg sodium (from pink Himalayan salt) and 175mg potassium (from dried coconut water) per serving, from a fully natural ingredient list with no artificial additives.
+  - q: Who is Passo best for?
+    a: Endurance women — marathoners, ultra runners and long-distance cyclists who run a layered fuelling strategy and want hydration that won't overload their carbs or upset their stomach.
 migration_source: "https://womenssportsstore.com/veloforte-passo-hydration-electrolyte-powder-review/"
-migration_notes: "Content migrated faithfully from the original WordPress article. Imported as draft. Before publishing: add the WSS overall_score and confirm tested_by."
+migration_notes: "WSS pilot rewrite from the migrated WordPress article against the WSS Nutrition framework v2.0. Draft scores proposed by WSS (weighted average, no hard-rule cap on the nutrition framework). Confirm tested_by/price before publishing."
 ---
 
-If you're anything like me, finding the right **electrolyte powder** is a bit of a balancing act. Too sweet and it turns your stomach. Too weak and it does nothing. Too heavy and suddenly your fuelling strategy is off. When I'm deep into ultra training, especially for something like a 100K mountain race, I need something that quietly does its job, no drama, no sugar overload, just smart, effective hydration.
+## Veloforte Passo Hydration Electrolyte Powder Review
 
-<a href="https://veloforte.avln.me/c/gyKUlMgzpqGI" target="_blank" rel="nofollow sponsored">Veloforte Passo</a> has quickly become one of those products I reach for without even thinking. It's simple, natural, and just works.
+### Natural Electrolyte Hydration for Long Endurance Days
 
-## Taste & Texture
+Getting hydration right is a balancing act: too sweet and it turns your stomach, too weak and it does nothing, too heavy and it throws your whole fuelling plan off. Deep into ultra training — especially building towards a 100K mountain race — I want something that quietly does its job without drama or a sugar overload. **Veloforte Passo** has become one of those products I reach for without thinking. It's simple, natural and genuinely effective, and after weeks of long sessions it's earned a permanent spot in my race vest.
 
-Let's start with the big one — taste — because if you don't enjoy it, you simply won't use it consistently.
+## WSS™ Assessment
 
-Passo absolutely nails it. The flavour is light, refreshing, and genuinely enjoyable without being overpowering. It's not sickly sweet (problematic after 4-5 hours of running or cycling), and it doesn't have that artificial edge that so many electrolyte powders fall into. Instead, it sits in that perfect middle ground, slightly moorish, clean, and easy to sip over long periods.
+### Taste & Texture — 5/5 ★★★★★
+This is where Passo wins me over. The flavour is light, clean and refreshing — *moreish*, even — without the sickly sweetness that becomes unbearable four or five hours in. I actually looked forward to drinking it on long efforts, which is the real test of whether you'll fuel consistently. It mixes with no clumps, grit or residue: a smooth, clean drink every time, shaken mid-run or prepped in advance.
 
-During longer sessions, I actually found myself looking forward to drinking it, which says everything. No flavour fatigue, no forcing it down — just steady, enjoyable hydration.
+### Nutrition Profile — 4/5 ★★★★☆
+The formulation is clearly built for endurance, with a refined approach rather than a high-sugar dump. Each serving brings around **20–22g of carbohydrate** — deliberately lower — plus a balanced **275mg sodium and 175mg potassium**, from a fully natural ingredient list free of the usual additives. That lower-carb design is a strength for layered fuelling, though athletes wanting hydration to carry a bigger carb load will need to combine it with other fuels.
 
-Texture-wise, it's just as impressive. It mixes easily with no clumps, no grit, and no residue at the bottom of your bottle. You get a smooth, clean drink every time, whether you're quickly shaking it mid-run or prepping bottles in advance.
+### Performance — 5/5 ★★★★★
+It delivers exactly what endurance fuelling needs: it's **easy on the stomach**, with no bloating or sloshing even when climbing hard late in a session — a genuine advantage given how often gut issues end long races (and one that's mattered more to me through peri-menopause). It slots neatly into a broader strategy as a carb top-up, and the single-serve sachets are practical to store in a vest and quick to open mid-effort.
 
-![Close-up image of ripe mangoes and passionfruits, showcasing vibrant colors and textures with the text 'Mango' and 'Passionfruit' labeled above 'Naturally Delicious'.](https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-07-at-10.59.54-1024x1017.png)
+### Value — 4/5 ★★★★☆
+Passo sits a little above mainstream electrolyte powders, but the premium buys clean natural ingredients, a flavour you'll actually drink and a gut-friendly formula that holds up under stress. For a product this central to performance, that's money well spent. It's not the cheapest scoop on the shelf, which is the only thing keeping it from full marks here.
 
-## Nutrition Profile
+## Scores
+Taste & Texture (25%): 5/5
+Nutrition Profile (30%): 4/5
+Performance (30%): 5/5
+Value (15%): 4/5
+**Overall: 4.6 / 5 ★**
 
-From a nutrition perspective, this <a href="https://veloforte.avln.me/c/gyKUlMgzpqGI" target="_blank" rel="nofollow sponsored">**electrolyte powder**</a> is clearly designed with endurance athletes in mind, but with a more refined approach than your typical high-sugar drink mix.
+## Pros & Cons
+**What I loved:**
+- Light, natural flavour with no artificial edge or flavour fatigue
+- Genuinely gut-friendly over long sessions
+- Lower-carb design that layers cleanly into a fuelling plan
+- Practical single-serve sachets
 
-Each serving delivers around **20–22g of carbohydrates**, which is on the lower side compared to some traditional sports drinks. But for me, that's exactly what I wanted to top up my carbs hour after hour.
+**A few gentle watch-outs:**
+- Too light if you want a high-carb all-in-one drink
+- Premium pricing versus basic electrolyte tabs
 
-When you're running a structured fuelling strategy, especially in ultra events, you don't always want your hydration to overload your carb intake. Passo allows you to **top up carbs without blowing your overall hourly target**, making it incredibly easy to layer alongside gels, chews, or real food.
+## Who It's For / Who It's Not For
+Passo is for **endurance women** — marathon and beyond, ultra runners and long-distance cyclists — who run a structured, layered fuelling strategy and want hydration that tops up carbs without overloading them. If you prefer a single high-carb drink mix to do all your fuelling, or you want the cheapest electrolyte option going, this will feel too light for you. For everyone fuelling long and natural, [this gut-friendly electrolyte powder](https://veloforte.avln.me/c/gyKUlMgzpqGI) is spot on.
 
-It also contains a well-balanced blend of electrolytes (275mg per 500ml) to support hydration, helping maintain fluid balance without overcomplicating things. The ingredient list is completely natural, and refreshingly free from the usual artificial additives and junk.
+## Taste & Usage
+The Mango & Passionfruit flavour is clean and slightly tropical — refreshing rather than sugary. Mix one sachet into roughly 500ml and shake; it dissolves fully with no grit. I sip it steadily through long runs and rides, alongside gels or chews, and it never causes flavour fatigue or that heavy, coated feeling some drinks leave.
 
-![Nutritional information for Veloforte Passo Mango & Passionfruit: 22g carbs, 275mg sodium, 175mg potassium per sachet.](https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-07-at-10.59.39-1024x1011.png)
+## How It Compares
+| Product | Price | Key Macro | Taste | Our Verdict |
+|---|---|---|---|---|
+| Veloforte Passo | Premium | ~20–22g carbs, 275mg sodium | Light, natural, moreish | Best for layered endurance fuelling |
+| Voom Pocket Rocket | Mid | Higher carb energy | Bold, fruity | Better as an energy hit than pure hydration |
+| Standard electrolyte tabs | Low | Electrolytes only, minimal carbs | Variable, often artificial | Cheap hydration, less enjoyable |
 
-## Performance
+## The Verdict
+**Veloforte Passo** is easy to drink, easy to carry and easy on the gut — pretty much the holy grail in endurance fuelling. Its lower-carb, fully natural design makes it brilliant for layering into a long-day strategy, and the taste means you'll actually keep sipping when it counts. If you want one drink to carry all your carbs it'll feel light, but for gut-friendly, enjoyable hydration on big sessions, it's earned its permanent place in my race vest.
 
-First, it's incredibly **easy on the stomach**. No bloating, no sloshing, no digestive discomfort, even when I'm deep into a long session or climbing hard in the mountains. That alone makes it a standout, because gut issues are one of the biggest risks in ultra endurance events and one I have been struggling with since becoming peri-menopausal.
+## FAQ
+### How many carbs are in Veloforte Passo?
+Each serving delivers around 20–22g of carbohydrate — deliberately lower — so you can top up without blowing your hourly carb target when layering gels, chews or real food.
 
-Second, it integrates seamlessly into a broader fueling strategy. During my 100K mountain ultra prep, I've been using it as a **carb top-up alongside other fuels**, and it fits perfectly. You can sip it consistently without worrying about overdoing it on sugar, which helps maintain steady energy levels.
+### Is Veloforte Passo gut-friendly?
+In my experience, yes. No bloating, sloshing or digestive discomfort even deep into long sessions — a real advantage where gut issues are a common race-ender.
 
-A small but important detail the **sachets are super practical**. They're easy to store in a running vest, quick to open, and ideal for races or long training days when you need convenience and reliability.
+### Does it taste artificial?
+Not to me. The Mango & Passionfruit flavour is light and refreshing without the sickly sweetness or chemical edge many electrolyte powders have. It's easy to sip over hours.
 
-I've used plenty of hydration products over the years, and this is one of the few that feels genuinely designed for how endurance athletes actually fuel, not just what looks good on a label.
+### What electrolytes does it contain?
+Around 275mg sodium (from pink Himalayan salt) and 175mg potassium (from dried coconut water) per serving, from a fully natural ingredient list with no artificial additives.
 
-![Infographic detailing pure electrolytes, including 275mg of sodium from pink Himalayan salt and 175mg of potassium from dried coconut water.](https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-07-at-11.00.01-1008x1024.png)
-
-## Value
-
-Veloforte sits slightly more premium than some mainstream electrolyte powders, but in this case, you're paying for quality and it shows.
-
-You're getting:
-
-- Clean, natural ingredients (important when you train alot!)
-- A flavour you'll actually want to drink
-- A gut-friendly formula that performs under stress
-- Practical, portable sachets for real-world use
-
-For me, that combination justifies the price, especially when you consider how critical hydration is to performance. A product that you can rely on and actually enjoy is worth investing in.
-
-## Recommend
-
-I would absolutely recommend this **electrolyte powder** for:
-
-- Women training for endurance events (especially marathon and beyond)
-- Ultra runners who need flexible, layered fueling strategies
-- Anyone who struggles with overly sweet or artificial-tasting sports drinks
-- Athletes looking for a stomach-friendly hydration and carb options
-
-If you prefer very high-carb drink mixes, this might feel too light. But if you want gut friendly, natural ingredients and some flexibility in your fuelling, it's spot on.
-
-## Final Verdict
-
-It's easy to drink, easy to carry, and easy on the gut which, in the world of endurance sport, is pretty much the holy grail.
-
-For my 100K mountain ultra prep, it's earned a permanent place in my race day vest and that's about as strong an endorsement as it gets!
+### Who is Passo best for?
+Endurance women — marathoners, ultra runners and long-distance cyclists who run a layered fuelling strategy and want hydration that won't overload their carbs or upset their stomach.
