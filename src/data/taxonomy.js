@@ -68,6 +68,18 @@ export const taxonomy = [
     { name: 'Outdoor & Adventure', items: ['Hiking Poles', 'Camping Kit', 'Navigation'] },
     { name: 'Safety & Protection', items: ['Helmets', 'Protective Pads & Guards', 'Visibility & Safety'] },
   ]},
+  { slug: 'accessories', name: 'Accessories', subs: [
+    { name: 'Anti-Chafe & Skincare', items: ['Anti-Chafe Balms', 'Sun Protection', 'Recovery Creams'] },
+    { name: 'Bags & Kit Bags', items: ['Tote Bags', 'Kit Bags', 'Wet & Dry Bags'] },
+    { name: 'Strength & Weights', items: ['Dumbbells', 'Resistance Bands', 'Kettlebells'] },
+    { name: 'Wellness & Aromatherapy', items: ['Balms', 'Candles', 'Pillow Mists'] },
+    { name: 'Period & Intimate', items: ['Menstrual Cups', 'Period Underwear'] },
+  ]},
+  { slug: 'hyrox', name: 'Hyrox', subs: [
+    { name: 'Apparel', items: ['Shorts', 'Tops', 'Sports Bras', 'Leggings'] },
+    { name: 'Footwear', items: ['Training Shoes'] },
+    { name: 'Accessories', items: ['Gloves', 'Belts', 'Grip Socks'] },
+  ]},
 ];
 
 // Categories that already have a hand-built index.astro (don't double-generate them).
