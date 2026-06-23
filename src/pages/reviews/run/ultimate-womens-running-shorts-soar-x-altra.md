@@ -7,7 +7,7 @@ subcategory: "clothing"
 date: "2025-11-13"
 product_type: "apparel"
 sizes: "UK 6–14 (XS–XL)"
-tested_by: ""
+tested_by: "Holly Woodford"
 draft: true
 excerpt: "Eye-wateringly expensive but genuinely brilliant: a zero-waistband, RHEON-equipped trail short with 360° storage and clever female-first design — held back only by a narrow size range."
 meta_description: "WSS™ review of the Soar X-Altra Trail Race Shorts — zero-waistband fit, RHEON adaptive support, 360° storage, sizing, value and how they score against the WSS apparel framework."

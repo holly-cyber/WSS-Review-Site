@@ -385,6 +385,18 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
         <button class="bg" id="meBackBtn">← Back to list</button>
         <button class="bg" id="meDeleteBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Delete article</button>
       </div>
+      <div id="meImages" style="margin-top:14px;border-top:1px solid #eee;padding-top:12px">
+        <div style="font-size:13px;font-weight:700;color:#000036;margin-bottom:4px">Images <span style="font-weight:400;color:#999">— run the image stage on this review</span></div>
+        <div style="font-size:12px;color:#777;margin-bottom:8px;line-height:1.5">Pull product images from this review's buy link, or paste image URLs. First selected is the hero; the rest spread through the article. <strong>Insert</strong> writes them into the markdown above — then Save changes.</div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+          <button class="bg" id="meFindImgBtn">Find product images</button>
+          <button class="bp" id="meInsertImgBtn" disabled>Insert selected images →</button>
+        </div>
+        <div id="meImageAlert"></div>
+        <div id="meImageGrid" class="igrid"></div>
+        <div id="meImgStatus" style="font-size:12px;color:#888;margin-top:8px;font-weight:600"></div>
+        <div style="margin-top:8px"><input id="meManualImgUrl" placeholder="Or paste an image URL and press Enter…"/></div>
+      </div>
     </div>
     <div class="mnote">Edits and deletes commit straight to GitHub; the site redeploys automatically within ~60 seconds.</div>
   </div>
@@ -1689,6 +1701,7 @@ async function editArticle(f){
     editingPath=f.path;editingSha=d.sha;
     document.getElementById('meContent').value=b64decode(d.content);
     document.getElementById('meName').textContent=f.path;
+    meResetImages();
     document.getElementById('manageList').style.display='none';
     document.getElementById('manageEditor').style.display='block';
     setAlert('manageAlert','','');
@@ -1717,6 +1730,85 @@ async function deleteArticle(f,fromEditor){
     if(fromEditor)showManageList();
   }catch(e){setAlert('manageAlert','er','Delete failed: '+e.message);}
 }
+
+// Manage editor — image stage for an existing draft. Pulls product images from
+// the review's buy link (or pasted URLs) and writes hero_image + inline images
+// into the loaded markdown, re-runnably (existing inline images are stripped first).
+let meImgs=[],meSel=[];
+function meResetImages(){meImgs=[];meSel=[];const g=document.getElementById('meImageGrid');if(g)g.innerHTML='';setAlert('meImageAlert','','');meUpdateImgStatus();}
+function meField(name){const t=document.getElementById('meContent').value||'';const m=t.match(new RegExp('^'+name+':[ \\t]*"?([^"\\n]*?)"?[ \\t]*$','im'));return m?m[1].trim():'';}
+function meProductName(){const b=meField('brand'),t=meField('title');if(b&&t&&!t.toLowerCase().startsWith(b.toLowerCase()))return (b+' '+t).trim();return (t||b||'Product image').trim();}
+async function meFindImages(){
+  const src=meField('shopify_link')||meField('product_url')||meField('affiliate_link');
+  if(!src){setAlert('meImageAlert','inf','No buy link in this review — paste an image URL below instead.');return;}
+  setAlert('meImageAlert','inf','Fetching images from the buy link…');
+  try{
+    const r=await fetch(src);const html=await r.text();
+    const set=new Set();
+    [...html.matchAll(/og:image["']?\s*content=["']([^"']+)["']/gi)].forEach(m=>set.add(m[1]));
+    [...html.matchAll(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp)[^"']*)["']/gi)].forEach(m=>set.add(m[1]));
+    const found=[...set].filter(u=>!/icon|logo|sprite|favicon/i.test(u)).slice(0,12).map(u=>({url:u.startsWith('//')?'https:'+u:u}));
+    if(found.length){meImgs=found;meSel=[0];meRenderImages();setAlert('meImageAlert','ok',found.length+' image(s) found — first is selected as the hero. Click to add up to 4.');}
+    else setAlert('meImageAlert','wr','No images found automatically — paste an image URL below.');
+  }catch{setAlert('meImageAlert','wr','Could not fetch automatically (the retailer may block cross-origin requests). Paste image URLs below instead.');}
+}
+function meRenderImages(){
+  const el=document.getElementById('meImageGrid');if(!el)return;
+  el.innerHTML=meImgs.map((im,i)=>`<div class="icard${meSel.includes(i)?' sel':''}${meSel[0]===i?' feat':''}" data-mi="${i}"><img src="${esc(im.url)}" loading="lazy" alt=""/><div class="ifeat">★ Featured</div><div class="itick">✓</div></div>`).join('');
+  el.querySelectorAll('.icard img').forEach(im=>im.addEventListener('error',()=>{const c=im.closest('.icard');if(c){c.style.opacity='.2';c.title='Image failed to load';}}));
+  meUpdateImgStatus();
+}
+function meUpdateImgStatus(){
+  const n=meSel.length,el=document.getElementById('meImgStatus');if(!el)return;
+  el.textContent=n?`${n}/4 selected · first is the hero, the rest spread through the article`:'No images selected — click thumbnails above, or paste a URL below.';
+  el.style.color=n?'#060':'#888';
+  const b=document.getElementById('meInsertImgBtn');if(b)b.disabled=!n;
+}
+function meInsertImagesIntoMarkdown(src,imgs,name){
+  imgs=imgs.slice(0,4);
+  const alt=String(name||'Product image').replace(/[\[\]]/g,'').trim();
+  const imgMd=(im,i)=>`\n\n![${alt}${i?' — image '+(i+1):''}](${im.url})\n`;
+  const fmM=src.match(/^(---\r?\n[\s\S]*?\r?\n---\r?\n)([\s\S]*)$/);
+  let fm=fmM?fmM[1]:'';let body=fmM?fmM[2]:src;
+  const hero=imgs[0]?imgs[0].url:'';
+  if(fm){
+    if(/^hero_image:.*$/im.test(fm))fm=fm.replace(/^hero_image:.*$/im,'hero_image: "'+hero+'"');
+    else fm=fm.replace(/(\r?\n---\r?\n)$/,'\nhero_image: "'+hero+'"$1');
+  }
+  // Strip any existing inline images so re-running doesn't duplicate them.
+  body=body.replace(/^[ \t]*!\[[^\]]*\]\([^)]*\)[ \t]*$/gm,'').replace(/\n{3,}/g,'\n\n').replace(/^\s+/,'');
+  const am=body.match(/^##[ \t]*WSS[^\n]*Assessment[^\n]*$/im);
+  if(!am){return fm+imgMd(imgs[0],0).replace(/^\n+/,'')+'\n\n'+body;}
+  const before=body.slice(0,am.index).replace(/\s+$/,'');
+  let restFromAsm=body.slice(am.index);
+  const afterHeadRel=restFromAsm.slice(am[0].length).search(/\n##[ \t]/);
+  const asmEnd=afterHeadRel>=0?am[0].length+afterHeadRel:restFromAsm.length;
+  let asm=restFromAsm.slice(0,asmEnd);
+  const tail=restFromAsm.slice(asmEnd);
+  const h3=[...asm.matchAll(/\n###[ \t]/g)].map(m=>m.index);
+  const inline=imgs.slice(1);
+  // Insert from the end so earlier indices stay valid; each inline image goes
+  // before a later criterion heading, spreading them through the assessment.
+  for(let k=Math.min(inline.length,Math.max(0,h3.length-1));k>=1;k--){
+    asm=asm.slice(0,h3[k])+'\n'+imgMd(inline[k-1],k)+asm.slice(h3[k]);
+  }
+  return fm+before+imgMd(imgs[0],0)+'\n'+asm+tail;
+}
+(function bindMeImages(){
+  const grid=document.getElementById('meImageGrid');
+  if(grid)grid.addEventListener('click',e=>{const c=e.target.closest('[data-mi]');if(!c)return;const i=parseInt(c.dataset.mi);const idx=meSel.indexOf(i);if(idx>=0)meSel.splice(idx,1);else{if(meSel.length>=4){setAlert('meImageAlert','inf','Maximum of 4 images — deselect one first.');return;}meSel.push(i);}meRenderImages();});
+  const man=document.getElementById('meManualImgUrl');
+  if(man)man.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const u=(e.target.value||'').trim();if(!/^https?:\/\//i.test(u)){setAlert('meImageAlert','er','Enter a full image URL starting with http(s)://');return;}meImgs.push({url:u});if(meSel.length<4)meSel.push(meImgs.length-1);e.target.value='';setAlert('meImageAlert','','');meRenderImages();});
+  const find=document.getElementById('meFindImgBtn');if(find)find.addEventListener('click',meFindImages);
+  const ins=document.getElementById('meInsertImgBtn');
+  if(ins)ins.addEventListener('click',()=>{
+    const imgs=meSel.map(i=>meImgs[i]).filter(Boolean);
+    if(!imgs.length)return;
+    const ta=document.getElementById('meContent');
+    ta.value=meInsertImagesIntoMarkdown(ta.value,imgs,meProductName());
+    setAlert('meImageAlert','ok','Images written into the markdown above (hero + inline). Review it, then Save changes.');
+  });
+})();
 
 // Review preview (renders the final markdown the way the live page will)
 function mdToHtml(md){
