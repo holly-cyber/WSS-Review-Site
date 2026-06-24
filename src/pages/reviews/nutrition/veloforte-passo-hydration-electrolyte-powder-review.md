@@ -11,7 +11,7 @@ tested_by: "Holly Woodford"
 draft: true
 excerpt: "A light, natural electrolyte powder that lets you top up carbs without overloading them — gut-friendly, genuinely enjoyable to drink and built for long endurance days."
 meta_description: "WSS™ review of Veloforte Passo electrolyte powder — natural ingredients, taste, carb and electrolyte profile, gut-friendly performance and value, scored against the WSS nutrition framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-07-at-10.59.45-1519x1536.png"
+hero_image: "http://veloforte.com/cdn/shop/files/2026chewsPDPpages-29.jpg?v=1773853759"
 overall_score: 4.6
 affiliate_link: "https://veloforte.avln.me/c/gyKUlMgzpqGI"
 shopify_link: ""
@@ -36,23 +36,36 @@ faq:
 migration_source: "https://womenssportsstore.com/veloforte-passo-hydration-electrolyte-powder-review/"
 migration_notes: "WSS pilot rewrite from the migrated WordPress article against the WSS Nutrition framework v2.0. Draft scores proposed by WSS (weighted average, no hard-rule cap on the nutrition framework). Confirm tested_by/price before publishing."
 ---
-
 ## Veloforte Passo Hydration Electrolyte Powder Review
 
 ### Natural Electrolyte Hydration for Long Endurance Days
 
 Getting hydration right is a balancing act: too sweet and it turns your stomach, too weak and it does nothing, too heavy and it throws your whole fuelling plan off. Deep into ultra training — especially building towards a 100K mountain race — I want something that quietly does its job without drama or a sugar overload. **Veloforte Passo** has become one of those products I reach for without thinking. It's simple, natural and genuinely effective, and after weeks of long sessions it's earned a permanent spot in my race vest.
 
+![Veloforte Passo Hydration Electrolyte Powder](http://veloforte.com/cdn/shop/files/2026chewsPDPpages-29.jpg?v=1773853759)
+
 ## WSS™ Assessment
 
 ### Taste & Texture — 5/5 ★★★★★
 This is where Passo wins me over. The flavour is light, clean and refreshing — *moreish*, even — without the sickly sweetness that becomes unbearable four or five hours in. I actually looked forward to drinking it on long efforts, which is the real test of whether you'll fuel consistently. It mixes with no clumps, grit or residue: a smooth, clean drink every time, shaken mid-run or prepped in advance.
 
+
+
+![Veloforte Passo Hydration Electrolyte Powder — image 2](https://veloforte.com/cdn/shop/files/2026chewsPDPpages-30.jpg?crop=center&height=2083&v=1773853759&width=2083)
+
 ### Nutrition Profile — 4/5 ★★★★☆
 The formulation is clearly built for endurance, with a refined approach rather than a high-sugar dump. Each serving brings around **20–22g of carbohydrate** — deliberately lower — plus a balanced **275mg sodium and 175mg potassium**, from a fully natural ingredient list free of the usual additives. That lower-carb design is a strength for layered fuelling, though athletes wanting hydration to carry a bigger carb load will need to combine it with other fuels.
 
+
+
+![Veloforte Passo Hydration Electrolyte Powder — image 3](https://veloforte.com/cdn/shop/files/running_track.png?crop=center&height=1100&v=1771925492&width=1000)
+
 ### Performance — 5/5 ★★★★★
 It delivers exactly what endurance fuelling needs: it's **easy on the stomach**, with no bloating or sloshing even when climbing hard late in a session — a genuine advantage given how often gut issues end long races (and one that's mattered more to me through peri-menopause). It slots neatly into a broader strategy as a carb top-up, and the single-serve sachets are practical to store in a vest and quick to open mid-effort.
+
+
+
+![Veloforte Passo Hydration Electrolyte Powder — image 4](https://labels.sfo3.digitaloceanspaces.com/files/16058GT%20producer%20250px1722442997.png)
 
 ### Value — 4/5 ★★★★☆
 Passo sits a little above mainstream electrolyte powders, but the premium buys clean natural ingredients, a flavour you'll actually drink and a gut-friendly formula that holds up under stress. For a product this central to performance, that's money well spent. It's not the cheapest scoop on the shelf, which is the only thing keeping it from full marks here.
