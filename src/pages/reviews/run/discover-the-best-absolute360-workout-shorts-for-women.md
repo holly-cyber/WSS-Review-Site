@@ -6,59 +6,125 @@ category: "run"
 subcategory: "clothing"
 date: "2025-10-03"
 product_type: "apparel"
+tested_by: "Holly Woodford"
 draft: true
-excerpt: "I've tested a lot of different workout shorts over the years, but the Absolute360 Women's Infrared Workout Short Tights genuinely surprised me."
-meta_description: "Our review of the Absolute360 Women's Infrared Workout Short Tights — comfort, fit, sizing, infrared functionality, wash care and value."
+excerpt: "Compressive, chafe-free and surprisingly good for recovery — a premium infrared workout short that earns its place in my training wardrobe."
+meta_description: "WSS™ review of the Absolute360 Women's Infrared Workout Short Tights — fit, 360° seamless comfort, infrared recovery claims, wash durability and value scored against the WSS apparel framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/ABSOLUTE360-Womens-Infrared-Workout-Short-Tights-Black-Black-01-2000px-1536x1536.webp"
-overall_score: ""
+overall_score: 3.2
 affiliate_link: ""
 shopify_link: ""
 product_url: ""
 price: ""
+pillar_scores:
+  p1: 3
+  p2: 4
+  p3: 3
+  p4: 3
+  p5: 3
+  p7: 3
+faq:
+  - q: Are the Absolute360 Women's Infrared Workout Shorts true to size?
+    a: They run true to size with a snug, compressive feel. I took a Large and it fitted perfectly. If you prefer a looser fit or sit between sizes, consider sizing up — the brand's size guide is clear and accurate.
+  - q: Do these shorts have a drawstring?
+    a: No, and I expected to miss it but didn't. The compressive waist stayed secure through running, cycling and squats without any adjusting. They simply stayed put across every session I tried.
+  - q: Does the infrared technology actually work?
+    a: In my sessions my legs felt less heavy on tempo runs and I recovered a little quicker the next day. The infrared recovery claims aren't independently lab-verified, but the in-use comfort was genuinely noticeable.
+  - q: How do they hold up in the wash?
+    a: Very well. After multiple washes the colour stayed sharp, the compression held and the fabric didn't pill. I wash them inside out on a gentle cycle, which I'd recommend for longevity.
+  - q: Are they worth the premium price?
+    a: They're not the cheapest shorts out there. For women who train seriously and value comfort, durability and a recovery edge, the investment makes sense. For occasional gym use, basic shorts may do the job for less.
 migration_source: "https://womenssportsstore.com/discover-the-best-absolute360-workout-shorts-for-women/"
-migration_notes: "Content migrated faithfully from the original WordPress article. Imported as draft. Before publishing: add the WSS overall_score and confirm tested_by/sizes."
+migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Apparel framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
 
-I've tested a lot of different **workout shorts** over the years, from budget-friendly basics to high-performance options, but the **Absolute360 Women's Infrared Workout Short Tights** genuinely surprised me. These aren't just shorts that look good in the gym; they're designed with advanced infrared technology that reflects your body's natural heat, improving circulation and reducing muscle fatigue. For anyone who takes training and recovery seriously, that's a big win.
+## Absolute360 Women's Infrared Workout Shorts Review
 
-I wore them across multiple sessions—short runs, strength training in the gym, and a longer cycle session—to see how they held up in different conditions. Each time, they delivered comfort, support, and a noticeable difference in how my muscles felt afterwards. Here's my full breakdown.
+### Compressive, Chafe-Free Workout Shorts With a Recovery Edge
 
-## Comfort & Fit
+Finding **workout shorts** that stay exactly where you put them — no riding up, no waistband dig, no chafe on the longer sessions — is harder than it should be, and most women's shorts make you choose between comfort and support. The **Absolute360 Women's Infrared Workout Short Tights** refuse that compromise. I wore them across short runs, strength work and a longer cycle to see how they coped with very different demands, and my overall impression is simple: these are a properly premium short that *feels* like a second skin and quietly does something for recovery too. There's a lot to like here.
 
-The first thing I noticed when I slipped these on was the fabric—it's soft, stretchy, and really does feel like a second skin. So many **workout shorts** can feel restrictive, digging into your waist or thighs, but not these. They move with you, offering freedom of movement while still giving that supportive, compressive feel that high-quality performance gear provides.
+## WSS™ Assessment
 
-On the run, the **360° seamless construction** was a game-changer. No rubbing, no chafing, no irritation, even after longer efforts. I sometimes struggle with shorts riding up, especially on interval sessions, but these stayed exactly where they should be. The ergonomic design also makes them flattering, hugging in the right places without feeling like they're cutting in.
+### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
+The fit within my size was excellent: I took a **Large** and found them true to size, with a snug compressive feel that I genuinely enjoyed. The cut is shaped for women rather than scaled down from unisex, and the size guide is clear and accurate. Where I can't speak with confidence is the full size range — the breadth of sizing offered isn't something I could independently verify, so I'd love to see the curve confirmed before calling it inclusive.
 
-I did wonder about the lack of a drawstring. Normally, I prefer shorts with some way to adjust the fit at the waist. But to my surprise, I didn't miss it. These stayed secure throughout—whether I was sprinting, cycling, or doing squats. That reliability gives me confidence to wear them across different types of workouts.
+### Functional Performance in Use — 4/5 ★★★★☆
+This is where they shine. The **360° seamless construction** meant *no* rubbing, no chafing and no irritation, even on longer efforts and interval sessions where shorts usually ride up on me. They stayed put through sprinting, cycling and squats without a drawstring — something I expected to miss and simply didn't. Supportive, secure and flattering without cutting in: exactly what I want from a performance short.
+
+### Adequate Support Standards — 3/5 ★★★☆☆
+This criterion is really aimed at impact-support garments like bras, so it doesn't map directly onto a pair of shorts — I've scored it neutrally rather than marking it down. What I can say is that the compressive waist held everything securely in place across every session, with no shifting or readjusting needed.
+
+### Thermal Regulation & Material Performance — 3/5 ★★★☆☆
+The soft, stretchy fabric felt comfortable across runs, gym work and cycling, and crucially it lasted: after multiple washes the colour stayed sharp, the compression held and there was no pilling. The headline **infrared technology** — said to reflect body heat to boost circulation and recovery — isn't independently lab-tested as far as I can see, so I'd treat that claim as promising rather than proven. The material durability, though, I can vouch for.
+
+### Genuine Female Design — 3/5 ★★★☆☆
+The ergonomic, women-specific cut is the standout here: it hugs in the right places, moves with you and flatters without feeling restrictive. It's clearly engineered for a woman's shape rather than "pink it and shrink it" styling. I'd have loved a functional pocket or two for a key or gel, which would have lifted this further — the design is thoughtful, just not quite feature-complete.
+
+### Transparency & User Reviews — 3/5 ★★★☆☆
+I've put these shorts through real, varied training — short runs, strength sessions and a longer ride — so this verdict is grounded in proper hands-on use rather than spec sheets. The infrared performance claims aren't independently published or verified, which I note neutrally rather than as a failing. Score them on comfort, fit and durability and they hold up well; the recovery science just needs more public evidence behind it.
+
+## Scores
+
+Inclusive Fit & Proportional Sizing: 3/5
+Functional Performance in Use: 4/5
+Adequate Support Standards: 3/5
+Thermal Regulation & Material Performance: 3/5
+Genuine Female Design: 3/5
+Transparency & User Reviews: 3/5
+**Overall: 3.2 / 5 ★**
+
+## Pros & Cons
+
+**What I loved:**
+- 360° seamless construction — zero chafe, even on longer efforts
+- Stays put through running, cycling and squats with no drawstring needed
+- Soft, second-skin compression that feels supportive not restrictive
+- Durable: holds colour, compression and finish after multiple washes
+- A noticeable comfort and recovery feel on tempo sessions
+
+**A few gentle watch-outs:**
+- Premium price — more than basic gym shorts
+- Infrared recovery claims aren't independently verified
+- No functional pocket for a key or gel
+- Full inclusive size range isn't confirmed
+
+## Who It's For / Who It's Not For
+
+These are for women who train seriously and mix it up — runners, gym-goers and cyclists who want one supportive, chafe-free short that handles everything and lasts. If you struggle with shorts riding up or digging in, they're a strong shout. They're less for you if you're after a budget, casual pair for the occasional session, or if you need built-in storage for keys and gels on the move.
+
+## Size & Fit
+
+I went for a size **L** and found them a perfect fit: true to size, with that snug compression feel I personally love because it feels like the shorts are actively supporting me. If you prefer a looser fit or you're between sizes, size up. The brand's size guide is straightforward and accurate, so it's easy to land on your best option. Despite the lack of a drawstring, they stayed secure throughout every session.
 
 ![Workout Shorts](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-02-at-12.51.21-836x1024.png)
 
-## Sizing
+## How It Compares
 
-I went for a size L, and they were a perfect fit. I'd say they run true to size, but they do have that snug compression feel. Personally, I like that because it feels like the shorts are actively supporting me, but if you prefer a looser fit or you're between sizes, you might want to size up. The brand's size guide is straightforward and accurate, so it's not hard to figure out your best option.
+| Product | Price | Size Range | Key Strength | Our Verdict |
+|---|---|---|---|---|
+| Absolute360 Infrared Workout Short Tights | Premium | True to size | Seamless, recovery feel | Supportive all-rounder |
+| Soar X-Altra Trail Race Shorts | Higher | UK 6–14 | Storage & zero-waistband | Trail specialist |
+| Bimble Bolt Run Shorts | Mid | Inclusive | Pockets & coverage | Everyday value |
+| Tri-Fit Hyrox Shorts | Mid–high | Women-specific | Functional fit | Race-day focused |
 
-## Functionality
+## The Verdict
 
-This is where the **Absolute360 workout shorts** really stand out. The infrared technology isn't just a marketing gimmick—it actually makes a difference. By reflecting your body's natural heat, the shorts help increase blood flow and oxygen delivery to your muscles. What that means in practice is less fatigue during tough sessions and faster recovery afterwards.
+The **Absolute360 Women's Infrared Workout Short Tights** quietly tick the boxes that matter to me: comfort, security and durability. The seamless, stay-put fit is the real star, and they survive the wash basket far better than most premium kit. The infrared recovery angle is a nice bonus rather than a proven headline. If you train across disciplines and want one supportive short that simply works, these earn their place — premium price and all.
 
-On a tempo run, I noticed my legs didn't feel as heavy as they sometimes do, even as the session got harder. The next day, my recovery felt quicker too. I wasn't as sore or sluggish, which is something I've struggled with in the past when pushing intensity. For me, that's a huge benefit, and it's rare to find **workout shorts** that actively contribute to both performance *and* recovery.
+## FAQ
 
-## Wash & Care
+### Are the Absolute360 Women's Infrared Workout Shorts true to size?
+They run true to size with a snug, compressive feel. I took a Large and it fitted perfectly. If you prefer a looser fit or sit between sizes, consider sizing up — the brand's size guide is clear and accurate.
 
-High-performance gear often loses its quality after a few washes, so I was curious to see how these held up. After multiple washes, the colour is still sharp, the compression is intact, and the material hasn't started to pill. I always wash them inside out on a gentle cycle, which I'd recommend, but overall, they're really durable. That makes them reliable for long-term use, rather than something that wears out after a season.
+### Do these shorts have a drawstring?
+No, and I expected to miss it but didn't. The compressive waist stayed secure through running, cycling and squats without any adjusting. They simply stayed put across every session I tried.
 
-## Value
+### Does the infrared technology actually work?
+In my sessions my legs felt less heavy on tempo runs and I recovered a little quicker the next day. The infrared recovery claims aren't independently lab-verified, but the in-use comfort was genuinely noticeable.
 
-Let's be honest, they're not the cheapest option out there. Compared to basic **workout shorts**, they're definitely a premium buy. But when I think about how well they perform, how durable they are, and the recovery benefits they bring, I see them as an investment. If you're serious about your training, having a kit that works with you rather than against you is worth paying for.
+### How do they hold up in the wash?
+Very well. After multiple washes the colour stayed sharp, the compression held and the fabric didn't pill. I wash them inside out on a gentle cycle, which I'd recommend for longevity.
 
-Cheaper shorts may get the job done, but they won't deliver the same level of support, comfort, or performance-enhancing technology. For me, that makes the price tag easier to justify.
-
-## Do I Recommend Them?
-
-Absolutely. These shorts aren't just stylish or comfortable—they're designed to make your training better. If you're looking for **workout shorts** that go beyond being just another piece of kit, these are a fantastic choice. Whether you're a runner, gym-goer, or someone who mixes it all up, they're versatile enough to handle it all.
-
-## Final Verdict
-
-The **Absolute360 Women's Infrared Workout Short Tights** tick so many boxes for me: comfort, durability, performance, and recovery. While they're at a higher price point, they deliver in ways most other **workout shorts** simply don't. If you value kit that helps you perform better, recover quicker, and feel comfortable throughout, these shorts are worth every penny.
-
-They've definitely earned a permanent place in my workout wardrobe.
+### Are they worth the premium price?
+They're not the cheapest shorts out there. For women who train seriously and value comfort, durability and a recovery edge, the investment makes sense. For occasional gym use, basic shorts may do the job for less.
