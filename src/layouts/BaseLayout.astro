@@ -11,12 +11,17 @@ const { title, description = "Women's Sports Store — Independent product revie
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPath = Astro.url.pathname;
 
-// Umami (self-hosted) — privacy-first, cookieless analytics. Activates only
-// when both env vars are set, so the site stays clean until configured:
-//   PUBLIC_UMAMI_SRC          = https://<your-umami-host>/script.js
-//   PUBLIC_UMAMI_WEBSITE_ID   = <website uuid from the Umami dashboard>
-const umamiSrc = import.meta.env.PUBLIC_UMAMI_SRC;
-const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+// Umami — privacy-first, cookieless analytics. Activates only when both env
+// vars are set, so the site stays clean until configured:
+//   PUBLIC_UMAMI_SRC         = https://cloud.umami.is/script.js  (bare URL)
+//                              OR the full <script ...></script> snippet Umami
+//                              gives you — either is accepted.
+//   PUBLIC_UMAMI_WEBSITE_ID  = <website uuid from the Umami dashboard>
+const rawUmamiSrc = (import.meta.env.PUBLIC_UMAMI_SRC || '').trim();
+const rawUmamiId = (import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || '').trim();
+// Tolerate pasting the whole embed snippet: pull the src URL / id out of it.
+const umamiSrc = (rawUmamiSrc.match(/src=["']([^"']+)["']/)?.[1] || rawUmamiSrc);
+const umamiId = rawUmamiId || (rawUmamiSrc.match(/data-website-id=["']([^"']+)["']/)?.[1] || '');
 
 // Latest review per category (for the mega-menu featured card) + which sub /
 // sub-sub categories actually have reviews (only those are shown in nav).
