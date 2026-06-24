@@ -179,6 +179,19 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .pv-stars-wrap{position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em;font-size:18px}
 .pv-stars-bg{color:rgba(255,255,255,.35)}
 .pv-stars-fg{position:absolute;top:0;left:0;overflow:hidden;color:#FF5E84;width:0}
+/* Manage editor: split markdown / live-preview view */
+#meSplit{display:flex;gap:12px;align-items:stretch}
+#meSplit>textarea{flex:1 1 50%;min-width:0;margin:0}
+#mePreview{flex:1 1 50%;min-width:0;max-height:62vh;overflow:auto;border:1px solid #e5e5e5;border-radius:10px;background:#fff}
+#mePreview:empty::before{content:'Live preview appears here as you type.';display:block;padding:18px;color:#aaa;font-size:13px}
+#manageEditor.view-edit #mePreview{display:none}
+#manageEditor.view-edit #meContent{flex-basis:100%}
+#manageEditor.view-preview #meContent{display:none}
+#manageEditor.view-preview #mePreview{flex-basis:100%;max-height:70vh}
+#meViewToggle .meview{background:#f4f4f7;border:0;border-left:1px solid #ddd;padding:6px 13px;font-size:12px;font-weight:600;color:#555;cursor:pointer}
+#meViewToggle .meview:first-child{border-left:0}
+#meViewToggle .meview.active{background:#000036;color:#fff}
+@media(max-width:760px){#meSplit{flex-direction:column}#mePreview{max-height:48vh}}
 </style>
 <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -371,15 +384,25 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 </div>
 
 <div class="ov" id="manageOv">
-  <div class="mo" style="max-width:700px">
+  <div class="mo" style="max-width:1040px">
     <div class="moh"><div class="mot">Manage articles</div><button class="mox" id="manageCloseBtn">×</button></div>
     <div id="manageAlert"></div>
     <div id="manageList">
       <div style="padding:10px;color:#aaa;font-size:13px">Loading…</div>
     </div>
-    <div id="manageEditor" style="display:none">
-      <div style="margin-bottom:8px;font-size:12px;color:#777">Editing: <strong id="meName"></strong></div>
-      <textarea id="meContent" rows="20" style="font-family:monospace;font-size:12px"></textarea>
+    <div id="manageEditor" class="view-split" style="display:none">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+        <div style="font-size:12px;color:#777">Editing: <strong id="meName"></strong></div>
+        <div id="meViewToggle" style="margin-left:auto;display:inline-flex;border:1px solid #ddd;border-radius:8px;overflow:hidden">
+          <button type="button" class="meview" data-view="edit">Markdown</button>
+          <button type="button" class="meview active" data-view="split">Split</button>
+          <button type="button" class="meview" data-view="preview">Live preview</button>
+        </div>
+      </div>
+      <div id="meSplit">
+        <textarea id="meContent" rows="24" style="font-family:monospace;font-size:12px"></textarea>
+        <div id="mePreview"></div>
+      </div>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
         <button class="bp" id="meSaveBtn">Save changes</button>
         <button class="bg" id="meBackBtn">← Back to list</button>
@@ -1703,6 +1726,7 @@ async function editArticle(f){
     meResetImages();
     document.getElementById('manageList').style.display='none';
     document.getElementById('manageEditor').style.display='block';
+    meSetView('split');
     setAlert('manageAlert','','');
   }catch(e){setAlert('manageAlert','er','Could not load: '+e.message);}
 }
@@ -1737,6 +1761,44 @@ let meImgs=[],meSel=[];
 function meResetImages(){meImgs=[];meSel=[];const g=document.getElementById('meImageGrid');if(g)g.innerHTML='';const u=document.getElementById('meImgUrl');if(u)u.value=meField('shopify_link')||meField('product_url')||meField('affiliate_link')||'';setAlert('meImageAlert','','');meUpdateImgStatus();}
 function meField(name){const t=document.getElementById('meContent').value||'';const m=t.match(new RegExp('^'+name+':[ \\t]*"?([^"\\n]*?)"?[ \\t]*$','im'));return m?m[1].trim():'';}
 function meProductName(){const b=meField('brand'),t=meField('title');if(b&&t&&!t.toLowerCase().startsWith(b.toLowerCase()))return (b+' '+t).trim();return (t||b||'Product image').trim();}
+// Switch the editor between Markdown-only / Split / Live-preview.
+function meSetView(v){
+  const ed=document.getElementById('manageEditor');if(!ed)return;
+  ed.classList.remove('view-edit','view-split','view-preview');ed.classList.add('view-'+v);
+  document.querySelectorAll('#meViewToggle .meview').forEach(x=>x.classList.toggle('active',x.dataset.view===v));
+  if(v!=='edit')meRenderLivePreview();
+}
+// Render the current markdown the way the live review page will look, into the
+// preview pane — reuses mdToHtml and the same pv- styles as the full preview.
+function meRenderLivePreview(){
+  const pane=document.getElementById('mePreview');if(!pane)return;
+  const md=document.getElementById('meContent').value||'';
+  const fmM=md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  const fm=fmM?fmM[1]:'';const body=fmM?fmM[2]:md;
+  const f=(name)=>{const m=fm.match(new RegExp('^'+name+':[ \\t]*"?([^"\\n]*?)"?[ \\t]*$','im'));return m?m[1].trim():'';};
+  const title=f('title')||'Untitled review',brand=f('brand'),price=f('price');
+  const category=(f('category')||'').replace(/-/g,' '),overall=f('overall_score');
+  const tested=f('tested_by'),avatar=f('reviewer_avatar'),bio=f('reviewer_bio'),hero=f('hero_image');
+  const aff=f('affiliate_link'),shop=f('shopify_link');
+  const pct=Math.max(0,Math.min(100,(parseFloat(overall||'0')/5)*100));
+  const stars=`<span class="pv-stars-wrap"><span class="pv-stars-bg">★★★★★</span><span class="pv-stars-fg" style="width:${pct}%">★★★★★</span></span>`;
+  const heroBg=hero?` style="background-image:linear-gradient(rgba(0,0,54,.82),rgba(0,0,54,.82)),url('${esc(hero)}');background-size:cover;background-position:center"`:'';
+  let h=`<div class="pv-hero"${heroBg}>`;
+  if(category)h+=`<div class="pv-pill">${esc(category)}</div>`;
+  h+=`<div class="pv-title">${esc(title)}</div>`;
+  if(brand||price)h+=`<div class="pv-brand">${brand?'by <strong>'+esc(brand)+'</strong>':''}${price?' · £'+esc(price):''}</div>`;
+  if(overall)h+=`<div class="pv-score">${stars}<span class="overall-num">${esc(overall)}/5</span><span class="pv-badge">WSS™ Reviewed</span></div>`;
+  if(tested)h+=`<div class="pv-byline">${avatar?`<img src="${esc(avatar)}" alt=""/>`:''}<span>Reviewed by <strong>${esc(tested)}</strong></span></div>`;
+  h+=`</div>`;
+  let c=`<div class="pv-content">${mdToHtml(body)}`;
+  const buy=[];
+  if(shop)buy.push(`<span class="pv-buy">Buy from WSS store${price?' — £'+esc(price):''} →</span>`);
+  if(aff)buy.push(`<span class="pv-buy${shop?' alt':''}">Buy direct from ${esc(brand||'brand')} →</span>`);
+  if(buy.length)c+=`<div class="pv-cta">${buy.join('')}</div>`;
+  if(tested||bio)c+=`<div class="pv-reviewer">${avatar?`<img src="${esc(avatar)}" alt=""/>`:''}<div><div class="lbl">About the reviewer</div>${tested?`<div class="nm">${esc(tested)}</div>`:''}${bio?`<p class="bio">${esc(bio)}</p>`:''}</div></div>`;
+  c+=`</div>`;
+  pane.innerHTML=h+c;
+}
 async function meFindImages(){
   const src=((document.getElementById('meImgUrl')||{}).value||'').trim()||meField('shopify_link')||meField('product_url')||meField('affiliate_link');
   if(!/^https?:\/\//i.test(src)){setAlert('meImageAlert','inf','Enter a product page URL above (or paste a direct image URL below).');return;}
@@ -1798,6 +1860,8 @@ function meInsertImagesIntoMarkdown(src,imgs,name){
   if(man)man.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const u=(e.target.value||'').trim();if(!/^https?:\/\//i.test(u)){setAlert('meImageAlert','er','Enter a full image URL starting with http(s)://');return;}meImgs.push({url:u});if(meSel.length<4)meSel.push(meImgs.length-1);e.target.value='';setAlert('meImageAlert','','');meRenderImages();});
   const find=document.getElementById('meFindImgBtn');if(find)find.addEventListener('click',meFindImages);
   const iu=document.getElementById('meImgUrl');if(iu)iu.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();meFindImages();}});
+  const vt=document.getElementById('meViewToggle');if(vt)vt.addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)meSetView(b.dataset.view);});
+  const mc=document.getElementById('meContent');if(mc)mc.addEventListener('input',()=>{clearTimeout(window.__mePvT);window.__mePvT=setTimeout(meRenderLivePreview,250);});
   const ins=document.getElementById('meInsertImgBtn');
   if(ins)ins.addEventListener('click',()=>{
     const imgs=meSel.map(i=>meImgs[i]).filter(Boolean);
