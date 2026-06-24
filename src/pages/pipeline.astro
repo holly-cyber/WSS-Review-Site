@@ -387,15 +387,16 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       </div>
       <div id="meImages" style="margin-top:14px;border-top:1px solid #eee;padding-top:12px">
         <div style="font-size:13px;font-weight:700;color:#000036;margin-bottom:4px">Images <span style="font-weight:400;color:#999">— run the image stage on this review</span></div>
-        <div style="font-size:12px;color:#777;margin-bottom:8px;line-height:1.5">Pull product images from this review's buy link, or paste image URLs. First selected is the hero; the rest spread through the article. <strong>Insert</strong> writes them into the markdown above — then Save changes.</div>
-        <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+        <div style="font-size:12px;color:#777;margin-bottom:8px;line-height:1.5">Paste a <strong>product page URL</strong> (pre-filled from this review's buy link — edit it to point at the retailer's product page) and hit <strong>Find product images</strong>. First selected is the hero; the rest spread through the article. <strong>Insert</strong> writes them into the markdown above — then Save changes.</div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center">
+          <input id="meImgUrl" style="flex:1;min-width:240px" placeholder="https://retailer.com/products/…"/>
           <button class="bg" id="meFindImgBtn">Find product images</button>
-          <button class="bp" id="meInsertImgBtn" disabled>Insert selected images →</button>
         </div>
+        <div style="margin-bottom:8px"><button class="bp" id="meInsertImgBtn" disabled>Insert selected images →</button></div>
         <div id="meImageAlert"></div>
         <div id="meImageGrid" class="igrid"></div>
         <div id="meImgStatus" style="font-size:12px;color:#888;margin-top:8px;font-weight:600"></div>
-        <div style="margin-top:8px"><input id="meManualImgUrl" placeholder="Or paste an image URL and press Enter…"/></div>
+        <div style="margin-top:8px"><input id="meManualImgUrl" placeholder="…or paste a direct image URL (ending .jpg/.png) and press Enter"/></div>
       </div>
     </div>
     <div class="mnote">Edits and deletes commit straight to GitHub; the site redeploys automatically within ~60 seconds.</div>
@@ -1733,13 +1734,13 @@ async function deleteArticle(f,fromEditor){
 // the review's buy link (or pasted URLs) and writes hero_image + inline images
 // into the loaded markdown, re-runnably (existing inline images are stripped first).
 let meImgs=[],meSel=[];
-function meResetImages(){meImgs=[];meSel=[];const g=document.getElementById('meImageGrid');if(g)g.innerHTML='';setAlert('meImageAlert','','');meUpdateImgStatus();}
+function meResetImages(){meImgs=[];meSel=[];const g=document.getElementById('meImageGrid');if(g)g.innerHTML='';const u=document.getElementById('meImgUrl');if(u)u.value=meField('shopify_link')||meField('product_url')||meField('affiliate_link')||'';setAlert('meImageAlert','','');meUpdateImgStatus();}
 function meField(name){const t=document.getElementById('meContent').value||'';const m=t.match(new RegExp('^'+name+':[ \\t]*"?([^"\\n]*?)"?[ \\t]*$','im'));return m?m[1].trim():'';}
 function meProductName(){const b=meField('brand'),t=meField('title');if(b&&t&&!t.toLowerCase().startsWith(b.toLowerCase()))return (b+' '+t).trim();return (t||b||'Product image').trim();}
 async function meFindImages(){
-  const src=meField('shopify_link')||meField('product_url')||meField('affiliate_link');
-  if(!src){setAlert('meImageAlert','inf','No buy link in this review — paste an image URL below instead.');return;}
-  setAlert('meImageAlert','inf','Fetching images from the buy link…');
+  const src=((document.getElementById('meImgUrl')||{}).value||'').trim()||meField('shopify_link')||meField('product_url')||meField('affiliate_link');
+  if(!/^https?:\/\//i.test(src)){setAlert('meImageAlert','inf','Enter a product page URL above (or paste a direct image URL below).');return;}
+  setAlert('meImageAlert','inf','Fetching images from '+src.replace(/^https?:\/\//,'').slice(0,40)+'…');
   try{
     const r=await fetch('/api/scrape-images',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:src})});
     const data=await r.json().catch(()=>({}));
@@ -1796,6 +1797,7 @@ function meInsertImagesIntoMarkdown(src,imgs,name){
   const man=document.getElementById('meManualImgUrl');
   if(man)man.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const u=(e.target.value||'').trim();if(!/^https?:\/\//i.test(u)){setAlert('meImageAlert','er','Enter a full image URL starting with http(s)://');return;}meImgs.push({url:u});if(meSel.length<4)meSel.push(meImgs.length-1);e.target.value='';setAlert('meImageAlert','','');meRenderImages();});
   const find=document.getElementById('meFindImgBtn');if(find)find.addEventListener('click',meFindImages);
+  const iu=document.getElementById('meImgUrl');if(iu)iu.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();meFindImages();}});
   const ins=document.getElementById('meInsertImgBtn');
   if(ins)ins.addEventListener('click',()=>{
     const imgs=meSel.map(i=>meImgs[i]).filter(Boolean);
