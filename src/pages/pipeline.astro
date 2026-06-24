@@ -217,7 +217,7 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
   <div class="slbl"><div class="dot">1</div>Product URL</div>
   <div class="row">
     <div style="flex:2"><label>Product URL *</label><input id="pUrl" type="url" placeholder="https://brand.com/products/product-name"/></div>
-    <div style="flex:1"><label>Product type *</label><select id="pType"><option value="apparel">Apparel</option><option value="equipment">Equipment</option><option value="footwear">Footwear</option><option value="nutrition">Nutrition</option><option value="technology">Technology</option></select></div>
+    <div style="flex:1"><label>Product type *</label><select id="pType"><option value="apparel">Apparel</option><option value="equipment">Equipment</option><option value="footwear">Footwear</option><option value="nutrition">Nutrition</option><option value="technology">Technology</option><option value="wellness">Wellness &amp; Recovery</option></select></div>
     <div><button class="bp" id="scrapeBtn" style="white-space:nowrap">Scrape →</button></div>
   </div>
   <div id="scrapeAlert" style="margin-top:8px"></div>
@@ -633,8 +633,46 @@ VOICE & STYLE — follow closely:
 - Never fabricate testing you didn't do. NEVER use the words "honest" or "honestly".
 - Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words. British English throughout.`;
 
-const FRAMEWORKS={apparel:WSS_APPAREL,nutrition:WSS_NUTRITION,footwear:WSS_FOOTWEAR,technology:WSS_TECHNOLOGY,equipment:WSS_EQUIPMENT};
-const TYPE_LABELS={apparel:'Apparel',nutrition:'Nutrition',footwear:'Footwear',technology:'Technology',equipment:'Equipment'};
+const WSS_WELLNESS=`WSS WELLNESS & RECOVERY REVIEW FRAMEWORK v1.0 — for balms, skincare and anti-chafe products, aromatherapy, candles, recovery and sleep aids, menstrual and intimate-health products and similar wellbeing items. 5 weighted criteria. Overall = weighted average (one decimal); half-stars for the Overall only.
+W1 FEMALE-FOCUSED SUITABILITY (25%): Designed for or genuinely suited to active women's bodies, routines and needs — skin sensitivity, hormonal-cycle and menopause support, post-exercise recovery, intimate health. Not a generic product with a "for her" label. HARD RULE: a generic unisex product with no female-relevant design or benefit caps W1 at 2/5.
+W2 EFFICACY & PERFORMANCE (30%): Does it actually deliver its intended benefit in real use — chafe prevention over long sessions, genuine relaxation/sleep/focus, reliable leak-free protection, real recovery support? Judged on lived experience, not marketing.
+W3 QUALITY, INGREDIENTS & MATERIALS (20%): Ingredient or material quality — natural/clean formulation, skin-safe and dermatologically considerate, medical-grade or body-safe materials where relevant, build and finish.
+W4 EXPERIENCE & USABILITY (15%): The sensory and practical experience — scent, texture and feel, ease and pleasantness of use, format and portability, how well it fits into a real routine or ritual.
+W5 TRANSPARENCY, ETHICS & VALUE (10%): Ingredient/sourcing transparency, substantiated claims, ethical and sustainability credentials, relevant certifications, and value for money. HARD RULE: max 3/5 without clear ingredient/materials transparency or substantiated claims.
+SCORING: 1=Fail 2=Poor 3=Acceptable 4=Very Good 5=Exceptional. Whole numbers per criterion; the Overall may use a half-star.
+OUTPUT FORMAT — use these exact H2 headings, in this order:
+## Overview
+[Open in the first person with personal framing: the wellbeing/recovery problem this solves for active women, then a brief overall impression. ~90 words.]
+## WSS™ Assessment
+[For each criterion an H3 heading EXACTLY like "### Female-Focused Suitability — X/5 ★★★★☆" (X filled ★ and 5−X empty ☆), then a short experience-led paragraph leading with strengths. Criteria in order: Female-Focused Suitability; Efficacy & Performance; Quality, Ingredients & Materials; Experience & Usability; Transparency, Ethics & Value.]
+## Scores
+Female-Focused Suitability (25%): X/5
+Efficacy & Performance (30%): X/5
+Quality, Ingredients & Materials (20%): X/5
+Experience & Usability (15%): X/5
+Transparency, Ethics & Value (10%): X/5
+**Overall: X.X / 5 ★**
+## Pros & Cons
+[Two short, benefit-focused lists: what I loved, then a few gentle watch-outs (kept light).]
+## Who It's For / Who It's Not For
+## Ingredients & Use
+## How It Compares
+[A Markdown table comparing with 2-3 named competing women's wellbeing products. Header row + separator row. Columns: Product | Price | Key Benefit | Natural? | Our Verdict. THIS product in the first row. Short cells.]
+## The Verdict
+[60–90 words. Warm and decisive — who should buy it and why.]
+## FAQ
+[Exactly 5 questions, each as an H3 (### Question?) with an answer under 50 words. Target Google featured snippets.]
+END the review at the FAQ. Do NOT add a "Buy" section, a closing CTA, or any link — the page adds its own buy button. Start directly with ## Overview — no title, no H1, no "Reviewed by" byline. The Scores section is plain text lines (NEVER a table) and must NOT include any calculation, methodology or weighted-sum working.
+VOICE & STYLE — follow closely:
+- Write in the FIRST PERSON as the named reviewer ("I used", "I found", "for me"). Warm, enthusiastic and experience-led — never clinical, never "the tester".
+- Talk directly to the reader. Bold the product name, key features and important terms; use the odd italic, short fragment, colon, parentheses and quotation marks for coined terms.
+- Describe benefits in simple, evaluative terms ("calming", "gentle", "effective", "soothing").
+- Lead with what works. Score fairly and apply the hard rules, but frame constructively — avoid blunt criticism. Where you can't verify something, flag it as "Not independently verified — based on product claims only", never as a failing.
+- Never fabricate testing you didn't do. NEVER use the words "honest" or "honestly".
+- Short-to-medium paragraphs (2–5 sentences). Aim for 700–1,100 words. British English throughout.`;
+
+const FRAMEWORKS={apparel:WSS_APPAREL,nutrition:WSS_NUTRITION,footwear:WSS_FOOTWEAR,technology:WSS_TECHNOLOGY,equipment:WSS_EQUIPMENT,wellness:WSS_WELLNESS};
+const TYPE_LABELS={apparel:'Apparel',nutrition:'Nutrition',footwear:'Footwear',technology:'Technology',equipment:'Equipment',wellness:'Wellness & Recovery'};
 
 const TONES=[
   'TONE NUDGE: Lean a little more story-led — open with a vivid personal moment from using it.',
@@ -666,7 +704,8 @@ const SCORE_AREAS={
   nutrition:[['taste','Taste & Texture (25%)'],['nutrition','Nutrition Profile (30%)'],['performance','Performance (30%)'],['value','Value (15%)']],
   footwear:[['f1','Female-Specific Last Geometry (25%)'],['f2','Functional Performance in Use (25%)'],['f3','Fit Accuracy & Size Range (20%)'],['f4','Female Biomechanics Consideration (20%)'],['f5','Transparency & User Reviews (10%)']],
   technology:[['t1','Female Data & Metrics (30%)'],['t2','Hardware Fit for Female Body (20%)'],['t3','Functional Accuracy in Use (25%)'],['t4','Software & App Usability (15%)'],['t5','Transparency & Independent Testing (10%)']],
-  equipment:[['e1','Female-Specific Design & Sizing (25%)'],['e2','Functional Performance in Use (25%)'],['e3','Fit, Adjustability & Size Range (20%)'],['e4','Safety & Performance Standards (20%)'],['e5','Transparency & User Reviews (10%)']]
+  equipment:[['e1','Female-Specific Design & Sizing (25%)'],['e2','Functional Performance in Use (25%)'],['e3','Fit, Adjustability & Size Range (20%)'],['e4','Safety & Performance Standards (20%)'],['e5','Transparency & User Reviews (10%)']],
+  wellness:[['w1','Female-Focused Suitability (25%)'],['w2','Efficacy & Performance (30%)'],['w3','Quality, Ingredients & Materials (20%)'],['w4','Experience & Usability (15%)'],['w5','Transparency, Ethics & Value (10%)']]
 };
 
 const CFG_DEFAULTS={reviewer:'',reviewerBio:'',reviewerAvatar:'',mlFromName:'WomensSportsStore.com',mlFrom:'holly@womenssportsstore.com',mlGroup:'',gsheetUrl:''};
