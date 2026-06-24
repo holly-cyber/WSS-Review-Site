@@ -162,7 +162,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/pipeline" target="_blank">＋ New review (pipeline) ↗</a>
-      <div style="font-size:11px;color:#5b5b7a;margin-top:10px;letter-spacing:.04em">build r4 · 2026-06-24</div>
+      <div style="font-size:11px;color:#5b5b7a;margin-top:10px;letter-spacing:.04em">build r5 · 2026-06-24</div>
     </nav>
     <main class="main">
       <!-- Dashboard -->
@@ -251,7 +251,7 @@ table.rev tr:hover td{background:#fcfcfd}
   <div class="ov" id="pvOv"><div class="mo" style="max-width:820px;padding:0;overflow:hidden"><div class="moh"><div>Live preview</div><button class="x" id="pvClose">×</button></div><div id="pvBody" style="max-height:84vh;overflow:auto;background:#fff"></div></div></div>
 </AuthGate>
 
-<script type="module">
+<script>
 import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, isDraft, reviewPreviewHtml, insertImages, reviewMeta } from '../lib/review-admin.js';
 
 const $ = (id) => document.getElementById(id);
