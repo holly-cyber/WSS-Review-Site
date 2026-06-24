@@ -11,6 +11,17 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
 
+# Admin surfaces change often — never serve a stale HTML shell, so the latest
+# client bundle is always loaded.
+[[headers]]
+  for = "/console/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/pipeline/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+
 [[redirects]]
   from = "/"
   to = "/reviews/"

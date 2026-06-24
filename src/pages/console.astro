@@ -162,6 +162,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/pipeline" target="_blank">＋ New review (pipeline) ↗</a>
+      <div style="font-size:11px;color:#5b5b7a;margin-top:10px;letter-spacing:.04em">build r4 · 2026-06-24</div>
     </nav>
     <main class="main">
       <!-- Dashboard -->
@@ -315,7 +316,11 @@ async function loadAll(){
     renderDashboard(); renderTable();
     const failed=files.filter(f=>f.error).length;
     alert('revAlert', failed?'wr':'', failed?`Loaded with ${failed} error(s) — reload to retry.`:'');
-  }catch(e){ alert('revAlert','er','Could not load reviews: '+e.message); alert('dashAlert','er',e.message); }
+  }catch(e){
+    const msg = 'Could not load reviews: '+e.message+' <button id="reloadBtn" style="margin-left:10px;padding:4px 10px;border-radius:6px;border:0;background:#000036;color:#fff;cursor:pointer">Retry</button>';
+    alert('revAlert','er',msg); alert('dashAlert','er',msg);
+    document.querySelectorAll('#reloadBtn').forEach(b=>b.addEventListener('click',loadAll));
+  }
 }
 
 // ---- Dashboard ----

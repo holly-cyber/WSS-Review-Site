@@ -12,10 +12,22 @@ export const b64decode = (b) => {
 
 // --- Server proxies -------------------------------------------------------
 export async function ghApi(action, params) {
-  const r = await fetch('/api/github-proxy', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action, ...params }),
-  });
+  // Hard timeout so a non-responding proxy surfaces as a visible error
+  // instead of an indefinite "Loading…".
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 25000);
+  let r;
+  try {
+    r = await fetch('/api/github-proxy', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, ...params }), signal: ctrl.signal,
+    });
+  } catch (e) {
+    clearTimeout(timer);
+    if (e.name === 'AbortError') throw new Error('Request timed out after 25s — the GitHub proxy did not respond. Check that GITHUB_TOKEN is set in the Netlify environment.');
+    throw new Error('Network error reaching the GitHub proxy: ' + e.message);
+  }
+  clearTimeout(timer);
   const data = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(data.message || ('HTTP ' + r.status));
   return data;
