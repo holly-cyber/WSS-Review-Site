@@ -11,6 +11,13 @@ const { title, description = "Women's Sports Store — Independent product revie
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPath = Astro.url.pathname;
 
+// Umami (self-hosted) — privacy-first, cookieless analytics. Activates only
+// when both env vars are set, so the site stays clean until configured:
+//   PUBLIC_UMAMI_SRC          = https://<your-umami-host>/script.js
+//   PUBLIC_UMAMI_WEBSITE_ID   = <website uuid from the Umami dashboard>
+const umamiSrc = import.meta.env.PUBLIC_UMAMI_SRC;
+const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+
 // Latest review per category (for the mega-menu featured card) + which sub /
 // sub-sub categories actually have reviews (only those are shown in nav).
 const reviewMods = import.meta.glob('../pages/reviews/*/*.md', { eager: true });
@@ -70,6 +77,9 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
       });
     }
   </script>
+  {umamiSrc && umamiId && (
+    <script is:inline defer src={umamiSrc} data-website-id={umamiId}></script>
+  )}
 </head>
 <body>
   <header class="site-header">

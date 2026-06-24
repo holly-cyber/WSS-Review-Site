@@ -40,6 +40,8 @@ const buyButtons: any[] = [];
 if (shopLink) buyButtons.push({ href: shopLink, rel: 'nofollow', text: `Buy from WSS store${priceLabel} →`, primary: true });
 if (affLink) buyButtons.push({ href: affLink, rel: 'nofollow sponsored', text: shopLink ? `Buy direct from ${brandName} →` : `Buy direct from ${brandName}${priceLabel} →`, primary: !shopLink });
 if (!buyButtons.length && prodLink) buyButtons.push({ href: prodLink, rel: 'nofollow', text: `Buy now${priceLabel} →`, primary: true });
+// Destination host for click analytics (e.g. "shopify.com", brand site).
+const destHost = (u: string) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
 
 function starHtml(score: number) {
   const pct = Math.max(0, Math.min(100, (Number(score) / 5) * 100));
@@ -174,7 +176,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
           ))}
         </div>
       </div>
-      {buyButtons.map((b) => <a href={b.href} class={`btn ${b.primary ? 'btn-pink' : 'btn-navy'} buy-btn`} target="_blank" rel={b.rel}>{b.text}</a>)}
+      {buyButtons.map((b) => <a href={b.href} class={`btn ${b.primary ? 'btn-pink' : 'btn-navy'} buy-btn`} target="_blank" rel={b.rel} data-umami-event="buy-click" data-umami-event-review={currentSlug} data-umami-event-brand={brandName} data-umami-event-dest={destHost(b.href)} data-umami-event-placement="hero">{b.text}</a>)}
       <div class="quick-facts">
         <h4>Quick facts</h4>
         {fm.product_type && <div class="fact"><span>Type</span><span>{fm.product_type}</span></div>}
@@ -190,7 +192,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
       <slot />
       {buyButtons.length > 0 && (
         <div class="rv-cta">
-          {buyButtons.map((b) => <a class={`rv-buy${b.primary ? '' : ' alt'}`} href={b.href} target="_blank" rel={b.rel}>{b.text}</a>)}
+          {buyButtons.map((b) => <a class={`rv-buy${b.primary ? '' : ' alt'}`} href={b.href} target="_blank" rel={b.rel} data-umami-event="buy-click" data-umami-event-review={currentSlug} data-umami-event-brand={brandName} data-umami-event-dest={destHost(b.href)} data-umami-event-placement="footer">{b.text}</a>)}
         </div>
       )}
       {(fm.tested_by || fm.reviewer_bio || reviewer) && (
