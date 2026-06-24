@@ -438,6 +438,10 @@ $('pvOv').addEventListener('click',e=>{if(e.target===$('pvOv'))$('pvOv').classLi
 const INTEGRATIONS = {
   instagram: { label:'Push to Instagram', icon:'📸', endpoint:'/api/instagram-publish',
     blurb:'Publish the hero image with a generated caption to the connected Instagram Business account.' },
+  facebook:  { label:'Post to Facebook', icon:'📘', endpoint:null,
+    blurb:'Share the review (image, headline and link) to the connected Facebook Page.' },
+  x:         { label:'Post to X', icon:'✖', endpoint:null,
+    blurb:'Post the review headline, score and link to X (Twitter).' },
   email:     { label:'Email campaign', icon:'✉', endpoint:'/api/mailerlite-campaign',
     blurb:'Draft a MailerLite campaign featuring this review.' },
   reel:      { label:'Generate reel', icon:'🎬', endpoint:null,
@@ -449,6 +453,8 @@ const ACTIONS = [
   { id:'draft',   label:(f)=>f.draft?'Publish':'Set draft', icon:'◑', run:(f)=>toggleDraft(f) },
   { id:'delete',  label:'Delete', icon:'🗑', danger:true, run:(f)=>deleteReview(f) },
   { id:'instagram', group:'social', integration:'instagram' },
+  { id:'facebook',  group:'social', integration:'facebook' },
+  { id:'x',         group:'social', integration:'x' },
   { id:'email',     group:'social', integration:'email' },
   { id:'reel',      group:'social', integration:'reel' },
 ];
