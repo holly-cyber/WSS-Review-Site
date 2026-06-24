@@ -269,26 +269,52 @@ function showView(name){
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.nav)));
 
 // ---- Load all reviews ----
+// Concurrency-limited pool: fetching every file at once trips GitHub's
+// secondary rate limit, which made the dashboard hang on "Loading…".
+const POOL = 6;
+async function runPool(items, worker){
+  let idx = 0;
+  const next = async()=>{ while(idx<items.length){ const i=idx++; await worker(items[i], i); } };
+  await Promise.all(Array.from({length:Math.min(POOL, items.length)}, next));
+}
+
+// Fetch + parse a single review's content on demand (used by the hydrate
+// pass and lazily by the editor/preview). No-op if already loaded.
+async function ensureContent(f){
+  if(f.content) return f;
+  const d = await ghApi('get', {path:f.path});
+  f.sha = d.sha; f.content = b64decode(d.content);
+  const { fm } = splitFrontmatter(f.content);
+  f.title = fmField(fm,'title')||f.slug; f.brand = fmField(fm,'brand');
+  f.tested_by = fmField(fm,'tested_by'); f.overall = fmField(fm,'overall_score');
+  f.draft = isDraft(f.content);
+  return f;
+}
+
 async function loadAll(){
   alert('revAlert','inf','Loading reviews…'); alert('dashAlert','inf','Loading…');
   try{
     const tree = await ghApi('tree', {});
     const paths = (tree.tree||[]).filter(t=>t.type==='blob' && /^src\/pages\/reviews\/.+\.md$/.test(t.path)).map(t=>t.path);
-    files = await Promise.all(paths.map(async (path)=>{
-      const meta = reviewMeta(path);
-      try{
-        const d = await ghApi('get', {path});
-        const content = b64decode(d.content);
-        const { fm } = splitFrontmatter(content);
-        return { path, sha:d.sha, ...meta, content,
-          title: fmField(fm,'title')||meta.slug, brand: fmField(fm,'brand'),
-          tested_by: fmField(fm,'tested_by'), overall: fmField(fm,'overall_score'),
-          draft: isDraft(content) };
-      }catch(e){ return { path, sha:'', ...meta, content:'', title:meta.slug, brand:'', tested_by:'', overall:'', draft:undefined, error:e.message }; }
-    }));
-    files.sort((a,b)=>a.path.localeCompare(b.path));
-    alert('revAlert','',''); alert('dashAlert','','');
+    // Build the list from the tree alone so the UI is usable immediately.
+    files = paths.map((path)=>{ const m=reviewMeta(path);
+      return { path, sha:'', ...m, content:'', title:m.slug, brand:'', tested_by:'', overall:'', draft:undefined }; })
+      .sort((a,b)=>a.path.localeCompare(b.path));
+    alert('dashAlert','','');
     renderDashboard(); renderTable(); renderSocial();
+    if(!files.length){ alert('revAlert',''); return; }
+    // Hydrate metadata (title, score, reviewer, draft state) in small batches.
+    let done=0;
+    alert('revAlert','inf',`Loading details for ${files.length} reviews…`);
+    await runPool(files, async (f)=>{
+      try{ await ensureContent(f); }catch(e){ f.error=e.message; }
+      done++;
+      if(done%8===0 || done===files.length){ renderDashboard(); renderTable();
+        alert('revAlert','inf',`Loaded ${done}/${files.length}…`); }
+    });
+    renderDashboard(); renderTable();
+    const failed=files.filter(f=>f.error).length;
+    alert('revAlert', failed?'wr':'', failed?`Loaded with ${failed} error(s) — reload to retry.`:'');
   }catch(e){ alert('revAlert','er','Could not load reviews: '+e.message); alert('dashAlert','er',e.message); }
 }
 
@@ -342,7 +368,7 @@ $('revBody').addEventListener('click',(e)=>{
   const tr=e.target.closest('tr[data-i]'); const btn=e.target.closest('[data-act]'); if(!tr||!btn) return;
   const f=files[parseInt(tr.dataset.i)]; const act=btn.dataset.act;
   if(act==='edit') openEditor(f);
-  else if(act==='preview') openPreviewModal(f.content);
+  else if(act==='preview'){ ensureContent(f).then(()=>openPreviewModal(f.content)).catch(e=>alert('revAlert','er','Could not load: '+e.message)); }
   else if(act==='draft') toggleDraft(f);
   else if(act==='delete') deleteReview(f);
 });
@@ -354,9 +380,14 @@ function setEdView(v){
   if(v!=='md') renderEdPreview();
 }
 function renderEdPreview(){ $('edPreview').innerHTML = reviewPreviewHtml($('edBody').value); }
-function openEditor(f){
+async function openEditor(f){
   current=f; imgs=[]; sel=[];
-  $('edBody').value=f.content; $('edPath').textContent=f.path;
+  showView('editor'); $('edPath').textContent=f.path; alert('edAlert','','');
+  if(!f.content){ $('edBody').value='Loading…';
+    try{ await ensureContent(f); }catch(e){ alert('edAlert','er','Could not load: '+e.message); return; }
+    if(current!==f) return; // user navigated away while loading
+  }
+  $('edBody').value=f.content;
   $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
   $('edImgUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'shopify_link')||fmField(fm,'product_url')||fmField(fm,'affiliate_link')||'';})();
   $('edImgGrid').innerHTML=''; $('edImgStatus').textContent=''; $('edInsert').disabled=true; alert('edImgAlert','','');
