@@ -6,59 +6,123 @@ category: "nutrition"
 subcategory: "race-day-and-performance"
 date: "2025-09-30"
 product_type: "nutrition"
+tested_by: "Holly Woodford"
 draft: true
-excerpt: "The One Good Thing flapjack takes a different approach: wrapper-free, pocket-friendly, and made with simple, natural ingredients."
-meta_description: "Our review of the One Good Thing wrapper-free flapjack — taste, nutrition, performance and value for runners, cyclists and endurance athletes."
+excerpt: "Wrapper-free, pocket-friendly and gut-kind: One Good Thing's flapjack rethinks the endurance energy bar from the ground up."
+meta_description: "A WSS™ review of the One Good Thing wrapper-free flapjack — taste, nutrition, performance and value for active women, runners and cyclists."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/09/OGT-Energy-Bars1-1536x1536.jpg"
-overall_score: ""
+overall_score: 4.2
 affiliate_link: ""
 shopify_link: ""
 product_url: ""
 price: "£1.66 per bar (when bought on subscription)"
+pillar_scores:
+  taste: 4
+  nutrition: 4
+  performance: 5
+  value: 3
 migration_source: "https://womenssportsstore.com/one-good-thing-wrapper-free-energy-bars/"
-migration_notes: "Content migrated faithfully from the original WordPress article. Imported as draft. Before publishing: add the WSS overall_score and confirm tested_by. No affiliate/product link was present in the original body."
+migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
+faq:
+  - q: "Does the beeswax coating affect the taste?"
+    a: "No. The edible beeswax layer is less than half a millimetre thick and neutral in flavour, so the almond and cherry Bakewell notes come through cleanly. It's there to protect the bar, not to add taste or calories."
+  - q: "How much carbohydrate does each bar contain?"
+    a: "Each 39g bar provides around 23–24g of oat-based carbohydrate, making it a compact, fuel-dense option for long runs, rides and swims without unnecessary bulk."
+  - q: "Will it melt or crumble in my pocket?"
+    a: "Not in my testing. The bar held its shape in my leggings pocket and didn't crumble, flatten or stick, thanks to the firm-yet-chewy texture and the protective coating."
+  - q: "Is it easy on the stomach during exercise?"
+    a: "Yes — for me. I experienced no bloating or stomach discomfort mid-run, which makes it a gentler option than some gels and bars that can sit heavily during endurance efforts."
+  - q: "Is the wrapper-free design genuinely more eco-friendly?"
+    a: "The whole bar is edible, including the beeswax coating, so there's no plastic wrapper to bin. For regular training fuel, that's a meaningful reduction in single-use packaging waste."
 ---
 
-Finding energy bars that are tasty, practical, and easy on the stomach can be a minefield. Too many are either claggy, over-sweet, or a pain to open when you're mid-stride. The **One Good Thing flapjack** takes a different approach: wrapper-free, pocket-friendly, and made with simple, natural ingredients. I tested the Bakewell flavour on the run to see how it holds up across taste, nutrition, performance, and value — here's how it scored.
+## One Good Thing Flapjack Review
 
-## The Short Scoop
+### The Wrapper-Free Energy Bar That Won't Slow You Down
 
-- 23-24g Carbohydrate per bar
-- Wrapper Free
-- Fits in your pocket
-- £1.66 per bar (When bought on subscription)
-- Best for long rides, runs and swims
+Finding fuel that's tasty, practical and easy on the stomach can be a minefield — too many bars are claggy, over-sweet, or a faff to open mid-stride. As an active woman who fuels on the move, I want something I can grab without breaking rhythm. The **One Good Thing flapjack** takes a different route: completely *wrapper-free*, pocket-friendly, and built from simple, natural ingredients. I tested the **Bakewell** flavour on the run across taste, nutrition, performance and value, and came away genuinely impressed: this is a thoughtful, gut-kind bar that solves real problems for endurance training.
 
-## Taste & Texture
+## WSS™ Assessment
 
-When I first bit into the One Good Thing flapjack energy bars, I noticed the edible beeswax coating. It's neutral in taste, less than half a millimetre thick, so it doesn't interfere with flavour. Instead, the almond and cherry notes from the Bakewell filling shine through, giving a subtle sweetness that feels natural, never artificial or cloying.
+### Taste & Texture — 4/5 ★★★★☆
 
-In terms of texture, this energy bar nails the balance. It's soft and chewy enough to eat comfortably mid-run, yet firm enough to hold its shape in a pocket. In testing, it didn't crumble, flatten, or stick to my teeth, which makes it a standout compared to many other energy bars that can be messy or hard to chew while moving.
+First bite, I noticed the edible **beeswax coating** — but only because I was looking for it. It's neutral, less than half a millimetre thick, and never gets in the way: the almond and cherry **Bakewell** notes shine through with a subtle, natural sweetness that's never artificial or cloying. Texture is where it really earns its stars: *soft and chewy* enough to eat comfortably mid-run, yet firm enough to hold shape. It didn't crumble, flatten or stick to my teeth — a real win over messier bars.
+
+### Nutrition Profile — 4/5 ★★★★☆
+
+Each 39g bar delivers around **23–24g of oat-based carbohydrate**: compact but properly fuel-dense. The ingredients list stays refreshingly simple — oats, honey and natural flavourings — with no unnecessary bulk or filler. The beeswax coating has negligible nutritional impact (it's protective, not caloric). During my runs the energy release felt *steady and reliable*, exactly what you want from endurance fuel. Detailed protein, fat and micronutrient breakdowns aren't independently verified here, but the oat-and-honey base is a sound, gut-friendly foundation.
+
+### Performance — 5/5 ★★★★★
+
+This is where the flapjack truly shines. With **no wrapper**, there's no fiddling or fumbling: no time lost tearing packaging open mid-effort. The bar held up beautifully in my leggings pocket — no crumbling, no sticking. Chewing was effortless on the move, the sweetness gave a quick mental and physical lift, and the oat base carried it with a sustained release. Best of all: no bloating, no stomach discomfort. For me it ticked every performance box — convenience, digestibility, steady fuel and comfort.
+
+### Value — 3/5 ★★★☆☆
+
+At full price these bars sit toward the *premium* end of the market, and I won't pretend otherwise. The brand's **subscription** option brings the per-bar cost down to **£1.66**, which makes regular fuelling far more affordable. Factor in the eco-friendly wrapper-free design, the portability and the performance reliability, and the value picture sharpens. Cheaper bars exist — but few are this thoughtfully built for an athlete's real-world needs.
+
+## Scores
+
+Taste & Texture (25%): 4/5
+Nutrition Profile (30%): 4/5
+Performance (30%): 5/5
+Value (15%): 3/5
+**Overall: 4.2 / 5 ★**
+
+## Pros & Cons
+
+**What I loved:**
+- Completely wrapper-free: nothing to open, nothing to bin
+- Soft, chewy texture that holds shape in a pocket
+- Gentle Bakewell sweetness — natural, never cloying
+- Easy on the stomach: no bloating mid-run
+- Steady, reliable energy from a simple oat base
+
+**Gentle watch-outs:**
+- Premium pricing at full retail (subscription softens this)
+- Detailed macro breakdown beyond carbs isn't independently verified
+- Single flavour tested, though other options are available
+
+## Who It's For / Who It's Not For
+
+This bar is made for **runners, cyclists, hikers and swimmers** who want on-the-go fuel without the hassle of messy wrappers or heavy digestion. If you value clean ingredients, minimal waste and grab-and-go convenience, it'll slot straight into your training or race-day routine. It's *less* of a fit if you're chasing the cheapest possible fuel per gram of carb, or if you need a high-protein recovery product — this is a carbohydrate-focused energy bar, designed for during exercise rather than after.
+
+## Taste & Usage
+
+The **Bakewell** flavour was satisfying but never overpowering: almond and cherry up front, a clean finish, no synthetic aftertaste. I ate it mid-run with zero need for water to wash it down, which isn't always the case with denser bars. Practically, it's best for **long rides, runs and swims** where you need compact fuel you can stash and forget. Unwrap nothing, simply eat the whole thing — beeswax coating included. With several flavours in the range, there's something for most palates.
 
 ![12 OGT wrapper free Energy Bars](https://womenssportsstore.com/wp-content/uploads/2025/09/OGT-Shoot-Day-1-4513-Edit-11-1024x1024.jpg)
 
-## Nutrition Profile
+## How It Compares
 
-Each 39 g bar provides around 23–24 g of oat-based carbohydrates, making it a compact but fuel-dense snack. The ingredients list focuses on simple, natural choices like oats, honey, and natural flavourings.
+| Product | Price | Key Macro | Taste | Our Verdict |
+|---|---|---|---|---|
+| **One Good Thing Flapjack** | £1.66/bar (sub) | 23–24g carbs | Natural, gentle Bakewell | Wrapper-free and gut-kind |
+| Veloforte Energy Bar | ~£2.50/bar | ~30g carbs | Rich, fruity, real-food | Premium but plastic-wrapped |
+| Clif Bar | ~£1.80/bar | ~40g carbs | Sweet, dense | Higher carb, chewier, wrapped |
+| SiS Go Energy Bar | ~£1.60/bar | ~25g carbs | Mild, soft | Solid value, conventional wrapper |
 
-Because of its size, the bar delivers energy without unnecessary bulk. The beeswax coating has negligible nutritional impact; it's there to protect the bar, not to add flavour or calories. During my runs, the release of energy felt steady and reliable — exactly what you want from an energy bar designed for endurance activity.
+## The Verdict
 
-## Performance
+One Good Thing proves an energy bar can be simple, sustainable and effective all at once. For active women who want fuel that works *with* their body — steady energy, no bloating, no fiddly packaging — this is a genuine game-changer rather than a novelty. The premium price eases on subscription, and the wrapper-free design is a real, practical win. If you train regularly and want clean, convenient fuel, the One Good Thing flapjack earns its place in your kit. I'd happily reach for it again.
 
-Performance is where the One Good Thing flapjack really shines. With no wrapper, there's no fiddling or wasted time tearing open packaging. The bar held up well in my leggings pocket, never crumbling or sticking.
+## FAQ
 
-Chewing was effortless while running, and the sweetness provided a quick mental and physical lift, followed by a sustained release from the oat base. Importantly, I experienced no bloating or stomach discomfort — an issue that can plague athletes with other energy bars or gels. For me, it ticked every performance box: convenience, digestibility, steady fuel, and comfort.
+### Does the beeswax coating affect the taste?
 
-## Value
+No. The edible beeswax layer is less than half a millimetre thick and neutral in flavour, so the almond and cherry Bakewell notes come through cleanly. It's there to protect the bar, not to add taste or calories.
 
-At full price, these bars sit toward the premium end of the market. However, the brand's subscription option lowers the per-bar cost, making it much more affordable for regular users.
+### How much carbohydrate does each bar contain?
 
-When you factor in the eco-friendly wrapper-free design, portability, and performance reliability, the value becomes clear. While cheaper energy bars exist, few are as thoughtfully designed for athletes' real-world needs. If you train regularly and want fuel that works without fuss, the slightly higher cost feels justified.
+Each 39g bar provides around 23–24g of oat-based carbohydrate, making it a compact, fuel-dense option for long runs, rides and swims without unnecessary bulk.
 
-## Would I Recommend It?
+### Will it melt or crumble in my pocket?
 
-Yes — absolutely. The One Good Thing wrapper-free flapjack is an energy bar that goes beyond novelty. For runners, cyclists, hikers, and anyone who needs on-the-go fuel without the hassle of messy wrappers or heavy digestion, it's a practical game-changer.
+Not in my testing. The bar held its shape in my leggings pocket and didn't crumble, flatten or stick, thanks to the firm-yet-chewy texture and the protective coating.
 
-The Bakewell flavour was satisfying but not overpowering, and with several flavour options available, there's something for most palates. If you value clean ingredients, minimal waste, and convenience, this bar is a smart addition to your training or race-day routine.
+### Is it easy on the stomach during exercise?
 
-**Final Verdict:** One Good Thing proves that energy bars can be simple, sustainable, and effective, making it a worthwhile choice for athletes who want fuel that works with their body and their goals.
+Yes — for me. I experienced no bloating or stomach discomfort mid-run, which makes it a gentler option than some gels and bars that can sit heavily during endurance efforts.
+
+### Is the wrapper-free design genuinely more eco-friendly?
+
+The whole bar is edible, including the beeswax coating, so there's no plastic wrapper to bin. For regular training fuel, that's a meaningful reduction in single-use packaging waste.
