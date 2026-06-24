@@ -11,7 +11,7 @@ tested_by: "Holly Woodford"
 draft: true
 excerpt: "A light, natural electrolyte powder that lets you top up carbs without overloading them — gut-friendly, genuinely enjoyable to drink and built for long endurance days."
 meta_description: "WSS™ review of Veloforte Passo electrolyte powder — natural ingredients, taste, carb and electrolyte profile, gut-friendly performance and value, scored against the WSS nutrition framework."
-hero_image: "http://veloforte.com/cdn/shop/files/2026chewsPDPpages-29.jpg?v=1773853759"
+hero_image: "http://veloforte.com/cdn/shop/files/veloforte-electrolyte-powders-passo-electrolyte-powder-1172354368.jpg?v=1749487748"
 overall_score: 4.6
 affiliate_link: "https://veloforte.avln.me/c/gyKUlMgzpqGI"
 shopify_link: ""
@@ -42,7 +42,7 @@ migration_notes: "WSS pilot rewrite from the migrated WordPress article against 
 
 Getting hydration right is a balancing act: too sweet and it turns your stomach, too weak and it does nothing, too heavy and it throws your whole fuelling plan off. Deep into ultra training — especially building towards a 100K mountain race — I want something that quietly does its job without drama or a sugar overload. **Veloforte Passo** has become one of those products I reach for without thinking. It's simple, natural and genuinely effective, and after weeks of long sessions it's earned a permanent spot in my race vest.
 
-![Veloforte Passo Hydration Electrolyte Powder](http://veloforte.com/cdn/shop/files/2026chewsPDPpages-29.jpg?v=1773853759)
+![Veloforte Passo Hydration Electrolyte Powder](http://veloforte.com/cdn/shop/files/veloforte-electrolyte-powders-passo-electrolyte-powder-1172354368.jpg?v=1749487748)
 
 ## WSS™ Assessment
 
@@ -51,7 +51,7 @@ This is where Passo wins me over. The flavour is light, clean and refreshing —
 
 
 
-![Veloforte Passo Hydration Electrolyte Powder — image 2](https://veloforte.com/cdn/shop/files/2026chewsPDPpages-30.jpg?crop=center&height=2083&v=1773853759&width=2083)
+![Veloforte Passo Hydration Electrolyte Powder — image 2](https://cdn.shopify.com/s/files/1/1279/5219/files/Minimal_Black_White_Comparison_Chart_Table_Graph.png?v=1754048751)
 
 ### Nutrition Profile — 4/5 ★★★★☆
 The formulation is clearly built for endurance, with a refined approach rather than a high-sugar dump. Each serving brings around **20–22g of carbohydrate** — deliberately lower — plus a balanced **275mg sodium and 175mg potassium**, from a fully natural ingredient list free of the usual additives. That lower-carb design is a strength for layered fuelling, though athletes wanting hydration to carry a bigger carb load will need to combine it with other fuels.
@@ -62,10 +62,6 @@ The formulation is clearly built for endurance, with a refined approach rather t
 
 ### Performance — 5/5 ★★★★★
 It delivers exactly what endurance fuelling needs: it's **easy on the stomach**, with no bloating or sloshing even when climbing hard late in a session — a genuine advantage given how often gut issues end long races (and one that's mattered more to me through peri-menopause). It slots neatly into a broader strategy as a carb top-up, and the single-serve sachets are practical to store in a vest and quick to open mid-effort.
-
-
-
-![Veloforte Passo Hydration Electrolyte Powder — image 4](https://labels.sfo3.digitaloceanspaces.com/files/16058GT%20producer%20250px1722442997.png)
 
 ### Value — 4/5 ★★★★☆
 Passo sits a little above mainstream electrolyte powders, but the premium buys clean natural ingredients, a flavour you'll actually drink and a gut-friendly formula that holds up under stress. For a product this central to performance, that's money well spent. It's not the cheapest scoop on the shelf, which is the only thing keeping it from full marks here.
