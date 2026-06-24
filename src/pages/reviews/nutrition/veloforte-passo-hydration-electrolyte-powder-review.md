@@ -8,7 +8,6 @@ date: "2026-04-07"
 product_type: "nutrition"
 sizes: ""
 tested_by: "Holly Woodford"
-draft: true
 excerpt: "A light, natural electrolyte powder that lets you top up carbs without overloading them — gut-friendly, genuinely enjoyable to drink and built for long endurance days."
 meta_description: "WSS™ review of Veloforte Passo electrolyte powder — natural ingredients, taste, carb and electrolyte profile, gut-friendly performance and value, scored against the WSS nutrition framework."
 hero_image: "http://veloforte.com/cdn/shop/files/veloforte-electrolyte-powders-passo-electrolyte-powder-1172354368.jpg?v=1749487748"
