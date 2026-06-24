@@ -16,8 +16,9 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 function abs(u, base) {
   if (!u) return null;
   u = String(u).trim().replace(/&amp;/g, '&');
-  if (u.startsWith('//')) return 'https:' + u;
-  try { return new URL(u, base).href; } catch { return null; }
+  if (u.startsWith('//')) u = 'https:' + u;
+  // Upgrade to https so images don't get blocked as mixed content on the site.
+  try { return new URL(u, base).href.replace(/^http:\/\//i, 'https://'); } catch { return null; }
 }
 
 const json = (obj, status = 200) => ({
@@ -50,12 +51,13 @@ exports.handler = async (event) => {
     const html = (await res.text()).replace(/\\\//g, '/');
 
     // Junk we never want offered as a product image.
-    const JUNK = /sprite|favicon|\bicons?\b|logo|placeholder|loading|spinner|\.svg|\/assets\/|\/cdn\/shop\/t\/|payment|visa|mastercard|maestro|\bamex\b|paypal|klarna|clearpay|apple-?pay|google-?pay|shopify-?pay|gpay|badge|trust|judge\.me|yotpo|stamped|okendo|review|\bstars?\b|rating|social|facebook|instagram|tiktok|twitter|youtube|pinterest|linkedin|avatar|cookie|gift-?card|pixel|tracking|1x1|spacer|blank/i;
+    const JUNK = /sprite|favicon|\bicons?\b|logo|placeholder|loading|spinner|\.svg|\/assets\/|\/cdn\/shop\/t\/|payment|visa|mastercard|maestro|\bamex\b|paypal|klarna|clearpay|apple-?pay|google-?pay|shopify-?pay|gpay|badge|trust|judge\.me|yotpo|stamped|okendo|review|\bstars?\b|rating|social|facebook|instagram|tiktok|twitter|youtube|pinterest|linkedin|avatar|cookie|gift-?card|pixel|tracking|1x1|spacer|blank|chart|graph|infographic|diagram|comparison|\bbanner\b|hero-banner|slideshow/i;
 
     // Shopify serves the full-size original when the _WxH (or named) size suffix
     // is removed; collapse variants of the same shot to one full-size URL.
     const fullSize = (u) => {
-      if (!/cdn\.shopify\.com/i.test(u)) return u;
+      // Shopify, whether on cdn.shopify.com or a custom domain's /cdn/shop/ path.
+      if (!/cdn\.shopify\.com|\/cdn\/shop\//i.test(u)) return u;
       const q = u.indexOf('?');
       const path = q >= 0 ? u.slice(0, q) : u;
       const query = q >= 0 ? u.slice(q) : '';
@@ -80,22 +82,32 @@ exports.handler = async (event) => {
     [...html.matchAll(/<meta[^>]+(?:property|name)=["'](?:og:image(?::secure_url)?|twitter:image)["'][^>]*>/gi)]
       .forEach((m) => { const c = m[0].match(/content=["']([^"']+)["']/i); if (c) push(c[1], 0); });
 
-    // 2) Every image URL anywhere in the page/JSON — this is what catches the
-    //    lazy-loaded product gallery embedded in Shopify's product JSON.
-    //    Real product media (/products/, /files/) outranks other page assets.
+    // 2) The genuine product gallery, from JSON-LD / Shopify product media
+    //    ("image":[…], "src":"…", "featured_image":"…"). These are the actual
+    //    product photos, so they rank above the page-wide sweep below — which
+    //    keeps marketing graphics (charts, lifestyle banners) out of the top picks.
+    [...html.matchAll(/"(?:image|src|featured_image|preview_image)"\s*:\s*("(?:[^"\\]|\\.)*"|\[[^\]]*\])/gi)]
+      .forEach((m) => {
+        const v = m[1];
+        if (v[0] === '"') push(v.slice(1, -1), 1);
+        else [...v.matchAll(/"((?:[^"\\]|\\.)*)"/g)].forEach((x) => push(x[1], 1));
+      });
+
+    // 3) Every other image URL anywhere in the page (catches galleries not in a
+    //    recognised JSON shape). Product-path assets outrank generic ones.
     [...html.matchAll(/https?:\/\/[^"'()\s\\<>]+?\.(?:jpe?g|png|webp|avif)(?:\?[^"'()\s\\<>]*)?/gi)]
       .forEach((m) => {
         const u = m[0];
         const isProduct = /cdn\.shopify\.com\/s\/files|\/products\/|\/files\//i.test(u);
-        push(u, isProduct ? 1 : 3);
+        push(u, isProduct ? 2 : 4);
       });
 
-    // 3) <img> src/data-src/srcset — fallback for non-Shopify shops.
+    // 4) <img> src/data-src/srcset — fallback for non-Shopify shops.
     [...html.matchAll(/<img\b[^>]*>/gi)].forEach((tag) => {
       const t = tag[0];
-      const s = t.match(/\b(?:data-)?src=["']([^"']+)["']/i); if (s) push(s[1], 2);
+      const s = t.match(/\b(?:data-)?src=["']([^"']+)["']/i); if (s) push(s[1], 3);
       [...t.matchAll(/\b(?:data-)?srcset=["']([^"']+)["']/gi)].forEach((ss) => {
-        ss[1].split(',').forEach((part) => push(part.trim().split(/\s+/)[0], 2));
+        ss[1].split(',').forEach((part) => push(part.trim().split(/\s+/)[0], 3));
       });
     });
 
