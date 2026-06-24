@@ -85,6 +85,37 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
   {umamiSrc && umamiId && (
     <script is:inline defer src={umamiSrc} data-website-id={umamiId}></script>
   )}
+  {umamiSrc && umamiId && (
+    <script is:inline>
+      // Reliable "review-open" tracking. Same-tab navigations unload the page
+      // before Umami's auto data-umami-event request is sent, so the event is
+      // lost (buy buttons work only because they open a new tab). Here we send
+      // the event first, then navigate — with a short fallback so the click
+      // always proceeds even if tracking is slow or blocked.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[data-open-review]');
+        if (!a) return;
+        // Let modified clicks / new-tab / non-primary buttons behave normally.
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if (a.target === '_blank' || !a.href) return;
+        var data = {
+          review: a.getAttribute('data-open-review'),
+          category: a.getAttribute('data-open-category'),
+          brand: a.getAttribute('data-open-brand'),
+          from: a.getAttribute('data-open-from')
+        };
+        if (!window.umami || typeof window.umami.track !== 'function') return; // navigate normally
+        e.preventDefault();
+        var href = a.href, done = false;
+        function go() { if (!done) { done = true; window.location.href = href; } }
+        try {
+          var r = window.umami.track('review-open', data);
+          if (r && typeof r.then === 'function') r.then(go, go);
+        } catch (err) {}
+        setTimeout(go, 300);
+      });
+    </script>
+  )}
 </head>
 <body>
   <header class="site-header">

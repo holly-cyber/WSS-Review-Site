@@ -18,7 +18,7 @@ function starHtml(score: number) {
 ---
 <article class="review-card">
   {image && (
-    <a href={`/reviews/${category}/${slug}/`} class="card-img-wrap" data-umami-event="review-open" data-umami-event-review={slug} data-umami-event-category={category} data-umami-event-brand={brand} data-umami-event-from="card-image">
+    <a href={`/reviews/${category}/${slug}/`} class="card-img-wrap" data-open-review={slug} data-open-category={category} data-open-brand={brand} data-open-from="card-image">
       <img src={image} alt={title} loading="lazy" />
     </a>
   )}
@@ -27,7 +27,7 @@ function starHtml(score: number) {
       <span class={`pill pill-${category}`}>{category.replace('-', ' ')}</span>
       <time datetime={date}>{new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
     </div>
-    <h3><a href={`/reviews/${category}/${slug}/`} data-umami-event="review-open" data-umami-event-review={slug} data-umami-event-category={category} data-umami-event-brand={brand} data-umami-event-from="card-title">{title}</a></h3>
+    <h3><a href={`/reviews/${category}/${slug}/`} data-open-review={slug} data-open-category={category} data-open-brand={brand} data-open-from="card-title">{title}</a></h3>
     <p class="card-brand">by {brand}</p>
     <p class="card-excerpt">{excerpt}</p>
     <div class="card-footer">
@@ -35,7 +35,7 @@ function starHtml(score: number) {
         <span class="stars" aria-label={`${score} out of 5 stars`} set:html={starHtml(score)} />
         <span class="score-num">{score}/5</span>
       </div>
-      <a href={`/reviews/${category}/${slug}/`} class="card-link" data-umami-event="review-open" data-umami-event-review={slug} data-umami-event-category={category} data-umami-event-brand={brand} data-umami-event-from="card-link">Read review →</a>
+      <a href={`/reviews/${category}/${slug}/`} class="card-link" data-open-review={slug} data-open-category={category} data-open-brand={brand} data-open-from="card-link">Read review →</a>
     </div>
   </div>
 </article>
