@@ -45,42 +45,62 @@ exports.handler = async (event) => {
       return json({ images: [], error: 'unreachable' });
     }
     const base = res.url || url;
-    const html = await res.text();
+    // JSON blobs (Shopify product media, etc.) escape slashes as https:\/\/cdn…
+    // — unescape so the embedded gallery URLs become matchable.
+    const html = (await res.text()).replace(/\\\//g, '/');
 
-    const found = [];
-    const seen = new Set();
-    const add = (u) => {
-      const a = abs(u, base);
-      if (!a) return;
-      if (!/\.(jpe?g|png|webp|avif)(\?|$)/i.test(a)) return;
-      if (/sprite|favicon|\bicon\b|logo|placeholder|loading|spinner|\.svg/i.test(a)) return;
-      if (seen.has(a)) return;
-      seen.add(a);
-      found.push(a);
+    // Junk we never want offered as a product image.
+    const JUNK = /sprite|favicon|\bicons?\b|logo|placeholder|loading|spinner|\.svg|\/assets\/|\/cdn\/shop\/t\/|payment|visa|mastercard|maestro|\bamex\b|paypal|klarna|clearpay|apple-?pay|google-?pay|shopify-?pay|gpay|badge|trust|judge\.me|yotpo|stamped|okendo|review|\bstars?\b|rating|social|facebook|instagram|tiktok|twitter|youtube|pinterest|linkedin|avatar|cookie|gift-?card|pixel|tracking|1x1|spacer|blank/i;
+
+    // Shopify serves the full-size original when the _WxH (or named) size suffix
+    // is removed; collapse variants of the same shot to one full-size URL.
+    const fullSize = (u) => {
+      if (!/cdn\.shopify\.com/i.test(u)) return u;
+      const q = u.indexOf('?');
+      const path = q >= 0 ? u.slice(0, q) : u;
+      const query = q >= 0 ? u.slice(q) : '';
+      return path.replace(/_(\d+x\d*|\d*x\d+|pico|icon|thumb|small|compact|medium|large|grande|original|master)(?=\.[a-z]+$)/i, '') + query;
     };
 
-    // og:image / twitter:image — the most reliable hero, listed first.
+    const cand = [];          // { url, pri } — lower pri sorts first
+    const seen = new Set();
+    const push = (u, pri) => {
+      let a = abs(u, base);
+      if (!a) return;
+      if (!/\.(jpe?g|png|webp|avif)(\?|$)/i.test(a)) return;
+      if (JUNK.test(a)) return;
+      a = fullSize(a);
+      const k = a.split('?')[0].toLowerCase();
+      if (seen.has(k)) return;
+      seen.add(k);
+      cand.push({ url: a, pri });
+    };
+
+    // 1) og:image / twitter:image — reliable hero when it isn't just the logo.
     [...html.matchAll(/<meta[^>]+(?:property|name)=["'](?:og:image(?::secure_url)?|twitter:image)["'][^>]*>/gi)]
-      .forEach((m) => { const c = m[0].match(/content=["']([^"']+)["']/i); if (c) add(c[1]); });
+      .forEach((m) => { const c = m[0].match(/content=["']([^"']+)["']/i); if (c) push(c[1], 0); });
 
-    // JSON-LD / product JSON: "image": "..." or "image": ["...","..."].
-    [...html.matchAll(/"image"\s*:\s*("(?:[^"\\]|\\.)*"|\[[^\]]*\])/gi)].forEach((m) => {
-      const v = m[1];
-      if (v[0] === '"') add(v.slice(1, -1));
-      else [...v.matchAll(/"((?:[^"\\]|\\.)*)"/g)].forEach((x) => add(x[1]));
-    });
+    // 2) Every image URL anywhere in the page/JSON — this is what catches the
+    //    lazy-loaded product gallery embedded in Shopify's product JSON.
+    //    Real product media (/products/, /files/) outranks other page assets.
+    [...html.matchAll(/https?:\/\/[^"'()\s\\<>]+?\.(?:jpe?g|png|webp|avif)(?:\?[^"'()\s\\<>]*)?/gi)]
+      .forEach((m) => {
+        const u = m[0];
+        const isProduct = /cdn\.shopify\.com\/s\/files|\/products\/|\/files\//i.test(u);
+        push(u, isProduct ? 1 : 3);
+      });
 
-    // <img> src / data-src / srcset / data-srcset (product gallery).
+    // 3) <img> src/data-src/srcset — fallback for non-Shopify shops.
     [...html.matchAll(/<img\b[^>]*>/gi)].forEach((tag) => {
       const t = tag[0];
-      const s = t.match(/\bsrc=["']([^"']+)["']/i); if (s) add(s[1]);
-      const ds = t.match(/\bdata-src=["']([^"']+)["']/i); if (ds) add(ds[1]);
+      const s = t.match(/\b(?:data-)?src=["']([^"']+)["']/i); if (s) push(s[1], 2);
       [...t.matchAll(/\b(?:data-)?srcset=["']([^"']+)["']/gi)].forEach((ss) => {
-        ss[1].split(',').forEach((part) => add(part.trim().split(/\s+/)[0]));
+        ss[1].split(',').forEach((part) => push(part.trim().split(/\s+/)[0], 2));
       });
     });
 
-    return json({ images: found.slice(0, 16), finalUrl: base });
+    cand.sort((a, b) => a.pri - b.pri);
+    return json({ images: cand.slice(0, 16).map((c) => c.url), finalUrl: base });
   } catch (err) {
     return json({ images: [], error: err.message }, 500);
   }
