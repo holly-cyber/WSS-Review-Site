@@ -1,0 +1,517 @@
+---
+export const prerender = true;
+import { taxonomy } from '../data/taxonomy.js';
+import AuthGate from '../components/AuthGate.astro';
+const categories = taxonomy.map((t) => t.slug);
+---
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSS™ Review Console</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style is:global>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f5f8;color:#111}
+button{cursor:pointer;border:none;font-family:inherit;font-size:13px}
+button:disabled{opacity:.45;cursor:not-allowed}
+input,textarea,select{font-family:inherit;font-size:13px;border:1px solid #ddd;border-radius:7px;padding:8px 10px;width:100%;background:#fff;color:#111;outline:none}
+input:focus,textarea:focus,select:focus{border-color:#FF5E84;box-shadow:0 0 0 3px rgba(255,94,132,.12)}
+textarea{resize:vertical;line-height:1.6}
+.bp{background:#FF5E84;color:#fff;padding:8px 16px;border-radius:7px;font-weight:600}
+.bp:hover:not(:disabled){background:#e04470}
+.bg{background:#fff;color:#555;border:1px solid #ddd;padding:7px 14px;border-radius:7px}
+.bg:hover:not(:disabled){background:#f5f5f5}
+.bdanger{color:#c00;border-color:#fcc}
+.al{padding:9px 12px;border-radius:7px;font-size:12.5px;margin:8px 0}
+.al.ok{background:#f0fff4;color:#0a7a33;border:1px solid #b6e8c4}
+.al.er{background:#fff5f5;color:#c00;border:1px solid #fcc}
+.al.inf{background:#f0f7ff;color:#1666c4;border:1px solid #bcd9f7}
+.al.wr{background:#fffaf0;color:#8a5a00;border:1px solid #f3d9a3}
+
+/* Shell */
+.shell{display:flex;min-height:100vh}
+.side{width:210px;flex-shrink:0;background:#000036;color:#fff;display:flex;flex-direction:column;padding:18px 12px;position:sticky;top:0;height:100vh}
+.side .brand{font-weight:700;font-size:16px;padding:6px 10px 16px}
+.side .brand small{display:block;font-weight:400;font-size:11px;opacity:.6;margin-top:2px}
+.navbtn{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:transparent;color:#cfcfe6;padding:10px 12px;border-radius:8px;font-size:13.5px;font-weight:500}
+.navbtn:hover{background:rgba(255,255,255,.08);color:#fff}
+.navbtn.active{background:#FF5E84;color:#fff}
+.side .spacer{flex:1}
+.side .ext{color:#cfcfe6;font-size:12px;text-decoration:none;padding:8px 12px;border-radius:8px;display:block}
+.side .ext:hover{background:rgba(255,255,255,.08);color:#fff}
+.main{flex:1;min-width:0;padding:26px 30px}
+.h1{font-size:22px;font-weight:700;color:#000036;margin-bottom:3px}
+.sub{color:#777;font-size:13px;margin-bottom:18px}
+.view{display:none}.view.active{display:block}
+
+/* Dashboard */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+.card{background:#fff;border:1px solid #ececf1;border-radius:12px;padding:16px 18px}
+.card .n{font-size:28px;font-weight:700;color:#000036}
+.card .l{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.catbars{background:#fff;border:1px solid #ececf1;border-radius:12px;padding:16px 18px}
+.catrow{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:13px}
+.catrow .nm{width:120px;text-transform:capitalize;color:#444}
+.catrow .bar{flex:1;height:9px;background:#f0f0f4;border-radius:5px;overflow:hidden}
+.catrow .bar>span{display:block;height:100%;background:#FF5E84}
+.catrow .ct{width:54px;text-align:right;color:#888}
+
+/* Reviews table */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.filters input{max-width:280px}.filters select{max-width:190px}
+table.rev{width:100%;border-collapse:collapse;background:#fff;border:1px solid #ececf1;border-radius:12px;overflow:hidden;font-size:13px}
+table.rev th{text-align:left;background:#fafafb;color:#888;font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:10px 14px;border-bottom:1px solid #eee}
+table.rev td{padding:10px 14px;border-bottom:1px solid #f1f1f4;vertical-align:middle}
+table.rev tr:last-child td{border-bottom:0}
+table.rev tr:hover td{background:#fcfcfd}
+.tt{font-weight:600;color:#000036}
+.ts{font-size:11.5px;color:#999}
+.badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:10px;padding:2px 8px}
+.badge.draft{color:#8a5a00;background:#fffaf0;border:1px solid #f3d9a3}
+.badge.live{color:#0a7a33;background:#f0fff4;border:1px solid #b6e8c4}
+.rowacts{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.rowacts button{padding:5px 10px;border-radius:6px;background:#fff;border:1px solid #e0e0e6;color:#555;font-size:12px}
+.rowacts button:hover{background:#f5f5f8}
+.rowacts button.danger{color:#c00;border-color:#fcc}
+
+/* Editor */
+.edbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.edbar .path{font-size:12px;color:#777}
+.toggle{display:inline-flex;border:1px solid #ddd;border-radius:8px;overflow:hidden}
+.toggle button{background:#f4f4f7;border-left:1px solid #ddd;padding:6px 13px;font-size:12px;font-weight:600;color:#555}
+.toggle button:first-child{border-left:0}.toggle button.active{background:#000036;color:#fff}
+#edSplit{display:flex;gap:14px;align-items:stretch}
+#edSplit>textarea{flex:1 1 50%;min-width:0;font-family:ui-monospace,Menlo,monospace;font-size:12px;min-height:62vh}
+#edPreview{flex:1 1 50%;min-width:0;max-height:74vh;overflow:auto;border:1px solid #e6e6ec;border-radius:12px;background:#fff}
+#editor.view-md #edPreview{display:none}#editor.view-md #edBody{flex-basis:100%}
+#editor.view-pv #edBody{display:none}#editor.view-pv #edPreview{flex-basis:100%}
+@media(max-width:820px){#edSplit{flex-direction:column}}
+.panel{background:#fff;border:1px solid #ececf1;border-radius:12px;padding:16px 18px;margin-top:16px}
+.panel h3{font-size:14px;color:#000036;margin-bottom:4px}
+.panel .hint{font-size:12px;color:#777;margin-bottom:10px;line-height:1.5}
+.actbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.actbar .grouplbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#aaa;width:100%;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e0e0e6;color:#444;padding:7px 13px;border-radius:8px;font-size:12.5px;font-weight:600}
+.chip:hover{background:#f6f6f9}.chip.danger{color:#c00;border-color:#fcc}
+.chip.soon{opacity:.85}
+.chip .tag{font-size:9px;font-weight:700;background:#eef;color:#3636a8;padding:1px 5px;border-radius:6px;text-transform:uppercase}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-top:10px}
+.icard{position:relative;border:2px solid #eee;border-radius:8px;overflow:hidden;cursor:pointer;aspect-ratio:1}
+.icard img{width:100%;height:100%;object-fit:cover}
+.icard.sel{border-color:#FF5E84}
+.icard.feat::after{content:'★ hero';position:absolute;top:4px;left:4px;background:#FF5E84;color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:5px}
+.icard .tick{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:#FF5E84;color:#fff;font-size:11px;display:none;align-items:center;justify-content:center}
+.icard.sel .tick{display:flex}
+
+/* Modal */
+.ov{position:fixed;inset:0;background:rgba(0,0,20,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
+.ov.show{display:flex}
+.mo{background:#fff;border-radius:14px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:0}
+.moh{display:flex;justify-content:space-between;align-items:center;background:#000036;color:#fff;padding:13px 18px;border-radius:14px 14px 0 0}
+.moh .x{background:transparent;color:#fff;font-size:20px}
+.mob{padding:18px}
+
+/* Preview (matches the live review page) */
+.pv-hero{background:#000036;color:#fff;padding:22px}
+.pv-pill{display:inline-block;background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:600;text-transform:capitalize;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.pv-title{font-size:23px;font-weight:700;margin:0 0 6px}
+.pv-brand{font-size:13px;opacity:.75;margin-bottom:10px}
+.pv-score{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pv-score .overall-num{font-size:18px;font-weight:700}
+.pv-badge{background:#FF5E84;color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+.pv-byline{display:flex;align-items:center;gap:9px;margin-top:12px;font-size:13px;opacity:.9}
+.pv-byline img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #FF5E84}
+.pv-stars-wrap{position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em;font-size:18px}
+.pv-stars-bg{color:rgba(255,255,255,.35)}
+.pv-stars-fg{position:absolute;top:0;left:0;overflow:hidden;color:#FF5E84;width:0}
+.pv-content{padding:22px;font-size:15px;line-height:1.7;color:#374151}
+.pv-content h2{font-size:20px;color:#000036;margin:1.5rem 0 .5rem}
+.pv-content h3{font-size:16px;color:#000036;margin:1.1rem 0 .35rem}
+.pv-content h2:first-child,.pv-content h3:first-child{margin-top:0}
+.pv-content p{margin:0 0 .8rem}.pv-content strong{color:#111827}
+.pv-content a{color:#FF5E84;text-decoration:underline}
+.pv-content ul,.pv-content ol{margin:0 0 1rem 1.25rem}.pv-content li{margin-bottom:.35rem}
+.pv-content img{width:100%;border-radius:10px;margin:1.2rem 0}
+.pv-content blockquote{border-left:3px solid #FF5E84;background:#fff0f4;border-radius:0 6px 6px 0;padding:.7rem 1.1rem;margin:1.1rem 0;font-style:italic}
+.pv-content table{width:100%;border-collapse:collapse;font-size:13.5px;border:1px solid #eee;border-radius:8px;overflow:hidden;margin:1.2rem 0}
+.pv-content thead{background:#000036}.pv-content th{color:#fff;text-align:left;padding:.6rem .8rem;font-size:12px;text-transform:uppercase}
+.pv-content td{padding:.6rem .8rem;border-top:1px solid #eee}.pv-content tbody tr:nth-child(odd){background:#fafafa}
+.pv-content tbody tr:first-child{background:#fff0f4}.pv-content tbody tr:first-child td{font-weight:600;color:#111827}
+.pv-cta{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.6rem 0 1rem}
+.pv-content .pv-buy{display:inline-flex;align-items:center;background:#FF5E84;color:#fff;font-weight:700;padding:.7rem 1.3rem;border-radius:8px}
+.pv-content .pv-buy.alt{background:#000036}
+.pv-reviewer{display:flex;gap:1rem;align-items:center;background:#f7f7f7;border:1px solid #eee;border-radius:10px;padding:1.1rem;margin:1.3rem 0 .3rem}
+.pv-reviewer img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid #FF5E84;flex-shrink:0}
+.pv-reviewer .lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af}
+.pv-reviewer .nm{font-weight:700;color:#000036}.pv-reviewer .bio{font-size:.85rem;color:#555;margin:.3rem 0 0;line-height:1.5}
+</style>
+<script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+<AuthGate>
+  <div class="shell">
+    <nav class="side">
+      <div class="brand">WSS™ Console<small>Review management</small></div>
+      <button class="navbtn active" data-nav="dashboard">▥ Dashboard</button>
+      <button class="navbtn" data-nav="reviews">▤ Reviews</button>
+      <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
+      <div class="spacer"></div>
+      <a class="ext" href="/pipeline" target="_blank">＋ New review (pipeline) ↗</a>
+    </nav>
+    <main class="main">
+      <!-- Dashboard -->
+      <section id="view-dashboard" class="view active">
+        <div class="h1">Dashboard</div>
+        <div class="sub">Overview of every review in the site.</div>
+        <div id="dashAlert"></div>
+        <div class="cards" id="dashCards"></div>
+        <div class="catbars" id="dashCats"><p style="color:#999;font-size:13px">Loading…</p></div>
+      </section>
+
+      <!-- Reviews -->
+      <section id="view-reviews" class="view">
+        <div class="h1">Reviews</div>
+        <div class="sub">Edit, publish, preview and act on any review.</div>
+        <div id="revAlert"></div>
+        <div class="filters">
+          <input id="fSearch" placeholder="Search title or slug…"/>
+          <select id="fCat"><option value="">All categories</option>{categories.map((c) => <option value={c}>{c}</option>)}</select>
+          <select id="fStatus"><option value="">All statuses</option><option value="draft">Draft</option><option value="live">Live</option></select>
+          <button class="bg" id="fReload">↻ Reload</button>
+        </div>
+        <table class="rev"><thead><tr><th>Review</th><th>Category</th><th>Reviewer</th><th>Score</th><th>Status</th><th></th></tr></thead><tbody id="revBody"><tr><td colspan="6" style="color:#999;padding:16px">Loading…</td></tr></tbody></table>
+      </section>
+
+      <!-- Editor -->
+      <section id="view-editor" class="view">
+        <div id="editor" class="view-split">
+          <div class="edbar">
+            <button class="bg" id="edBack">← Reviews</button>
+            <span class="path" id="edPath"></span>
+            <span class="toggle" id="edToggle" style="margin-left:auto">
+              <button data-view="md">Markdown</button>
+              <button data-view="split" class="active">Split</button>
+              <button data-view="pv">Preview</button>
+            </span>
+          </div>
+          <div id="edAlert"></div>
+          <div id="edSplit">
+            <textarea id="edBody" spellcheck="false"></textarea>
+            <div id="edPreview"></div>
+          </div>
+          <div class="edbar" style="margin-top:10px">
+            <button class="bp" id="edSave">Save changes</button>
+            <button class="bg" id="edDraft">Set draft</button>
+            <a class="bg" id="edView" target="_blank">View live ↗</a>
+            <button class="bg bdanger" id="edDelete" style="margin-left:auto">Delete</button>
+          </div>
+
+          <!-- Images -->
+          <div class="panel" id="edImages">
+            <h3>Images</h3>
+            <div class="hint">Pull product images from a page URL (pre-filled from the review's buy link) or paste a direct image URL. First selected is the hero; the rest spread through the article. Insert writes them into the markdown above, then Save.</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <input id="edImgUrl" style="flex:1;min-width:240px" placeholder="https://retailer.com/products/…"/>
+              <button class="bg" id="edFind">Find images</button>
+              <button class="bp" id="edInsert" disabled>Insert selected →</button>
+            </div>
+            <div id="edImgAlert"></div>
+            <div class="igrid" id="edImgGrid"></div>
+            <div id="edImgStatus" style="font-size:12px;color:#888;margin-top:8px;font-weight:600"></div>
+            <div style="margin-top:8px"><input id="edImgPaste" placeholder="…or paste a direct image URL (.jpg/.png) and press Enter"/></div>
+          </div>
+
+          <!-- Actions -->
+          <div class="panel">
+            <h3>Actions</h3>
+            <div class="hint">Run an action on this review. Social &amp; outbound actions are wired into the console and activate as each integration is configured.</div>
+            <div class="actbar" id="edActions"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Social -->
+      <section id="view-social" class="view">
+        <div class="h1">Social &amp; outbound</div>
+        <div class="sub">Distribution channels for published reviews. Each becomes available from a review's Actions panel once configured.</div>
+        <div class="cards" id="socialCards"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Integration modal -->
+  <div class="ov" id="intgOv"><div class="mo"><div class="moh"><div id="intgTitle">Integration</div><button class="x" id="intgClose">×</button></div><div class="mob" id="intgBody"></div></div></div>
+  <!-- Preview modal -->
+  <div class="ov" id="pvOv"><div class="mo" style="max-width:820px;padding:0;overflow:hidden"><div class="moh"><div>Live preview</div><button class="x" id="pvClose">×</button></div><div id="pvBody" style="max-height:84vh;overflow:auto;background:#fff"></div></div></div>
+</AuthGate>
+
+<script type="module">
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, isDraft, reviewPreviewHtml, insertImages, reviewMeta } from '../lib/review-admin.js';
+
+const $ = (id) => document.getElementById(id);
+function alert(id, type, msg){ const el=$(id); if(el) el.innerHTML = msg?`<div class="al ${type}">${msg}</div>`:''; }
+
+let files = [];        // {path, sha, category, slug, title, brand, tested_by, overall, draft, content, liveUrl}
+let current = null;    // file being edited
+let imgs = [], sel = []; // image stage state
+
+// ---- Navigation ----
+function showView(name){
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active', b.dataset.nav===name));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  $('view-'+name).classList.add('active');
+}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.nav)));
+
+// ---- Load all reviews ----
+async function loadAll(){
+  alert('revAlert','inf','Loading reviews…'); alert('dashAlert','inf','Loading…');
+  try{
+    const tree = await ghApi('tree', {});
+    const paths = (tree.tree||[]).filter(t=>t.type==='blob' && /^src\/pages\/reviews\/.+\.md$/.test(t.path)).map(t=>t.path);
+    files = await Promise.all(paths.map(async (path)=>{
+      const meta = reviewMeta(path);
+      try{
+        const d = await ghApi('get', {path});
+        const content = b64decode(d.content);
+        const { fm } = splitFrontmatter(content);
+        return { path, sha:d.sha, ...meta, content,
+          title: fmField(fm,'title')||meta.slug, brand: fmField(fm,'brand'),
+          tested_by: fmField(fm,'tested_by'), overall: fmField(fm,'overall_score'),
+          draft: isDraft(content) };
+      }catch(e){ return { path, sha:'', ...meta, content:'', title:meta.slug, brand:'', tested_by:'', overall:'', draft:undefined, error:e.message }; }
+    }));
+    files.sort((a,b)=>a.path.localeCompare(b.path));
+    alert('revAlert','',''); alert('dashAlert','','');
+    renderDashboard(); renderTable(); renderSocial();
+  }catch(e){ alert('revAlert','er','Could not load reviews: '+e.message); alert('dashAlert','er',e.message); }
+}
+
+// ---- Dashboard ----
+function renderDashboard(){
+  const total=files.length, live=files.filter(f=>f.draft===false).length, draft=files.filter(f=>f.draft===true).length;
+  $('dashCards').innerHTML =
+    `<div class="card"><div class="n">${total}</div><div class="l">Total reviews</div></div>`+
+    `<div class="card"><div class="n">${live}</div><div class="l">Live</div></div>`+
+    `<div class="card"><div class="n">${draft}</div><div class="l">Drafts</div></div>`+
+    `<div class="card"><div class="n">${new Set(files.map(f=>f.category)).size}</div><div class="l">Categories</div></div>`;
+  const byCat={}; files.forEach(f=>{byCat[f.category]=(byCat[f.category]||0)+1;});
+  const max=Math.max(1,...Object.values(byCat));
+  $('dashCats').innerHTML = '<h3 style="font-size:13px;color:#000036;margin-bottom:10px">Reviews by category</h3>'+
+    Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([c,n])=>
+      `<div class="catrow"><span class="nm">${esc(c)}</span><span class="bar"><span style="width:${(n/max*100)}%"></span></span><span class="ct">${n}</span></div>`).join('');
+}
+
+// ---- Reviews table ----
+function filtered(){
+  const q=($('fSearch').value||'').toLowerCase(), cat=$('fCat').value, st=$('fStatus').value;
+  return files.filter(f=>{
+    if(cat && f.category!==cat) return false;
+    if(st==='draft' && f.draft!==true) return false;
+    if(st==='live' && f.draft!==false) return false;
+    if(q && !(f.title.toLowerCase().includes(q)||f.slug.toLowerCase().includes(q))) return false;
+    return true;
+  });
+}
+function badge(f){ if(f.draft===undefined) return '<span class="badge draft">?</span>'; return f.draft?'<span class="badge draft">Draft</span>':'<span class="badge live">Live</span>'; }
+function renderTable(){
+  const rows=filtered();
+  $('revBody').innerHTML = rows.length ? rows.map((f,i)=>
+    `<tr data-i="${files.indexOf(f)}">
+      <td><div class="tt">${esc(f.title)}</div><div class="ts">${esc(f.slug)}</div></td>
+      <td style="text-transform:capitalize">${esc(f.category)}</td>
+      <td>${esc(f.tested_by||'—')}</td>
+      <td>${f.overall?esc(f.overall)+' ★':'—'}</td>
+      <td>${badge(f)}</td>
+      <td><div class="rowacts">
+        <button data-act="edit">Edit</button>
+        <button data-act="preview">Preview</button>
+        <button data-act="draft">${f.draft?'Publish':'Draft'}</button>
+        <button data-act="delete" class="danger">Delete</button>
+      </div></td>
+    </tr>`).join('') : '<tr><td colspan="6" style="color:#999;padding:16px">No reviews match.</td></tr>';
+}
+['fSearch','fCat','fStatus'].forEach(id=>$(id).addEventListener('input',renderTable));
+$('fReload').addEventListener('click',loadAll);
+$('revBody').addEventListener('click',(e)=>{
+  const tr=e.target.closest('tr[data-i]'); const btn=e.target.closest('[data-act]'); if(!tr||!btn) return;
+  const f=files[parseInt(tr.dataset.i)]; const act=btn.dataset.act;
+  if(act==='edit') openEditor(f);
+  else if(act==='preview') openPreviewModal(f.content);
+  else if(act==='draft') toggleDraft(f);
+  else if(act==='delete') deleteReview(f);
+});
+
+// ---- Editor ----
+function setEdView(v){
+  const ed=$('editor'); ed.classList.remove('view-md','view-split','view-pv'); ed.classList.add('view-'+v);
+  document.querySelectorAll('#edToggle button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  if(v!=='md') renderEdPreview();
+}
+function renderEdPreview(){ $('edPreview').innerHTML = reviewPreviewHtml($('edBody').value); }
+function openEditor(f){
+  current=f; imgs=[]; sel=[];
+  $('edBody').value=f.content; $('edPath').textContent=f.path;
+  $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
+  $('edImgUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'shopify_link')||fmField(fm,'product_url')||fmField(fm,'affiliate_link')||'';})();
+  $('edImgGrid').innerHTML=''; $('edImgStatus').textContent=''; $('edInsert').disabled=true; alert('edImgAlert','','');
+  renderActions(); setEdView('split'); showView('editor'); alert('edAlert','','');
+}
+$('edBack').addEventListener('click',()=>showView('reviews'));
+$('edToggle').addEventListener('click',(e)=>{const b=e.target.closest('[data-view]'); if(b)setEdView(b.dataset.view);});
+let pvT=null; $('edBody').addEventListener('input',()=>{clearTimeout(pvT);pvT=setTimeout(renderEdPreview,250);});
+
+async function saveEditor(){
+  if(!current) return;
+  const btn=$('edSave'); btn.disabled=true; btn.textContent='Saving…'; alert('edAlert','inf','Saving…');
+  try{
+    const content=$('edBody').value;
+    const d=await ghApi('put',{path:current.path, content:b64(content), message:`Edit review: ${current.path}`, sha:current.sha});
+    current.sha=d.content.sha; current.content=content;
+    const {fm}=splitFrontmatter(content);
+    current.title=fmField(fm,'title')||current.slug; current.tested_by=fmField(fm,'tested_by');
+    current.overall=fmField(fm,'overall_score'); current.draft=isDraft(content);
+    renderTable(); renderDashboard();
+    alert('edAlert','ok','Saved ✓ Netlify redeploys within ~60s.');
+  }catch(e){ alert('edAlert','er','Save failed: '+e.message); }
+  btn.disabled=false; btn.textContent='Save changes';
+}
+$('edSave').addEventListener('click',saveEditor);
+
+async function toggleDraft(f){
+  const makeDraft=!f.draft; const target = f===current ? 'edAlert' : 'revAlert';
+  alert(target,'inf',(makeDraft?'Setting to draft…':'Publishing…'));
+  try{
+    const d=await ghApi('get',{path:f.path});
+    const updated=setDraftFlag(b64decode(d.content),makeDraft);
+    const r=await ghApi('put',{path:f.path, content:b64(updated), message:`${makeDraft?'Draft':'Publish'} review: ${f.path}`, sha:d.sha});
+    f.sha=r.content?.sha||d.sha; f.content=updated; f.draft=makeDraft;
+    if(f===current){ $('edBody').value=updated; $('edDraft').textContent=makeDraft?'Publish':'Set draft'; renderEdPreview(); }
+    renderTable(); renderDashboard();
+    alert(target,'ok',`${makeDraft?'Set to draft':'Published'} ✓`);
+  }catch(e){ alert(target,'er','Could not update: '+e.message); }
+}
+$('edDraft').addEventListener('click',()=>current&&toggleDraft(current));
+
+async function deleteReview(f){
+  if(!confirm('Delete this review permanently?\n\n'+f.path)) return;
+  const target = f===current ? 'edAlert' : 'revAlert';
+  alert(target,'inf','Deleting…');
+  try{
+    const g=await ghApi('get',{path:f.path});
+    await ghApi('delete',{path:f.path, message:`Delete review: ${f.path}`, sha:g.sha});
+    files=files.filter(x=>x!==f); renderTable(); renderDashboard();
+    if(f===current) showView('reviews');
+    alert('revAlert','ok','Deleted ✓');
+  }catch(e){ alert(target,'er','Delete failed: '+e.message); }
+}
+$('edDelete').addEventListener('click',()=>current&&deleteReview(current));
+
+// ---- Image stage ----
+function productName(){ const {fm}=splitFrontmatter($('edBody').value); const b=fmField(fm,'brand'),t=fmField(fm,'title'); return (b&&t&&!t.toLowerCase().startsWith(b.toLowerCase()))?(b+' '+t):(t||b||'Product image'); }
+function imgStatus(){ const n=sel.length; $('edImgStatus').textContent=n?`${n}/4 selected · first is the hero, the rest spread through the article`:'No images selected — click thumbnails, or paste a URL.'; $('edImgStatus').style.color=n?'#060':'#888'; $('edInsert').disabled=!n; }
+function renderImgGrid(){ $('edImgGrid').innerHTML=imgs.map((im,i)=>`<div class="icard${sel.includes(i)?' sel':''}${sel[0]===i?' feat':''}" data-i="${i}"><img src="${esc(im.url||im)}" loading="lazy" alt=""/><div class="tick">✓</div></div>`).join(''); $('edImgGrid').querySelectorAll('img').forEach(im=>im.addEventListener('error',()=>{const c=im.closest('.icard');if(c)c.style.opacity='.25';})); imgStatus(); }
+async function findImages(){
+  const src=($('edImgUrl').value||'').trim();
+  if(!/^https?:\/\//i.test(src)){ alert('edImgAlert','inf','Enter a product page URL above (or paste a direct image URL below).'); return; }
+  alert('edImgAlert','inf','Fetching images…');
+  try{ const found=await scrapeImages(src); if(found.length){ imgs=found.map(u=>({url:u})); sel=[0]; renderImgGrid(); alert('edImgAlert','ok',found.length+' image(s) found — first is the hero. Click to pick up to 4.'); } else alert('edImgAlert','wr','No images found automatically — paste the product image URLs below.'); }
+  catch(e){ alert('edImgAlert','wr','Could not fetch — paste the product image URLs below. '+e.message); }
+}
+$('edFind').addEventListener('click',findImages);
+$('edImgUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();findImages();}});
+$('edImgGrid').addEventListener('click',e=>{const c=e.target.closest('[data-i]');if(!c)return;const i=parseInt(c.dataset.i);const k=sel.indexOf(i);if(k>=0)sel.splice(k,1);else{if(sel.length>=4){alert('edImgAlert','inf','Maximum 4 images — deselect one first.');return;}sel.push(i);}renderImgGrid();});
+$('edImgPaste').addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const u=(e.target.value||'').trim();if(!/^https?:\/\//i.test(u)){alert('edImgAlert','er','Enter a full image URL.');return;}imgs.push({url:u});if(sel.length<4)sel.push(imgs.length-1);e.target.value='';alert('edImgAlert','','');renderImgGrid();});
+$('edInsert').addEventListener('click',()=>{const chosen=sel.map(i=>imgs[i]).filter(Boolean);if(!chosen.length)return;$('edBody').value=insertImages($('edBody').value,chosen,productName());renderEdPreview();alert('edImgAlert','ok','Images written into the markdown (hero + inline). Review, then Save changes.');});
+
+// ---- Preview modal ----
+function openPreviewModal(md){ $('pvBody').innerHTML=reviewPreviewHtml(md); $('pvOv').classList.add('show'); }
+$('pvClose').addEventListener('click',()=>$('pvOv').classList.remove('show'));
+$('pvOv').addEventListener('click',e=>{if(e.target===$('pvOv'))$('pvOv').classList.remove('show');});
+
+// ---- Action registry (extensible — new outbound actions plug in here) ----
+const INTEGRATIONS = {
+  instagram: { label:'Push to Instagram', icon:'📸', endpoint:'/api/instagram-publish',
+    blurb:'Publish the hero image with a generated caption to the connected Instagram Business account.' },
+  email:     { label:'Email campaign', icon:'✉', endpoint:'/api/mailerlite-campaign',
+    blurb:'Draft a MailerLite campaign featuring this review.' },
+  reel:      { label:'Generate reel', icon:'🎬', endpoint:null,
+    blurb:'Generate a short vertical video reel from the review images and key points.' },
+};
+const ACTIONS = [
+  { id:'preview', label:'Preview', icon:'👁', run:(f)=>openPreviewModal($('edBody').value) },
+  { id:'view',    label:'View live', icon:'↗', run:(f)=>window.open(f.liveUrl,'_blank') },
+  { id:'draft',   label:(f)=>f.draft?'Publish':'Set draft', icon:'◑', run:(f)=>toggleDraft(f) },
+  { id:'delete',  label:'Delete', icon:'🗑', danger:true, run:(f)=>deleteReview(f) },
+  { id:'instagram', group:'social', integration:'instagram' },
+  { id:'email',     group:'social', integration:'email' },
+  { id:'reel',      group:'social', integration:'reel' },
+];
+function renderActions(){
+  const f=current; const bar=$('edActions'); if(!f){bar.innerHTML='';return;}
+  const core=ACTIONS.filter(a=>!a.group), social=ACTIONS.filter(a=>a.group==='social');
+  const chip=(a)=>{ const intg=a.integration?INTEGRATIONS[a.integration]:null;
+    const label=intg?intg.label:(typeof a.label==='function'?a.label(f):a.label);
+    const icon=intg?intg.icon:a.icon;
+    return `<button class="chip${a.danger?' danger':''}${a.group?' soon':''}" data-act="${a.id}">${icon} ${esc(label)}${a.group?'<span class="tag">setup</span>':''}</button>`;
+  };
+  bar.innerHTML = core.map(chip).join('') + '<div class="grouplbl">Social &amp; outbound</div>' + social.map(chip).join('');
+}
+$('edActions').addEventListener('click',(e)=>{
+  const b=e.target.closest('[data-act]'); if(!b||!current) return;
+  const a=ACTIONS.find(x=>x.id===b.dataset.act); if(!a) return;
+  if(a.integration) openIntegration(a.integration); else a.run(current);
+});
+
+// ---- Integration modal (Instagram etc.) ----
+function defaultCaption(){
+  const {fm}=splitFrontmatter($('edBody').value);
+  const t=fmField(fm,'title'), ex=fmField(fm,'excerpt')||fmField(fm,'meta_description');
+  const url='https://wss.example'+ (current?current.liveUrl:'');
+  return `${t} — WSS™ Review\n\n${ex}\n\nFull review on the site. Link in bio.`;
+}
+function openIntegration(type){
+  const intg=INTEGRATIONS[type]; if(!intg) return;
+  $('intgTitle').textContent=intg.label;
+  const {fm}=splitFrontmatter($('edBody').value); const hero=fmField(fm,'hero_image');
+  let body=`<p style="font-size:13px;color:#555;line-height:1.6;margin-bottom:12px">${esc(intg.blurb)}</p>`;
+  if(type==='instagram'){
+    body+= (hero?`<img src="${esc(hero)}" style="width:100%;border-radius:10px;margin-bottom:10px"/>`:`<div class="al wr">No hero image set on this review yet — add one in the Images panel first.</div>`)
+      + `<label>Caption</label><textarea id="intgCaption" rows="6">${esc(defaultCaption())}</textarea>`
+      + `<div id="intgAlert"></div>`
+      + `<div style="display:flex;gap:8px;margin-top:12px"><button class="bp" id="intgRun">Publish to Instagram</button><button class="bg" id="intgCancel">Cancel</button></div>`
+      + `<p style="font-size:11px;color:#999;margin-top:10px">Requires the Instagram Graph API to be configured in Netlify (a Facebook app, a connected Instagram Business account and the <code>IG_USER_ID</code> / <code>IG_ACCESS_TOKEN</code> env vars). Until then this returns a clear “not configured” message.</p>`;
+  } else {
+    body+=`<div class="al inf">This action is registered in the console and will activate once its integration is wired${intg.endpoint?` (endpoint <code>${intg.endpoint}</code>)`:''}. Tell me when you want to build it out.</div><div style="margin-top:12px"><button class="bg" id="intgCancel">Close</button></div>`;
+  }
+  $('intgBody').innerHTML=body; $('intgOv').classList.add('show');
+  $('intgCancel')?.addEventListener('click',()=>$('intgOv').classList.remove('show'));
+  $('intgRun')?.addEventListener('click',async()=>{
+    const btn=$('intgRun'); btn.disabled=true; btn.textContent='Publishing…'; alert('intgAlert','inf','Sending to Instagram…');
+    try{
+      const r=await fetch(intg.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({imageUrl:hero,caption:$('intgCaption').value})});
+      const data=await r.json().catch(()=>({}));
+      if(r.ok && data.ok) alert('intgAlert','ok','Published ✓ '+(data.permalink?`<a href="${data.permalink}" target="_blank">View post</a>`:''));
+      else alert('intgAlert','wr', data.error || data.message || ('Not published (HTTP '+r.status+')'));
+    }catch(e){ alert('intgAlert','er','Failed: '+e.message); }
+    btn.disabled=false; btn.textContent='Publish to Instagram';
+  });
+}
+$('intgClose').addEventListener('click',()=>$('intgOv').classList.remove('show'));
+$('intgOv').addEventListener('click',e=>{if(e.target===$('intgOv'))$('intgOv').classList.remove('show');});
+
+// ---- Social view ----
+function renderSocial(){
+  $('socialCards').innerHTML=Object.entries(INTEGRATIONS).map(([k,v])=>
+    `<div class="card"><div style="font-size:22px">${v.icon}</div><div class="l" style="margin-top:6px;text-transform:none;font-size:13px;color:#000036;font-weight:600">${esc(v.label)}</div><div style="font-size:12px;color:#888;margin-top:4px;line-height:1.5">${esc(v.blurb)}</div><div style="margin-top:8px"><span class="badge draft">Setup</span></div></div>`).join('');
+}
+
+loadAll();
+</script>
+</body>
+</html>
