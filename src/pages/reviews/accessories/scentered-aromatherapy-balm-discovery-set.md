@@ -5,11 +5,11 @@ brand: "Scentered"
 category: "accessories"
 subcategory: "Wellness & Aromatherapy"
 date: "2025-10-10"
-product_type: "accessory"
+product_type: "wellness"
 tested_by: "Holly Woodford"
 draft: true
 excerpt: "Scentered’s Discovery tin packs six natural mini balms — a pocket-sized mood toolkit for active women juggling focus, stress and sleep."
-meta_description: "WSS™ review of the Scentered Aromatherapy Balm Discovery Set — six natural mini balms scored on recovery suitability, real-use performance, range, formulation and transparency."
+meta_description: "WSS™ review of the Scentered Aromatherapy Balm Discovery Set — six natural mini balms scored on female-focused suitability, real-use efficacy, ingredients, experience and transparency."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Aromatherapy_Discovery_Set_Closed_balms_front_row.webp"
 overall_score: 3.9
 affiliate_link: ""
@@ -17,11 +17,11 @@ shopify_link: ""
 product_url: ""
 price: ""
 pillar_scores:
-  e1: 4
-  e2: 4
-  e3: 4
-  e4: 4
-  e5: 3
+  w1: 4
+  w2: 4
+  w3: 4
+  w4: 4
+  w5: 3
 faq:
   - q: What scents come in the Scentered Discovery Set?
     a: The tin holds six 100% natural mini balms in Scentered’s signature blends — Happy, Focus, De-stress, Escape, Love and Sleep Well — so you can match a scent to whatever the moment needs.
@@ -34,44 +34,42 @@ faq:
   - q: Is the Discovery Set worth it?
     a: For curiosity and portability, very much. It’s a curated sampler rather than a bulk-value buy, so it suits anyone wanting a “mood toolkit” to explore before committing to full-size sticks.
 migration_source: "https://womenssportsstore.com/scentered-aromatherapy-balm-discovery-set/"
-migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Equipment framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
+migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Wellness & Recovery framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
 
-## Scentered Aromatherapy Balm Discovery Set Review
+## Overview
 
-### A Pocket-Sized Mood Toolkit for Busy, Active Women
-
-Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **Scentered Aromatherapy Balm Discovery tin** sets out to fill, packing **six 100% natural mini balms** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. When it arrived it felt like an invitation: a little wellness set promising small moments of calm and reset. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made mood toolkit rather than a pretty novelty.
+Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **Scentered Aromatherapy Balm Discovery tin** sets out to fill, packing **six 100% natural mini balms** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made “mood toolkit” for active women rather than a pretty novelty.
 
 ## WSS™ Assessment
 
-### Female-Specific Design & Sizing — 4/5 ★★★★☆
+### Female-Focused Suitability — 4/5 ★★★★☆
 
-What I loved is how neatly this slots into a real active woman’s day. The six blends map onto the exact moments that crop up between training, work and winding down: **Focus** for mid-afternoon brain fog, **De-stress** when tension builds, **Sleep Well** before bed and **Happy** for a pick-me-up. It isn’t engineered around female body geometry the way kit can be, but as a stress-and-recovery routine it’s thoughtfully pitched at women juggling a lot — a curated set that meets you where your day actually is.
+What I loved is how neatly this slots into a real active woman’s day. The six blends map onto the exact moments that crop up between training, work and winding down: **Focus** for mid-afternoon brain fog, **De-stress** when tension builds, **Sleep Well** before bed and **Happy** for a pick-me-up. It isn’t marketed only as a generic “for her” product — it’s genuinely pitched at the stress, recovery and sleep needs of women juggling a busy routine, a curated set that meets you where your day actually is.
 
-### Functional Performance in Use — 4/5 ★★★★☆
+### Efficacy & Performance — 4/5 ★★★★☆
 
-This is where it won me over. Carried in my day bag, my nightstand drawer and on my desk, I reached for different balms depending on the moment, and they delivered the intended effect. The texture is silky and non-greasy, absorbing reasonably fast and leaving my pulse points lightly scented without a heavy, oily residue. The scent lingers long enough to feel meaningful but never overpowers — _Sleep Well_ soft and settling, _De-stress_ more vibrant.
+This is where it won me over. Carried in my day bag, my nightstand drawer and on my desk, I reached for different balms depending on the moment, and they delivered the intended effect. The texture is silky and non-greasy, absorbing reasonably fast and leaving my pulse points lightly scented without a heavy, oily residue. The scent lingers long enough to feel meaningful but never overpowers — _Sleep Well_ soft and settling, _De-stress_ more vibrant for a tense afternoon reset.
 
-### Fit, Adjustability & Size Range — 4/5 ★★★★☆
+### Quality, Ingredients & Materials — 4/5 ★★★★☆
 
-Read here as range and format, and the **Discovery tin** shines: six distinct blends in one compact, mess-free, travel-friendly format you can keep in a pocket or kit bag. The variety is the point — a “mood toolkit” rather than a single scent. The only trade-off is capacity: the minis are small (about **1.5 g each**), so under heavy daily use they won’t last forever, and that’s the honest limit of a sampler-style set.
+The balms are described as **100% natural** and behaved gently on my skin, absorbing cleanly with no greasy film at the pulse points. The solid-balm format feels premium and considered — slim, spill-proof sticks housed in an elegant tin. In very warm or humid conditions some warmth may slightly soften them, though I saw no major melting in normal daily use. Ingredient sourcing and any clean-formulation credentials aren’t independently verified here — based on product claims only — but everything felt kind and well-made in practice.
 
-### Safety & Performance Standards — 4/5 ★★★★☆
+### Experience & Usability — 4/5 ★★★★☆
 
-Interpreting standards as clean, skin-safe formulation, the balms are described as **100% natural** and behaved gently on my skin, absorbing cleanly with no greasy film at the pulse points. In very warm or humid conditions some warmth may slightly soften them, though I saw no major melting in normal daily use. Ingredient sourcing and any clean-formulation credentials aren’t independently verified here — based on product-page claims only — but everything felt kind and considered in practice.
+As a daily ritual, the **Discovery tin** is a joy. Six distinct blends in one compact, mess-free, travel-friendly format means you can keep it in a pocket or kit bag and dose to the moment. The included **how-to-use guide** makes the breath-and-inhale ritual easy to get right, and the variety is the point — a curated experience rather than a single scent. The only practical trade-off is capacity: the minis are small (about **1.5 g each**), so under heavy daily use they won’t last forever — the honest limit of a sampler-style set.
 
-### Transparency & User Reviews — 3/5 ★★★☆☆
+### Transparency, Ethics & Value — 3/5 ★★★☆☆
 
-The set is upfront about what each balm is for, and the included **how-to-use guide** is a nice touch that makes the rituals easy to get right. Scent purposes are clearly named and the natural positioning is consistent throughout. A fuller breakdown of individual botanical ingredients per blend would lift this further; for now my score leans on documented hands-on use rather than published ingredient detail, which isn’t independently verified.
+The set is upfront about what each balm is for, and the natural positioning is consistent throughout. Scent purposes are clearly named, which makes the kit easy to use with intent. A fuller breakdown of individual botanical ingredients per blend, plus substantiated sourcing detail, would lift this further; for now my score leans on documented hands-on use rather than published ingredient detail, which isn’t independently verified. As a curated sampler it’s about exploration rather than maximum product per pound.
 
 ## Scores
 
-Female-Specific Design & Sizing (25%): 4/5
-Functional Performance in Use (25%): 4/5
-Fit, Adjustability & Size Range (20%): 4/5
-Safety & Performance Standards (20%): 4/5
-Transparency & User Reviews (10%): 3/5
+Female-Focused Suitability (25%): 4/5
+Efficacy & Performance (30%): 4/5
+Quality, Ingredients & Materials (20%): 4/5
+Experience & Usability (15%): 4/5
+Transparency, Ethics & Value (10%): 3/5
 **Overall: 3.9 / 5 ★**
 
 ## Pros & Cons
@@ -91,20 +89,20 @@ Transparency & User Reviews (10%): 3/5
 
 It’s for active women who want **mood support in their pocket** — anyone curious about aromatherapy, building calming recovery and sleep rituals, or wanting to sample Scentered’s blends before committing to full-size sticks. Even seasoned fans benefit from a ready “mood toolkit” rather than a single scent. It’s less ideal if you want maximum balm per pound, in which case full-size or bulk options give more for your money.
 
-## Fit & Sizing
+## Ingredients & Use
 
-Read as range and format, the **Discovery tin** offers six signature blends — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — each a compact mini balm of roughly **1.5 g**. The format is the strength: slim, solid, spill-proof sticks that travel anywhere and apply straight to pulse points without mess. Scent strengths vary by design (De-stress brighter, Sleep Well softer), which makes the set easy to dose to the moment.
+Each of the six signature blends — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — comes as a compact mini balm of roughly **1.5 g**, described as **100% natural**. The format is the strength: slim, solid, spill-proof sticks that travel anywhere and apply straight to pulse points (wrists, neck, temples) without mess. To use, swipe onto a pulse point, cup your hands and take a few slow breaths — the included guide nudges you toward this simple breath-and-inhale ritual. Scent strengths vary by design (De-stress brighter, Sleep Well softer), which makes the set easy to dose to the moment.
 
 ![A neatly arranged Scentered Aromatherapy Balm Discovery tin and six mini balms in various colours, displayed on a textured tray, all resting on a wooden table.](https://womenssportsstore.com/wp-content/uploads/2025/10/Scentered-Best-Aromatherapy-Balm-for-women.--1024x1004.png)
 
 ## How It Compares
 
-| Product | Price | Size Range | Key Strength | Our Verdict |
+| Product | Price | Key Benefit | Natural? | Our Verdict |
 | --- | --- | --- | --- | --- |
-| Scentered Aromatherapy Balm Discovery Set | Not stated | Six ~1.5 g minis | Curated mood toolkit, portable | A lovely, effective sampler |
-| Scentered Full-Size Balm Stick | Higher | Single full-size stick | More product per scent | Best once you know your blend |
-| This Works Sleep Pillow Spray | Mid | Single bottle | Targeted bedtime ritual | Great for sleep only |
-| Neom Wellbeing Pod | Premium | Single device | Whole-room diffusion | Home-based, less portable |
+| Scentered Aromatherapy Balm Discovery Set | Not stated | Curated mood toolkit, portable | 100% natural (claimed) | A lovely, effective sampler |
+| Scentered Full-Size Balm Stick | Higher | More product per scent | 100% natural (claimed) | Best once you know your blend |
+| This Works Sleep Pillow Spray | Mid | Targeted bedtime ritual | Natural-leaning | Great for sleep only |
+| Neom Wellbeing Pod | Premium | Whole-room diffusion | Essential-oil based | Home-based, less portable |
 
 ## The Verdict
 
