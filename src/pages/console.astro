@@ -250,19 +250,28 @@ table.rev tr:hover td{background:#fcfcfd}
         <div class="h1">News</div>
         <div class="sub">Manage your news articles, and generate new ones from your RSS feeds.</div>
         <div class="nw-tabbar">
-          <button class="nw-tab active" data-nwtab="library" type="button">📄 Articles</button>
+          <button class="nw-tab active" data-nwtab="drafts" type="button">📝 Drafts <span class="nw-tabcount" id="nwCountDrafts"></span></button>
+          <button class="nw-tab" data-nwtab="published" type="button">✅ Published <span class="nw-tabcount" id="nwCountPublished"></span></button>
           <button class="nw-tab" data-nwtab="generate" type="button">✦ Generate</button>
         </div>
         <div id="newsAlert"></div>
+        <div id="nwLibAlert"></div>
 
-        <div id="nwtab-library" class="nwtab">
-        <div class="panel" id="nwLibPanel">
-          <h3>News articles <button class="bg" id="nwLibReload" style="font-weight:400;font-size:12px;padding:3px 9px;margin-left:6px">↻ Reload</button></h3>
-          <div class="hint">Drafts and published articles already in <code>src/pages/news/</code>. Drafts are hidden from the live site until you publish.</div>
-          <div id="nwLibAlert"></div>
-          <div id="nwLib"><p style="color:#999;font-size:13px;padding:4px">Loading…</p></div>
+        <div id="nwtab-drafts" class="nwtab">
+        <div class="panel">
+          <h3>Draft articles <button class="bg" id="nwLibReload" style="font-weight:400;font-size:12px;padding:3px 9px;margin-left:6px">↻ Reload</button></h3>
+          <div class="hint">Hidden from the live site until you publish them.</div>
+          <div id="nwLibDrafts"><p style="color:#999;font-size:13px;padding:4px">Loading…</p></div>
         </div>
-        </div><!-- /nwtab-library -->
+        </div><!-- /nwtab-drafts -->
+
+        <div id="nwtab-published" class="nwtab" hidden>
+        <div class="panel">
+          <h3>Published articles <button class="bg" id="nwLibReload2" style="font-weight:400;font-size:12px;padding:3px 9px;margin-left:6px">↻ Reload</button></h3>
+          <div class="hint">Live on the site at <code>/news/</code>.</div>
+          <div id="nwLibPublished"><p style="color:#999;font-size:13px;padding:4px">Loading…</p></div>
+        </div>
+        </div><!-- /nwtab-published -->
 
         <div id="nwtab-generate" class="nwtab" hidden>
         <h3 class="nw-gen-h">Generate a new article</h3>
@@ -340,6 +349,8 @@ table.rev tr:hover td{background:#fcfcfd}
   .nw-tab{background:none;border:none;border-bottom:2px solid transparent;padding:8px 14px;font-size:13px;font-weight:600;color:#888;border-radius:0;margin-bottom:-1px}
   .nw-tab:hover{color:#000036}
   .nw-tab.active{color:#FF5E84;border-bottom-color:#FF5E84}
+  .nw-tabcount:not(:empty){display:inline-block;min-width:16px;padding:0 5px;margin-left:2px;font-size:11px;line-height:16px;text-align:center;border-radius:9px;background:#eee;color:#666;font-weight:700}
+  .nw-tab.active .nw-tabcount:not(:empty){background:#FF5E84;color:#fff}
   .nwtab[hidden]{display:none}
   .nw-gen-h{font-size:14px;color:#000036;margin:2px 0 6px}
   .nw-lib-group{margin-bottom:10px}
@@ -718,7 +729,7 @@ document.querySelectorAll('.nw-tab').forEach(b=>b.addEventListener('click',()=>s
 let nwLib=[];
 $('nwLibReload').addEventListener('click',loadNwLib);
 async function loadNwLib(){
-  $('nwLib').innerHTML='<p style="color:#999;font-size:13px;padding:4px">Loading…</p>';
+  $('nwLibDrafts').innerHTML=$('nwLibPublished').innerHTML='<p style="color:#999;font-size:13px;padding:4px">Loading…</p>';
   setNwLibAlert('','');
   try{
     const d=await ghApi('tree',{});
@@ -731,7 +742,7 @@ async function loadNwLib(){
       }catch(_){ }
     }));
     renderNwLib(); renderDashboard();
-  }catch(e){ $('nwLib').innerHTML=`<p style="color:#c00;font-size:13px;padding:4px">Could not load: ${esc(e.message)}</p>`; }
+  }catch(e){ $('nwLibDrafts').innerHTML=$('nwLibPublished').innerHTML=`<p style="color:#c00;font-size:13px;padding:4px">Could not load: ${esc(e.message)}</p>`; }
 }
 function setNwLibAlert(type,msg){ $('nwLibAlert').innerHTML=msg?`<div class="al ${type}">${msg}</div>`:''; }
 function byDateDesc(a,b){ return new Date(b.date||0)-new Date(a.date||0); }
@@ -740,13 +751,13 @@ function nwLibRow(f){
   return `<div class="nw-lib-row" data-path="${esc(f.path)}"><div><div class="nw-lib-title">${esc(f.title||f.slug)}</div><div class="nw-lib-meta">${esc(f.author||'—')}${d?' · '+d:''} · ${esc(f.slug)}</div></div><div class="nw-lib-acts"><button class="bg" data-act="edit">Edit</button><button class="bg" data-act="preview">Preview</button><button class="bg" data-act="toggle">${f.draft?'Publish':'Unpublish'}</button><button class="bg bdanger" data-act="delete">Delete</button></div></div>`;
 }
 function renderNwLib(){
-  if(!nwLib.length){ $('nwLib').innerHTML='<p style="color:#999;font-size:13px;padding:4px">No news articles yet — generate one below.</p>'; return; }
   const drafts=nwLib.filter(f=>f.draft).sort(byDateDesc), live=nwLib.filter(f=>!f.draft).sort(byDateDesc);
-  $('nwLib').innerHTML=
-    `<div class="nw-lib-group"><div class="nw-lib-h draft">Drafts <span>${drafts.length}</span></div>${drafts.length?drafts.map(nwLibRow).join(''):'<p class="nw-lib-empty">No drafts.</p>'}</div>`+
-    `<div class="nw-lib-group"><div class="nw-lib-h">Published <span>${live.length}</span></div>${live.length?live.map(nwLibRow).join(''):'<p class="nw-lib-empty">Nothing published yet.</p>'}</div>`;
+  $('nwLibDrafts').innerHTML=drafts.length?drafts.map(nwLibRow).join(''):'<p class="nw-lib-empty">No draft articles. Generate one in the Generate tab.</p>';
+  $('nwLibPublished').innerHTML=live.length?live.map(nwLibRow).join(''):'<p class="nw-lib-empty">Nothing published yet.</p>';
+  $('nwCountDrafts').textContent=drafts.length||'';
+  $('nwCountPublished').textContent=live.length||'';
 }
-$('nwLib').addEventListener('click',async e=>{
+async function onNwLibClick(e){
   const btn=e.target.closest('[data-act]'), row=e.target.closest('[data-path]'); if(!btn||!row) return;
   const f=nwLib.find(x=>x.path===row.dataset.path); if(!f) return;
   const act=btn.dataset.act;
@@ -754,7 +765,10 @@ $('nwLib').addEventListener('click',async e=>{
   else if(act==='toggle') toggleNwDraft(f);
   else if(act==='delete') deleteNwArticle(f);
   else if(act==='edit') editNwArticle(f);
-});
+}
+$('nwLibDrafts').addEventListener('click',onNwLibClick);
+$('nwLibPublished').addEventListener('click',onNwLibClick);
+$('nwLibReload2').addEventListener('click',loadNwLib);
 function newsPreviewHtml(md){
   const {fm,body}=splitFrontmatter(md); const f=n=>fmField(fm,n);
   const hero=f('hero_image'), title=f('title')||'Untitled', author=f('author'), date=f('date');
