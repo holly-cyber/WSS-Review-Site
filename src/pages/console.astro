@@ -316,10 +316,14 @@ table.rev tr:hover td{background:#fcfcfd}
             <label>Headline<input id="nwTitle"/></label>
             <label>URL slug<input id="nwSlug"/></label>
             <label>Topic<input id="nwTopic"/></label>
-            <label>Hero image<span class="nw-hero-row"><input id="nwHero" placeholder="https://… or use Find"/><button type="button" class="bg" id="nwHeroFind">Find</button></span></label>
+            <label>Hero image<span class="nw-hero-row"><input id="nwHero" placeholder="https://… paste, Find from source, or search free photos"/><button type="button" class="bg" id="nwHeroFind">Find</button></span></label>
+          </div>
+          <div class="nw-hero-row" style="margin-bottom:6px">
+            <input id="nwStockQuery" placeholder="🔍 Search rights-free photos (e.g. women running, swimming)"/>
+            <button type="button" class="bp" id="nwStockSearch">Free photos</button>
           </div>
           <div id="nwHeroGrid" class="nw-hero-grid"></div>
-          <div id="nwHeroNote" class="hint" style="display:none">Images are scraped from the source page — check you have the right to use one before publishing, or paste your own URL.</div>
+          <div id="nwHeroNote" class="hint" style="display:none"></div>
           <div id="nwSplit" class="nw-split">
             <textarea id="nwBody" spellcheck="false"></textarea>
             <div id="nwPreview" class="nw-preview"></div>
@@ -879,7 +883,7 @@ function editNwArticle(f){
   $('nwTitle').value=g('title')||f.slug;
   $('nwSlug').value=f.slug; $('nwSlug').readOnly=true;
   $('nwTopic').value=g('topic')||'';
-  $('nwHero').value=g('hero_image')||'';
+  $('nwHero').value=g('hero_image')||''; nwHeroCredit=g('hero_credit')||'';
   $('nwBody').value=body.trim();
   const a=g('author'); if(a){ const sel=$('nwAuthor'); if([...sel.options].some(o=>o.value===a)) sel.value=a; }
   nwHeroImgs=[]; $('nwHeroGrid').innerHTML=''; $('nwHeroNote').style.display='none';
@@ -999,7 +1003,7 @@ async function generateNews(){
   $('nwOutPanel').style.display='block';
   $('nwBody').value=''; $('nwPreview').innerHTML='<p style="padding:12px;color:#999">Writing…</p>';
   $('nwView').style.display='none'; alert('nwPushAlert','','');
-  nwHeroImgs=[]; $('nwHeroGrid').innerHTML=''; $('nwHero').value=''; $('nwHeroNote').style.display='none';
+  nwHeroImgs=[]; nwHeroCredit=''; $('nwHeroGrid').innerHTML=''; $('nwHero').value=''; $('nwStockQuery').value=''; $('nwHeroNote').style.display='none';
   try{
     alert('nwPushAlert','inf','Fetching source articles for context & the originality check…');
     await nwAttachFullText(items);
@@ -1070,27 +1074,46 @@ let nwPvT=null;
 ['nwBody','nwTitle'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(nwPvT);nwPvT=setTimeout(renderNwPreview,250);}));
 $('nwSlug').addEventListener('input',()=>{ $('nwSlug').value=slugify($('nwSlug').value); });
 
-// --- Auto hero image: scrape candidates from the source page ---
-let nwHeroImgs=[];
+// --- Hero image: scrape from the source OR search a rights-free photo engine ---
+let nwHeroImgs=[], nwHeroCredit='';
+function heroUrl(u){ return (u&&u.url)||u||''; }
+function heroThumb(u){ return (u&&u.thumb)||heroUrl(u); }
+function nwHeroNote(msg){ const n=$('nwHeroNote'); n.innerHTML=msg||''; n.style.display=msg?'block':'none'; }
+
 $('nwHeroFind').addEventListener('click',()=>{ const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean); nwFindHero($('nwHero').value.trim()||(items[0]&&items[0].link),true); });
 async function nwAutoHero(items){ const url=items[0]&&items[0].link; if(url) await nwFindHero(url,false); }
 async function nwFindHero(url,manual){
-  if(!/^https?:\/\//i.test(url||'')){ if(manual) alert('nwPushAlert','inf','No source URL to scrape — paste an image URL into the field instead.'); return; }
+  if(!/^https?:\/\//i.test(url||'')){ if(manual) alert('nwPushAlert','inf','No source URL to scrape — search free photos or paste an image URL instead.'); return; }
   const btn=$('nwHeroFind'); btn.disabled=true; btn.textContent='Finding…';
   try{
     const imgs=await scrapeImages(url);
     nwHeroImgs=(imgs||[]).slice(0,8);
-    if(nwHeroImgs.length){ if(!$('nwHero').value.trim()) selectHero(0); renderNwHeroGrid(); $('nwHeroNote').style.display='block'; }
-    else if(manual) alert('nwPushAlert','wr','No images found on that page — paste a direct image URL into the field instead.');
+    if(nwHeroImgs.length){ if(!$('nwHero').value.trim()){ nwHeroCredit=''; selectHero(0); } renderNwHeroGrid(); nwHeroNote('⚠ These are scraped from the source page — they may be rights-reserved. Prefer the <strong>Free photos</strong> search, or paste your own URL.'); }
+    else if(manual) alert('nwPushAlert','wr','No images on that page — try the Free photos search or paste a direct image URL.');
   }catch(e){ if(manual) alert('nwPushAlert','er','Image search failed: '+e.message); }
   btn.disabled=false; btn.textContent='Find';
 }
-function heroUrl(u){ return (u&&u.url)||u||''; }
-function selectHero(i){ if(i<0||i>=nwHeroImgs.length) return; $('nwHero').value=heroUrl(nwHeroImgs[i]); renderNwHeroGrid(); renderNwPreview(); }
-function renderNwHeroGrid(){ const cur=$('nwHero').value.trim(); $('nwHeroGrid').innerHTML=nwHeroImgs.map((u,i)=>`<img src="${esc(heroUrl(u))}" data-i="${i}" class="${heroUrl(u)===cur?'sel':''}" loading="lazy" alt=""/>`).join(''); }
+// Rights-free stock search (Openverse CC0/PD by default, or a keyed provider).
+$('nwStockSearch').addEventListener('click',nwSearchStock);
+$('nwStockQuery').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); nwSearchStock(); } });
+async function nwSearchStock(){
+  const q=($('nwStockQuery').value||'').trim()||($('nwTopic').value||'').trim()||($('nwTitle').value||'').trim();
+  if(!q){ alert('nwPushAlert','inf','Type what to search for (e.g. women running).'); return; }
+  const btn=$('nwStockSearch'); btn.disabled=true; btn.textContent='Searching…';
+  try{
+    const r=await fetch('/api/stock-photo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
+    const d=await r.json().catch(()=>({}));
+    nwHeroImgs=(d.images||[]);
+    if(nwHeroImgs.length){ renderNwHeroGrid(); nwHeroNote(`Rights-free results via <strong>${esc(d.provider||'stock')}</strong> — free for commercial use. Click one to set it as the hero.`); }
+    else { renderNwHeroGrid(); nwHeroNote('No rights-free photos found for that search — try different keywords.'); }
+  }catch(e){ alert('nwPushAlert','er','Photo search failed: '+e.message); }
+  btn.disabled=false; btn.textContent='Free photos';
+}
+function selectHero(i){ if(i<0||i>=nwHeroImgs.length) return; const u=nwHeroImgs[i]; $('nwHero').value=heroUrl(u); nwHeroCredit=(u&&u.credit)||''; renderNwHeroGrid(); renderNwPreview(); }
+function renderNwHeroGrid(){ const cur=$('nwHero').value.trim(); $('nwHeroGrid').innerHTML=nwHeroImgs.map((u,i)=>`<img src="${esc(heroThumb(u))}" data-i="${i}" class="${heroUrl(u)===cur?'sel':''}" title="${esc((u&&u.credit)||'')}" loading="lazy" alt=""/>`).join(''); }
 $('nwHeroGrid').addEventListener('click',e=>{ const im=e.target.closest('[data-i]'); if(im) selectHero(parseInt(im.dataset.i)); });
 $('nwHeroGrid').addEventListener('error',e=>{ if(e.target.tagName==='IMG') e.target.style.display='none'; },true);
-$('nwHero').addEventListener('input',()=>{ renderNwHeroGrid(); clearTimeout(nwPvT); nwPvT=setTimeout(renderNwPreview,250); });
+$('nwHero').addEventListener('input',()=>{ nwHeroCredit=''; renderNwHeroGrid(); clearTimeout(nwPvT); nwPvT=setTimeout(renderNwPreview,250); });
 
 function yamlStr(s){ return '"'+String(s||'').replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"'; }
 async function pushNews(){
@@ -1107,7 +1130,7 @@ async function pushNews(){
     const date=(editing&&nwEditDate)?nwEditDate:new Date().toISOString().slice(0,10);
     const excerpt=deriveExcerpt(body);
     const sourcesYaml=srcItems.length?('sources:\n'+srcItems.map(it=>`  - title: ${yamlStr(it.title)}\n    url: ${yamlStr(it.link)}`).join('\n')+'\n'):'';
-    const fm=`---\nlayout: "../../layouts/NewsLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('nwTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(date)}\nauthor: ${yamlStr($('nwAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr($('nwHero').value.trim())}\ndraft: ${keepDraft?'true':'false'}\n${sourcesYaml}---\n\n${body}\n`;
+    const fm=`---\nlayout: "../../layouts/NewsLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('nwTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(date)}\nauthor: ${yamlStr($('nwAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr($('nwHero').value.trim())}\nhero_credit: ${yamlStr(nwHeroCredit)}\ndraft: ${keepDraft?'true':'false'}\n${sourcesYaml}---\n\n${body}\n`;
     await ghApi('put',{path,content:b64(fm),message:`${editing?'Edit':'Add'} news article: ${path}`,...(sha?{sha}:{})});
     alert('nwPushAlert','ok',`${editing?'Saved':'Pushed'} ✓ ${keepDraft?'Draft':'Published'} — builds on the next deploy${keepDraft&&!editing?'. Publish it from the list above.':'.'}`);
     $('nwView').href=`/news/${slug}/`; $('nwView').style.display='inline-block';
