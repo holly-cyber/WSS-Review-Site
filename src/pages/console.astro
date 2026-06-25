@@ -271,7 +271,7 @@ table.rev tr:hover td{background:#fcfcfd}
 
         <div class="panel" id="nwComposePanel" style="display:none">
           <h3>Draft article <span style="font-weight:400;color:#999">— <span id="nwSelCount">0</span> selected · <span id="nwMode">—</span></span></h3>
-          <div class="hint">Add an optional angle or instruction, pick an author, then generate. The original stories are linked as sources.</div>
+          <div class="hint">Every article is written fully in original wording under strict legal/originality rules (no copied phrasing, no fabricated facts, sources attributed &amp; linked) and auto-checked for verbatim overlap. Add an optional angle, pick an author, then generate.</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
             <input id="nwAngle" style="flex:1;min-width:240px" placeholder="Optional angle (e.g. UK perspective; tie to training; keep it upbeat)"/>
             <select id="nwAuthor" style="max-width:220px"></select>
@@ -296,6 +296,7 @@ table.rev tr:hover td{background:#fcfcfd}
           <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
             <button class="bp" id="nwPush">Push as draft →</button>
             <button class="bg" id="nwRegen">↻ Regenerate</button>
+            <button class="bg" id="nwRecheck">✓ Check originality</button>
             <a class="bg" id="nwView" target="_blank" rel="noopener" style="display:none">View ↗</a>
           </div>
           <div id="nwPushAlert"></div>
@@ -358,7 +359,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, sourceOverlap, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -687,6 +688,7 @@ function renderSocial(){
 // ================= News generator =================
 let nwAllItems=[], nwSel=[];
 let nwEditPath='', nwEditDate='', nwEditSources=null;  // set when editing an existing article
+let nwLastItems=[];  // source items behind the current draft, for the originality re-check
 (function initNwAuthors(){ const s=$('nwAuthor'); if(s) s.innerHTML=team.map(m=>`<option value="${esc(m.name)}">${esc(m.name)}</option>`).join(''); })();
 
 // --- News article library: existing drafts + published, with manage actions ---
@@ -766,7 +768,7 @@ function parseNwSources(fm){
 }
 function editNwArticle(f){
   const {fm,body}=splitFrontmatter(f.content); const g=n=>fmField(fm,n);
-  nwEditPath=f.path; nwEditDate=g('date'); nwEditSources=parseNwSources(fm);
+  nwEditPath=f.path; nwEditDate=g('date'); nwEditSources=parseNwSources(fm); nwLastItems=nwEditSources||[];
   $('nwTitle').value=g('title')||f.slug;
   $('nwSlug').value=f.slug; $('nwSlug').readOnly=true;
   $('nwTopic').value=g('topic')||'';
@@ -862,20 +864,22 @@ function updateNwSel(){
 $('nwGenerate').addEventListener('click',generateNews);
 $('nwRegen').addEventListener('click',generateNews);
 
-function newsPrompt(items, angle){
-  const src=items.map((it,n)=>`[${n+1}] ${it.title}\nOutlet: ${it.source}\nLink: ${it.link}\nSummary: ${it.summary||'(none provided)'}`).join('\n\n');
-  const angleLine=angle?`\nEditor's angle: ${angle}\n`:'';
-  if(items.length>1){
-    return `Write an original Women's Sports Store news ROUND-UP for an audience of active women, synthesising the ${items.length} stories below into one cohesive article.\n${angleLine}\nStories:\n${src}\n\nRequirements:\n- First line is a single H1 headline: "# <headline>".\n- Then 450–700 words in British English, grouped under 2–4 "## " subheadings.\n- Tie the stories together with a women's-sport throughline and add WSS perspective.\n- Do NOT copy sentences from the sources — summarise and comment in your own words.\n- Name the outlets where relevant. No fabricated quotes, names or statistics.\n- Warm, knowledgeable, lightly editorial. No clickbait, no closing call-to-action.`;
+// Originality guard: warn if the draft shares any verbatim 6+ word run with a source.
+function nwCheckOriginality(text,items){
+  const hits=sourceOverlap(text,items,6);
+  if(hits.length){
+    const shown=hits.slice(0,3).map(h=>`“${esc(h)}”`).join(', ');
+    alert('newsAlert','wr',`⚠ Draft generated, but it reuses wording from the source: ${shown}${hits.length>3?` and ${hits.length-3} more`:''}. Edit those phrases or click <strong>Regenerate</strong> before publishing.`);
+  } else {
+    alert('newsAlert','ok','Draft generated and passed the originality check — no verbatim phrasing shared with the source. Review and push.');
   }
-  const it=items[0];
-  return `Write an original Women's Sports Store news article for an audience of active women, based on the story below.\n${angleLine}\nStory: ${it.title}\nOutlet: ${it.source}\nLink: ${it.link}\nSummary: ${it.summary||'(none provided)'}\n\nRequirements:\n- First line is a single H1 headline: "# <headline>" — rewrite it in your own words, do not copy the source headline.\n- Then 350–550 words in British English with 1–3 "## " subheadings.\n- Do NOT copy sentences from the source — summarise, add WSS context, and explain why it matters for women in sport.\n- Attribute facts to the outlet by name. No fabricated quotes, names or statistics.\n- Warm, knowledgeable, lightly editorial. No closing call-to-action.`;
 }
 
 async function generateNews(){
   if(!nwSel.length) return;
   nwEditPath=''; nwEditDate=''; nwEditSources=null; $('nwSlug').readOnly=false; $('nwPush').textContent='Push as draft →';
   const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean);
+  nwLastItems=items;
   const btn=$('nwGenerate'), rbtn=$('nwRegen');
   btn.disabled=true; rbtn.disabled=true; btn.textContent='Generating…';
   $('nwOutPanel').style.display='block';
@@ -884,8 +888,8 @@ async function generateNews(){
   nwHeroImgs=[]; $('nwHeroGrid').innerHTML=''; $('nwHero').value=''; $('nwHeroNote').style.display='none';
   try{
     const text=await aiStream({
-      system:"You are a Women's Sports Store news editor writing original, accurate, lightly-editorial women's-sport news for active women. British English. Never fabricate quotes, names or statistics. Never copy source text verbatim — always rewrite and add value.",
-      messages:[{role:'user',content:newsPrompt(items,$('nwAngle').value.trim())}],
+      system:NEWS_SYSTEM,
+      messages:[{role:'user',content:buildNewsPrompt(items,$('nwAngle').value.trim())}],
       max_tokens:1800,
       onText:(t)=>{ $('nwBody').value=t; },
     });
@@ -895,7 +899,7 @@ async function generateNews(){
     $('nwBody').value=body;
     if(!$('nwTopic').value) $('nwTopic').value=(items[0]&&items[0].tag)||"Women's Sport";
     renderNwPreview();
-    alert('newsAlert','ok','Draft generated — review and edit, then push as a draft.');
+    nwCheckOriginality(title+'\n'+body,items);
     nwAutoHero(items);
   }catch(e){ $('nwPreview').innerHTML=''; alert('newsAlert','er','Generation failed: '+e.message); }
   btn.disabled=nwSel.length===0; rbtn.disabled=false; btn.textContent='✦ Generate draft';
@@ -964,6 +968,7 @@ async function pushNews(){
   btn.disabled=false; btn.textContent=nwEditPath?'Save changes →':'Push as draft →';
 }
 $('nwPush').addEventListener('click',pushNews);
+$('nwRecheck').addEventListener('click',()=>nwCheckOriginality($('nwTitle').value+'\n'+$('nwBody').value,nwLastItems));
 
 loadAll();
 </script>
