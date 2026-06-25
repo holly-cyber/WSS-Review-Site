@@ -8,7 +8,6 @@ excerpt: "Summer racing season brings a familiar dilemma for women in endurance 
 meta_description: "Summer racing season brings a familiar dilemma for women in endurance sport: bake through sweltering training runs to prepare for a hot-weather event, or dodge the heat entirely an"
 hero_image: "/images/news/hot-weather-different-rules-why-female-athletes-need-their-own-heat-training-approach.jpg"
 hero_credit: "Image: makabera / Pixabay"
-draft: true
 sources:
   - title: "Why Women Need a Different Strategy for Heat Training"
     url: "https://www.triathlete.com/training/why-women-need-a-different-strategy-for-heat-training/"
