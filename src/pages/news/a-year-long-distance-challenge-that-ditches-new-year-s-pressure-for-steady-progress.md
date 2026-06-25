@@ -8,7 +8,6 @@ excerpt: "If you've ever watched a January resolution dissolve by the first week
 meta_description: "If you've ever watched a January resolution dissolve by the first week of February, you're in excellent company. The problem isn't ambition — it's the all-or-nothing framing that m"
 hero_image: "/images/news/a-year-long-distance-challenge-that-ditches-new-year-s-pressure-for-steady-progress.jpg"
 hero_credit: "Image: Fotorech / Pixabay"
-draft: true
 sources:
   - title: "Want to Galvanize Your 2025 Running Goals? Take the “You vs. the Year 2025” Running Challenge"
     url: "https://www.womensrunning.com/training/want-to-galvanize-your-2025-running-goals-take-the-you-vs-the-year-2025-running-challenge/"
