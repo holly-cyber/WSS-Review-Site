@@ -408,7 +408,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, sourceOverlap, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -1001,6 +1001,8 @@ async function generateNews(){
   $('nwView').style.display='none'; alert('nwPushAlert','','');
   nwHeroImgs=[]; $('nwHeroGrid').innerHTML=''; $('nwHero').value=''; $('nwHeroNote').style.display='none';
   try{
+    alert('nwPushAlert','inf','Fetching source articles for context & the originality check…');
+    await nwAttachFullText(items);
     const text=await aiStream({
       system:NEWS_SYSTEM,
       messages:[{role:'user',content:buildNewsPrompt(items,$('nwAngle').value.trim())}],
@@ -1013,10 +1015,42 @@ async function generateNews(){
     $('nwBody').value=body;
     if(!$('nwTopic').value) $('nwTopic').value=(items[0]&&items[0].tag)||"Women's Sport";
     renderNwPreview();
-    nwCheckOriginality(title+'\n'+body,items);
+    await nwEnforceOriginality(items);
     nwAutoHero(items);
   }catch(e){ $('nwPreview').innerHTML=''; alert('newsAlert','er','Generation failed: '+e.message); }
   btn.disabled=nwSel.length===0; rbtn.disabled=false; btn.textContent='✦ Generate draft';
+}
+
+// Fetch the full text of each source (best-effort) so the model has the real
+// article as reference and the originality check compares against it, not the
+// short RSS summary. Attaches it.fulltext; silently falls back on failure.
+async function nwAttachFullText(items){
+  const urls=(items||[]).map(it=>it.link).filter(Boolean);
+  if(!urls.length) return;
+  try{
+    const r=await fetch('/api/article-text',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({urls})});
+    const d=await r.json().catch(()=>({}));
+    const map={}; (d.results||[]).forEach(x=>{ if(x&&x.ok&&x.text) map[x.url]=x.text; });
+    items.forEach(it=>{ if(map[it.link]) it.fulltext=map[it.link]; });
+  }catch(_){ /* best-effort */ }
+}
+
+// Editor pass: re-check the draft against the source full text and, while
+// verbatim overlaps remain, ask the model to rewrite the flagged passages.
+// Up to 2 rewrites, then report the final status by the buttons.
+async function nwEnforceOriginality(items){
+  for(let pass=0;;){
+    const hits=sourceOverlap($('nwTitle').value+'\n'+$('nwBody').value,items,6);
+    if(!hits.length){ alert('nwPushAlert','ok',`✓ Originality check passed${pass?` after ${pass} editor pass${pass>1?'es':''}`:''} — no verbatim phrasing (6+ words) shared with the source.`); return; }
+    if(pass>=2){ const shown=hits.slice(0,3).map(h=>`“${esc(h)}”`).join(', '); alert('nwPushAlert','wr',`⚠ ${hits.length} phrase(s) still overlap the source after ${pass} rewrites: ${shown}. Edit those manually or Regenerate.`); return; }
+    pass++;
+    alert('nwPushAlert','inf',`Editor pass ${pass}: rewriting ${hits.length} flagged passage(s) for originality…`);
+    const current=`# ${$('nwTitle').value}\n\n${$('nwBody').value}`;
+    const rew=await aiStream({ system:NEWS_SYSTEM, messages:[{role:'user',content:buildRewritePrompt(current,hits)}], max_tokens:1800, onText:(t)=>{ $('nwBody').value=t; } });
+    const {title,body}=splitHeadline(rew);
+    if(title) $('nwTitle').value=title;
+    $('nwBody').value=body; renderNwPreview();
+  }
 }
 
 function splitHeadline(md){
@@ -1082,7 +1116,13 @@ async function pushNews(){
   btn.disabled=false; btn.textContent=nwEditPath?'Save changes →':'Push as draft →';
 }
 $('nwPush').addEventListener('click',pushNews);
-$('nwRecheck').addEventListener('click',()=>nwCheckOriginality($('nwTitle').value+'\n'+$('nwBody').value,nwLastItems));
+$('nwRecheck').addEventListener('click',async()=>{
+  const btn=$('nwRecheck'); btn.disabled=true; btn.textContent='Checking…';
+  alert('nwPushAlert','inf','Fetching source articles for the originality check…');
+  try{ await nwAttachFullText(nwLastItems); }catch(_){}
+  nwCheckOriginality($('nwTitle').value+'\n'+$('nwBody').value,nwLastItems);
+  btn.disabled=false; btn.textContent='✓ Check originality';
+});
 
 loadAll();
 nwLibLoaded=true; loadNwLib();  // also drives the dashboard "News articles" count
