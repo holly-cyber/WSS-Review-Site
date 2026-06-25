@@ -924,6 +924,7 @@ $('nwRefresh').addEventListener('click',refreshFeeds);
 $('nwSelClear').addEventListener('click',()=>{ nwSel=[]; document.querySelectorAll('#nwItems input[type=checkbox]').forEach(c=>c.checked=false); updateNwSel(); });
 
 let nwResults=[], nwActiveTag='', nwSearchT=null;
+const NW_MAX_AGE_DAYS=7;   // freshness window: only pull stories from the last N days
 
 async function refreshFeeds(){
   if(!nwFeeds.length){ alert('newsAlert','wr','No RSS feeds configured — add one in the RSS feeds panel above.'); return; }
@@ -936,20 +937,27 @@ async function refreshFeeds(){
     const data=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(data.message||('HTTP '+r.status));
     nwResults=data.results||[]; nwAllItems=[]; nwSel=[];
-    let nwHidden=0;
+    const cutoff=Date.now()-NW_MAX_AGE_DAYS*86400000;   // only the last N days
+    let nwHidden=0, nwStaleAge=0; const staleFeeds=[];
     for(const rr of nwResults){
       const feedWomen=isWomensFeed((rr.name||'')+' '+(rr.tag||''));   // women-dedicated feed → all items relevant
+      let newest=0;
       for(const it of (rr.items||[])){
+        if(it.ts) newest=Math.max(newest,it.ts);
         if(it.link && nwUsedLinks.has(normLink(it.link))){ nwHidden++; continue; }   // skip articles we've used before
+        if(it.ts && it.ts<cutoff){ nwStaleAge++; continue; }   // older than the freshness window
         const women=feedWomen||isWomensContent((it.title||'')+' '+(it.summary||''));
         nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:rr.name,tag:rr.tag||'',women});
       }
+      if(rr.ok && newest && newest<cutoff) staleFeeds.push(rr.name);   // newest dated story is older than the window
     }
     renderNwTags();
     $('nwFilterBar').style.display=nwAllItems.length?'flex':'none';
     applyNwFilter();
     const ok=nwResults.filter(x=>x.ok).length;
-    alert('newsAlert','ok',`Loaded ${nwAllItems.length} new stor${nwAllItems.length===1?'y':'ies'} from ${ok}/${sources.length} feed(s)${nwHidden?` · ${nwHidden} already-used hidden`:''}. Filter by tag or keyword, then select one (rewrite) or several (roundup).`);
+    const extra=`${nwHidden?` · ${nwHidden} already-used hidden`:''}${nwStaleAge?` · ${nwStaleAge} older than ${NW_MAX_AGE_DAYS} days`:''}`;
+    const staleMsg=staleFeeds.length?` ⚠ No stories in the last ${NW_MAX_AGE_DAYS} days from: ${staleFeeds.join(', ')}.`:'';
+    alert('newsAlert',staleFeeds.length?'wr':'ok',`Loaded ${nwAllItems.length} recent stor${nwAllItems.length===1?'y':'ies'} (last ${NW_MAX_AGE_DAYS} days) from ${ok}/${sources.length} feed(s)${extra}.${staleMsg}`);
   }catch(e){ alert('newsAlert','er','Could not fetch feeds: '+e.message+' (the rss-proxy function needs to be deployed on Netlify).'); }
   btn.disabled=false; btn.textContent='↻ Refresh feeds'; updateFeedPickCount();
 }
