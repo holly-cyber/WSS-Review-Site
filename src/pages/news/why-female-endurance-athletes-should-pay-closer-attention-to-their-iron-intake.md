@@ -7,7 +7,6 @@ author: "Mel Berry"
 excerpt: "For many women who run regularly, that creeping sense of fatigue on longer efforts — heavy legs, breathlessness that seems out of proportion to the pace, a general feeling of runni"
 meta_description: "For many women who run regularly, that creeping sense of fatigue on longer efforts — heavy legs, breathlessness that seems out of proportion to the pace, a general feeling of runni"
 hero_image: "https://cdn.womensrunning.com/wp-content/uploads/2026/02/Shield_featured_h-1.jpg"
-draft: true
 sources:
   - title: "Low Energy on Long Runs? It Might Be Your Iron Levels."
     url: "https://www.womensrunning.com/health/wellness/low-energy-on-long-runs-it-might-be-your-iron-levels/"
