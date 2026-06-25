@@ -77,6 +77,21 @@ const sourceHost = (u: string) => { try { return new URL(u).hostname.replace(/^w
 
     <div class="container"><EmailSignup /></div>
   </article>
+
+  <script define:vars={{ newsSlug: currentSlug, newsTitle: fm.title || '', newsTopic: fm.topic || '' }}>
+    // Fire a custom "news-view" analytics event once Umami is ready (it loads
+    // deferred, so poll briefly). No-ops when analytics isn't configured.
+    (function () {
+      function track() {
+        if (window.umami && typeof window.umami.track === 'function') {
+          try { window.umami.track('news-view', { slug: newsSlug, title: newsTitle, topic: newsTopic }); } catch (e) {}
+          return true;
+        }
+        return false;
+      }
+      if (!track()) { var n = 0, id = setInterval(function () { if (track() || ++n > 25) clearInterval(id); }, 150); }
+    })();
+  </script>
 </BaseLayout>
 
 <style>
