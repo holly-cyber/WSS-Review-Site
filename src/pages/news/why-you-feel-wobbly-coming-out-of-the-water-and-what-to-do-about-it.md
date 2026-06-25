@@ -7,7 +7,6 @@ author: "Holly Woodford"
 excerpt: "If you've ever hauled yourself out of the swim leg of a triathlon only to find the world spinning as you stumble towards transition, you're not imagining it. That disorienting wobb"
 meta_description: "If you've ever hauled yourself out of the swim leg of a triathlon only to find the world spinning as you stumble towards transition, you're not imagining it. That disorienting wobb"
 hero_image: ""
-draft: true
 sources:
   - title: "The Science Behind Post-Swim Dizziness and How to Reduce It"
     url: "https://www.triathlete.com/culture/news/the-science-behind-post-swim-dizziness-and-how-to-reduce-it/"
