@@ -83,9 +83,12 @@ export const NEWS_RULES = `ORIGINALITY & LEGAL RULES — follow every one:
 
 // Build the user prompt for a news article (single story) or round-up (many).
 export function buildNewsPrompt(items, angle) {
-  const src = (items || []).map((it, n) =>
-    `[${n + 1}] ${it.title}\nOutlet: ${it.source}\nLink: ${it.link}\nKey points (reference only — do NOT copy any wording): ${it.summary || '(none provided)'}`
-  ).join('\n\n');
+  const src = (items || []).map((it, n) => {
+    let ref = it.fulltext || it.summary || '(none provided)';
+    if (ref.length > 4000) ref = ref.slice(0, 4000) + '…';
+    const label = it.fulltext ? 'Source article (reference only — do NOT copy any wording)' : 'Key points (reference only — do NOT copy any wording)';
+    return `[${n + 1}] ${it.title}\nOutlet: ${it.source}\nLink: ${it.link}\n${label}: ${ref}`;
+  }).join('\n\n');
   const angleLine = angle ? `\nEditor's angle: ${angle}\n` : '';
   const shape = (items && items.length > 1)
     ? `Write an ORIGINAL WSS news round-up that synthesises the ${items.length} stories below into one cohesive article with a fresh throughline. 450–700 words, with 2–4 "## " subheadings.`
@@ -94,18 +97,26 @@ export function buildNewsPrompt(items, angle) {
 }
 
 // Originality guard: return the distinct runs of n+ consecutive words that the
-// generated text shares verbatim with any source's title/summary. Empty = clean.
+// generated text shares verbatim with any source's full text (or title/summary
+// when full text wasn't fetched). Empty = clean.
 export function sourceOverlap(text, items, n = 6) {
   const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
   const out = norm(text).split(' ').filter(Boolean);
   const hits = new Set();
   for (const it of (items || [])) {
-    const sw = norm(`${it.title || ''} ${it.summary || ''}`).split(' ').filter(Boolean);
+    const sw = norm(`${it.title || ''} ${it.fulltext || it.summary || ''}`).split(' ').filter(Boolean);
     const grams = new Set();
     for (let i = 0; i + n <= sw.length; i++) grams.add(sw.slice(i, i + n).join(' '));
     for (let i = 0; i + n <= out.length; i++) { const g = out.slice(i, i + n).join(' '); if (grams.has(g)) hits.add(g); }
   }
   return [...hits];
+}
+
+// Editor pass: prompt the model to rewrite an article so the flagged phrases (and
+// any other close phrasing) no longer match the source, keeping facts & structure.
+export function buildRewritePrompt(article, phrases) {
+  const list = (phrases || []).slice(0, 25).map((p) => `- "${p}"`).join('\n');
+  return `The WSS news article below still reuses wording from its source too closely. Rewrite it so that NONE of the flagged phrases below — and no run of 6+ consecutive words — match the source, while keeping every fact accurate, the same overall structure and subheadings, and British English. Return the FULL article in the same format: the first line is "# <headline>", then the body with "## " subheadings. Output only the article, no commentary.\n\nFLAGGED PHRASES (these must be reworded):\n${list}\n\nARTICLE TO REWRITE:\n${article}`;
 }
 
 export async function scrapeImages(url) {
