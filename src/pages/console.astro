@@ -246,17 +246,24 @@ table.rev tr:hover td{background:#fcfcfd}
 
       <!-- News -->
       <section id="view-news" class="view">
-        <div class="h1">News generator</div>
-        <div class="sub">Pull women's-sport stories from your RSS feeds, then draft an original article. Select <strong>one</strong> story to rewrite or <strong>several</strong> for a roundup.</div>
+        <div class="h1">News</div>
+        <div class="sub">Manage your news articles, and generate new ones from your RSS feeds.</div>
+        <div class="nw-tabbar">
+          <button class="nw-tab active" data-nwtab="library" type="button">📄 Articles</button>
+          <button class="nw-tab" data-nwtab="generate" type="button">✦ Generate</button>
+        </div>
         <div id="newsAlert"></div>
 
+        <div id="nwtab-library" class="nwtab">
         <div class="panel" id="nwLibPanel">
           <h3>News articles <button class="bg" id="nwLibReload" style="font-weight:400;font-size:12px;padding:3px 9px;margin-left:6px">↻ Reload</button></h3>
           <div class="hint">Drafts and published articles already in <code>src/pages/news/</code>. Drafts are hidden from the live site until you publish.</div>
           <div id="nwLibAlert"></div>
           <div id="nwLib"><p style="color:#999;font-size:13px;padding:4px">Loading…</p></div>
         </div>
+        </div><!-- /nwtab-library -->
 
+        <div id="nwtab-generate" class="nwtab" hidden>
         <h3 class="nw-gen-h">Generate a new article</h3>
         <div class="filters">
           <button class="bp" id="nwRefresh">↻ Refresh feeds</button>
@@ -301,6 +308,7 @@ table.rev tr:hover td{background:#fcfcfd}
           </div>
           <div id="nwPushAlert"></div>
         </div>
+        </div><!-- /nwtab-generate -->
       </section>
 
       <!-- Social -->
@@ -327,7 +335,12 @@ table.rev tr:hover td{background:#fcfcfd}
   .nw-it-meta{grid-column:2;font-size:11.5px;color:#999}
   .nw-it-sum{grid-column:2;font-size:12px;color:#666;line-height:1.45;margin-top:2px}
   .nw-it-link{grid-column:3;grid-row:1;font-size:11.5px;color:#FF5E84;text-decoration:none;white-space:nowrap}
-  .nw-gen-h{font-size:14px;color:#000036;margin:18px 0 6px}
+  .nw-tabbar{display:flex;gap:4px;border-bottom:1px solid #e6e6ef;margin:6px 0 14px}
+  .nw-tab{background:none;border:none;border-bottom:2px solid transparent;padding:8px 14px;font-size:13px;font-weight:600;color:#888;border-radius:0;margin-bottom:-1px}
+  .nw-tab:hover{color:#000036}
+  .nw-tab.active{color:#FF5E84;border-bottom-color:#FF5E84}
+  .nwtab[hidden]{display:none}
+  .nw-gen-h{font-size:14px;color:#000036;margin:2px 0 6px}
   .nw-lib-group{margin-bottom:10px}
   .nw-lib-h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#000036;margin:8px 0 6px;display:flex;gap:6px;align-items:center}
   .nw-lib-h span{background:#eee;color:#555;border-radius:10px;padding:0 7px;font-size:11px;font-weight:600}
@@ -691,6 +704,13 @@ let nwEditPath='', nwEditDate='', nwEditSources=null;  // set when editing an ex
 let nwLastItems=[];  // source items behind the current draft, for the originality re-check
 (function initNwAuthors(){ const s=$('nwAuthor'); if(s) s.innerHTML=team.map(m=>`<option value="${esc(m.name)}">${esc(m.name)}</option>`).join(''); })();
 
+// News sub-tabs: Articles (library) / Generate
+function setNwTab(name){
+  document.querySelectorAll('.nw-tab').forEach(b=>b.classList.toggle('active',b.dataset.nwtab===name));
+  document.querySelectorAll('.nwtab').forEach(t=>{ t.hidden = t.id!=='nwtab-'+name; });
+}
+document.querySelectorAll('.nw-tab').forEach(b=>b.addEventListener('click',()=>setNwTab(b.dataset.nwtab)));
+
 // --- News article library: existing drafts + published, with manage actions ---
 let nwLib=[];
 $('nwLibReload').addEventListener('click',loadNwLib);
@@ -776,6 +796,7 @@ function editNwArticle(f){
   $('nwBody').value=body.trim();
   const a=g('author'); if(a){ const sel=$('nwAuthor'); if([...sel.options].some(o=>o.value===a)) sel.value=a; }
   nwHeroImgs=[]; $('nwHeroGrid').innerHTML=''; $('nwHeroNote').style.display='none';
+  setNwTab('generate');
   $('nwOutPanel').style.display='block';
   renderNwPreview();
   $('nwPush').textContent='Save changes →';
