@@ -6,7 +6,7 @@ category: "accessories"
 subcategory: "Wellness & Aromatherapy"
 date: "2025-10-10"
 product_type: "wellness"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "Scentered’s Discovery tin packs six natural mini balms — a pocket-sized mood toolkit for active women juggling focus, stress and sleep."
 meta_description: "WSS™ review of the Scentered Aromatherapy Balm Discovery Set — six natural mini balms scored on female-focused suitability, real-use efficacy, ingredients, experience and transparency."

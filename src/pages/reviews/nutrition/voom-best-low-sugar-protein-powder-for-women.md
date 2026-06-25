@@ -6,7 +6,7 @@ category: "nutrition"
 subcategory: "protein"
 date: "2025-09-12"
 product_type: "nutrition"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "My WSS™ review of VOOM Belgian Chocolate & Vanilla: a low-sugar whey isolate recovery shake that finally tastes like a treat."
 meta_description: "A hands-on WSS™ review of VOOM Belgian Chocolate & Vanilla low-sugar protein powder for women — taste, nutrition profile, recovery performance and value."
@@ -91,7 +91,7 @@ It's less of a match if you count every penny per gram of protein, or if you wan
 
 Belgian Chocolate is the showstopper: rich, dessert-like and deeply satisfying. Vanilla is the versatile all-rounder, creamy enough to pair with anything. Use it as a pre-training snack or, where it really shines, as post-training recovery fuel. Mix two scoops with water for a lighter hit, or milk for something more indulgent.
 
-*Holly's Hack:* blend the Belgian Chocolate with oat milk and a frozen banana. It tastes like dessert but still counts as one of the best low-sugar recovery shakes you'll find.
+*Mel's Hack:* blend the Belgian Chocolate with oat milk and a frozen banana. It tastes like dessert but still counts as one of the best low-sugar recovery shakes you'll find.
 
 ![VOOM Low Sugar Protein Recovery Shake](https://womenssportsstore.com/wp-content/uploads/2025/09/VOM-Low-Sugar-Protein-Recovery-Shake-1536x1475.png)
 

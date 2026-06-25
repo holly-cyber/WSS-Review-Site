@@ -11,7 +11,7 @@ excerpt: "Trail Bloom's women's MTB trousers pair inclusive UK 6–26 sizing wit
 meta_description: "WSS™ review of Trail Bloom's women's MTB trousers — a hands-on look at inclusive fit, trail performance, female-specific design and value for women who ride."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Trail-Bloom-Ladies-MTB-Trousers-in-black-865x1536.jpg"
 overall_score: 3.7
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 affiliate_link: "https://trailbloom.com/collections/ladies-mountain-biking-shorts/products/ladies-mtb-trousers"
 shopify_link: ""
 product_url: "https://trailbloom.com/collections/ladies-mountain-biking-shorts/products/ladies-mtb-trousers"

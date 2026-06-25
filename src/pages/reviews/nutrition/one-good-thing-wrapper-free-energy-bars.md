@@ -6,7 +6,7 @@ category: "nutrition"
 subcategory: "race-day-and-performance"
 date: "2025-09-30"
 product_type: "nutrition"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "Wrapper-free, pocket-friendly and gut-kind: One Good Thing's flapjack rethinks the endurance energy bar from the ground up."
 meta_description: "A WSS™ review of the One Good Thing wrapper-free flapjack — taste, nutrition, performance and value for active women, runners and cyclists."

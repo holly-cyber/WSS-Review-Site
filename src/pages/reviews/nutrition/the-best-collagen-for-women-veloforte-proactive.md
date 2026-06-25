@@ -12,7 +12,7 @@ affiliate_link: ""
 shopify_link: ""
 product_url: ""
 price: "£27.99 for a 30-serving pouch"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 overall_score: 4.1
 pillar_scores:
   taste: 5

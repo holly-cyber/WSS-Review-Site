@@ -6,7 +6,7 @@ category: "run"
 subcategory: "accessories"
 date: "2025-10-03"
 product_type: "accessory"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 overall_score: 4.0
 excerpt: "Lightweight, breathable and weatherproof: the WSS™ review of the Runr Stuttgart Blackout running cap for women who run."
 meta_description: "WSS™ review of the Runr Stuttgart Blackout Technical Running Cap — fit, sweat management, ponytail compatibility, sun and rain protection for women who run."

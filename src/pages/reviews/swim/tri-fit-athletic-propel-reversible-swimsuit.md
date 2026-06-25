@@ -7,10 +7,8 @@ date: "2026-06-10"
 price: "60.00"
 product_type: "apparel"
 sizes: "XS, S, M, L, XL"
-tested_by: "Holly Woodford"
-reviewer_bio: "Holly is the Co-Founder of WomensSportsStore.com and an experienced ultra runner, triathlete, cyclist and swimmer.  She has tested all manor of kit, nutrition and tech on trails, on the road, in the lake and in all conditions."
-reviewer_avatar: "https://womenssportsstore.com/wp-content/uploads/2026/01/WSS-Post-Image-Size-3-2048x2048.png"
-excerpt: "**Reviewed by Holly Woodford**"
+tested_by: "Mel Berry"
+excerpt: "**Reviewed by Mel Berry**"
 meta_description: "The **TRI-FIT Athletic PROPEL Reversible Swimsuit** is a genuinely well-made training suit that earns its £60 price tag through quality fabric…"
 hero_image: "https://cdn.shopify.com/s/files/1/2913/8550/files/15_285_copy.jpg?v=1774981571"
 overall_score: 4.0
@@ -38,7 +36,7 @@ faq:
 
 # TRI-FIT Athletic PROPEL Reversible Swimsuit Review — Women's Swim
 
-**Reviewed by Holly Woodford**
+**Reviewed by Mel Berry**
 
 ## TRI-FIT Athletic PROPEL Reversible Swimsuit Review
 

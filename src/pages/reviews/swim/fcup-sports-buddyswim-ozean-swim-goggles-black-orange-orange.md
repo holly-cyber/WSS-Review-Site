@@ -7,9 +7,7 @@ date: "2026-06-10"
 price: "35.00"
 product_type: "equipment"
 sizes: ""
-tested_by: "Holly Woodford"
-reviewer_bio: "Holly is the Co-Founder of WomensSportsStore.com and an experienced ultra runner, triathlete, cyclist and swimmer.  She has tested all manor of kit, nutrition and tech on trails, on the road, in the lake and in all conditions."
-reviewer_avatar: "https://womenssportsstore.com/wp-content/uploads/2026/01/WSS-Post-Image-Size-3-2048x2048.png"
+tested_by: "Mel Berry"
 excerpt: "A comfortable, panoramic open-water and pool goggle with a genuinely soft cushioned seal — our WSS™ review weighs the fit, optics and the gaps."
 meta_description: "Our WSS™ review of the FCUP Sports BuddySwim Ozean swim goggles: cushioned seal comfort, panoramic open-water vision, anti-fog clarity and where the standards data falls short."
 hero_image: "https://cdn.shopify.com/s/files/1/0988/1059/3625/files/58342571-gafas-buddyswim-ozean-black-orange-orange.jpg?v=1780661111"
@@ -43,7 +41,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 Finding goggles that stay put through a choppy open-water session — or a punishing pool interval set — is one of swimming's most underrated challenges. I've been there: mid-race, mask flooding, vision blurring. So when I came to the **FCUP Sports BuddySwim Ozean Swim Goggles Black-Orange/Orange**, I wanted to know whether they could deliver comfort *and* performance across both environments. At **£35** they sit in a competitive mid-range bracket, and for the most part they make a genuinely compelling case for women who want one dependable pair for the lake and the lane.
 
-> **Reviewed by Holly Woodford**
+> **Reviewed by Mel Berry**
 
 ![FCUP Sports BuddySwim Ozean Swim Goggles Black-Orange/Orange](https://cdn.shopify.com/s/files/1/0988/1059/3625/files/58342571-gafas-buddyswim-ozean-black-orange-orange.jpg?v=1780661111)
 

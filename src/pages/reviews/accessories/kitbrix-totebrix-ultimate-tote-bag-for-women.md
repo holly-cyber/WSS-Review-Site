@@ -7,7 +7,7 @@ subcategory: "Bags & Kit Bags"
 date: "2025-10-07"
 product_type: "accessory"
 draft: true
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 excerpt: "A waterproof, structured all-rounder that swallows gym kit, swim gear, a laptop and a weekend's worth of clothes — and still looks put-together."
 meta_description: "Our WSS™ review of the KitBrix ToteBrix Extra Large Tote Bag — a waterproof, structured, comfortable carry-all for gym, swim, work and travel."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/ToteBrix-Tote-Bag-all-colours-by-sea-California-for-women-.jpg"
