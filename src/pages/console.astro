@@ -792,6 +792,8 @@ $('nwFeedUrl').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDef
 
 // --- News article library: existing drafts + published, with manage actions ---
 let nwLib=[];
+let nwUsedLinks=new Set();  // source URLs already used by an existing article
+const normLink=(u)=>String(u||'').trim().toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/+$/,'');
 $('nwLibReload').addEventListener('click',loadNwLib);
 async function loadNwLib(){
   $('nwLibDrafts').innerHTML=$('nwLibPublished').innerHTML='<p style="color:#999;font-size:13px;padding:4px">Loading…</p>';
@@ -806,6 +808,9 @@ async function loadNwLib(){
         f.title=fmField(fm,'title')||f.slug; f.date=fmField(fm,'date'); f.author=fmField(fm,'author'); f.draft=isDraft(f.content);
       }catch(_){ }
     }));
+    // Collect every source URL we've already used, so feeds can skip them.
+    nwUsedLinks=new Set();
+    for(const f of nwLib){ try{ for(const s of parseNwSources(splitFrontmatter(f.content).fm)) if(s.link) nwUsedLinks.add(normLink(s.link)); }catch(_){ } }
     renderNwLib(); renderDashboard();
   }catch(e){ $('nwLibDrafts').innerHTML=$('nwLibPublished').innerHTML=`<p style="color:#c00;font-size:13px;padding:4px">Could not load: ${esc(e.message)}</p>`; }
 }
@@ -900,12 +905,16 @@ async function refreshFeeds(){
     const data=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(data.message||('HTTP '+r.status));
     nwResults=data.results||[]; nwAllItems=[]; nwSel=[];
-    for(const rr of nwResults){ for(const it of (rr.items||[])) nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:rr.name,tag:rr.tag||''}); }
+    let nwHidden=0;
+    for(const rr of nwResults){ for(const it of (rr.items||[])){
+      if(it.link && nwUsedLinks.has(normLink(it.link))){ nwHidden++; continue; }   // skip articles we've used before
+      nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:rr.name,tag:rr.tag||''});
+    }}
     renderNwTags();
     $('nwFilterBar').style.display=nwAllItems.length?'flex':'none';
     applyNwFilter();
     const ok=nwResults.filter(x=>x.ok).length;
-    alert('newsAlert','ok',`Loaded ${nwAllItems.length} stor${nwAllItems.length===1?'y':'ies'} from ${ok}/${nwFeeds.length} feed(s). Filter by tag or keyword, then select one (rewrite) or several (roundup).`);
+    alert('newsAlert','ok',`Loaded ${nwAllItems.length} new stor${nwAllItems.length===1?'y':'ies'} from ${ok}/${nwFeeds.length} feed(s)${nwHidden?` · ${nwHidden} already-used hidden`:''}. Filter by tag or keyword, then select one (rewrite) or several (roundup).`);
   }catch(e){ alert('newsAlert','er','Could not fetch feeds: '+e.message+' (the rss-proxy function needs to be deployed on Netlify).'); }
   btn.disabled=false; btn.textContent='↻ Refresh feeds';
 }
@@ -970,12 +979,13 @@ $('nwRegen').addEventListener('click',generateNews);
 
 // Originality guard: warn if the draft shares any verbatim 6+ word run with a source.
 function nwCheckOriginality(text,items){
+  if(!items||!items.length){ alert('nwPushAlert','inf','No linked sources to compare against — originality check skipped.'); return; }
   const hits=sourceOverlap(text,items,6);
   if(hits.length){
     const shown=hits.slice(0,3).map(h=>`“${esc(h)}”`).join(', ');
-    alert('newsAlert','wr',`⚠ Draft generated, but it reuses wording from the source: ${shown}${hits.length>3?` and ${hits.length-3} more`:''}. Edit those phrases or click <strong>Regenerate</strong> before publishing.`);
+    alert('nwPushAlert','wr',`⚠ Originality check: reuses wording from the source — ${shown}${hits.length>3?` and ${hits.length-3} more`:''}. Edit those phrases or click <strong>Regenerate</strong> before publishing.`);
   } else {
-    alert('newsAlert','ok','Draft generated and passed the originality check — no verbatim phrasing shared with the source. Review and push.');
+    alert('nwPushAlert','ok','✓ Originality check passed — no verbatim phrasing (6+ words) shared with the source.');
   }
 }
 
