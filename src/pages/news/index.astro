@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const mods = import.meta.glob('./*.md', { eager: true });
+const articles = Object.entries(mods)
+  .map(([path, mod]: [string, any]) => ({ ...mod.frontmatter, slug: path.split('/').pop().replace('.md', '') }))
+  .filter((a: any) => (import.meta.env.PROD ? a.draft !== true : true))
+  .sort((a: any, b: any) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+
+const fmtDate = (d: string) => d ? new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+const featured = articles[0];
+const rest = articles.slice(1);
+---
+<BaseLayout title="Women's Sport News" description="The latest women's sport news, curated and written by the Women's Sports Store editorial team.">
+  <section class="container news-hub">
+    <div class="news-hub-head">
+      <h1>News</h1>
+      <p>The latest in women's sport — curated from trusted sources and written up by our editorial team.</p>
+    </div>
+
+    {articles.length === 0 && <p class="news-empty">No news articles yet. New stories will appear here.</p>}
+
+    {featured && (
+      <a class="news-feature" href={`/news/${featured.slug}/`}>
+        {featured.hero_image && <img src={featured.hero_image} alt={featured.title} />}
+        <div class="news-feature-body">
+          {featured.topic && <span class="news-topic">{featured.topic}</span>}
+          <h2>{featured.title}</h2>
+          {featured.excerpt && <p>{featured.excerpt}</p>}
+          <span class="news-byline">{featured.author ? `By ${featured.author}` : ''}{featured.author && featured.date ? ' · ' : ''}{fmtDate(featured.date)}</span>
+        </div>
+      </a>
+    )}
+
+    {rest.length > 0 && (
+      <div class="news-grid">
+        {rest.map((a: any) => (
+          <a class="news-card" href={`/news/${a.slug}/`}>
+            {a.hero_image && <img src={a.hero_image} alt={a.title} loading="lazy" />}
+            <div class="news-card-body">
+              {a.topic && <span class="news-topic">{a.topic}</span>}
+              <h3>{a.title}</h3>
+              {a.excerpt && <p>{a.excerpt}</p>}
+              <span class="news-byline">{a.author ? `By ${a.author}` : ''}{a.author && a.date ? ' · ' : ''}{fmtDate(a.date)}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+.news-hub { padding: 2.5rem 1rem 3.5rem; }
+.news-hub-head { max-width: 760px; margin: 0 0 2rem; }
+.news-hub-head h1 { font-size: clamp(2rem, 5vw, 3rem); color: #000036; margin: 0 0 .5rem; }
+.news-hub-head p { font-size: 1.1rem; color: #555; margin: 0; }
+.news-empty { color: #888; }
+.news-topic { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: #FF5E84; font-weight: 700; }
+.news-byline { font-size: .85rem; color: #999; }
+.news-feature { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; align-items: center; text-decoration: none; border: 1px solid #ececf3; border-radius: 16px; overflow: hidden; background: #fff; margin-bottom: 2rem; transition: box-shadow .15s; }
+.news-feature:hover { box-shadow: 0 10px 30px rgba(0,0,54,.1); }
+.news-feature img { width: 100%; height: 100%; min-height: 240px; object-fit: cover; }
+.news-feature-body { padding: 1.4rem 1.6rem 1.6rem; display: flex; flex-direction: column; gap: .6rem; }
+.news-feature-body h2 { font-size: 1.6rem; color: #000036; margin: 0; line-height: 1.2; }
+.news-feature-body p { color: #555; margin: 0; line-height: 1.55; }
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.4rem; }
+.news-card { display: flex; flex-direction: column; text-decoration: none; border: 1px solid #ececf3; border-radius: 14px; overflow: hidden; background: #fff; transition: box-shadow .15s; }
+.news-card:hover { box-shadow: 0 8px 24px rgba(0,0,54,.08); }
+.news-card img { width: 100%; height: 160px; object-fit: cover; }
+.news-card-body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; }
+.news-card-body h3 { font-size: 1.1rem; color: #000036; margin: 0; line-height: 1.3; }
+.news-card-body p { font-size: .92rem; color: #666; margin: 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 700px) { .news-feature { grid-template-columns: 1fr; } .news-feature img { min-height: 200px; } }
+</style>

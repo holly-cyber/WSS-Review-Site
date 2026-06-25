@@ -33,6 +33,36 @@ export async function ghApi(action, params) {
   return data;
 }
 
+// Stream a completion from the ai-proxy (Anthropic Messages API). Calls
+// onText(fullTextSoFar) as tokens arrive and resolves with the final text.
+export async function aiStream({ system, messages, model = 'claude-sonnet-4-6', max_tokens = 2000, onText } = {}) {
+  const res = await fetch('/.netlify/functions/ai-proxy', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model, max_tokens, stream: true, system, messages }),
+  });
+  const ct = res.headers.get('content-type') || '';
+  if (!res.ok || ct.includes('application/json')) {
+    const t = await res.text(); let msg = t;
+    try { const j = JSON.parse(t); msg = (j.error && (j.error.message || j.error)) || j.message || t; } catch {}
+    throw new Error('AI proxy ' + res.status + ': ' + msg + (res.status === 500 || /api[_-]?key/i.test(msg) ? ' (check ANTHROPIC_API_KEY is set in Netlify)' : ''));
+  }
+  const reader = res.body.getReader(); const dec = new TextDecoder();
+  let buf = '', text = '', streamErr = '';
+  for (;;) {
+    const { done, value } = await reader.read(); if (done) break;
+    buf += dec.decode(value, { stream: true });
+    const lines = buf.split('\n'); buf = lines.pop();
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      let j; try { j = JSON.parse(line.slice(6)); } catch { continue; }
+      if (j.type === 'error') streamErr = j.error?.message || 'stream error';
+      else if (j.type === 'content_block_delta' && j.delta?.text) { text += j.delta.text; if (onText) onText(text); }
+    }
+  }
+  if (streamErr && !text) throw new Error(streamErr);
+  return text;
+}
+
 export async function scrapeImages(url) {
   const r = await fetch('/api/scrape-images', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
