@@ -212,6 +212,13 @@ table.rev tr:hover td{background:#fcfcfd}
             <button class="bg bdanger" id="edDelete" style="margin-left:auto">Delete</button>
           </div>
 
+          <!-- Reviewer -->
+          <div class="panel" id="edReviewerPanel">
+            <h3>Reviewer</h3>
+            <div class="hint">Change who this review is attributed to. Updates the byline name, photo and bio from the team profile and clears any per-article overrides. Save to commit.</div>
+            <select id="edReviewer" style="max-width:340px"></select>
+          </div>
+
           <!-- Images -->
           <div class="panel" id="edImages">
             <h3>Images</h3>
@@ -252,7 +259,8 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, isDraft, reviewPreviewHtml, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { team } from '../data/team.js';
 
 const $ = (id) => document.getElementById(id);
 function alert(id, type, msg){ const el=$(id); if(el) el.innerHTML = msg?`<div class="al ${type}">${msg}</div>`:''; }
@@ -384,7 +392,25 @@ function setEdView(v){
   document.querySelectorAll('#edToggle button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
   if(v!=='md') renderEdPreview();
 }
-function renderEdPreview(){ $('edPreview').innerHTML = reviewPreviewHtml($('edBody').value); }
+function renderEdPreview(){ $('edPreview').innerHTML = reviewPreviewHtml($('edBody').value, team); }
+// Populate the reviewer dropdown from the shared team profiles, selecting the
+// review's current reviewer (kept as a custom option if it's off-roster, e.g.
+// a testing-panel attribution).
+function fillReviewerSelect(currentName){
+  const sel=$('edReviewer'); if(!sel) return;
+  const cur=(currentName||'').trim();
+  const onRoster=team.some(m=>m.name.toLowerCase()===cur.toLowerCase());
+  let html='';
+  if(cur && !onRoster) html+=`<option value="${esc(cur)}" selected>${esc(cur)} (keep as-is)</option>`;
+  html+=team.map(m=>`<option value="${esc(m.name)}"${cur&&m.name.toLowerCase()===cur.toLowerCase()?' selected':''}>${esc(m.name)} — ${esc(m.role)}</option>`).join('');
+  sel.innerHTML=html;
+}
+function onReviewerChange(){
+  const name=$('edReviewer').value;
+  $('edBody').value=setReviewer($('edBody').value, name);
+  renderEdPreview();
+  alert('edAlert','inf',`Reviewer set to ${esc(name)} — click Save changes to commit.`);
+}
 async function openEditor(f){
   current=f; imgs=[]; sel=[];
   showView('editor'); $('edPath').textContent=f.path; alert('edAlert','','');
@@ -393,6 +419,7 @@ async function openEditor(f){
     if(current!==f) return; // user navigated away while loading
   }
   $('edBody').value=f.content;
+  fillReviewerSelect(fmField(splitFrontmatter(f.content).fm,'tested_by'));
   $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
   $('edImgUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'shopify_link')||fmField(fm,'product_url')||fmField(fm,'affiliate_link')||'';})();
   $('edImgGrid').innerHTML=''; $('edImgStatus').textContent=''; $('edInsert').disabled=true; alert('edImgAlert','','');
@@ -401,6 +428,7 @@ async function openEditor(f){
 $('edBack').addEventListener('click',()=>showView('reviews'));
 $('edToggle').addEventListener('click',(e)=>{const b=e.target.closest('[data-view]'); if(b)setEdView(b.dataset.view);});
 let pvT=null; $('edBody').addEventListener('input',()=>{clearTimeout(pvT);pvT=setTimeout(renderEdPreview,250);});
+$('edReviewer').addEventListener('change',onReviewerChange);
 
 async function saveEditor(){
   if(!current) return;
@@ -466,7 +494,7 @@ $('edImgPaste').addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preve
 $('edInsert').addEventListener('click',()=>{const chosen=sel.map(i=>imgs[i]).filter(Boolean);if(!chosen.length)return;$('edBody').value=insertImages($('edBody').value,chosen,productName());renderEdPreview();alert('edImgAlert','ok','Images written into the markdown (hero + inline). Review, then Save changes.');});
 
 // ---- Preview modal ----
-function openPreviewModal(md){ $('pvBody').innerHTML=reviewPreviewHtml(md); $('pvOv').classList.add('show'); }
+function openPreviewModal(md){ $('pvBody').innerHTML=reviewPreviewHtml(md, team); $('pvOv').classList.add('show'); }
 $('pvClose').addEventListener('click',()=>$('pvOv').classList.remove('show'));
 $('pvOv').addEventListener('click',e=>{if(e.target===$('pvOv'))$('pvOv').classList.remove('show');});
 
