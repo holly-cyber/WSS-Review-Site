@@ -63,6 +63,51 @@ export async function aiStream({ system, messages, model = 'claude-sonnet-4-6', 
   return text;
 }
 
+// --- News generation: originality + legal rules (single editable source) -----
+// These govern every article the News tab generates. Edit here to change them.
+export const NEWS_SYSTEM = `You are a senior news editor for Women's Sports Store (WSS), writing original women's-sport journalism for an audience of active women. Your copy MUST be legally safe and original:
+- Treat every source as REFERENCE ONLY. Report the underlying facts entirely in your own words, structure and voice. Never reproduce a source's sentences, distinctive phrasing or headline — not even reworded ("spun") versions.
+- Copyright protects expression, not facts: you may state the facts, but the wording and structure must be wholly your own.
+- Never invent quotes, statistics, names, dates or events. If something isn't in the brief, keep it general or leave it out.
+- Attribute claims to the outlet by name (e.g. "according to Triathlete"). Avoid direct quotes; if one is genuinely necessary, keep it under ~20 words, in quotation marks, with attribution.
+- Add genuine original value — WSS analysis, context and practical takeaways for active women — so the piece is transformative commentary, not a summary.
+- British English. Warm, knowledgeable, lightly editorial. No clickbait, no fabrication, no closing call-to-action.`;
+
+export const NEWS_RULES = `ORIGINALITY & LEGAL RULES — follow every one:
+1. Write 100% original prose. Do NOT copy or lightly paraphrase any run of 6+ consecutive words from the source material.
+2. Use your own headline, angle, structure and subheadings — never mirror the source's wording or ordering.
+3. Report only facts present in the brief below; never add invented quotes, figures, names or dates.
+4. Attribute key facts to the outlet by name. Prefer zero direct quotes; any quote must be under 20 words, quoted and attributed.
+5. Add a clear WSS perspective and a "why it matters for women in sport" angle, so the article stands alone as original commentary even without the source.
+6. British English throughout.`;
+
+// Build the user prompt for a news article (single story) or round-up (many).
+export function buildNewsPrompt(items, angle) {
+  const src = (items || []).map((it, n) =>
+    `[${n + 1}] ${it.title}\nOutlet: ${it.source}\nLink: ${it.link}\nKey points (reference only — do NOT copy any wording): ${it.summary || '(none provided)'}`
+  ).join('\n\n');
+  const angleLine = angle ? `\nEditor's angle: ${angle}\n` : '';
+  const shape = (items && items.length > 1)
+    ? `Write an ORIGINAL WSS news round-up that synthesises the ${items.length} stories below into one cohesive article with a fresh throughline. 450–700 words, with 2–4 "## " subheadings.`
+    : `Write an ORIGINAL WSS news article based on the single story below. 350–550 words, with 1–3 "## " subheadings.`;
+  return `${shape}\n${angleLine}\nThe first line MUST be the headline as "# <headline>" — your own wording, not the source's.\n\n${NEWS_RULES}\n\nSOURCE MATERIAL (reference only — rewrite everything in your own words and structure):\n${src}`;
+}
+
+// Originality guard: return the distinct runs of n+ consecutive words that the
+// generated text shares verbatim with any source's title/summary. Empty = clean.
+export function sourceOverlap(text, items, n = 6) {
+  const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  const out = norm(text).split(' ').filter(Boolean);
+  const hits = new Set();
+  for (const it of (items || [])) {
+    const sw = norm(`${it.title || ''} ${it.summary || ''}`).split(' ').filter(Boolean);
+    const grams = new Set();
+    for (let i = 0; i + n <= sw.length; i++) grams.add(sw.slice(i, i + n).join(' '));
+    for (let i = 0; i + n <= out.length; i++) { const g = out.slice(i, i + n).join(' '); if (grams.has(g)) hits.add(g); }
+  }
+  return [...hits];
+}
+
 export async function scrapeImages(url) {
   const r = await fetch('/api/scrape-images', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
