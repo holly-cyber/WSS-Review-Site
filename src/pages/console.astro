@@ -1116,6 +1116,18 @@ $('nwHeroGrid').addEventListener('error',e=>{ if(e.target.tagName==='IMG') e.tar
 $('nwHero').addEventListener('input',()=>{ nwHeroCredit=''; renderNwHeroGrid(); clearTimeout(nwPvT); nwPvT=setTimeout(renderNwPreview,250); });
 
 function yamlStr(s){ return '"'+String(s||'').replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"'; }
+// Download an external hero image (server-side) and commit it into the repo,
+// returning the local /images/news/<slug>.<ext> path.
+async function nwHostHeroImage(url,slug){
+  const r=await fetch('/api/image-fetch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+  const d=await r.json().catch(()=>({}));
+  if(!d||!d.ok||!d.base64) throw new Error((d&&d.error)||'fetch failed');
+  const ext=String(d.ext||'jpg').replace(/[^a-z0-9]/gi,'')||'jpg';
+  const path=`public/images/news/${slug}.${ext}`;
+  let sha; try{ const g=await ghApi('get',{path}); sha=g.sha; }catch(_){ }
+  await ghApi('put',{path,content:d.base64,message:`Add news hero image: ${path}`,...(sha?{sha}:{})});
+  return `/images/news/${slug}.${ext}`;
+}
 async function pushNews(){
   const title=$('nwTitle').value.trim(), slug=slugify($('nwSlug').value||title), body=$('nwBody').value.trim();
   if(!title||!slug||!body){ alert('nwPushAlert','er','Headline, slug and body are all required.'); return; }
@@ -1130,7 +1142,14 @@ async function pushNews(){
     const date=(editing&&nwEditDate)?nwEditDate:new Date().toISOString().slice(0,10);
     const excerpt=deriveExcerpt(body);
     const sourcesYaml=srcItems.length?('sources:\n'+srcItems.map(it=>`  - title: ${yamlStr(it.title)}\n    url: ${yamlStr(it.link)}`).join('\n')+'\n'):'';
-    const fm=`---\nlayout: "../../layouts/NewsLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('nwTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(date)}\nauthor: ${yamlStr($('nwAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr($('nwHero').value.trim())}\nhero_credit: ${yamlStr(nwHeroCredit)}\ndraft: ${keepDraft?'true':'false'}\n${sourcesYaml}---\n\n${body}\n`;
+    // Self-host an external hero image into the repo so we don't hotlink the CDN.
+    let hero=$('nwHero').value.trim();
+    if(/^https?:\/\//i.test(hero)){
+      alert('nwPushAlert','inf','Saving hero image into the repo…');
+      try{ const local=await nwHostHeroImage(hero,slug); if(local) hero=local; }
+      catch(e){ alert('nwPushAlert','wr','Could not self-host the hero image ('+e.message+') — keeping the external URL.'); }
+    }
+    const fm=`---\nlayout: "../../layouts/NewsLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('nwTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(date)}\nauthor: ${yamlStr($('nwAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr(hero)}\nhero_credit: ${yamlStr(nwHeroCredit)}\ndraft: ${keepDraft?'true':'false'}\n${sourcesYaml}---\n\n${body}\n`;
     await ghApi('put',{path,content:b64(fm),message:`${editing?'Edit':'Add'} news article: ${path}`,...(sha?{sha}:{})});
     alert('nwPushAlert','ok',`${editing?'Saved':'Pushed'} ✓ ${keepDraft?'Draft':'Published'} — builds on the next deploy${keepDraft&&!editing?'. Publish it from the list above.':'.'}`);
     $('nwView').href=`/news/${slug}/`; $('nwView').style.display='inline-block';
