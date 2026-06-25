@@ -1,0 +1,6 @@
+[
+  { "name": "The Guardian — Sport", "url": "https://www.theguardian.com/sport/rss", "tag": "General" },
+  { "name": "BBC Sport", "url": "https://feeds.bbci.co.uk/sport/rss.xml", "tag": "General" },
+  { "name": "Women's Running", "url": "https://www.womensrunning.com/feed/", "tag": "Running" },
+  { "name": "Triathlete", "url": "https://www.triathlete.com/feed/", "tag": "Triathlon" }
+]

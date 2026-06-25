@@ -275,6 +275,20 @@ table.rev tr:hover td{background:#fcfcfd}
 
         <div id="nwtab-generate" class="nwtab" hidden>
         <h3 class="nw-gen-h">Generate a new article</h3>
+
+        <details class="nw-feeds" id="nwFeedsBox">
+          <summary>RSS feeds <span class="nw-tabcount" id="nwFeedsCount"></span></summary>
+          <div class="hint">Sources pulled when you refresh. Add or remove feeds — changes are saved to <code>src/data/feeds.json</code> in the repo.</div>
+          <div id="nwFeedsAlert"></div>
+          <div id="nwFeedsList"><p class="nw-lib-empty">Loading…</p></div>
+          <div class="nw-feed-add">
+            <input id="nwFeedName" placeholder="Name (e.g. Women's Running)"/>
+            <input id="nwFeedUrl" placeholder="Feed URL — https://…/feed/ (RSS or Atom)"/>
+            <input id="nwFeedTag" placeholder="Tag (optional)"/>
+            <button class="bp" id="nwFeedAdd">Add feed</button>
+          </div>
+        </details>
+
         <div class="filters">
           <button class="bp" id="nwRefresh">↻ Refresh feeds</button>
           <button class="bg" id="nwSelClear">Clear selection</button>
@@ -284,7 +298,7 @@ table.rev tr:hover td{background:#fcfcfd}
           <input id="nwSearch" placeholder="🔎 Find stories by keyword…"/>
           <div id="nwTags" class="nw-tags"></div>
         </div>
-        <div id="nwItems" class="nw-items"><p style="color:#999;font-size:13px;padding:8px">Click <strong>Refresh feeds</strong> to pull the latest stories from <code>src/data/feeds.js</code>.</p></div>
+        <div id="nwItems" class="nw-items"><p style="color:#999;font-size:13px;padding:8px">Click <strong>Refresh feeds</strong> to pull the latest stories from your RSS feeds.</p></div>
 
         <div class="panel" id="nwComposePanel" style="display:none">
           <h3>Draft article <span style="font-weight:400;color:#999">— <span id="nwSelCount">0</span> selected · <span id="nwMode">—</span></span></h3>
@@ -353,6 +367,16 @@ table.rev tr:hover td{background:#fcfcfd}
   .nw-tab.active .nw-tabcount:not(:empty){background:#FF5E84;color:#fff}
   .nwtab[hidden]{display:none}
   .nw-gen-h{font-size:14px;color:#000036;margin:2px 0 6px}
+  .nw-feeds{border:1px solid #e6e6ef;border-radius:9px;padding:10px 12px;margin:0 0 12px;background:#fafafe}
+  .nw-feeds>summary{cursor:pointer;font-weight:600;font-size:13px;color:#000036;list-style:revert}
+  .nw-feeds .hint{margin-top:8px}
+  .nw-feed-item{display:flex;align-items:center;gap:10px;padding:7px 9px;border:1px solid #eee;border-radius:7px;margin-bottom:6px;background:#fff}
+  .nw-feed-item .nw-feed-main{min-width:0;flex:1}
+  .nw-feed-url{font-size:11.5px;color:#999;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nw-feed-tag{font-size:10.5px;background:#eef;color:#5560c0;border-radius:8px;padding:0 6px;margin-left:4px}
+  .nw-feed-add{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .nw-feed-add input{flex:1;min-width:150px}
+  .nw-feed-add #nwFeedTag{max-width:130px}
   .nw-lib-group{margin-bottom:10px}
   .nw-lib-h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#000036;margin:8px 0 6px;display:flex;gap:6px;align-items:center}
   .nw-lib-h span{background:#eee;color:#555;border-radius:10px;padding:0 7px;font-size:11px;font-weight:600}
@@ -725,6 +749,47 @@ function setNwTab(name){
 }
 document.querySelectorAll('.nw-tab').forEach(b=>b.addEventListener('click',()=>setNwTab(b.dataset.nwtab)));
 
+// --- RSS feed manager: reads/writes src/data/feeds.json via GitHub ---
+let nwFeeds=feeds.slice(), nwFeedsSha='';
+function setNwFeedsAlert(t,m){ $('nwFeedsAlert').innerHTML=m?`<div class="al ${t}">${m}</div>`:''; }
+function renderNwFeeds(){
+  $('nwFeedsCount').textContent=nwFeeds.length||'';
+  $('nwFeedsList').innerHTML=nwFeeds.length
+    ? nwFeeds.map((f,i)=>`<div class="nw-feed-item"><div class="nw-feed-main"><strong>${esc(f.name||f.url)}</strong>${f.tag?`<span class="nw-feed-tag">${esc(f.tag)}</span>`:''}<div class="nw-feed-url">${esc(f.url)}</div></div><button class="bg bdanger" data-del="${i}" style="padding:4px 10px">Remove</button></div>`).join('')
+    : '<p class="nw-lib-empty">No feeds yet — add one below.</p>';
+}
+async function loadNwFeeds(){
+  try{ const g=await ghApi('get',{path:'src/data/feeds.json'}); nwFeedsSha=g.sha; const arr=JSON.parse(b64decode(g.content)); if(Array.isArray(arr)) nwFeeds=arr; }
+  catch(e){ nwFeeds=feeds.slice(); nwFeedsSha=''; }   // fall back to bundled defaults
+  renderNwFeeds(); renderNwTags();
+}
+async function saveNwFeeds(message){
+  setNwFeedsAlert('inf','Saving feeds…');
+  try{
+    if(!nwFeedsSha){ try{ const g=await ghApi('get',{path:'src/data/feeds.json'}); nwFeedsSha=g.sha; }catch(_){ } }
+    const r=await ghApi('put',{path:'src/data/feeds.json',content:b64(JSON.stringify(nwFeeds,null,2)+'\n'),message,...(nwFeedsSha?{sha:nwFeedsSha}:{})});
+    nwFeedsSha=(r.content&&r.content.sha)||nwFeedsSha;
+    setNwFeedsAlert('ok','Saved ✓ Feeds updated in the repo.');
+  }catch(e){ setNwFeedsAlert('er','Could not save: '+e.message); }
+}
+$('nwFeedsList').addEventListener('click',e=>{
+  const del=e.target.closest('[data-del]'); if(!del) return;
+  const i=parseInt(del.dataset.del), f=nwFeeds[i]; if(!f) return;
+  if(!confirm('Remove this feed?\n\n'+(f.name||f.url))) return;
+  nwFeeds.splice(i,1); renderNwFeeds(); renderNwTags(); saveNwFeeds('Remove RSS feed: '+(f.name||f.url));
+});
+function nwAddFeed(){
+  const name=$('nwFeedName').value.trim(), url=$('nwFeedUrl').value.trim(), tag=$('nwFeedTag').value.trim();
+  if(!/^https?:\/\//i.test(url)){ setNwFeedsAlert('er','Enter a full feed URL starting with http(s)://'); return; }
+  if(nwFeeds.some(f=>(f.url||'').toLowerCase()===url.toLowerCase())){ setNwFeedsAlert('wr','That feed URL is already in the list.'); return; }
+  const entry={name:name||url.replace(/^https?:\/\//,'').split('/')[0], url}; if(tag) entry.tag=tag;
+  nwFeeds.push(entry); renderNwFeeds(); renderNwTags();
+  $('nwFeedName').value=$('nwFeedUrl').value=$('nwFeedTag').value='';
+  saveNwFeeds('Add RSS feed: '+entry.name);
+}
+$('nwFeedAdd').addEventListener('click',nwAddFeed);
+$('nwFeedUrl').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); nwAddFeed(); } });
+
 // --- News article library: existing drafts + published, with manage actions ---
 let nwLib=[];
 $('nwLibReload').addEventListener('click',loadNwLib);
@@ -827,10 +892,11 @@ $('nwSelClear').addEventListener('click',()=>{ nwSel=[]; document.querySelectorA
 let nwResults=[], nwActiveTag='', nwSearchT=null;
 
 async function refreshFeeds(){
+  if(!nwFeeds.length){ alert('newsAlert','wr','No RSS feeds configured — add one in the RSS feeds panel above.'); return; }
   const btn=$('nwRefresh'); btn.disabled=true; btn.textContent='Fetching…';
-  alert('newsAlert','inf','Fetching '+feeds.length+' feed(s)…');
+  alert('newsAlert','inf','Fetching '+nwFeeds.length+' feed(s)…');
   try{
-    const r=await fetch('/api/rss-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sources:feeds})});
+    const r=await fetch('/api/rss-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sources:nwFeeds})});
     const data=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(data.message||('HTTP '+r.status));
     nwResults=data.results||[]; nwAllItems=[]; nwSel=[];
@@ -839,13 +905,13 @@ async function refreshFeeds(){
     $('nwFilterBar').style.display=nwAllItems.length?'flex':'none';
     applyNwFilter();
     const ok=nwResults.filter(x=>x.ok).length;
-    alert('newsAlert','ok',`Loaded ${nwAllItems.length} stor${nwAllItems.length===1?'y':'ies'} from ${ok}/${feeds.length} feed(s). Filter by tag or keyword, then select one (rewrite) or several (roundup).`);
+    alert('newsAlert','ok',`Loaded ${nwAllItems.length} stor${nwAllItems.length===1?'y':'ies'} from ${ok}/${nwFeeds.length} feed(s). Filter by tag or keyword, then select one (rewrite) or several (roundup).`);
   }catch(e){ alert('newsAlert','er','Could not fetch feeds: '+e.message+' (the rss-proxy function needs to be deployed on Netlify).'); }
   btn.disabled=false; btn.textContent='↻ Refresh feeds';
 }
 
 // --- Tag + keyword filtering over the pulled stories ---
-function nwTagList(){ const s=new Set(); feeds.forEach(f=>f.tag&&s.add(f.tag)); nwResults.forEach(r=>r.tag&&s.add(r.tag)); return [...s].sort(); }
+function nwTagList(){ const s=new Set(); nwFeeds.forEach(f=>f.tag&&s.add(f.tag)); nwResults.forEach(r=>r.tag&&s.add(r.tag)); return [...s].sort(); }
 function renderNwTags(){
   $('nwTags').innerHTML=[`<span class="nw-tag${nwActiveTag===''?' active':''}" data-tag="">All</span>`]
     .concat(nwTagList().map(t=>`<span class="nw-tag${nwActiveTag===t?' active':''}" data-tag="${esc(t)}">${esc(t)}</span>`)).join('');
@@ -1010,6 +1076,7 @@ $('nwRecheck').addEventListener('click',()=>nwCheckOriginality($('nwTitle').valu
 
 loadAll();
 nwLibLoaded=true; loadNwLib();  // also drives the dashboard "News articles" count
+loadNwFeeds();                  // pull the managed feed list from the repo
 </script>
 </body>
 </html>
