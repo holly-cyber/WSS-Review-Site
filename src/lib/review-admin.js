@@ -112,6 +112,13 @@ export function sourceOverlap(text, items, n = 6) {
   return [...hits];
 }
 
+// Relevance filter: does this text look like women's / girls' sport? Used to keep
+// only on-topic stories from general feeds. Edit WOMENS_RE to tune the terms.
+export const WOMENS_RE = /\b(wom[ae]n|female|girl|lad(?:y|ies)|lioness|netball|wsl|wnba|w-?league)/i;
+export function isWomensContent(text) { return WOMENS_RE.test(String(text || '')); }
+// A feed counts as already women-focused if its name/tag says so → all its items pass.
+export function isWomensFeed(nameOrTag) { return /\b(wom[ae]n|female|girl|lad(?:y|ies))/i.test(String(nameOrTag || '')); }
+
 // Editor pass: prompt the model to rewrite an article so the flagged phrases (and
 // any other close phrasing) no longer match the source, keeping facts & structure.
 export function buildRewritePrompt(article, phrases) {

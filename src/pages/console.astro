@@ -296,6 +296,7 @@ table.rev tr:hover td{background:#fcfcfd}
         </div>
         <div id="nwFilterBar" class="nw-filterbar" style="display:none">
           <input id="nwSearch" placeholder="🔎 Find stories by keyword…"/>
+          <label class="nw-women" title="Only show stories about women's & girls' sport"><input type="checkbox" id="nwWomenOnly" checked> 👩 Women &amp; girls only</label>
           <div id="nwTags" class="nw-tags"></div>
         </div>
         <div id="nwItems" class="nw-items"><p style="color:#999;font-size:13px;padding:8px">Click <strong>Refresh feeds</strong> to pull the latest stories from your RSS feeds.</p></div>
@@ -397,6 +398,8 @@ table.rev tr:hover td{background:#fcfcfd}
   .nw-lib-empty{font-size:12.5px;color:#aaa;padding:2px 2px 6px}
   .nw-filterbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 10px}
   .nw-filterbar input{max-width:340px}
+  .nw-women{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#000036;font-weight:600;white-space:nowrap;cursor:pointer;background:#fff0f5;border:1px solid #ffd6e4;border-radius:14px;padding:5px 11px}
+  .nw-women input{width:15px;height:15px;max-width:15px;cursor:pointer}
   .nw-tags{display:flex;flex-wrap:wrap;gap:6px}
   .nw-tag{font-size:12px;padding:4px 11px;border:1px solid #ddd;border-radius:14px;background:#fff;color:#555;cursor:pointer}
   .nw-tag:hover{border-color:#FF5E84}
@@ -416,7 +419,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -934,10 +937,14 @@ async function refreshFeeds(){
     if(!r.ok) throw new Error(data.message||('HTTP '+r.status));
     nwResults=data.results||[]; nwAllItems=[]; nwSel=[];
     let nwHidden=0;
-    for(const rr of nwResults){ for(const it of (rr.items||[])){
-      if(it.link && nwUsedLinks.has(normLink(it.link))){ nwHidden++; continue; }   // skip articles we've used before
-      nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:rr.name,tag:rr.tag||''});
-    }}
+    for(const rr of nwResults){
+      const feedWomen=isWomensFeed((rr.name||'')+' '+(rr.tag||''));   // women-dedicated feed → all items relevant
+      for(const it of (rr.items||[])){
+        if(it.link && nwUsedLinks.has(normLink(it.link))){ nwHidden++; continue; }   // skip articles we've used before
+        const women=feedWomen||isWomensContent((it.title||'')+' '+(it.summary||''));
+        nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:rr.name,tag:rr.tag||'',women});
+      }
+    }
     renderNwTags();
     $('nwFilterBar').style.display=nwAllItems.length?'flex':'none';
     applyNwFilter();
@@ -955,11 +962,14 @@ function renderNwTags(){
 }
 $('nwTags').addEventListener('click',e=>{ const c=e.target.closest('[data-tag]'); if(!c) return; nwActiveTag=c.dataset.tag; renderNwTags(); applyNwFilter(); });
 $('nwSearch').addEventListener('input',()=>{ clearTimeout(nwSearchT); nwSearchT=setTimeout(applyNwFilter,180); });
+$('nwWomenOnly').addEventListener('change',applyNwFilter);
 
 function applyNwFilter(){
   const terms=($('nwSearch').value||'').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const womenOnly=$('nwWomenOnly')?$('nwWomenOnly').checked:true;
   const bySource=new Map();
   nwAllItems.forEach((it,i)=>{
+    if(womenOnly && !it.women) return;
     if(nwActiveTag && it.tag!==nwActiveTag) return;
     const hay=(it.title+' '+(it.summary||'')).toLowerCase();
     if(terms.length && !terms.every(t=>hay.includes(t))) return;
