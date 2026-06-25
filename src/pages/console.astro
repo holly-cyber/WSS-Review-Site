@@ -254,6 +254,10 @@ table.rev tr:hover td{background:#fcfcfd}
           <button class="bg" id="nwSelClear">Clear selection</button>
           <span id="nwFeedStatus" style="font-size:12px;color:#888;align-self:center"></span>
         </div>
+        <div id="nwFilterBar" class="nw-filterbar" style="display:none">
+          <input id="nwSearch" placeholder="🔎 Find stories by keyword…"/>
+          <div id="nwTags" class="nw-tags"></div>
+        </div>
         <div id="nwItems" class="nw-items"><p style="color:#999;font-size:13px;padding:8px">Click <strong>Refresh feeds</strong> to pull the latest stories from <code>src/data/feeds.js</code>.</p></div>
 
         <div class="panel" id="nwComposePanel" style="display:none">
@@ -272,8 +276,10 @@ table.rev tr:hover td{background:#fcfcfd}
             <label>Headline<input id="nwTitle"/></label>
             <label>URL slug<input id="nwSlug"/></label>
             <label>Topic<input id="nwTopic"/></label>
-            <label>Hero image URL (optional)<input id="nwHero" placeholder="https://…"/></label>
+            <label>Hero image<span class="nw-hero-row"><input id="nwHero" placeholder="https://… or use Find"/><button type="button" class="bg" id="nwHeroFind">Find</button></span></label>
           </div>
+          <div id="nwHeroGrid" class="nw-hero-grid"></div>
+          <div id="nwHeroNote" class="hint" style="display:none">Images are scraped from the source page — check you have the right to use one before publishing, or paste your own URL.</div>
           <div id="nwSplit" class="nw-split">
             <textarea id="nwBody" spellcheck="false"></textarea>
             <div id="nwPreview" class="nw-preview"></div>
@@ -311,6 +317,17 @@ table.rev tr:hover td{background:#fcfcfd}
   .nw-it-meta{grid-column:2;font-size:11.5px;color:#999}
   .nw-it-sum{grid-column:2;font-size:12px;color:#666;line-height:1.45;margin-top:2px}
   .nw-it-link{grid-column:3;grid-row:1;font-size:11.5px;color:#FF5E84;text-decoration:none;white-space:nowrap}
+  .nw-filterbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 10px}
+  .nw-filterbar input{max-width:340px}
+  .nw-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .nw-tag{font-size:12px;padding:4px 11px;border:1px solid #ddd;border-radius:14px;background:#fff;color:#555;cursor:pointer}
+  .nw-tag:hover{border-color:#FF5E84}
+  .nw-tag.active{background:#FF5E84;color:#fff;border-color:#FF5E84}
+  .nw-hero-row{display:flex;gap:6px}
+  .nw-hero-row button{white-space:nowrap}
+  .nw-hero-grid{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+  .nw-hero-grid img{width:96px;height:64px;object-fit:cover;border-radius:7px;border:2px solid transparent;cursor:pointer}
+  .nw-hero-grid img.sel{border-color:#FF5E84}
   .nw-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
   .nw-meta label{display:flex;flex-direction:column;font-size:11px;color:#777;gap:4px}
   .nw-split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -652,6 +669,8 @@ let nwAllItems=[], nwSel=[];
 $('nwRefresh').addEventListener('click',refreshFeeds);
 $('nwSelClear').addEventListener('click',()=>{ nwSel=[]; document.querySelectorAll('#nwItems input[type=checkbox]').forEach(c=>c.checked=false); updateNwSel(); });
 
+let nwResults=[], nwActiveTag='', nwSearchT=null;
+
 async function refreshFeeds(){
   const btn=$('nwRefresh'); btn.disabled=true; btn.textContent='Fetching…';
   alert('newsAlert','inf','Fetching '+feeds.length+' feed(s)…');
@@ -659,27 +678,48 @@ async function refreshFeeds(){
     const r=await fetch('/api/rss-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sources:feeds})});
     const data=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(data.message||('HTTP '+r.status));
-    renderNwItems(data.results||[]);
-    const ok=(data.results||[]).filter(x=>x.ok).length, tot=(data.results||[]).reduce((n,x)=>n+((x.items||[]).length),0);
-    alert('newsAlert','ok',`Loaded ${tot} stor${tot===1?'y':'ies'} from ${ok}/${feeds.length} feed(s). Select one to rewrite, or several for a roundup.`);
+    nwResults=data.results||[]; nwAllItems=[]; nwSel=[];
+    for(const rr of nwResults){ for(const it of (rr.items||[])) nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:rr.name,tag:rr.tag||''}); }
+    renderNwTags();
+    $('nwFilterBar').style.display=nwAllItems.length?'flex':'none';
+    applyNwFilter();
+    const ok=nwResults.filter(x=>x.ok).length;
+    alert('newsAlert','ok',`Loaded ${nwAllItems.length} stor${nwAllItems.length===1?'y':'ies'} from ${ok}/${feeds.length} feed(s). Filter by tag or keyword, then select one (rewrite) or several (roundup).`);
   }catch(e){ alert('newsAlert','er','Could not fetch feeds: '+e.message+' (the rss-proxy function needs to be deployed on Netlify).'); }
   btn.disabled=false; btn.textContent='↻ Refresh feeds';
 }
 
-function renderNwItems(results){
-  nwAllItems=[]; nwSel=[];
+// --- Tag + keyword filtering over the pulled stories ---
+function nwTagList(){ const s=new Set(); feeds.forEach(f=>f.tag&&s.add(f.tag)); nwResults.forEach(r=>r.tag&&s.add(r.tag)); return [...s].sort(); }
+function renderNwTags(){
+  $('nwTags').innerHTML=[`<span class="nw-tag${nwActiveTag===''?' active':''}" data-tag="">All</span>`]
+    .concat(nwTagList().map(t=>`<span class="nw-tag${nwActiveTag===t?' active':''}" data-tag="${esc(t)}">${esc(t)}</span>`)).join('');
+}
+$('nwTags').addEventListener('click',e=>{ const c=e.target.closest('[data-tag]'); if(!c) return; nwActiveTag=c.dataset.tag; renderNwTags(); applyNwFilter(); });
+$('nwSearch').addEventListener('input',()=>{ clearTimeout(nwSearchT); nwSearchT=setTimeout(applyNwFilter,180); });
+
+function applyNwFilter(){
+  const terms=($('nwSearch').value||'').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const bySource=new Map();
+  nwAllItems.forEach((it,i)=>{
+    if(nwActiveTag && it.tag!==nwActiveTag) return;
+    const hay=(it.title+' '+(it.summary||'')).toLowerCase();
+    if(terms.length && !terms.every(t=>hay.includes(t))) return;
+    (bySource.get(it.source)||bySource.set(it.source,[]).get(it.source)).push({it,i});
+  });
   let html='';
-  for(const r of results){
-    const head=`<div class="nw-feed-h">${esc(r.name)} ${r.ok?`<span style="color:#aaa;font-weight:400">· ${(r.items||[]).length} stories</span>`:`<span style="color:#c00;font-weight:400">· ${esc(r.error||'failed')}</span>`}</div>`;
+  for(const r of nwResults){
+    if(!r.ok){ html+=`<div class="nw-feed"><div class="nw-feed-h">${esc(r.name)} <span style="color:#c00;font-weight:400">· ${esc(r.error||'failed')}</span></div></div>`; continue; }
+    const rows=bySource.get(r.name)||[]; if(!rows.length) continue;
     let body='';
-    for(const it of (r.items||[])){
-      const i=nwAllItems.length; nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:r.name});
+    for(const {it,i} of rows){
       const d=it.ts?new Date(it.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
-      body+=`<div class="nw-item" data-i="${i}"><input type="checkbox" data-i="${i}"/><span class="nw-it-title">${esc(it.title)}</span>${it.link?`<a class="nw-it-link" href="${esc(it.link)}" target="_blank" rel="noopener">source ↗</a>`:''}<span class="nw-it-meta">${esc(r.name)}${d?' · '+d:''}</span>${it.summary?`<span class="nw-it-sum">${esc(it.summary)}</span>`:''}</div>`;
+      const checked=nwSel.includes(i)?' checked':'';
+      body+=`<div class="nw-item" data-i="${i}"><input type="checkbox" data-i="${i}"${checked}/><span class="nw-it-title">${esc(it.title)}</span>${it.link?`<a class="nw-it-link" href="${esc(it.link)}" target="_blank" rel="noopener">source ↗</a>`:''}<span class="nw-it-meta">${esc(r.name)}${it.tag?' · '+esc(it.tag):''}${d?' · '+d:''}</span>${it.summary?`<span class="nw-it-sum">${esc(it.summary)}</span>`:''}</div>`;
     }
-    html+=`<div class="nw-feed">${head}${body||'<p style="font-size:12px;color:#bbb;padding:4px">No stories parsed.</p>'}</div>`;
+    html+=`<div class="nw-feed"><div class="nw-feed-h">${esc(r.name)} <span style="color:#aaa;font-weight:400">· ${rows.length} shown</span></div>${body}</div>`;
   }
-  $('nwItems').innerHTML=html||'<p style="color:#999;padding:8px">No feeds configured.</p>';
+  $('nwItems').innerHTML=html||`<p style="color:#999;padding:8px">No stories match this filter.</p>`;
   updateNwSel();
 }
 
@@ -725,6 +765,7 @@ async function generateNews(){
   $('nwOutPanel').style.display='block';
   $('nwBody').value=''; $('nwPreview').innerHTML='<p style="padding:12px;color:#999">Writing…</p>';
   $('nwView').style.display='none'; alert('nwPushAlert','','');
+  nwHeroImgs=[]; $('nwHeroGrid').innerHTML=''; $('nwHero').value=''; $('nwHeroNote').style.display='none';
   try{
     const text=await aiStream({
       system:"You are a Women's Sports Store news editor writing original, accurate, lightly-editorial women's-sport news for active women. British English. Never fabricate quotes, names or statistics. Never copy source text verbatim — always rewrite and add value.",
@@ -736,9 +777,10 @@ async function generateNews(){
     $('nwTitle').value=title||'Untitled article';
     $('nwSlug').value=slugify(title||'news-article');
     $('nwBody').value=body;
-    if(!$('nwTopic').value) $('nwTopic').value="Women's Sport";
+    if(!$('nwTopic').value) $('nwTopic').value=(items[0]&&items[0].tag)||"Women's Sport";
     renderNwPreview();
     alert('newsAlert','ok','Draft generated — review and edit, then push as a draft.');
+    nwAutoHero(items);
   }catch(e){ $('nwPreview').innerHTML=''; alert('newsAlert','er','Generation failed: '+e.message); }
   btn.disabled=nwSel.length===0; rbtn.disabled=false; btn.textContent='✦ Generate draft';
 }
@@ -752,10 +794,35 @@ function deriveExcerpt(body){
   const line=(body||'').split('\n').map(s=>s.trim()).find(s=>s && !/^[#>!|]/.test(s) && !/^[-*]\s/.test(s));
   return (line||'').replace(/\*\*?|`/g,'').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').slice(0,180);
 }
-function renderNwPreview(){ $('nwPreview').innerHTML=`<div class="pv-content" style="padding:16px"><h1 style="font-size:22px;color:#000036;margin:0 0 10px;line-height:1.2">${esc($('nwTitle').value||'Untitled')}</h1>${mdToHtml($('nwBody').value)}</div>`; }
+function renderNwPreview(){
+  const hero=$('nwHero').value.trim();
+  $('nwPreview').innerHTML=`<div class="pv-content" style="padding:16px">${hero?`<img src="${esc(hero)}" style="width:100%;border-radius:8px;margin-bottom:12px" alt=""/>`:''}<h1 style="font-size:22px;color:#000036;margin:0 0 10px;line-height:1.2">${esc($('nwTitle').value||'Untitled')}</h1>${mdToHtml($('nwBody').value)}</div>`;
+}
 let nwPvT=null;
 ['nwBody','nwTitle'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(nwPvT);nwPvT=setTimeout(renderNwPreview,250);}));
 $('nwSlug').addEventListener('input',()=>{ $('nwSlug').value=slugify($('nwSlug').value); });
+
+// --- Auto hero image: scrape candidates from the source page ---
+let nwHeroImgs=[];
+$('nwHeroFind').addEventListener('click',()=>{ const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean); nwFindHero($('nwHero').value.trim()||(items[0]&&items[0].link),true); });
+async function nwAutoHero(items){ const url=items[0]&&items[0].link; if(url) await nwFindHero(url,false); }
+async function nwFindHero(url,manual){
+  if(!/^https?:\/\//i.test(url||'')){ if(manual) alert('nwPushAlert','inf','No source URL to scrape — paste an image URL into the field instead.'); return; }
+  const btn=$('nwHeroFind'); btn.disabled=true; btn.textContent='Finding…';
+  try{
+    const imgs=await scrapeImages(url);
+    nwHeroImgs=(imgs||[]).slice(0,8);
+    if(nwHeroImgs.length){ if(!$('nwHero').value.trim()) selectHero(0); renderNwHeroGrid(); $('nwHeroNote').style.display='block'; }
+    else if(manual) alert('nwPushAlert','wr','No images found on that page — paste a direct image URL into the field instead.');
+  }catch(e){ if(manual) alert('nwPushAlert','er','Image search failed: '+e.message); }
+  btn.disabled=false; btn.textContent='Find';
+}
+function heroUrl(u){ return (u&&u.url)||u||''; }
+function selectHero(i){ if(i<0||i>=nwHeroImgs.length) return; $('nwHero').value=heroUrl(nwHeroImgs[i]); renderNwHeroGrid(); renderNwPreview(); }
+function renderNwHeroGrid(){ const cur=$('nwHero').value.trim(); $('nwHeroGrid').innerHTML=nwHeroImgs.map((u,i)=>`<img src="${esc(heroUrl(u))}" data-i="${i}" class="${heroUrl(u)===cur?'sel':''}" loading="lazy" alt=""/>`).join(''); }
+$('nwHeroGrid').addEventListener('click',e=>{ const im=e.target.closest('[data-i]'); if(im) selectHero(parseInt(im.dataset.i)); });
+$('nwHeroGrid').addEventListener('error',e=>{ if(e.target.tagName==='IMG') e.target.style.display='none'; },true);
+$('nwHero').addEventListener('input',()=>{ renderNwHeroGrid(); clearTimeout(nwPvT); nwPvT=setTimeout(renderNwPreview,250); });
 
 function yamlStr(s){ return '"'+String(s||'').replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"'; }
 async function pushNews(){
