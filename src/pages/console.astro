@@ -159,6 +159,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <div class="brand">WSS™ Console<small>Review management</small></div>
       <button class="navbtn active" data-nav="dashboard">▥ Dashboard</button>
       <button class="navbtn" data-nav="reviews">▤ Reviews</button>
+      <button class="navbtn" data-nav="news">📰 News</button>
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/pipeline" target="_blank">＋ New review (pipeline) ↗</a>
@@ -243,6 +244,49 @@ table.rev tr:hover td{background:#fcfcfd}
         </div>
       </section>
 
+      <!-- News -->
+      <section id="view-news" class="view">
+        <div class="h1">News generator</div>
+        <div class="sub">Pull women's-sport stories from your RSS feeds, then draft an original article. Select <strong>one</strong> story to rewrite or <strong>several</strong> for a roundup.</div>
+        <div id="newsAlert"></div>
+        <div class="filters">
+          <button class="bp" id="nwRefresh">↻ Refresh feeds</button>
+          <button class="bg" id="nwSelClear">Clear selection</button>
+          <span id="nwFeedStatus" style="font-size:12px;color:#888;align-self:center"></span>
+        </div>
+        <div id="nwItems" class="nw-items"><p style="color:#999;font-size:13px;padding:8px">Click <strong>Refresh feeds</strong> to pull the latest stories from <code>src/data/feeds.js</code>.</p></div>
+
+        <div class="panel" id="nwComposePanel" style="display:none">
+          <h3>Draft article <span style="font-weight:400;color:#999">— <span id="nwSelCount">0</span> selected · <span id="nwMode">—</span></span></h3>
+          <div class="hint">Add an optional angle or instruction, pick an author, then generate. The original stories are linked as sources.</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+            <input id="nwAngle" style="flex:1;min-width:240px" placeholder="Optional angle (e.g. UK perspective; tie to training; keep it upbeat)"/>
+            <select id="nwAuthor" style="max-width:220px"></select>
+          </div>
+          <button class="bp" id="nwGenerate" disabled>✦ Generate draft</button>
+        </div>
+
+        <div class="panel" id="nwOutPanel" style="display:none">
+          <h3>Generated article</h3>
+          <div class="nw-meta">
+            <label>Headline<input id="nwTitle"/></label>
+            <label>URL slug<input id="nwSlug"/></label>
+            <label>Topic<input id="nwTopic"/></label>
+            <label>Hero image URL (optional)<input id="nwHero" placeholder="https://…"/></label>
+          </div>
+          <div id="nwSplit" class="nw-split">
+            <textarea id="nwBody" spellcheck="false"></textarea>
+            <div id="nwPreview" class="nw-preview"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <button class="bp" id="nwPush">Push as draft →</button>
+            <button class="bg" id="nwRegen">↻ Regenerate</button>
+            <a class="bg" id="nwView" target="_blank" rel="noopener" style="display:none">View ↗</a>
+          </div>
+          <div id="nwPushAlert"></div>
+        </div>
+      </section>
+
       <!-- Social -->
       <section id="view-social" class="view">
         <div class="h1">Social &amp; outbound</div>
@@ -256,11 +300,31 @@ table.rev tr:hover td{background:#fcfcfd}
   <div class="ov" id="intgOv"><div class="mo"><div class="moh"><div id="intgTitle">Integration</div><button class="x" id="intgClose">×</button></div><div class="mob" id="intgBody"></div></div></div>
   <!-- Preview modal -->
   <div class="ov" id="pvOv"><div class="mo" style="max-width:820px;padding:0;overflow:hidden"><div class="moh"><div>Live preview</div><button class="x" id="pvClose">×</button></div><div id="pvBody" style="max-height:84vh;overflow:auto;background:#fff"></div></div></div>
+
+  <style is:global>
+  .nw-items{display:flex;flex-direction:column;gap:14px;margin:6px 0 4px}
+  .nw-feed-h{font-size:12px;font-weight:700;color:#000036;text-transform:uppercase;letter-spacing:.04em;margin:4px 0 6px}
+  .nw-item{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:start;padding:9px 11px;border:1px solid #eee;border-radius:9px;margin-bottom:6px;cursor:pointer;background:#fff}
+  .nw-item:hover{border-color:#FF5E84}
+  .nw-item input{width:16px;height:16px;margin-top:2px;grid-row:1/3}
+  .nw-it-title{font-size:13.5px;font-weight:600;color:#000036;line-height:1.35}
+  .nw-it-meta{grid-column:2;font-size:11.5px;color:#999}
+  .nw-it-sum{grid-column:2;font-size:12px;color:#666;line-height:1.45;margin-top:2px}
+  .nw-it-link{grid-column:3;grid-row:1;font-size:11.5px;color:#FF5E84;text-decoration:none;white-space:nowrap}
+  .nw-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .nw-meta label{display:flex;flex-direction:column;font-size:11px;color:#777;gap:4px}
+  .nw-split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .nw-split textarea{min-height:420px;font-family:monospace;font-size:12px;line-height:1.55}
+  .nw-preview{border:1px solid #eee;border-radius:9px;overflow:auto;max-height:520px;background:#fff;padding:0}
+  @media(max-width:760px){.nw-split,.nw-meta{grid-template-columns:1fr}}
+  </style>
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
+import { feeds } from '../data/feeds.js';
+import { slugify } from '../data/taxonomy.js';
 
 const $ = (id) => document.getElementById(id);
 function alert(id, type, msg){ const el=$(id); if(el) el.innerHTML = msg?`<div class="al ${type}">${msg}</div>`:''; }
@@ -580,6 +644,139 @@ function renderSocial(){
   $('socialCards').innerHTML=Object.entries(INTEGRATIONS).map(([k,v])=>
     `<div class="card"><div style="font-size:22px">${v.icon}</div><div class="l" style="margin-top:6px;text-transform:none;font-size:13px;color:#000036;font-weight:600">${esc(v.label)}</div><div style="font-size:12px;color:#888;margin-top:4px;line-height:1.5">${esc(v.blurb)}</div><div style="margin-top:8px"><span class="badge draft">Setup</span></div></div>`).join('');
 }
+
+// ================= News generator =================
+let nwAllItems=[], nwSel=[];
+(function initNwAuthors(){ const s=$('nwAuthor'); if(s) s.innerHTML=team.map(m=>`<option value="${esc(m.name)}">${esc(m.name)}</option>`).join(''); })();
+
+$('nwRefresh').addEventListener('click',refreshFeeds);
+$('nwSelClear').addEventListener('click',()=>{ nwSel=[]; document.querySelectorAll('#nwItems input[type=checkbox]').forEach(c=>c.checked=false); updateNwSel(); });
+
+async function refreshFeeds(){
+  const btn=$('nwRefresh'); btn.disabled=true; btn.textContent='Fetching…';
+  alert('newsAlert','inf','Fetching '+feeds.length+' feed(s)…');
+  try{
+    const r=await fetch('/api/rss-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sources:feeds})});
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(data.message||('HTTP '+r.status));
+    renderNwItems(data.results||[]);
+    const ok=(data.results||[]).filter(x=>x.ok).length, tot=(data.results||[]).reduce((n,x)=>n+((x.items||[]).length),0);
+    alert('newsAlert','ok',`Loaded ${tot} stor${tot===1?'y':'ies'} from ${ok}/${feeds.length} feed(s). Select one to rewrite, or several for a roundup.`);
+  }catch(e){ alert('newsAlert','er','Could not fetch feeds: '+e.message+' (the rss-proxy function needs to be deployed on Netlify).'); }
+  btn.disabled=false; btn.textContent='↻ Refresh feeds';
+}
+
+function renderNwItems(results){
+  nwAllItems=[]; nwSel=[];
+  let html='';
+  for(const r of results){
+    const head=`<div class="nw-feed-h">${esc(r.name)} ${r.ok?`<span style="color:#aaa;font-weight:400">· ${(r.items||[]).length} stories</span>`:`<span style="color:#c00;font-weight:400">· ${esc(r.error||'failed')}</span>`}</div>`;
+    let body='';
+    for(const it of (r.items||[])){
+      const i=nwAllItems.length; nwAllItems.push({title:it.title,link:it.link,summary:it.summary,date:it.date,ts:it.ts,source:r.name});
+      const d=it.ts?new Date(it.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
+      body+=`<div class="nw-item" data-i="${i}"><input type="checkbox" data-i="${i}"/><span class="nw-it-title">${esc(it.title)}</span>${it.link?`<a class="nw-it-link" href="${esc(it.link)}" target="_blank" rel="noopener">source ↗</a>`:''}<span class="nw-it-meta">${esc(r.name)}${d?' · '+d:''}</span>${it.summary?`<span class="nw-it-sum">${esc(it.summary)}</span>`:''}</div>`;
+    }
+    html+=`<div class="nw-feed">${head}${body||'<p style="font-size:12px;color:#bbb;padding:4px">No stories parsed.</p>'}</div>`;
+  }
+  $('nwItems').innerHTML=html||'<p style="color:#999;padding:8px">No feeds configured.</p>';
+  updateNwSel();
+}
+
+$('nwItems').addEventListener('click',e=>{
+  if(e.target.closest('a')) return;                       // source link → navigate
+  if(e.target.matches('input[type=checkbox]')) return;    // checkbox → change handler
+  const row=e.target.closest('.nw-item'); if(!row) return;
+  const cb=row.querySelector('input[type=checkbox]'); cb.checked=!cb.checked;
+  cb.dispatchEvent(new Event('change',{bubbles:true}));
+});
+$('nwItems').addEventListener('change',e=>{
+  const cb=e.target.closest('input[type=checkbox]'); if(!cb) return;
+  const i=parseInt(cb.dataset.i), k=nwSel.indexOf(i);
+  if(cb.checked && k<0) nwSel.push(i); else if(!cb.checked && k>=0) nwSel.splice(k,1);
+  updateNwSel();
+});
+function updateNwSel(){
+  const n=nwSel.length;
+  $('nwSelCount').textContent=n;
+  $('nwMode').textContent=n===0?'nothing selected':(n===1?'single rewrite':'roundup of '+n);
+  $('nwComposePanel').style.display=nwAllItems.length?'block':'none';
+  $('nwGenerate').disabled=n===0;
+}
+
+$('nwGenerate').addEventListener('click',generateNews);
+$('nwRegen').addEventListener('click',generateNews);
+
+function newsPrompt(items, angle){
+  const src=items.map((it,n)=>`[${n+1}] ${it.title}\nOutlet: ${it.source}\nLink: ${it.link}\nSummary: ${it.summary||'(none provided)'}`).join('\n\n');
+  const angleLine=angle?`\nEditor's angle: ${angle}\n`:'';
+  if(items.length>1){
+    return `Write an original Women's Sports Store news ROUND-UP for an audience of active women, synthesising the ${items.length} stories below into one cohesive article.\n${angleLine}\nStories:\n${src}\n\nRequirements:\n- First line is a single H1 headline: "# <headline>".\n- Then 450–700 words in British English, grouped under 2–4 "## " subheadings.\n- Tie the stories together with a women's-sport throughline and add WSS perspective.\n- Do NOT copy sentences from the sources — summarise and comment in your own words.\n- Name the outlets where relevant. No fabricated quotes, names or statistics.\n- Warm, knowledgeable, lightly editorial. No clickbait, no closing call-to-action.`;
+  }
+  const it=items[0];
+  return `Write an original Women's Sports Store news article for an audience of active women, based on the story below.\n${angleLine}\nStory: ${it.title}\nOutlet: ${it.source}\nLink: ${it.link}\nSummary: ${it.summary||'(none provided)'}\n\nRequirements:\n- First line is a single H1 headline: "# <headline>" — rewrite it in your own words, do not copy the source headline.\n- Then 350–550 words in British English with 1–3 "## " subheadings.\n- Do NOT copy sentences from the source — summarise, add WSS context, and explain why it matters for women in sport.\n- Attribute facts to the outlet by name. No fabricated quotes, names or statistics.\n- Warm, knowledgeable, lightly editorial. No closing call-to-action.`;
+}
+
+async function generateNews(){
+  if(!nwSel.length) return;
+  const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean);
+  const btn=$('nwGenerate'), rbtn=$('nwRegen');
+  btn.disabled=true; rbtn.disabled=true; btn.textContent='Generating…';
+  $('nwOutPanel').style.display='block';
+  $('nwBody').value=''; $('nwPreview').innerHTML='<p style="padding:12px;color:#999">Writing…</p>';
+  $('nwView').style.display='none'; alert('nwPushAlert','','');
+  try{
+    const text=await aiStream({
+      system:"You are a Women's Sports Store news editor writing original, accurate, lightly-editorial women's-sport news for active women. British English. Never fabricate quotes, names or statistics. Never copy source text verbatim — always rewrite and add value.",
+      messages:[{role:'user',content:newsPrompt(items,$('nwAngle').value.trim())}],
+      max_tokens:1800,
+      onText:(t)=>{ $('nwBody').value=t; },
+    });
+    const {title,body}=splitHeadline(text);
+    $('nwTitle').value=title||'Untitled article';
+    $('nwSlug').value=slugify(title||'news-article');
+    $('nwBody').value=body;
+    if(!$('nwTopic').value) $('nwTopic').value="Women's Sport";
+    renderNwPreview();
+    alert('newsAlert','ok','Draft generated — review and edit, then push as a draft.');
+  }catch(e){ $('nwPreview').innerHTML=''; alert('newsAlert','er','Generation failed: '+e.message); }
+  btn.disabled=nwSel.length===0; rbtn.disabled=false; btn.textContent='✦ Generate draft';
+}
+
+function splitHeadline(md){
+  const m=(md||'').match(/^\s*#\s+(.+?)\s*$/m);
+  if(!m) return { title:'', body:(md||'').trim() };
+  return { title:m[1].trim(), body:(md.slice(0,m.index)+md.slice(m.index+m[0].length)).replace(/^\s+/,'').trim() };
+}
+function deriveExcerpt(body){
+  const line=(body||'').split('\n').map(s=>s.trim()).find(s=>s && !/^[#>!|]/.test(s) && !/^[-*]\s/.test(s));
+  return (line||'').replace(/\*\*?|`/g,'').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').slice(0,180);
+}
+function renderNwPreview(){ $('nwPreview').innerHTML=`<div class="pv-content" style="padding:16px"><h1 style="font-size:22px;color:#000036;margin:0 0 10px;line-height:1.2">${esc($('nwTitle').value||'Untitled')}</h1>${mdToHtml($('nwBody').value)}</div>`; }
+let nwPvT=null;
+['nwBody','nwTitle'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(nwPvT);nwPvT=setTimeout(renderNwPreview,250);}));
+$('nwSlug').addEventListener('input',()=>{ $('nwSlug').value=slugify($('nwSlug').value); });
+
+function yamlStr(s){ return '"'+String(s||'').replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"'; }
+async function pushNews(){
+  const title=$('nwTitle').value.trim(), slug=slugify($('nwSlug').value||title), body=$('nwBody').value.trim();
+  if(!title||!slug||!body){ alert('nwPushAlert','er','Headline, slug and body are all required.'); return; }
+  const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean);
+  const today=new Date().toISOString().slice(0,10);
+  const excerpt=deriveExcerpt(body);
+  const sourcesYaml=items.length?('sources:\n'+items.map(it=>`  - title: ${yamlStr(it.title)}\n    url: ${yamlStr(it.link)}`).join('\n')+'\n'):'';
+  const fm=`---\nlayout: "../../layouts/NewsLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('nwTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(today)}\nauthor: ${yamlStr($('nwAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr($('nwHero').value.trim())}\ndraft: true\n${sourcesYaml}---\n\n${body}\n`;
+  const path=`src/pages/news/${slug}.md`;
+  const btn=$('nwPush'); btn.disabled=true; btn.textContent='Pushing…'; alert('nwPushAlert','inf','Pushing '+path+'…');
+  try{
+    let sha; try{ const g=await ghApi('get',{path}); sha=g.sha; }catch(_){}
+    await ghApi('put',{path,content:b64(fm),message:`Add news article: ${path}`,...(sha?{sha}:{})});
+    alert('nwPushAlert','ok',`Pushed ✓ Draft committed${sha?' (updated existing file)':''}. It builds on the next deploy — set draft: false to publish.`);
+    $('nwView').href=`/news/${slug}/`; $('nwView').style.display='inline-block';
+  }catch(e){ alert('nwPushAlert','er','Push failed: '+e.message); }
+  btn.disabled=false; btn.textContent='Push as draft →';
+}
+$('nwPush').addEventListener('click',pushNews);
 
 loadAll();
 </script>

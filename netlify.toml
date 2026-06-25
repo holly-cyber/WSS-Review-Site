@@ -76,6 +76,11 @@
   to = "/.netlify/functions/instagram-publish"
   status = 200
 
+[[redirects]]
+  from = "/api/rss-proxy"
+  to = "/.netlify/functions/rss-proxy"
+  status = 200
+
 # ---------------------------------------------------------------------------
 # Migrated WordPress review URLs → new /reviews/<category>/<slug>/ structure.
 # These preserve the old root-level WomensSportsStore.com permalinks with a
