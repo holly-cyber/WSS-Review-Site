@@ -64,6 +64,27 @@ export function isDraft(md) {
   const { fm } = splitFrontmatter(md);
   return /^\s*draft\s*:\s*true\s*$/im.test(fm);
 }
+// Set the review's `tested_by` to a named reviewer and clear any per-article
+// reviewer_bio / reviewer_avatar overrides, so the shared team profile drives
+// the byline name, photo and bio. The body is left untouched.
+export function setReviewer(src, name) {
+  src = src || '';
+  const m = src.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!m) return src;
+  let fm = m[1]
+    .replace(/^\s*reviewer_bio\s*:.*$/gim, '')
+    .replace(/^\s*reviewer_avatar\s*:.*$/gim, '');
+  const line = 'tested_by: "' + String(name || '').replace(/"/g, '') + '"';
+  if (/^\s*tested_by\s*:.*$/im.test(fm)) {
+    fm = fm.replace(/^\s*tested_by\s*:.*$/im, line);
+  } else if (/^\s*date\s*:.*$/im.test(fm)) {
+    fm = fm.replace(/^(\s*date\s*:.*)$/im, '$1\n' + line);
+  } else {
+    fm = fm.replace(/\s*$/, '') + '\n' + line;
+  }
+  fm = fm.replace(/\n{2,}/g, '\n').replace(/^\n+|\n+$/g, '');
+  return src.replace(m[0], '---\n' + fm + '\n---');
+}
 
 // --- Markdown → HTML (identical to the pipeline preview renderer) ----------
 export function mdToHtml(md) {
@@ -103,12 +124,20 @@ export function mdToHtml(md) {
 }
 
 // --- Live "what the live page looks like" preview from a review's markdown -
-export function reviewPreviewHtml(md) {
+export function reviewPreviewHtml(md, team = []) {
   const { fm, body } = splitFrontmatter(md);
   const f = (n) => fmField(fm, n);
   const title = f('title') || 'Untitled review', brand = f('brand'), price = f('price');
   const category = (f('category') || '').replace(/-/g, ' '), overall = f('overall_score');
-  const tested = f('tested_by'), avatar = f('reviewer_avatar'), bio = f('reviewer_bio'), hero = f('hero_image');
+  const tested = f('tested_by'), hero = f('hero_image');
+  // The live byline pulls photo + bio from the shared team profile when the
+  // article carries no explicit overrides — mirror that here so the preview
+  // matches the published page after a reviewer change.
+  let avatar = f('reviewer_avatar'), bio = f('reviewer_bio');
+  if (tested && (!avatar || !bio)) {
+    const tm = (team || []).find((m) => m.name.toLowerCase() === tested.toLowerCase());
+    if (tm) { avatar = avatar || tm.image; bio = bio || tm.bio; }
+  }
   const aff = f('affiliate_link'), shop = f('shopify_link');
   const pct = Math.max(0, Math.min(100, (parseFloat(overall || '0') / 5) * 100));
   const stars = `<span class="pv-stars-wrap"><span class="pv-stars-bg">★★★★★</span><span class="pv-stars-fg" style="width:${pct}%">★★★★★</span></span>`;
