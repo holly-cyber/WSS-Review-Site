@@ -6,7 +6,7 @@ category: "cycle"
 subcategory: "clothing"
 date: "2025-11-18"
 product_type: "apparel"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "A WSS™ review of the LUCA Momentum jacket in grey: one of the best-fitting, softest lightweight cycling jackets I've worn."
 meta_description: "Our hands-on WSS™ review of the LUCA Momentum Women's Cycling Jacket in grey — fit, sizing, thermal performance, female-specific design and value for women who ride."

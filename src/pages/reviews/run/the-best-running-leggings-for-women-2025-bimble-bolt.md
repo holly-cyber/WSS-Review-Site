@@ -6,7 +6,7 @@ category: "run"
 subcategory: "clothing"
 date: "2025-10-14"
 product_type: "apparel"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "A WSS™ review of the Bimble & Bolt Midnight Super Strider tights: squat-proof, stay-put running leggings with seriously clever pockets."
 meta_description: "Our hands-on WSS™ review of the Bimble & Bolt Midnight Super Strider Full Length Tights — fit, sizing, squat-proof opacity, pockets and value for women who run."

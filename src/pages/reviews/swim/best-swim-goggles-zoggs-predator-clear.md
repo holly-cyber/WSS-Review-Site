@@ -7,7 +7,7 @@ subcategory: "open-water"
 date: "2025-10-13"
 product_type: "accessory"
 sizes: "Regular & Small profiles"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "The no-leak, no-faff pair that carried me across the English Channel — a WSS™ review of the Zoggs Predator Clear goggles for women."
 meta_description: "WSS™ review of the Zoggs Predator Clear goggles — seal, fit, anti-fog, clear lenses and value for women swimmers, scored against the WSS equipment framework."

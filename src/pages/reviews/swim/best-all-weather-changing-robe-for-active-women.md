@@ -6,7 +6,7 @@ category: "swim"
 subcategory: "accessories"
 date: "2025-10-07"
 product_type: "apparel"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "A cosy, zip-free poncho changing robe in recycled fleece that makes post-swim changing quick, warm and genuinely fuss-free."
 meta_description: "WSS™ review of the KitBrix All Weather Warming Changing Robe — poncho fit, recycled fleece warmth, female-friendly design and value, scored against the WSS apparel framework."

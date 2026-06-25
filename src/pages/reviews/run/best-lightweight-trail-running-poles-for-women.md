@@ -6,7 +6,7 @@ category: "run"
 subcategory: "gear-and-equipment"
 date: "2025-10-10"
 product_type: "accessory"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "Featherweight carbon Z-fold trail running poles that pack to coffee-cup size — game-changing support on long climbs for a fraction of big-brand prices."
 meta_description: "WSS™ review of the Harrier Helvellyn PRO Carbon Z-Poles V2 — comfort, fit, packability, functionality and value for women who run trails and ultras, scored against the WSS equipment framework."

@@ -7,7 +7,7 @@ subcategory: "open-water"
 date: "2026-04-28"
 product_type: "accessory"
 draft: true
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Zoggs Predator Flex Polarised: lovely lenses in low sun, but the fit and sizing let active women down."
 meta_description: "Our WSS™ review of the Zoggs Predator Flex Polarised open water goggles — polarised lenses, female-specific sizing, fit and value for women swimmers."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-30-at-09.33.04-1536x871.png"

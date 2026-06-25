@@ -13,7 +13,7 @@ shopify_link: ""
 product_url: ""
 price: "£1.50 per bar or £27 per box of 20"
 migration_source: "https://womenssportsstore.com/best-energy-bars-voom-pocket-rocket-review/"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 overall_score: 4.3
 pillar_scores:
   taste: 4

@@ -6,7 +6,7 @@ category: "run"
 subcategory: "clothing"
 date: "2025-10-14"
 product_type: "apparel"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "After 30 years running commando, Runderwear's Women's Running Briefs converted me — chafe-free, stay-put comfort from the first wear."
 meta_description: "Our WSS™ review of the Runderwear Women's Running Briefs — fit, seam placement, chafe-free comfort, breathability and value for women who run."

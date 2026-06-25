@@ -6,7 +6,7 @@ category: "swim"
 subcategory: "pool"
 date: "2026-04-14"
 product_type: "accessory"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "Low-profile soft-frame racing goggles with a secure 3D-gasket seal, crisp anti-fog lenses and a streamlined fit that stays put through tumble turns."
 meta_description: "WSS™ review of the Tri-Fit Rapid X swimming goggles — fit, seal, anti-fog clarity, functionality and value for women who swim and race, scored against the WSS equipment framework."

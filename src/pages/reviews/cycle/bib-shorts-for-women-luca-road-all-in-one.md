@@ -6,7 +6,7 @@ category: "cycle"
 subcategory: "clothing"
 date: "2025-11-18"
 product_type: "apparel"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "The LUCA Road All-In-One is the best-fitting women's bib short I've worn in six years of cycling — and our WSS™ review explains why."
 meta_description: "WSS™ review of the LUCA Road All-In-One women's cycling bib shorts in black — hands-on assessment of fit, chest support, padding, materials and value."

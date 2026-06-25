@@ -6,7 +6,7 @@ category: "accessories"
 subcategory: "Period & Intimate"
 date: "2026-02-23"
 product_type: "wellness"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "Sea & Flo's menstrual cup is the comfortable, leak-free, stain-smart cup that finally let me train through my cycle without a second thought."
 meta_description: "WSS™ review of the Sea & Flo menstrual cup — scored on female-focused suitability, leak-free efficacy, medical-grade silicone quality, everyday usability and transparency against the WSS Wellness & Recovery framework."

@@ -6,7 +6,7 @@ category: "cycle"
 subcategory: "clothing"
 date: "2025-11-17"
 product_type: "apparel"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "A fitted, waterproof and windproof women's cycling jacket with a sleek performance cut and thoughtful, ride-ready pockets."
 meta_description: "WSS™ review of the LUCA Momentum women's cycling jacket — fit, waterproofing, thermal performance and value, scored against the WSS apparel framework."

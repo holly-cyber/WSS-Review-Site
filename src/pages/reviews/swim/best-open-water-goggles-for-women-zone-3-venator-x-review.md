@@ -6,7 +6,7 @@ category: "swim"
 subcategory: "open-water"
 date: "2025-10-13"
 product_type: "accessory"
-tested_by: "Holly Woodford"
+tested_by: "Mel Berry"
 draft: true
 excerpt: "Featherweight, leak-free open water goggles that finally fit a smaller female face — comfortable enough for a 17-hour swim and built to last years."
 meta_description: "WSS™ review of the Zone 3 Venator-X open water goggles — seal fit for a smaller female face, anti-fog and lens performance, comfort and value, scored against the WSS equipment framework."
