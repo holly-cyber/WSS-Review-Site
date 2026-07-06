@@ -7,7 +7,6 @@ subcategory: "Strength & Weights"
 date: "2025-10-10"
 product_type: "equipment"
 tested_by: "Mel Berry"
-draft: true
 excerpt: "Freyja Fit’s pastel pink dumbbells pair serious lifting performance with a gym aesthetic that genuinely makes you want to train."
 meta_description: "WSS™ review of Freyja Fit women’s fitness equipment — pink dumbbells, bumper plates and barbells scored on female-specific design, performance, fit, build and transparency against the WSS equipment framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Ligh-Pink-Dumbbells.jpg"
