@@ -442,7 +442,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -643,9 +643,11 @@ $('edScores').addEventListener('input',e=>{
   let v=Number(inp.value); if(isNaN(v)) return;
   v=Math.max(1,Math.min(5,v));
   let src=setPillarScore($('edBody').value, inp.dataset.key, v);
+  const scores=parsePillarScores(splitFrontmatter(src).fm);
   const pType=fmField(splitFrontmatter(src).fm,'product_type');
-  const ov=recalcOverall(parsePillarScores(splitFrontmatter(src).fm), SCORE_WEIGHTS[pType]||null);
+  const ov=recalcOverall(scores, SCORE_WEIGHTS[pType]||null);
   if(ov!=null) src=setOverallScore(src, ov.toFixed(1));
+  src=syncBodyScores(src, scores, ov);   // update the in-content stars/numbers too
   $('edBody').value=src;
   edUpdateOverall();
   clearTimeout(pvT); pvT=setTimeout(renderEdPreview,200);

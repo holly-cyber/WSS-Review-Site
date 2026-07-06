@@ -212,6 +212,44 @@ export function setOverallScore(src, val) {
   else fm = fm.replace(/\s*$/, '') + '\noverall_score: ' + val;
   return src.replace(m[0], '---\n' + fm + '\n---');
 }
+// Rewrite the in-content scores/stars in the body to match the pillar values +
+// overall: the "### Label — N/5 ★★★★☆" headings, the "## Scores" list lines, and
+// the "**Overall: X.X / 5 ★★★★☆**" line. Per-criterion updates are matched by
+// order and only applied when the count matches (safe no-op otherwise).
+function starRun(n) { n = Math.max(0, Math.min(5, Math.round(Number(n) || 0))); return '★'.repeat(n) + '☆'.repeat(5 - n); }
+export function syncBodyScores(src, scores, overall) {
+  const vals = Object.values(scores || {}).map(Number).filter((v) => !isNaN(v));
+  if (!vals.length) return src;
+  let out = src;
+
+  // 1) Per-criterion H3 headings: "### <label> — N/5 ★★★★☆"
+  const h3re = /^(###[^\n]*?—[ \t]*)\d+(?:\.\d+)?([ \t]*\/[ \t]*5)(?:[ \t]*[★☆]+)?[ \t]*$/gm;
+  if ((out.match(h3re) || []).length === vals.length) {
+    let i = 0;
+    out = out.replace(h3re, (m, pre, slash) => { const v = vals[i++]; return `${pre}${v}${slash} ${starRun(v)}`; });
+  }
+
+  // 2) "## Scores" block per-criterion lines: "<label> (25%): N/5" (not the Overall line)
+  const sm = out.match(/^##[ \t]*Scores[ \t]*$[\s\S]*?(?=^##[ \t]|$(?![\s\S]))/m);
+  if (sm) {
+    let block = sm[0];
+    const lineRe = /^([^\n]*?:[ \t]*)\d+(?:\.\d+)?([ \t]*\/[ \t]*5)[ \t]*$/gm;
+    const matches = (block.match(lineRe) || []).filter((l) => !/overall/i.test(l));
+    if (matches.length === vals.length) {
+      let j = 0;
+      block = block.replace(lineRe, (m, pre, slash) => { if (/overall/i.test(pre)) return m; const v = vals[j++]; return `${pre}${v}${slash}`; });
+      out = out.slice(0, sm.index) + block + out.slice(sm.index + sm[0].length);
+    }
+  }
+
+  // 3) Overall line: "**Overall: X.X / 5 ★★★★☆**"
+  if (overall != null) {
+    out = out.replace(/(\*\*Overall:[ \t]*)\d+(?:\.\d+)?([ \t]*\/[ \t]*5)(?:[ \t]*[★☆]+)?([ \t]*\*\*)/i,
+      (m, pre, slash, post) => `${pre}${Number(overall).toFixed(1)}${slash} ${starRun(overall)}${post}`);
+  }
+  return out;
+}
+
 // Weighted (or equal, when weights is null) average of the scores → one decimal.
 export function recalcOverall(scores, weights) {
   const keys = Object.keys(scores || {}); if (!keys.length) return null;
