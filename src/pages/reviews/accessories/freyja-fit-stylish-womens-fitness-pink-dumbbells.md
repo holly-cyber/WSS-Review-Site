@@ -11,9 +11,9 @@ excerpt: "Freyja Fit’s pastel pink dumbbells pair serious lifting performance 
 meta_description: "WSS™ review of Freyja Fit women’s fitness equipment — pink dumbbells, bumper plates and barbells scored on female-specific design, performance, fit, build and transparency against the WSS equipment framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Ligh-Pink-Dumbbells.jpg"
 overall_score: 4.0
-affiliate_link: ""
+affiliate_link: "https://www.freyjafit.co.uk/products/light-pink-hex-dumbbells-pairs?variant=58489903055197"
 shopify_link: ""
-product_url: ""
+product_url: "https://www.freyjafit.co.uk/products/light-pink-hex-dumbbells-pairs?variant=58489903055197"
 price: ""
 pillar_scores:
   e1: 4
@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### Pretty Pink Dumbbells That Lift As Seriously As They Look
 
-For a lot of women, the home gym is a corner of black steel that never quite feels like theirs — and that disconnect makes it easier to skip a session. **Freyja Fit** sets out to fix exactly that, merging **weights** that perform with a pastel aesthetic that actually makes you want to train. I admit I raised an eyebrow at first: a fitness brand entirely in soft pinks? But after a couple of months with their **dumbbells**, **bumper plates** and **barbells**, my verdict is clear — this is proper kit that happens to be beautiful, not a gimmick wearing lipstick.
+For a lot of women, the home gym is a corner of black steel that never quite feels like theirs — and that disconnect makes it easier to skip a session. **[Freyja Fit](https://www.freyjafit.co.uk/products/light-pink-hex-dumbbells-pairs?variant=58489903055197)**[ sets out to fix exactly that, merging ](https://www.freyjafit.co.uk/products/light-pink-hex-dumbbells-pairs?variant=58489903055197)**weights** that perform with a pastel aesthetic that actually makes you want to train. I admit I raised an eyebrow at first: a fitness brand entirely in soft pinks? But after a couple of months with their **dumbbells**, **bumper plates** and **barbells**, my verdict is clear — this is proper kit that happens to be beautiful, not a gimmick wearing lipstick.
 
 ## WSS™ Assessment
 
