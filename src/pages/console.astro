@@ -221,6 +221,13 @@ table.rev tr:hover td{background:#fcfcfd}
             <select id="edReviewer" style="max-width:340px"></select>
           </div>
 
+          <!-- Buy link -->
+          <div class="panel" id="edLinkPanel">
+            <h3>Buy link</h3>
+            <div class="hint">The brand's product-page URL. It becomes the “Buy direct” button, and the Avelon converter turns it into a tracked affiliate link on the live site. Save to commit.</div>
+            <input id="edProductUrl" placeholder="https://brand.com/products/…" style="max-width:520px"/>
+          </div>
+
           <!-- Images -->
           <div class="panel" id="edImages">
             <h3>Images</h3>
@@ -419,7 +426,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -586,6 +593,7 @@ async function openEditor(f){
   }
   $('edBody').value=f.content;
   fillReviewerSelect(fmField(splitFrontmatter(f.content).fm,'tested_by'));
+  $('edProductUrl').value=fmField(splitFrontmatter(f.content).fm,'affiliate_link');
   $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
   $('edImgUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'shopify_link')||fmField(fm,'product_url')||fmField(fm,'affiliate_link')||'';})();
   $('edImgGrid').innerHTML=''; $('edImgStatus').textContent=''; $('edInsert').disabled=true; alert('edImgAlert','','');
@@ -595,6 +603,13 @@ $('edBack').addEventListener('click',()=>showView('reviews'));
 $('edToggle').addEventListener('click',(e)=>{const b=e.target.closest('[data-view]'); if(b)setEdView(b.dataset.view);});
 let pvT=null; $('edBody').addEventListener('input',()=>{clearTimeout(pvT);pvT=setTimeout(renderEdPreview,250);});
 $('edReviewer').addEventListener('change',onReviewerChange);
+$('edProductUrl').addEventListener('change',()=>{
+  const url=$('edProductUrl').value.trim();
+  if(url && !/^https?:\/\//i.test(url)){ alert('edAlert','wr','Enter a full URL starting with http(s):// (or clear it).'); return; }
+  $('edBody').value=setFrontmatterField($('edBody').value,'affiliate_link',url);
+  renderEdPreview();
+  alert('edAlert','inf','Buy link updated — click Save changes to commit.');
+});
 
 async function saveEditor(){
   if(!current) return;
