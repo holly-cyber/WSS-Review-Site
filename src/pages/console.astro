@@ -217,8 +217,13 @@ table.rev tr:hover td{background:#fcfcfd}
           <!-- Reviewer -->
           <div class="panel" id="edReviewerPanel">
             <h3>Reviewer</h3>
-            <div class="hint">Change who this review is attributed to. Updates the byline name, photo and bio from the team profile and clears any per-article overrides. Save to commit.</div>
+            <div class="hint">Attribute this review to a team member (uses their profile page, photo and bio) or a one-off <strong>guest</strong> (just a name and one-line bio, no profile). Save to commit.</div>
             <select id="edReviewer" style="max-width:340px"></select>
+            <div id="edGuest" style="display:none;margin-top:8px">
+              <input id="edGuestName" placeholder="Guest reviewer name" style="max-width:340px"/>
+              <input id="edGuestBio" placeholder="One-sentence bio (e.g. Physio and keen open-water swimmer.)" style="max-width:520px;margin-top:6px"/>
+              <div class="hint" style="margin-top:4px">Guests have no profile page — just this name and one-line bio show on the review.</div>
+            </div>
           </div>
 
           <!-- Buy link -->
@@ -585,21 +590,42 @@ function renderEdPreview(){ $('edPreview').innerHTML = reviewPreviewHtml($('edBo
 // Populate the reviewer dropdown from the shared team profiles, selecting the
 // review's current reviewer (kept as a custom option if it's off-roster, e.g.
 // a testing-panel attribution).
-function fillReviewerSelect(currentName){
+function fillReviewerSelect(content){
   const sel=$('edReviewer'); if(!sel) return;
-  const cur=(currentName||'').trim();
+  const {fm}=splitFrontmatter(content||'');
+  const cur=fmField(fm,'tested_by').trim();
   const onRoster=team.some(m=>m.name.toLowerCase()===cur.toLowerCase());
-  let html='';
-  if(cur && !onRoster) html+=`<option value="${esc(cur)}" selected>${esc(cur)} (keep as-is)</option>`;
-  html+=team.map(m=>`<option value="${esc(m.name)}"${cur&&m.name.toLowerCase()===cur.toLowerCase()?' selected':''}>${esc(m.name)} — ${esc(m.role)}</option>`).join('');
+  const isGuest=!!cur && !onRoster;
+  let html=team.map(m=>`<option value="${esc(m.name)}"${cur&&m.name.toLowerCase()===cur.toLowerCase()?' selected':''}>${esc(m.name)} — ${esc(m.role)}</option>`).join('');
+  html+=`<option value="__guest__"${isGuest?' selected':''}>➕ Guest reviewer (name + one-line bio)</option>`;
   sel.innerHTML=html;
+  if(isGuest){ $('edGuestName').value=cur; $('edGuestBio').value=fmField(fm,'reviewer_bio'); }
+  else { $('edGuestName').value=''; $('edGuestBio').value=''; }
+  $('edGuest').style.display=isGuest?'block':'none';
+}
+function applyGuestReviewer(){
+  let src=setFrontmatterField($('edBody').value,'tested_by',$('edGuestName').value.trim());
+  src=setFrontmatterField(src,'reviewer_bio',$('edGuestBio').value.trim());
+  src=setFrontmatterField(src,'reviewer_avatar','');   // guests have no photo
+  $('edBody').value=src;
+  renderEdPreview();
 }
 function onReviewerChange(){
-  const name=$('edReviewer').value;
-  $('edBody').value=setReviewer($('edBody').value, name);
+  const val=$('edReviewer').value;
+  if(val==='__guest__'){
+    $('edGuest').style.display='block';
+    applyGuestReviewer();
+    $('edGuestName').focus();
+    alert('edAlert','inf','Guest reviewer — enter a name and one-line bio, then Save changes.');
+    return;
+  }
+  $('edGuest').style.display='none';
+  $('edBody').value=setReviewer($('edBody').value, val);   // team member: profile drives byline
   renderEdPreview();
-  alert('edAlert','inf',`Reviewer set to ${esc(name)} — click Save changes to commit.`);
+  alert('edAlert','inf',`Reviewer set to ${esc(val)} — click Save changes to commit.`);
 }
+$('edGuestName').addEventListener('input',applyGuestReviewer);
+$('edGuestBio').addEventListener('input',applyGuestReviewer);
 async function openEditor(f){
   current=f; imgs=[]; sel=[];
   showView('editor'); $('edPath').textContent=f.path; alert('edAlert','','');
@@ -608,7 +634,7 @@ async function openEditor(f){
     if(current!==f) return; // user navigated away while loading
   }
   $('edBody').value=f.content;
-  fillReviewerSelect(fmField(splitFrontmatter(f.content).fm,'tested_by'));
+  fillReviewerSelect(f.content);
   $('edProductUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'affiliate_link')||fmField(fm,'product_url')||'';})();
   renderEdScores(f.content);
   $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
