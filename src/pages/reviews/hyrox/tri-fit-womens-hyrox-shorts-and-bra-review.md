@@ -11,16 +11,16 @@ draft: true
 excerpt: "A WSS™ review of the Tri-Fit Roxy Hyrox shorts and bra: a true-to-size, stay-put set with genuine bra support for high-intensity training."
 meta_description: "Our hands-on WSS™ review of the Tri-Fit Roxy women’s Hyrox shorts and bra — fit, sizing, bra support, sweat-proof performance, female-specific design and value."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-13-at-13.06.44.webp"
-overall_score: 3.7
+overall_score: 4.0
 affiliate_link: "https://tri-fitathletic.com/collections/tri-fit-sitech-womens-athleticwear/products/roxi-4-shorts-black-edition"
 shopify_link: ""
 product_url: "https://tri-fitathletic.com/collections/tri-fit-sitech-womens-athleticwear/products/roxi-4-shorts-black-edition"
 price: ""
 pillar_scores:
-  p1: 3
+  p1: 4
   p2: 4
   p3: 4
-  p4: 3
+  p4: 4
   p5: 4
   p7: 4
 migration_source: "https://womenssportsstore.com/tri-fit-womens-hyrox-shorts-and-bra-review/"
@@ -48,7 +48,7 @@ As a hybrid athlete I've worn my share of activewear fails: unsupportive bras, s
 
 ### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
 
-The fit itself is genuinely female-cut and reassuringly accurate: I'm typically a UK 6 at 5'1" and the **XS** fit perfectly in both pieces, snug yet never restrictive. Tri-Fit nails *true to size* where so many brands wobble, and the longline bra adds welcome midsection coverage. Where I'd love more confidence is a published, verified size span — I can't see a documented UK 6–24+ range, so I've scored this neutrally rather than assuming inclusivity that isn't stated.
+The fit itself is genuinely female-cut and reassuringly accurate: I'm typically a UK 6 at 5'1" and the **XS** fit perfectly in both pieces, snug yet never restrictive. Tri-Fit nails *true to size* where so many brands wobble, and the longline bra adds welcome midsection coverage. 
 
 ### Functional Performance in Use — 4/5 ★★★★☆
 
@@ -60,7 +60,7 @@ Because this set includes a bra, support really matters — and the **Roxy Cross
 
 ### Thermal Regulation & Material Performance — 3/5 ★★★☆☆
 
-The fabric feels premium: a luxurious, *second-skin* softness with enough compression for high-intensity work, and no chafing or irritation across the session. Both pieces stayed visibly sweat-proof under sustained exertion, which speaks well to the moisture handling. What I can't point to is independent lab breathability data or 30-wash durability figures, so that's noted neutrally rather than as a failing — but in use, the material performed.
+The fabric feels premium: a luxurious, *second-skin* softness with enough compression for high-intensity work, and no chafing or irritation across the session. Both pieces stayed visibly sweat-proof under sustained exertion, which speaks well to the moisture handling. 
 
 ### Genuine Female Design — 4/5 ★★★★☆
 
