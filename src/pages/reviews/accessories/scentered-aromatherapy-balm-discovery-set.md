@@ -11,17 +11,17 @@ draft: true
 excerpt: "Scentered’s Discovery tin packs six natural mini balms — a pocket-sized mood toolkit for active women juggling focus, stress and sleep."
 meta_description: "WSS™ review of the Scentered Aromatherapy Balm Discovery Set — six natural mini balms scored on female-focused suitability, real-use efficacy, ingredients, experience and transparency."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Aromatherapy_Discovery_Set_Closed_balms_front_row.webp"
-overall_score: 3.9
-affiliate_link: ""
+overall_score: 4.2
+affiliate_link: "https://www.scentered.com/products/aromatherapy-discovery-balm-set"
 shopify_link: ""
-product_url: ""
+product_url: "https://www.scentered.com/products/aromatherapy-discovery-balm-set"
 price: ""
 pillar_scores:
   w1: 4
   w2: 4
-  w3: 4
+  w3: 5
   w4: 4
-  w5: 3
+  w5: 4
 faq:
   - q: What scents come in the Scentered Discovery Set?
     a: The tin holds six 100% natural mini balms in Scentered’s signature blends — Happy, Focus, De-stress, Escape, Love and Sleep Well — so you can match a scent to whatever the moment needs.
