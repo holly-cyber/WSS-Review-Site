@@ -34,6 +34,7 @@ faq:
     a: If you want equipment that performs and lifts your space, yes. It’s a premium niche brand, not a budget cost-per-kilo play, but the bundles and warranty support add real value.
 migration_source: "https://womenssportsstore.com/freyja-fit-stylish-womens-fitness-pink-dumbbells/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Equipment framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
+draft: true
 ---
 
 ## Freyja Fit Women’s Fitness Equipment Review
