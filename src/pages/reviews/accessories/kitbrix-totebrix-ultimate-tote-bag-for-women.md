@@ -47,7 +47,7 @@ I'll admit it: I'm a bit of a tote bag snob. I've owned everything from flimsy h
 
 ### Female-Specific Design & Sizing — 4/5 ★★★☆☆
 
-The **ToteBrix** is clearly designed with women in mind, and it shows in the details that matter to how it carries. The padded, adjustable shoulder strap sits comfortably across a female shoulder and distributes weight evenly, so even loaded with gym gear, a laptop and a spare hoodie it never bites in. It's *functional, feminine and fuss-free*, a rare combination. What I can't confirm is dedicated female-specific geometry or harness engineering — the women-focused fit is based on product-page positioning and how it feels in use, not documented design data. *(Not independently verified — based on product page claims only.)*
+The **ToteBrix** is clearly designed with women in mind, and it shows in the details that matter to how it carries. The padded, adjustable shoulder strap sits comfortably across a female shoulder and distributes weight evenly, so even loaded with gym gear, a laptop and a spare hoodie it never bites in. It's *functional, feminine and fuss-free*, a rare combination.
 
 ### Functional Performance in Use — 4/5 ★★★★☆
 
@@ -59,11 +59,11 @@ For carry-fit and capacity, this is the standout. The adjustable strap and reinf
 
 ### Safety & Performance Standards — 3/5 ★★★★☆
 
-On construction and durability, the **ToteBrix** feels built to last. The tough 600D polyester, the near-indestructible **BaseBrix™** bottom, the zippered top and the wipe-clean interior all point to equipment you'll keep for years rather than a fast-fashion throwaway. KitBrix also references recycled fabric in the build. The waterproofing, durability and sustainability claims are the brand's own and not independently certified — *not independently verified, based on product page claims only* — so I've scored constructively rather than penalised.
+On construction and durability, the **ToteBrix** feels built to last. The tough 600D polyester, the near-indestructible **BaseBrix™** bottom, the zippered top and the wipe-clean interior all point to equipment you'll keep for years rather than a fast-fashion throwaway. KitBrix also references recycled fabric in the build. The waterproofing, durability and sustainability claims are the brand's own and my own use suggests they are well founded.
 
 ### Transparency & User Reviews — 4/5 ★★★★☆
 
-My score here rests on documented hands-on use: I lived with this bag across gym sessions, commutes and an overnight trip, and reported what I actually found. KitBrix is clear about the headline features — the **BaseBrix™** system, the wet/dry pocket, the bottle holder and the recycled fabric. What isn't published is a formal testing methodology or independent certification of the waterproof rating, so I'd love to see those details added for full transparency.
+My score here rests on my hands-on use: I lived with this bag across gym sessions, commutes and an overnight trip, and reported what I actually found. User reviews on there site show 4.6/5 and very much aligns with my peronsal experince of using the bag. KitBrix is clear about the headline features — the **BaseBrix™** system, the wet/dry pocket, the bottle holder and the recycled fabric. What isn't published is a formal testing methodology or independent certification of the waterproof rating, so I'd love to see those details added for full transparency.
 
 ## Scores
 
