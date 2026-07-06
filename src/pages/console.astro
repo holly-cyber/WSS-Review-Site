@@ -225,7 +225,11 @@ table.rev tr:hover td{background:#fcfcfd}
           <div class="panel" id="edLinkPanel">
             <h3>Product URL (outlink)</h3>
             <div class="hint">The brand's product-page URL. It sets both <code>affiliate_link</code> and <code>product_url</code> (the same as newly generated reviews), becomes the “Buy direct” outlink button, and the Avelon converter turns it into a tracked affiliate link on the live site. Save to commit.</div>
-            <input id="edProductUrl" placeholder="https://brand.com/products/…" style="max-width:520px"/>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <input id="edProductUrl" placeholder="https://brand.com/products/…" style="flex:1;min-width:280px;max-width:520px"/>
+              <button type="button" class="bg" id="edIntroLink" title="Link the product name in the Overview to the product URL">+ Link in intro</button>
+            </div>
+            <div class="hint" style="margin-top:4px">“Link in intro” turns the first bold product name in the Overview into an in-content link (an extra outlink Avelon also converts), like the pipeline-generated reviews.</div>
           </div>
 
           <!-- Scores -->
@@ -438,7 +442,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -656,6 +660,14 @@ $('edProductUrl').addEventListener('change',()=>{
   $('edBody').value=src;
   renderEdPreview();
   alert('edAlert','inf','Product URL set as the outlink — click Save changes to commit.');
+});
+$('edIntroLink').addEventListener('click',()=>{
+  const url=$('edProductUrl').value.trim();
+  if(!/^https?:\/\//i.test(url)){ alert('edAlert','wr','Set the Product URL first.'); return; }
+  const before=$('edBody').value, after=linkFirstProductMention(before,url);
+  if(after===before){ alert('edAlert','wr','No un-linked bold product name found in the intro — bold the product name in the Overview first.'); return; }
+  $('edBody').value=after; renderEdPreview();
+  alert('edAlert','inf','Linked the product in the intro — click Save changes to commit.');
 });
 
 async function saveEditor(){

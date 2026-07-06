@@ -172,6 +172,18 @@ export function setFrontmatterField(src, key, value) {
   return src.replace(m[0], '---\n' + fm + '\n---');
 }
 
+// Turn the first bold product mention in the body into an in-content link (the
+// Overview outlink the pipeline adds). Avelon converts it live where eligible.
+export function linkFirstProductMention(src, url) {
+  if (!url) return src;
+  const m = src.match(/^(---\r?\n[\s\S]*?\r?\n---\r?\n)([\s\S]*)$/);
+  if (!m) return src;
+  const head = m[1]; let body = m[2];
+  const re = /\*\*(?!\[)([^*\n]+?)\*\*/;   // first **bold** that isn't already a link
+  if (!re.test(body)) return src;
+  return head + body.replace(re, (mm, txt) => `**[${txt}](${url})**`);
+}
+
 // --- Pillar scores -----------------------------------------------------------
 // Parse the pillar_scores: YAML block into { key: number }, preserving order.
 export function parsePillarScores(fm) {

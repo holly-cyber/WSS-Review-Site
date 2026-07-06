@@ -39,7 +39,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ## Overview
 
-Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **Scentered Aromatherapy Balm Discovery tin** sets out to fill, packing **six 100% natural mini balms** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made “mood toolkit” for active women rather than a pretty novelty.
+Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **[Scentered Aromatherapy Balm Discovery tin](https://www.scentered.com/products/aromatherapy-discovery-balm-set)** sets out to fill, packing **six 100% natural mini balms** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made “mood toolkit” for active women rather than a pretty novelty.
 
 ## WSS™ Assessment
 
