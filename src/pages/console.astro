@@ -228,6 +228,13 @@ table.rev tr:hover td{background:#fcfcfd}
             <input id="edProductUrl" placeholder="https://brand.com/products/…" style="max-width:520px"/>
           </div>
 
+          <!-- Scores -->
+          <div class="panel" id="edScoresPanel">
+            <h3>Scores <span id="edOverall" class="ed-overall"></span></h3>
+            <div class="hint">Adjust each criterion (1–5). The overall score and stars recalculate automatically using this product type's weighting. Save to commit.</div>
+            <div id="edScores" class="ed-scores"></div>
+          </div>
+
           <!-- Images -->
           <div class="panel" id="edImages">
             <h3>Images</h3>
@@ -422,11 +429,16 @@ table.rev tr:hover td{background:#fcfcfd}
   .nw-split textarea{min-height:420px;font-family:monospace;font-size:12px;line-height:1.55}
   .nw-preview{border:1px solid #eee;border-radius:9px;overflow:auto;max-height:520px;background:#fff;padding:0}
   @media(max-width:760px){.nw-split,.nw-meta{grid-template-columns:1fr}}
+  .ed-overall{font-weight:400;font-size:13px;color:#FF5E84;margin-left:6px}
+  .ed-scores{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+  .ed-score-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #eee;border-radius:7px;padding:6px 9px;background:#fff}
+  .ed-score-row label{font-size:12px;color:#000036;font-weight:600}
+  .ed-score-row input{width:64px;text-align:center;padding:5px 6px}
   </style>
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -594,6 +606,7 @@ async function openEditor(f){
   $('edBody').value=f.content;
   fillReviewerSelect(fmField(splitFrontmatter(f.content).fm,'tested_by'));
   $('edProductUrl').value=fmField(splitFrontmatter(f.content).fm,'affiliate_link');
+  renderEdScores(f.content);
   $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
   $('edImgUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'shopify_link')||fmField(fm,'product_url')||fmField(fm,'affiliate_link')||'';})();
   $('edImgGrid').innerHTML=''; $('edImgStatus').textContent=''; $('edInsert').disabled=true; alert('edImgAlert','','');
@@ -603,6 +616,37 @@ $('edBack').addEventListener('click',()=>showView('reviews'));
 $('edToggle').addEventListener('click',(e)=>{const b=e.target.closest('[data-view]'); if(b)setEdView(b.dataset.view);});
 let pvT=null; $('edBody').addEventListener('input',()=>{clearTimeout(pvT);pvT=setTimeout(renderEdPreview,250);});
 $('edReviewer').addEventListener('change',onReviewerChange);
+
+// ---- Scores editor: adjust pillars → recompute overall + stars ----
+const SCORE_LABELS={p1:'Inclusive Fit & Sizing',p2:'Functional Performance',p3:'Support Standards',p4:'Thermal & Materials',p5:'Female Design',p7:'Transparency',taste:'Taste & Texture (25%)',nutrition:'Nutrition (30%)',performance:'Performance (30%)',value:'Value (15%)',f1:'Female-Specific Last',f2:'Functional Performance',f3:'Fit Accuracy & Size',f4:'Female Biomechanics',f5:'Transparency',t1:'Female Data & Metrics',t2:'Hardware Fit',t3:'Functional Accuracy',t4:'Software & App',t5:'Transparency',e1:'Female-Specific Design',e2:'Functional Performance',e3:'Fit & Adjustability',e4:'Safety & Standards',e5:'Transparency',w1:'Female-Focused Suitability',w2:'Efficacy & Performance',w3:'Quality & Ingredients',w4:'Experience & Usability',w5:'Transparency & Value'};
+// Weighted frameworks; anything not listed (apparel) = equal average of its pillars.
+const SCORE_WEIGHTS={nutrition:{taste:25,nutrition:30,performance:30,value:15},footwear:{f1:25,f2:25,f3:20,f4:20,f5:10},technology:{t1:30,t2:20,t3:25,t4:15,t5:10},equipment:{e1:25,e2:25,e3:20,e4:20,e5:10},wellness:{w1:25,w2:30,w3:20,w4:15,w5:10}};
+function edStars(ov){ const f=Math.round(Number(ov)||0); return '★'.repeat(Math.max(0,Math.min(5,f)))+'☆'.repeat(Math.max(0,5-f)); }
+function renderEdScores(content){
+  const {fm}=splitFrontmatter(content);
+  const scores=parsePillarScores(fm), keys=Object.keys(scores);
+  if(!keys.length){ $('edScores').innerHTML='<p class="hint" style="margin:0">This review has no pillar_scores block.</p>'; $('edOverall').textContent=''; return; }
+  $('edScores').innerHTML=keys.map(k=>`<div class="ed-score-row"><label>${esc(SCORE_LABELS[k]||k)}</label><input type="number" min="1" max="5" step="0.5" data-key="${k}" value="${esc(String(scores[k]))}"></div>`).join('');
+  edUpdateOverall();
+}
+function edUpdateOverall(){
+  const pType=fmField(splitFrontmatter($('edBody').value).fm,'product_type');
+  const ov=recalcOverall(parsePillarScores(splitFrontmatter($('edBody').value).fm), SCORE_WEIGHTS[pType]||null);
+  $('edOverall').textContent=ov!=null?`— Overall ${ov.toFixed(1)} / 5  ${edStars(ov)}`:'';
+}
+$('edScores').addEventListener('input',e=>{
+  const inp=e.target.closest('input[data-key]'); if(!inp) return;
+  let v=Number(inp.value); if(isNaN(v)) return;
+  v=Math.max(1,Math.min(5,v));
+  let src=setPillarScore($('edBody').value, inp.dataset.key, v);
+  const pType=fmField(splitFrontmatter(src).fm,'product_type');
+  const ov=recalcOverall(parsePillarScores(splitFrontmatter(src).fm), SCORE_WEIGHTS[pType]||null);
+  if(ov!=null) src=setOverallScore(src, ov.toFixed(1));
+  $('edBody').value=src;
+  edUpdateOverall();
+  clearTimeout(pvT); pvT=setTimeout(renderEdPreview,200);
+});
+
 $('edProductUrl').addEventListener('change',()=>{
   const url=$('edProductUrl').value.trim();
   if(url && !/^https?:\/\//i.test(url)){ alert('edAlert','wr','Enter a full URL starting with http(s):// (or clear it).'); return; }
