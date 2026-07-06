@@ -18,7 +18,7 @@ product_url: ""
 price: ""
 migration_source: "https://womenssportsstore.com/kitbrix-totebrix-ultimate-tote-bag-for-women/"
 pillar_scores:
-  e1: 3
+  e1: 4
   e2: 4
   e3: 4
   e4: 3
