@@ -172,6 +172,42 @@ export function setFrontmatterField(src, key, value) {
   return src.replace(m[0], '---\n' + fm + '\n---');
 }
 
+// --- Pillar scores -----------------------------------------------------------
+// Parse the pillar_scores: YAML block into { key: number }, preserving order.
+export function parsePillarScores(fm) {
+  const out = {}; let inBlock = false;
+  for (const ln of String(fm || '').split('\n')) {
+    if (/^pillar_scores:\s*$/.test(ln)) { inBlock = true; continue; }
+    if (!inBlock) continue;
+    const m = ln.match(/^\s+([A-Za-z0-9_]+):\s*"?([0-9]+(?:\.[0-9]+)?)"?\s*$/);
+    if (m) { out[m[1]] = Number(m[2]); continue; }
+    if (/^\s*$/.test(ln)) continue;   // blank line inside the block
+    if (/^\S/.test(ln)) break;        // dedent → end of block
+    break;
+  }
+  return out;
+}
+// Set one value inside the pillar_scores block (leaves everything else intact).
+export function setPillarScore(src, key, val) {
+  const re = new RegExp('^(\\s+' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ':\\s*)"?[0-9.]*"?(\\s*)$', 'm');
+  return re.test(src) ? src.replace(re, '$1' + val + '$2') : src;
+}
+// Set the (unquoted) overall_score frontmatter field.
+export function setOverallScore(src, val) {
+  const m = src.match(/^---\r?\n([\s\S]*?)\r?\n---/); if (!m) return src;
+  let fm = m[1];
+  if (/^overall_score:.*$/m.test(fm)) fm = fm.replace(/^overall_score:.*$/m, 'overall_score: ' + val);
+  else fm = fm.replace(/\s*$/, '') + '\noverall_score: ' + val;
+  return src.replace(m[0], '---\n' + fm + '\n---');
+}
+// Weighted (or equal, when weights is null) average of the scores → one decimal.
+export function recalcOverall(scores, weights) {
+  const keys = Object.keys(scores || {}); if (!keys.length) return null;
+  let sum = 0, wsum = 0;
+  for (const k of keys) { const v = Number(scores[k]); if (isNaN(v)) continue; const w = weights ? (weights[k] || 0) : 1; sum += v * w; wsum += w; }
+  return wsum ? Math.round((sum / wsum) * 10) / 10 : null;
+}
+
 // reviewer_bio / reviewer_avatar overrides, so the shared team profile drives
 // the byline name, photo and bio. The body is left untouched.
 export function setReviewer(src, name) {
