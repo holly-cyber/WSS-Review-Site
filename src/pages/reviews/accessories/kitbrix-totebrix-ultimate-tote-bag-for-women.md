@@ -45,7 +45,7 @@ I'll admit it: I'm a bit of a tote bag snob. I've owned everything from flimsy h
 
 ## WSS™ Assessment
 
-### Female-Specific Design & Sizing — 3/5 ★★★☆☆
+### Female-Specific Design & Sizing — 4/5 ★★★☆☆
 
 The **ToteBrix** is clearly designed with women in mind, and it shows in the details that matter to how it carries. The padded, adjustable shoulder strap sits comfortably across a female shoulder and distributes weight evenly, so even loaded with gym gear, a laptop and a spare hoodie it never bites in. It's *functional, feminine and fuss-free*, a rare combination. What I can't confirm is dedicated female-specific geometry or harness engineering — the women-focused fit is based on product-page positioning and how it feels in use, not documented design data. *(Not independently verified — based on product page claims only.)*
 
