@@ -214,6 +214,13 @@ table.rev tr:hover td{background:#fcfcfd}
             <button class="bg bdanger" id="edDelete" style="margin-left:auto">Delete</button>
           </div>
 
+          <!-- Category -->
+          <div class="panel" id="edCatPanel">
+            <h3>Category</h3>
+            <div class="hint">Moves the review to another section. This changes its URL to <code>/reviews/&lt;category&gt;/&lt;slug&gt;/</code> — on Save the file is moved to the new folder and the old one removed. If it was already published, the old URL will 404, so add a redirect.</div>
+            <select id="edCategory" style="max-width:260px">{categories.map((c) => <option value={c}>{c}</option>)}</select>
+          </div>
+
           <!-- Reviewer -->
           <div class="panel" id="edReviewerPanel">
             <h3>Reviewer</h3>
@@ -626,6 +633,12 @@ function onReviewerChange(){
 }
 $('edGuestName').addEventListener('input',applyGuestReviewer);
 $('edGuestBio').addEventListener('input',applyGuestReviewer);
+$('edCategory').addEventListener('change',()=>{
+  const c=$('edCategory').value;
+  $('edBody').value=setFrontmatterField($('edBody').value,'category',c);
+  renderEdPreview();
+  if(current && c!==current.category) alert('edAlert','inf',`Category → ${esc(c)}. Save changes to move the review (its URL will change to /reviews/${esc(c)}/${esc(current.slug)}/).`);
+});
 async function openEditor(f){
   current=f; imgs=[]; sel=[];
   showView('editor'); $('edPath').textContent=f.path; alert('edAlert','','');
@@ -635,6 +648,7 @@ async function openEditor(f){
   }
   $('edBody').value=f.content;
   fillReviewerSelect(f.content);
+  $('edCategory').value=f.category;
   $('edProductUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'affiliate_link')||fmField(fm,'product_url')||'';})();
   renderEdScores(f.content);
   $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
@@ -702,14 +716,30 @@ async function saveEditor(){
   if(!current) return;
   const btn=$('edSave'); btn.disabled=true; btn.textContent='Saving…'; alert('edAlert','inf','Saving…');
   try{
-    const content=$('edBody').value;
-    const d=await ghApi('put',{path:current.path, content:b64(content), message:`Edit review: ${current.path}`, sha:current.sha});
-    current.sha=d.content.sha; current.content=content;
+    const newCat=$('edCategory').value||current.category;
+    let content=setFrontmatterField($('edBody').value,'category',newCat);   // keep frontmatter in step with the folder
+    $('edBody').value=content;
+    if(newCat!==current.category){
+      // Move: create at the new path, then delete the old one.
+      const newPath=`src/pages/reviews/${newCat}/${current.slug}.md`;
+      let newSha; try{ const g=await ghApi('get',{path:newPath}); newSha=g.sha; }catch(_){}
+      const put=await ghApi('put',{path:newPath, content:b64(content), message:`Move review to ${newCat}: ${newPath}`, ...(newSha?{sha:newSha}:{})});
+      try{ const g=await ghApi('get',{path:current.path}); await ghApi('delete',{path:current.path, message:`Move review (remove old path): ${current.path}`, sha:g.sha}); }catch(_){}
+      const oldPath=current.path;
+      current.path=newPath; current.sha=(put.content&&put.content.sha)||''; current.category=newCat; current.liveUrl=`/reviews/${newCat}/${current.slug}/`;
+      const fe=files.find(x=>x.path===oldPath); if(fe){ fe.path=newPath; fe.category=newCat; fe.liveUrl=current.liveUrl; }
+      $('edPath').textContent=newPath; $('edView').href=current.liveUrl;
+      alert('edAlert','ok',`Moved to “${esc(newCat)}” & saved ✓ New URL: ${esc(current.liveUrl)}. (Old URL will 404 once deployed — add a redirect if it was published.)`);
+    } else {
+      const d=await ghApi('put',{path:current.path, content:b64(content), message:`Edit review: ${current.path}`, sha:current.sha});
+      current.sha=d.content.sha;
+      alert('edAlert','ok','Saved ✓ Netlify redeploys within ~60s.');
+    }
+    current.content=content;
     const {fm}=splitFrontmatter(content);
     current.title=fmField(fm,'title')||current.slug; current.tested_by=fmField(fm,'tested_by');
     current.overall=fmField(fm,'overall_score'); current.draft=isDraft(content);
     renderTable(); renderDashboard();
-    alert('edAlert','ok','Saved ✓ Netlify redeploys within ~60s.');
   }catch(e){ alert('edAlert','er','Save failed: '+e.message); }
   btn.disabled=false; btn.textContent='Save changes';
 }
