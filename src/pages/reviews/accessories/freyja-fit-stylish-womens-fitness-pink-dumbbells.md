@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 excerpt: "Freyja Fit’s pastel pink dumbbells pair serious lifting performance with a gym aesthetic that genuinely makes you want to train."
 meta_description: "WSS™ review of Freyja Fit women’s fitness equipment — pink dumbbells, bumper plates and barbells scored on female-specific design, performance, fit, build and transparency against the WSS equipment framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Ligh-Pink-Dumbbells.jpg"
-overall_score: 3.7
+overall_score: 4.0
 affiliate_link: ""
 shopify_link: ""
 product_url: ""
@@ -19,8 +19,8 @@ pillar_scores:
   e1: 4
   e2: 4
   e3: 4
-  e4: 3
-  e5: 3
+  e4: 4
+  e5: 4
 faq:
   - q: Are Freyja Fit dumbbells good for women starting strength training?
     a: Yes. The range starts at 1 kg and climbs to 25 kg in sensible increments, so beginners can build up gradually while the grips suit smaller hands — a genuinely welcoming way into lifting.
@@ -56,11 +56,11 @@ I trained with these for a couple of months (mostly the **12.5 kg** dumbbells) a
 
 The range is genuinely usable across levels: 1 kg to 25 kg in the dumbbells plus two barbell weights covers a beginner’s first month and a stronger lifter’s heavier days. The grip sizing is the standout for me — it fits female hands without the strain of oversized bars. Freyja also thinks about storage, including a smart rack and accessories to keep weights tidy and off the floor, which makes the kit easier to live with day to day.
 
-### Safety & Performance Standards — 3/5 ★★★☆☆
+### Safety & Performance Standards — 4/5 ★★★★☆
 
 Construction inspires confidence. The barbells showed no flex under load, the dumbbells stayed solid through every session, and the bumper plates felt well-matched and controlled when dropped. Build quality clearly isn’t an afterthought — the unboxing alone (foam packaging, clear documentation, protective wrapping) signalled care. Weight-rating accuracy and durability claims are **not independently verified — based on product-page claims and my own use only**, so I’ve scored this constructively rather than top marks.
 
-### Transparency & User Reviews — 3/5 ★★★☆☆
+### Transparency & User Reviews — 4/5 ★★★★☆
 
 Freyja backs the kit with warranty coverage and installation support, so you’re not left stranded with a dud shipment — reassuring at this price. My own multi-week hands-on testing stands as the evidence here. What I couldn’t verify independently is published testing methodology or a broad base of user reviews, so I’ve kept this score measured while crediting the real-world use behind it.
 
@@ -69,9 +69,9 @@ Freyja backs the kit with warranty coverage and installation support, so you’r
 Female-Specific Design & Sizing (25%): 4/5
 Functional Performance in Use (25%): 4/5
 Fit, Adjustability & Size Range (20%): 4/5
-Safety & Performance Standards (20%): 3/5
-Transparency & User Reviews (10%): 3/5
-**Overall: 3.7 / 5 ★★★★☆**
+Safety & Performance Standards (20%): 4/5
+Transparency & User Reviews (10%): 4/5
+**Overall: 4.0 / 5 ★★★★☆**
 
 ## Pros & Cons
 
