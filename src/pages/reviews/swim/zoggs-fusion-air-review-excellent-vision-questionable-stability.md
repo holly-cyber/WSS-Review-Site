@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 ## Zoggs Fusion Air Review
 ### Excellent vision and comfort, undone by a wandering strap
 
-Swimming goggles should feel effortless — clear vision, all-day comfort, and a fit so secure you forget they're there. As someone who swims regularly in open water and tests kit for women who train seriously, that's the brief I hold every pair to. The <a href="https://www.zoggs.com/en_GB/product/fusion-air-titanium-goggles-461106#u463" target="_blank" rel="nofollow sponsored">**Zoggs Fusion Air Titanium goggles**</a> nail two of those three: the optics are genuinely superb and the air-cushioned seal is lovely to wear. But there's a trade-off, and it's a real one — the strap simply won't stay where it's told.
+Swimming goggles should feel effortless — clear vision, all-day comfort, and a fit so secure you forget they're there. As someone who swims regularly in open water and tests kit for women who train seriously, that's the brief I hold every pair to. The <a href="https://www.zoggs.com/en_GB/product/fusion-air-titanium-goggles-461106#u463" target="_blank" rel="nofollow sponsored">**[Zoggs Fusion Air Titanium goggles](https://www.zoggs.com/en_GB/product/fusion-air-titanium-goggles-461106#u463)**</a> nail two of those three: the optics are genuinely superb and the air-cushioned seal is lovely to wear. But there's a trade-off, and it's a real one — the strap simply won't stay where it's told.
 
 ![Zoggs Fusion Air swimming goggles with titanium lens](https://womenssportsstore.com/wp-content/uploads/2026/04/fusion-air-swimming-goggles-titanium-lens-bkgymsm-768x1024.webp)
 
@@ -73,7 +73,7 @@ Functional Performance in Use (25%): 4/5
 Fit, Adjustability & Size Range (20%): 2/5
 Safety & Performance Standards (20%): 3/5
 Transparency & User Reviews (10%): 4/5
-**Overall: 2.9 / 5 ★**
+**Overall: 2.9 / 5 ★★★☆☆**
 
 ## Pros & Cons
 

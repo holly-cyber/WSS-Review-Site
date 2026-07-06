@@ -59,7 +59,7 @@ The build feels considered rather than cheap. The **100% natural wax** — plant
 
 As a sensory ritual it’s lovely. The scent is calming and gentle, the burn is steady, and the format makes it easy to fold into a real routine — light it, breathe, blow it out at lights-off. The **travel tins** are genuinely portable for a desk, a hotel room or gifting, while the **full-sized candles** fill a living space. The only practical watch-out is that the smaller tins burn through faster if you light yours nightly.
 
-### Transparency, Ethics & Value — 3/5 ★★★★☆
+### Transparency, Ethics & Value — 3/5 ★★★☆☆
 
 Scentered is fairly open about what goes into the blends — the _Sleep Well_ candle names its calming oils, and the natural-wax and sustainability claims are clearly published. What’s missing is independent verification of those clean-burn and sustainability claims, so I’ve scored this constructively: strong on stated transparency, with room to grow on third-party proof. At £16.95–£39.00 it’s pricier than a supermarket candle, but fair for natural ingredients and a ritual that works.
 
@@ -70,7 +70,7 @@ Efficacy & Performance (30%): 4/5
 Quality, Ingredients & Materials (20%): 4/5
 Experience & Usability (15%): 4/5
 Transparency, Ethics & Value (10%): 3/5
-**Overall: 3.9 / 5 ★**
+**Overall: 3.9 / 5 ★★★★☆**
 
 ## Pros & Cons
 

@@ -42,7 +42,7 @@ faq:
 
 ### Squat-proof, stay-put leggings built for women who actually run
 
-When you spend hours pounding pavements and tackling trails, you learn fast that not all **running leggings** are equal: some ride down, some chafe, and some quietly turn sheer the moment you bend. That's the problem the **Bimble & Bolt Midnight Super Strider Full Length Tights** set out to solve, and after testing them on the rugged slopes of the Old Man of Coniston, I think they largely crack it. My thesis: this is a thoughtfully female-designed, squat-proof pair that stays put through everything from steep climbs to strength sets — premium kit that earns its place in the drawer.
+When you spend hours pounding pavements and tackling trails, you learn fast that not all **[running leggings](https://bimbleandbolt.avln.me/c/IBBzuxowabLk)** are equal: some ride down, some chafe, and some quietly turn sheer the moment you bend. That's the problem the **Bimble & Bolt Midnight Super Strider Full Length Tights** set out to solve, and after testing them on the rugged slopes of the Old Man of Coniston, I think they largely crack it. My thesis: this is a thoughtfully female-designed, squat-proof pair that stays put through everything from steep climbs to strength sets — premium kit that earns its place in the drawer.
 
 ## WSS™ Assessment
 
@@ -78,7 +78,7 @@ Adequate Support Standards: 3/5
 Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 5/5
 Transparency & User Reviews: 3/5
-**Overall: 3.8 / 5 ★**
+**Overall: 3.8 / 5 ★★★★☆**
 
 ## Pros & Cons
 

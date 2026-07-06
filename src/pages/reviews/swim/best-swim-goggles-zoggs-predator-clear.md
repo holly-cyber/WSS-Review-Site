@@ -42,7 +42,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### The No-Leak, No-Faff Pair That Goes the Distance
 
-We're all on the hunt for the **best swim goggles** — that reliable pair that doesn't leak, fits perfectly and feels good from the first dive to the final stroke. For me, that's the **Zoggs Predator Clear** goggles. They're my faithful companions for pool training and open-water swims, and they've genuinely never let me down. These are the goggles that got me across the **English Channel** — yes, 16 hours in the water and not a single leak. They're the kind you forget you're wearing, and that's exactly what you want.
+We're all on the hunt for the **[best swim goggles](https://www.zoggs.com/en_GB/predator-flex-goggles-461041#u463)** — that reliable pair that doesn't leak, fits perfectly and feels good from the first dive to the final stroke. For me, that's the **Zoggs Predator Clear** goggles. They're my faithful companions for pool training and open-water swims, and they've genuinely never let me down. These are the goggles that got me across the **English Channel** — yes, 16 hours in the water and not a single leak. They're the kind you forget you're wearing, and that's exactly what you want.
 
 ## WSS™ Assessment
 
@@ -67,7 +67,7 @@ Functional Performance in Use (25%): 5/5
 Fit, Adjustability & Size Range (20%): 4/5
 Safety & Performance Standards (20%): 3/5
 Transparency & User Reviews (10%): 4/5
-**Overall: 4.1 / 5 ★**
+**Overall: 4.1 / 5 ★★★★☆**
 
 ## Pros & Cons
 **What I loved:**

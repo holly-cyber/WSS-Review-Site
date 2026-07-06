@@ -72,7 +72,7 @@ Efficacy & Performance (30%): 4/5
 Quality, Ingredients & Materials (20%): 4/5
 Experience & Usability (15%): 4/5
 Transparency, Ethics & Value (10%): 3/5
-**Overall: 4.2 / 5 ★**
+**Overall: 4.2 / 5 ★★★★☆**
 
 ## Pros & Cons
 

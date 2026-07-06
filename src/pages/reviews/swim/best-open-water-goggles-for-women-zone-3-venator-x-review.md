@@ -45,19 +45,19 @@ Finding open water goggles that don't leak or swamp your features is a real stru
 
 ## WSS™ Assessment
 
-### Female-Specific Design & Sizing — 3/5 ★★★★☆
+### Female-Specific Design & Sizing — 3/5 ★★★☆☆
 This is where the Venator-X won me over. As someone with a smaller face, I've always battled goggles that either leak or overwhelm my features, and these fit *beautifully* — snug, streamlined and just the right size. The **soft silicone gaskets** mould to your face and create a secure seal without digging in, and the **lens profile** gives great coverage without feeling bulky. They're a unisex goggle rather than a female-specific design, so I've scored this neutrally rather than as a top mark — but on real facial fit for a smaller face, they deliver.
 
 ### Functional Performance in Use — 4/5 ★★★★☆
 In the water they do exactly what you need: **clear vision, no leaks and minimal fogging**. I've worn them across murky lakes and bright coastal swims and they've held up every time, including a **17-hour endurance swim** with no eye-socket pressure or irritation. The **panoramic lens design** gives excellent peripheral vision, which genuinely helps with sighting and staying on course. They only start to fog after around eight hours of continuous use — impressive by any standard.
 
-### Fit, Adjustability & Size Range — 3/5 ★★★★☆
+### Fit, Adjustability & Size Range — 3/5 ★★★☆☆
 The **quick-release strap system** makes setup simple: no fiddly buckles, no awkward pulling, and once they're set they stay put even when diving in or dealing with chop. The trade-off is that there's **no adjustable nose bridge**, so the fit is built around a fixed profile rather than tuned to your face — though for me that's never been a problem. It's a single, well-judged fit rather than a broad adjustment range, which is worth knowing if your features sit outside the average.
 
-### Safety & Performance Standards — 3/5 ★★★★☆
+### Safety & Performance Standards — 3/5 ★★★☆☆
 On optical performance the Venator-X impress in everyday use. The **lens options** — clear for low light, polarized for bright sun and chromatic for changing conditions — let you match the goggle to the day, and the anti-fog held for around eight hours in my swims. Coverage and peripheral clarity are excellent. The fog-resistance timing, lens optics and any UV claims are based on real use and the product's own specification rather than independently certified lab figures, so I've scored this solidly rather than at the top.
 
-### Transparency & User Reviews — 3/5 ★★★★☆
+### Transparency & User Reviews — 3/5 ★★★☆☆
 What I can vouch for here is hands-on time: years of swimming in these across varied conditions, plus a first pair that's now **over four years old** and still sealing perfectly. The **lens range** is clearly laid out so you know what you're buying. There isn't published lab-test methodology or formal certification data to point to, so this sits at a sensible middle mark — strong on real-world evidence, lighter on independent verification.
 
 ## Scores
@@ -66,7 +66,7 @@ Functional Performance in Use (25%): 4/5
 Fit, Adjustability & Size Range (20%): 3/5
 Safety & Performance Standards (20%): 3/5
 Transparency & User Reviews (10%): 3/5
-**Overall: 3.3 / 5 ★**
+**Overall: 3.3 / 5 ★★★☆☆**
 
 ## Pros & Cons
 

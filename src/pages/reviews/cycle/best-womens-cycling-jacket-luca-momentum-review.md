@@ -42,7 +42,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### A Sleek, Waterproof Women's Cycling Jacket Built for Wet, Windy Rides
 
-Wet-weather riding asks a lot of a jacket: keep the rain and wind out, but don't turn into a boil-in-the-bag sweatbox. That's the problem the **LUCA Momentum Jacket** sets out to solve for women who want to keep riding when the forecast turns. It feels premium straight out of the recyclable envelope, with a sleek, minimalist design that looks great on and off the bike. I rode in the black version (it also comes in grey), and my overall take is simple: a genuinely capable, stylish all-rounder, best suited to riders who like a close, aerodynamic fit.
+Wet-weather riding asks a lot of a jacket: keep the rain and wind out, but don't turn into a boil-in-the-bag sweatbox. That's the problem the **[LUCA Momentum Jacket](https://rideluca.avln.me/c/MSPSGNGfInhN)** sets out to solve for women who want to keep riding when the forecast turns. It feels premium straight out of the recyclable envelope, with a sleek, minimalist design that looks great on and off the bike. I rode in the black version (it also comes in grey), and my overall take is simple: a genuinely capable, stylish all-rounder, best suited to riders who like a close, aerodynamic fit.
 
 ## WSS™ Assessment
 
@@ -71,7 +71,7 @@ Adequate Support Standards: 3/5
 Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 4/5
 Transparency & User Reviews: 4/5
-**Overall: 3.7 / 5 ★**
+**Overall: 3.7 / 5 ★★★★☆**
 
 ## Pros & Cons
 

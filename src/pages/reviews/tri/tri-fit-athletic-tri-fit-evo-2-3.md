@@ -67,7 +67,7 @@ Pillar 7 — Transparency & User Reviews: 5/5
 
 *No Pillar 3 hard-fail triggered (score is 4/5). Verifiable published data present — Pillar 7 cap does not apply.*
 
-**Overall: 4.5 / 5 ★**
+**Overall: 4.5 / 5 ★★★★★**
 
 ---
 

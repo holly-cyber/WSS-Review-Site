@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 ## Zoggs Predator Flex Polarised Review
 ### Lovely lenses, let down by fit and female sizing
 
-Open water goggles are kit where the brief is simple: clear vision, a seal that holds, and nothing to think about once you're in the water. As someone who swims outdoors year-round, that's all I really ask. The <a href="https://www.zoggs.com/en_GB/product/predator-flex-polarized-ultra-goggles-461046#u463" target="_blank" rel="nofollow sponsored">**Zoggs Predator Flex Polarised** goggles</a> arrive with a genuinely lovely promise — glare-reducing polarised lenses and a comfort-focused design — and on the lenses, they deliver. But across my swims the fit and sizing kept getting in the way, and that's hard to overlook in goggles you wear on your face.
+Open water goggles are kit where the brief is simple: clear vision, a seal that holds, and nothing to think about once you're in the water. As someone who swims outdoors year-round, that's all I really ask. The <a href="https://www.zoggs.com/en_GB/product/predator-flex-polarized-ultra-goggles-461046#u463" target="_blank" rel="nofollow sponsored">**[Zoggs Predator Flex Polarised](https://www.zoggs.com/en_GB/product/predator-flex-polarized-ultra-goggles-461046#u463)** goggles</a> arrive with a genuinely lovely promise — glare-reducing polarised lenses and a comfort-focused design — and on the lenses, they deliver. But across my swims the fit and sizing kept getting in the way, and that's hard to overlook in goggles you wear on your face.
 
 ## WSS™ Assessment
 
@@ -71,7 +71,7 @@ Functional Performance in Use (25%): 2/5
 Fit, Adjustability & Size Range (20%): 2/5
 Safety & Performance Standards (20%): 3/5
 Transparency & User Reviews (10%): 3/5
-**Overall: 2.3 / 5 ★**
+**Overall: 2.3 / 5 ★★☆☆☆**
 
 ## Pros & Cons
 

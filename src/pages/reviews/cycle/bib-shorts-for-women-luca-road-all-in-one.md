@@ -42,7 +42,7 @@ faq:
 
 ### The women-specific bib short that finally fits the chest
 
-After six years of cycling I'd more or less accepted a quiet trade-off: bib shorts either fit my legs or sat right across my chest, never both. Most women's options felt like men's kit scaled down, with straps that pulled awkwardly across the breasts. The **LUCA Road All-In-One** is the first pair that solved that for me. It's a true women-specific cut — sleek, secure and flattering — with a shaped bib that sits where it should and a pad built for the female form. At £175 it's premium, but it rides like performance equipment, not just apparel.
+After six years of cycling I'd more or less accepted a quiet trade-off: bib shorts either fit my legs or sat right across my chest, never both. Most women's options felt like men's kit scaled down, with straps that pulled awkwardly across the breasts. The **[LUCA Road All-In-One](https://rideluca.avln.me/c/zbptGimDVReg)** is the first pair that solved that for me. It's a true women-specific cut — sleek, secure and flattering — with a shaped bib that sits where it should and a pad built for the female form. At £175 it's premium, but it rides like performance equipment, not just apparel.
 
 ## WSS™ Assessment
 
@@ -78,7 +78,7 @@ Adequate Support Standards: 4/5
 Thermal Regulation & Material Performance: 3/5
 Genuine Female Design: 5/5
 Transparency & User Reviews: 4/5
-**Overall: 3.8 / 5 ★**
+**Overall: 3.8 / 5 ★★★★☆**
 
 ## Pros & Cons
 

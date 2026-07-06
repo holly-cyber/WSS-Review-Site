@@ -92,7 +92,7 @@ Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 4/5
 Transparency & User Reviews: 4/5
 
-**Overall: 3.8 / 5 ★★★★**
+**Overall: 3.8 / 5 ★★★★☆**
 
 ## Pros & Cons
 

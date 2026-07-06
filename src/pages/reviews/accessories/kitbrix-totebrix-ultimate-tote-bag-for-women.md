@@ -41,11 +41,11 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### The waterproof, do-it-all carry-all for active women
 
-I'll admit it: I'm a bit of a tote bag snob. I've owned everything from flimsy high-street shoppers that collapse under a single water bottle to luxury totes that cost more than my gym membership and still can't cope with a pair of trainers. The problem is real — active women need one bag that carries gym kit, swim gear, a laptop and a change of clothes without falling apart or digging into your shoulder. So when I got my hands on the **KitBrix Extra Large Tote Bag (ToteBrix)**, I was hopeful but sceptical. Spoiler: it's become my genuine go-to.
+I'll admit it: I'm a bit of a tote bag snob. I've owned everything from flimsy high-street shoppers that collapse under a single water bottle to luxury totes that cost more than my gym membership and still can't cope with a pair of trainers. The problem is real — active women need one bag that carries gym kit, swim gear, a laptop and a change of clothes without falling apart or digging into your shoulder. So when I got my hands on the **[KitBrix Extra Large Tote Bag (ToteBrix)](https://kitbrix.com/collections/totes/products/totepack)**, I was hopeful but sceptical. Spoiler: it's become my genuine go-to.
 
 ## WSS™ Assessment
 
-### Female-Specific Design & Sizing — 4/5 ★★★☆☆
+### Female-Specific Design & Sizing — 4/5 ★★★★☆
 
 The **ToteBrix** is clearly designed with women in mind, and it shows in the details that matter to how it carries. The padded, adjustable shoulder strap sits comfortably across a female shoulder and distributes weight evenly, so even loaded with gym gear, a laptop and a spare hoodie it never bites in. It's *functional, feminine and fuss-free*, a rare combination.
 
@@ -57,7 +57,7 @@ This is where the **ToteBrix** earns its stripes. I tested it over two days dash
 
 For carry-fit and capacity, this is the standout. The adjustable strap and reinforced handles give you real flexibility in how you carry, and the semi-rigid structure holds its shape without poking your side. Inside, multiple compartments and mesh pockets keep keys, wallet and headphones organised, while shoes live in the main compartment without flattening clothes. It even folds flat for small-space storage — clever, and rare at this size.
 
-### Safety & Performance Standards — 3/5 ★★★★☆
+### Safety & Performance Standards — 4/5 ★★★★☆
 
 On construction and durability, the **ToteBrix** feels built to last. The tough 600D polyester, the near-indestructible **BaseBrix™** bottom, the zippered top and the wipe-clean interior all point to equipment you'll keep for years rather than a fast-fashion throwaway. KitBrix also references recycled fabric in the build. The waterproofing, durability and sustainability claims are the brand's own and my own use suggests they are well founded.
 
@@ -67,12 +67,12 @@ My score here rests on my hands-on use: I lived with this bag across gym session
 
 ## Scores
 
-Female-Specific Design & Sizing (25%): 3/5
+Female-Specific Design & Sizing (25%): 4/5
 Functional Performance in Use (25%): 4/5
 Fit, Adjustability & Size Range (20%): 4/5
-Safety & Performance Standards (20%): 3/5
+Safety & Performance Standards (20%): 4/5
 Transparency & User Reviews (10%): 4/5
-**Overall: 3.6 / 5 ★**
+**Overall: 4.0 / 5 ★★★★☆**
 
 ## Pros & Cons
 

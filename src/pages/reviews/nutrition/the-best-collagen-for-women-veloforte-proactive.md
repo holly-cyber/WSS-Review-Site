@@ -53,7 +53,7 @@ Each serving delivers **9g of protein, Type 1 and Type II collagen, plus Vitamin
 ### Performance — 4/5 ★★★★☆
 After three weeks of daily use I genuinely noticed a difference. My skin felt more hydrated, my post-training recovery seemed smoother, and my hair and nails looked stronger — a lovely bonus. I even found myself reaching for more nutrient-dense foods, as though my body was running better overall. Benefits that work "from the inside out" are hard to quantify and not independently verified, but the everyday signals were real for me.
 
-### Value — 3/5 ★★★★☆
+### Value — 3/5 ★★★☆☆
 At **£27.99 for a 30-serving pouch** (roughly £0.93 a day) this is not the cheapest collagen out there, and the price is the main thing holding the score back. What you are paying for is quality and a genuinely well-formulated product: a high dose of functional ingredients in one scoop, so you are not juggling multiple supplements or multiple price tags. Think of it as long-term maintenance for your body.
 
 ## Scores
@@ -61,7 +61,7 @@ Taste & Texture (25%): 5/5
 Nutrition Profile (30%): 4/5
 Performance (30%): 4/5
 Value (15%): 3/5
-**Overall: 4.1 / 5 ★**
+**Overall: 4.1 / 5 ★★★★☆**
 
 ## Pros & Cons
 

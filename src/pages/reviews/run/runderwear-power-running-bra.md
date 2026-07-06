@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### No-Bounce Support That Lasts From 5K To 50K Ultra
 
-If you've ever spent the first mile of a run fighting your bra straps and the second questioning your life choices, you'll know that support and comfort aren't luxuries for women who run — they're non-negotiable. The **<a href="https://runderwear.avln.me/c/sTAmhGRllrNg" target="_blank" rel="nofollow sponsored">Runderwear Power Running Bra</a>** has been my answer for over three years now, through 5Ks, half marathons, hill sprints and even a 50K ultra. My thesis is simple: this is a genuinely stay-put, no-fuss bra that delivers structure and softness in equal measure — and one that keeps performing long after cheaper rivals give up.
+If you've ever spent the first mile of a run fighting your bra straps and the second questioning your life choices, you'll know that support and comfort aren't luxuries for women who run — they're non-negotiable. The **[<a href="https://runderwear.avln.me/c/sTAmhGRllrNg" target="_blank" rel="nofollow sponsored">Runderwear Power Running Bra</a>](https://runderwear.avln.me/c/sTAmhGRllrNg)** has been my answer for over three years now, through 5Ks, half marathons, hill sprints and even a 50K ultra. My thesis is simple: this is a genuinely stay-put, no-fuss bra that delivers structure and softness in equal measure — and one that keeps performing long after cheaper rivals give up.
 
 ### Inclusive Fit & Proportional Sizing
 
@@ -88,7 +88,7 @@ Adequate Support Standards: 4/5
 Thermal Regulation & Material Performance: 5/5
 Genuine Female Design: 5/5
 Transparency & User Reviews: 4/5
-**Overall: 4.5 / 5 ★**
+**Overall: 4.5 / 5 ★★★★★**
 
 ## Pros & Cons
 

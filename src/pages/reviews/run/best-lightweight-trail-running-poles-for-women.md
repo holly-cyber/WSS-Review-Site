@@ -45,19 +45,19 @@ Trail running poles can be either game-changing or that awkward bit of kit you r
 
 ## WSS™ Assessment
 
-### Female-Specific Design & Sizing — 2/5 ★★★★☆
+### Female-Specific Design & Sizing — 2/5 ★★☆☆☆
 Let me be clear about what these are: a length-based pole offered in **six fixed-length options**, not a female-specific design proportioned for a woman's frame. There's no women's-particular geometry here, so this scores neutrally rather than as a failing — you simply pick the right length for your height. What I do credit is that they're built by **Harrier**, a British brand founded by Kate Parker that visibly listens to trail runners, women included. The sizing choice is sensible and the brand intent is welcome, but the poles themselves are essentially unisex.
 
 ### Functional Performance in Use — 4/5 ★★★★☆
 This is where they shine. From **138g per pole**, they're remarkably light, yet they feel reassuringly sturdy when you lean in hard on a steep, lung-busting climb. The **Z-fold design** snaps open with a slick "click" and the carbon shafts give a reliable boost on every ascent and a confidence-inspiring brace on technical descents. Built for **ultras, mountain marathons and big adventure days**, they do exactly the job you want from a long-day pole.
 
-### Fit, Adjustability & Size Range — 3/5 ★★★★☆
+### Fit, Adjustability & Size Range — 3/5 ★★★☆☆
 The **six fixed lengths** give a good spread of sizing, so most women should find a length that suits. The trade-off is that fixed-length carbon doesn't adjust on the fly — carbon poles don't bend, so precision matters, and Harrier's size guide is worth checking carefully before you buy. Once you've got the right length the fit is spot-on, but there's no telescoping wiggle room if you share poles or want to tune the height mid-run.
 
-### Safety & Performance Standards — 3/5 ★★★★☆
+### Safety & Performance Standards — 3/5 ★★★☆☆
 The carbon construction feels premium and held up confidently under load when I leaned my weight into the climbs. The **integrated mud baskets clip together neatly**, and the Z-fold mechanism locks cleanly. I'd note that specific stress-testing data and formal certification figures aren't published — *not independently verified, based on product page and hands-on use only* — so treat the carbon with the care any lightweight pole deserves and you should be fine.
 
-### Transparency & User Reviews — 3/5 ★★★★☆
+### Transparency & User Reviews — 3/5 ★★★☆☆
 Harrier is refreshingly open about who they are and who they build for, and the wider picture is encouraging: as other reviewers have repeatedly mentioned, you'd need to spend double to match this spec from big-name brands. That chimes with my own hands-on impressions. Formal published test methodology is light, but the runner feedback and real-world use back up the performance claims well.
 
 ## Scores
@@ -67,7 +67,7 @@ Functional Performance in Use (25%): 4/5
 Fit, Adjustability & Size Range (20%): 3/5
 Safety & Performance Standards (20%): 3/5
 Transparency & User Reviews (10%): 3/5
-**Overall: 3.0 / 5 ★**
+**Overall: 3.0 / 5 ★★★☆☆**
 
 ## Pros & Cons
 

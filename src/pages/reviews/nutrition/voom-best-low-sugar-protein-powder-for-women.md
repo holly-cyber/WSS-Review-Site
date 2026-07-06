@@ -40,7 +40,7 @@ faq:
 
 ### A low-sugar recovery shake that finally tastes like a treat
 
-The protein aisle is overflowing with powders that promise the world but leave you bloated, broke or bored to tears — and as a woman who trains hard and recovers harder, I want fuel that does the job *and* that I'll actually reach for. That's the brief VOOM set out to solve: a low-sugar whey recovery shake built around quality protein rather than filler. My thesis after putting the **Belgian Chocolate & Vanilla** through its paces? This is a genuinely enjoyable, smartly formulated shake that earns its place on my best low-sugar list, held back only by how far it stretches per scoop.
+The protein aisle is overflowing with powders that promise the world but leave you bloated, broke or bored to tears — and as a woman who trains hard and recovers harder, I want fuel that does the job *and* that I'll actually reach for. That's the brief VOOM set out to solve: a low-sugar whey recovery shake built around quality protein rather than filler. My thesis after putting the **[Belgian Chocolate & Vanilla](https://www.voomnutrition.co.uk/products/protein-isolate-rapid-recovery-shake)** through its paces? This is a genuinely enjoyable, smartly formulated shake that earns its place on my best low-sugar list, held back only by how far it stretches per scoop.
 
 ## WSS™ Assessment
 
@@ -66,7 +66,7 @@ Taste & Texture (25%): 5/5
 Nutrition Profile (30%): 4/5
 Performance (30%): 4/5
 Value (15%): 3/5
-**Overall: 4.1 / 5 ★**
+**Overall: 4.1 / 5 ★★★★☆**
 
 ## Pros & Cons
 

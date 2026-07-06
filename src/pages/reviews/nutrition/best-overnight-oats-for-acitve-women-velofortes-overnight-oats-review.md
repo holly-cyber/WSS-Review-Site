@@ -66,7 +66,7 @@ Taste & Texture (25%): 5/5
 Nutrition Profile (30%): 5/5
 Performance (30%): 4/5
 Value (15%): 4/5
-**Overall: 4.6 / 5 ★**
+**Overall: 4.6 / 5 ★★★★★**
 
 ## Pros & Cons
 
