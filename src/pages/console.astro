@@ -223,8 +223,8 @@ table.rev tr:hover td{background:#fcfcfd}
 
           <!-- Buy link -->
           <div class="panel" id="edLinkPanel">
-            <h3>Buy link</h3>
-            <div class="hint">The brand's product-page URL. It becomes the “Buy direct” button, and the Avelon converter turns it into a tracked affiliate link on the live site. Save to commit.</div>
+            <h3>Product URL (outlink)</h3>
+            <div class="hint">The brand's product-page URL. It sets both <code>affiliate_link</code> and <code>product_url</code> (the same as newly generated reviews), becomes the “Buy direct” outlink button, and the Avelon converter turns it into a tracked affiliate link on the live site. Save to commit.</div>
             <input id="edProductUrl" placeholder="https://brand.com/products/…" style="max-width:520px"/>
           </div>
 
@@ -605,7 +605,7 @@ async function openEditor(f){
   }
   $('edBody').value=f.content;
   fillReviewerSelect(fmField(splitFrontmatter(f.content).fm,'tested_by'));
-  $('edProductUrl').value=fmField(splitFrontmatter(f.content).fm,'affiliate_link');
+  $('edProductUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'affiliate_link')||fmField(fm,'product_url')||'';})();
   renderEdScores(f.content);
   $('edView').href=f.liveUrl; $('edDraft').textContent=f.draft?'Publish':'Set draft';
   $('edImgUrl').value=(()=>{const {fm}=splitFrontmatter(f.content);return fmField(fm,'shopify_link')||fmField(fm,'product_url')||fmField(fm,'affiliate_link')||'';})();
@@ -650,9 +650,12 @@ $('edScores').addEventListener('input',e=>{
 $('edProductUrl').addEventListener('change',()=>{
   const url=$('edProductUrl').value.trim();
   if(url && !/^https?:\/\//i.test(url)){ alert('edAlert','wr','Enter a full URL starting with http(s):// (or clear it).'); return; }
-  $('edBody').value=setFrontmatterField($('edBody').value,'affiliate_link',url);
+  // Set both fields, matching pipeline-generated reviews, so the outlink renders.
+  let src=setFrontmatterField($('edBody').value,'affiliate_link',url);
+  src=setFrontmatterField(src,'product_url',url);
+  $('edBody').value=src;
   renderEdPreview();
-  alert('edAlert','inf','Buy link updated — click Save changes to commit.');
+  alert('edAlert','inf','Product URL set as the outlink — click Save changes to commit.');
 });
 
 async function saveEditor(){
