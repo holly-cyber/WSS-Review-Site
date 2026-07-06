@@ -7,7 +7,6 @@ subcategory: "Anti-Chafe & Skincare"
 date: "2025-10-07"
 product_type: "wellness"
 tested_by: "Mel Berry"
-draft: true
 excerpt: "Body Glide For Her is the fragrance-free, water-resistant anti-chafe balm I now reach for before every swim, ride and run."
 meta_description: "WSS™ review of Body Glide For Her anti-chafe balm — fragrance-free, sweat- and water-resistant comfort for swimmers, runners and cyclists, hands-on tested."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-07-at-17.15.20.png"
