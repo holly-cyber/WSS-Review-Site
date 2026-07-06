@@ -158,6 +158,20 @@ export function isDraft(md) {
   return /^\s*draft\s*:\s*true\s*$/im.test(fm);
 }
 // Set the review's `tested_by` to a named reviewer and clear any per-article
+// Upsert a single quoted frontmatter field (key: "value"); leaves the body
+// untouched. Used by the editor's Buy-link field to set affiliate_link.
+export function setFrontmatterField(src, key, value) {
+  src = src || '';
+  const m = src.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!m) return src;
+  let fm = m[1];
+  const line = `${key}: "${String(value || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+  const re = new RegExp('^\\s*' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*:.*$', 'im');
+  if (re.test(fm)) fm = fm.replace(re, line);
+  else fm = fm.replace(/\s*$/, '') + '\n' + line;
+  return src.replace(m[0], '---\n' + fm + '\n---');
+}
+
 // reviewer_bio / reviewer_avatar overrides, so the shared team profile drives
 // the byline name, photo and bio. The body is left untouched.
 export function setReviewer(src, name) {
