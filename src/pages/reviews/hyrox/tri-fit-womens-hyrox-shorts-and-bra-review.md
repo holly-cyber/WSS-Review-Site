@@ -12,9 +12,9 @@ excerpt: "A WSS™ review of the Tri-Fit Roxy Hyrox shorts and bra: a true-to-si
 meta_description: "Our hands-on WSS™ review of the Tri-Fit Roxy women’s Hyrox shorts and bra — fit, sizing, bra support, sweat-proof performance, female-specific design and value."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-13-at-13.06.44.webp"
 overall_score: 3.7
-affiliate_link: ""
+affiliate_link: "https://tri-fitathletic.com/collections/tri-fit-sitech-womens-athleticwear/products/roxi-4-shorts-black-edition"
 shopify_link: ""
-product_url: ""
+product_url: "https://tri-fitathletic.com/collections/tri-fit-sitech-womens-athleticwear/products/roxi-4-shorts-black-edition"
 price: ""
 pillar_scores:
   p1: 3
