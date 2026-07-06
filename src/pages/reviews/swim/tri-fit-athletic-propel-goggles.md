@@ -72,7 +72,7 @@ Fit, Adjustability & Size Range (20%): 4/5
 Safety & Performance Standards (20%): 5/5
 Transparency & User Reviews (10%): 5/5
 
-**Overall: 4.1 / 5 ★**
+**Overall: 4.1 / 5 ★★★★☆**
 
 ![TRI-FIT Athletic PROPEL Goggles — 220 Triathlon awards](https://cdn.shopify.com/s/files/1/2913/8550/files/220_award_icons_2023_bot_5dba763b-6e15-4b0c-ac4b-f8cd376b7ebe.png?v=1774528353)
 

@@ -41,7 +41,7 @@ faq:
 ## Runderwear Women's Running Briefs Review
 ### Chafe-free, stay-put briefs that ended my commando habit
 
-Running underwear rarely earns a standing ovation, but these briefs genuinely changed how I run. For active women, the problem is real: ill-fitting underwear means chafing, the dreaded "running wedgie", and constant mid-run fiddling that pulls your focus from your pace. I'll admit I ran commando for 30 years to avoid all of it. The **<a href="https://runderwear.avln.me/c/gPSXQpKPNlMC" target="_blank" rel="nofollow sponsored">Runderwear Women's Running Briefs</a>** converted me on the first wear: soft, lightweight, seamless and reassuringly stay-put. For sheer chafe-free comfort over the miles, they're a small luxury that makes a big difference.
+Running underwear rarely earns a standing ovation, but these briefs genuinely changed how I run. For active women, the problem is real: ill-fitting underwear means chafing, the dreaded "running wedgie", and constant mid-run fiddling that pulls your focus from your pace. I'll admit I ran commando for 30 years to avoid all of it. The **[<a href="https://runderwear.avln.me/c/gPSXQpKPNlMC" target="_blank" rel="nofollow sponsored">Runderwear Women's Running Briefs</a>](https://runderwear.avln.me/c/gPSXQpKPNlMC)** converted me on the first wear: soft, lightweight, seamless and reassuringly stay-put. For sheer chafe-free comfort over the miles, they're a small luxury that makes a big difference.
 
 ## WSS™ Assessment
 
@@ -70,7 +70,7 @@ Adequate Support Standards: 3/5
 Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 4/5
 Transparency & User Reviews: 3/5
-**Overall: 3.5 / 5 ★**
+**Overall: 3.5 / 5 ★★★★☆**
 
 ## Pros & Cons
 

@@ -42,11 +42,11 @@ faq:
 
 ### A stay-put Hyrox set with real bra support
 
-As a hybrid athlete I've worn my share of activewear fails: unsupportive bras, shorts that ride up, straps that slip mid-race. For Hyrox especially — where running, functional strength and high-intensity intervals collide — your kit has to stay put under pressure or it becomes a distraction. The **Tri-Fit Roxy** set is one of the rare exceptions that genuinely gets it right. I tested the **Roxy Crossback Sports Bra** and **Roxy 4” Shorts** through a demanding conditioning session of SkiErg intervals, sled pushes, walking lunges and wall balls. My thesis: a premium-feeling, true-to-size set that stays firmly in place and actually supports.
+As a hybrid athlete I've worn my share of activewear fails: unsupportive bras, shorts that ride up, straps that slip mid-race. For Hyrox especially — where running, functional strength and high-intensity intervals collide — your kit has to stay put under pressure or it becomes a distraction. The **[Tri-Fit Roxy](https://tri-fitathletic.com/collections/tri-fit-sitech-womens-athleticwear/products/roxi-4-shorts-black-edition)** set is one of the rare exceptions that genuinely gets it right. I tested the **Roxy Crossback Sports Bra** and **Roxy 4” Shorts** through a demanding conditioning session of SkiErg intervals, sled pushes, walking lunges and wall balls. My thesis: a premium-feeling, true-to-size set that stays firmly in place and actually supports.
 
 ## WSS™ Assessment
 
-### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
+### Inclusive Fit & Proportional Sizing — 4/5 ★★★★☆
 
 The fit itself is genuinely female-cut and reassuringly accurate: I'm typically a UK 6 at 5'1" and the **XS** fit perfectly in both pieces, snug yet never restrictive. Tri-Fit nails *true to size* where so many brands wobble, and the longline bra adds welcome midsection coverage. 
 
@@ -58,7 +58,7 @@ This is where the set shines. The **Roxy 4” Shorts** gave complete freedom of 
 
 Because this set includes a bra, support really matters — and the **Roxy Crossback Sports Bra** delivered. The longline design adds stability while the **crossback straps** distribute support evenly across the shoulders and allow unrestricted mobility for SkiErg and wall balls. It held me securely through running intervals and burpees without slipping or digging in. I've held back a point only because Tri-Fit doesn't publish a formal impact level or cup range (A–HH) — but in real Hyrox use, the support stood up.
 
-### Thermal Regulation & Material Performance — 3/5 ★★★☆☆
+### Thermal Regulation & Material Performance — 4/5 ★★★★☆
 
 The fabric feels premium: a luxurious, *second-skin* softness with enough compression for high-intensity work, and no chafing or irritation across the session. Both pieces stayed visibly sweat-proof under sustained exertion, which speaks well to the moisture handling. 
 
@@ -74,13 +74,13 @@ My score here rests on documented hands-on testing: a full Hyrox conditioning se
 
 ## Scores
 
-Inclusive Fit & Proportional Sizing: 3/5
+Inclusive Fit & Proportional Sizing: 4/5
 Functional Performance in Use: 4/5
 Adequate Support Standards: 4/5
-Thermal Regulation & Material Performance: 3/5
+Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 4/5
 Transparency & User Reviews: 4/5
-**Overall: 3.7 / 5 ★**
+**Overall: 4.0 / 5 ★★★★☆**
 
 ## Pros & Cons
 

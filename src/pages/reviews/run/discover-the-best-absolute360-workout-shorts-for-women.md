@@ -72,7 +72,7 @@ Adequate Support Standards: 3/5
 Thermal Regulation & Material Performance: 3/5
 Genuine Female Design: 3/5
 Transparency & User Reviews: 3/5
-**Overall: 3.2 / 5 ★**
+**Overall: 3.2 / 5 ★★★☆☆**
 
 ## Pros & Cons
 

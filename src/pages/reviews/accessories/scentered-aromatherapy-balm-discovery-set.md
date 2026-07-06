@@ -51,7 +51,7 @@ What I loved is how neatly this slots into a real active woman’s day. The six 
 
 This is where it won me over. Carried in my day bag, my nightstand drawer and on my desk, I reached for different balms depending on the moment, and they delivered the intended effect. The texture is silky and non-greasy, absorbing reasonably fast and leaving my pulse points lightly scented without a heavy, oily residue. The scent lingers long enough to feel meaningful but never overpowers — _Sleep Well_ soft and settling, _De-stress_ more vibrant for a tense afternoon reset.
 
-### Quality, Ingredients & Materials — 4/5 ★★★★☆
+### Quality, Ingredients & Materials — 5/5 ★★★★★
 
 The balms are described as **100% natural** and behaved gently on my skin, absorbing cleanly with no greasy film at the pulse points. The solid-balm format feels premium and considered — slim, spill-proof sticks housed in an elegant tin. In very warm or humid conditions some warmth may slightly soften them, though I saw no major melting in normal daily use. Ingredient sourcing and any clean-formulation credentials aren’t independently verified here — based on product claims only — but everything felt kind and well-made in practice.
 
@@ -59,7 +59,7 @@ The balms are described as **100% natural** and behaved gently on my skin, absor
 
 As a daily ritual, the **Discovery tin** is a joy. Six distinct blends in one compact, mess-free, travel-friendly format means you can keep it in a pocket or kit bag and dose to the moment. The included **how-to-use guide** makes the breath-and-inhale ritual easy to get right, and the variety is the point — a curated experience rather than a single scent. The only practical trade-off is capacity: the minis are small (about **1.5 g each**), so under heavy daily use they won’t last forever — the honest limit of a sampler-style set.
 
-### Transparency, Ethics & Value — 3/5 ★★★☆☆
+### Transparency, Ethics & Value — 4/5 ★★★★☆
 
 The set is upfront about what each balm is for, and the natural positioning is consistent throughout. Scent purposes are clearly named, which makes the kit easy to use with intent. A fuller breakdown of individual botanical ingredients per blend, plus substantiated sourcing detail, would lift this further; for now my score leans on documented hands-on use rather than published ingredient detail, which isn’t independently verified. As a curated sampler it’s about exploration rather than maximum product per pound.
 
@@ -67,10 +67,10 @@ The set is upfront about what each balm is for, and the natural positioning is c
 
 Female-Focused Suitability (25%): 4/5
 Efficacy & Performance (30%): 4/5
-Quality, Ingredients & Materials (20%): 4/5
+Quality, Ingredients & Materials (20%): 5/5
 Experience & Usability (15%): 4/5
-Transparency, Ethics & Value (10%): 3/5
-**Overall: 3.9 / 5 ★**
+Transparency, Ethics & Value (10%): 4/5
+**Overall: 4.2 / 5 ★★★★☆**
 
 ## Pros & Cons
 

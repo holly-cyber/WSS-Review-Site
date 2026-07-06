@@ -88,7 +88,7 @@ Adequate Support Standards: 4/5
 Genuine Female Design: 4/5
 Transparency & User Reviews: 5/5
 
-**Overall: 4.0 / 5 ★★★★**
+**Overall: 4.0 / 5 ★★★★☆**
 
 *(Pillar 3 hard-rule cap does not apply — Adequate Support Standards scores 4/5. Pillar 7 hard-rule cap does not apply — verifiable published data present via named fabric supplier and independent trade press reviews.)*
 

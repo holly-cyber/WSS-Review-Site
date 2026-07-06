@@ -45,7 +45,7 @@ Most cycling computers force a choice between feature-packed, pricey GPS units a
 
 ## WSS™ Assessment
 
-### Female Data & Metrics — 2/5 ★★★☆☆
+### Female Data & Metrics — 2/5 ★★☆☆☆
 Let's be clear about what the **Velo 2** is: a simple, affordable navigation unit, not a health tracker. It doesn't offer menstrual-cycle tracking, HRV trends across cycle phases or female-specific recovery insights — none of the metrics this criterion looks for. That isn't a flaw in what it sets out to do; it simply sits outside the brief. If female-specific data matters to you, you'll pair it with a dedicated GPS watch. Scored to the framework's rule.
 
 ### Hardware Fit for Female Body — 3/5 ★★★☆☆
@@ -66,7 +66,7 @@ Hardware Fit for Female Body (20%): 3/5
 Functional Accuracy in Use (25%): 3/5
 Software & App Usability (15%): 3/5
 Transparency & Independent Testing (10%): 3/5
-**Overall: 2.7 / 5 ★**
+**Overall: 2.7 / 5 ★★★☆☆**
 
 ## Pros & Cons
 **What I loved:**

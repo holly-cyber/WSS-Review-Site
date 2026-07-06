@@ -42,7 +42,7 @@ faq:
 
 ### Second-skin comfort in an understated grey
 
-Finding a lightweight cycling jacket that actually fits a petite female frame — rather than a scaled-down men's pattern that swamps you — is genuinely hard. As a UK 8 rider with a small build, I've worn plenty of jackets that were too long, too boxy, or too stiff to move in. The **LUCA Momentum** in grey solved that on the first ride. It hugs the body beautifully, moves with you, and feels astonishingly soft against the skin. My thesis: this is a premium, female-cut jacket that earns its price through fit and finish, even if the brand's published data is still light.
+Finding a lightweight cycling jacket that actually fits a petite female frame — rather than a scaled-down men's pattern that swamps you — is genuinely hard. As a UK 8 rider with a small build, I've worn plenty of jackets that were too long, too boxy, or too stiff to move in. The **[LUCA Momentum](https://rideluca.avln.me/c/pHVpOpMPhShc)** in grey solved that on the first ride. It hugs the body beautifully, moves with you, and feels astonishingly soft against the skin. My thesis: this is a premium, female-cut jacket that earns its price through fit and finish, even if the brand's published data is still light.
 
 ## WSS™ Assessment
 
@@ -80,7 +80,7 @@ Adequate Support Standards: 3/5
 Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 4/5
 Transparency & User Reviews: 4/5
-**Overall: 3.7 / 5 ★**
+**Overall: 3.7 / 5 ★★★★☆**
 
 ## Pros & Cons
 

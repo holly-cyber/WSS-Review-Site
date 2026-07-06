@@ -80,7 +80,7 @@ Functional Performance in Use (25%): 5/5
 Fit, Adjustability & Size Range (20%): 3/5
 Safety & Performance Standards (20%): 3/5
 Transparency & User Reviews (10%): 4/5
-**Overall: 3.6 / 5 ★**
+**Overall: 3.6 / 5 ★★★★☆**
 
 ## Pros & Cons
 

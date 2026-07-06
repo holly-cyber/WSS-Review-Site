@@ -39,7 +39,7 @@ draft: true
 
 ### A Genuinely Clean, UK-Made Organic Protein for Active Women
 
-Finding a protein I actually trust has been harder than it should be. Since my breast cancer diagnosis I've become especially mindful of what I put in my body, and so much of what's on the shelf is loaded with artificial sweeteners, colourings and fillers I'd rather avoid. **Panterre OP-16 Organic Protein** is different: all-natural, organic, UK-manufactured and refreshingly free of the usual additives. After living with it as part of my daily routine, it's become a powder I reach for with confidence — clean, filling and kind to my stomach.
+Finding a protein I actually trust has been harder than it should be. Since my breast cancer diagnosis I've become especially mindful of what I put in my body, and so much of what's on the shelf is loaded with artificial sweeteners, colourings and fillers I'd rather avoid. **[Panterre OP-16 Organic Protein](https://panterre.avln.me/c/aETAtDbrwIGO)** is different: all-natural, organic, UK-manufactured and refreshingly free of the usual additives. After living with it as part of my daily routine, it's become a powder I reach for with confidence — clean, filling and kind to my stomach.
 
 ![Back view of a green protein powder package featuring usage instructions, ingredient list, and nutritional information, with emphasis on its organic and vegan qualities.](https://womenssportsstore.com/wp-content/uploads/2025/11/Screenshot-2025-11-18-at-14.17.08-1018x1024.png)
 
@@ -62,7 +62,7 @@ Taste & Texture (25%): 3/5
 Nutrition Profile (30%): 5/5
 Performance (30%): 4/5
 Value (15%): 4/5
-**Overall: 4.1 / 5 ★**
+**Overall: 4.1 / 5 ★★★★☆**
 
 ## Pros & Cons
 
