@@ -6,7 +6,7 @@ category: "hyrox"
 subcategory: "Apparel"
 date: "2026-04-13"
 product_type: "clothing"
-tested_by: "Mel Berry"
+tested_by: "Lucy Beales"
 draft: true
 excerpt: "A WSS™ review of the Tri-Fit Roxy Hyrox shorts and bra: a true-to-size, stay-put set with genuine bra support for high-intensity training."
 meta_description: "Our hands-on WSS™ review of the Tri-Fit Roxy women’s Hyrox shorts and bra — fit, sizing, bra support, sweat-proof performance, female-specific design and value."
@@ -36,6 +36,8 @@ faq:
     a: In my session both pieces stayed sweat-proof with no visible marks, even through SkiErg intervals, sled pushes and wall balls. They felt premium and dry throughout.
   - q: Is the Roxy set good value at £45 per piece?
     a: I think so. At £45 a piece it's well below many premium brands that charge nearly double, and you get endurance-focused comfort, stay-put fit and real support for the price.
+reviewer_bio: "Experienced Hyrox/Gym goer and runner."
+reviewer_avatar: ""
 ---
 
 ## Tri-Fit Roxy Women’s Hyrox Shorts and Bra Review
