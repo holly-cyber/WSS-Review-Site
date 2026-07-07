@@ -10,7 +10,7 @@ sizes: ""
 tested_by: "Mel Berry"
 excerpt: "A comfortable, panoramic open-water and pool goggle with a genuinely soft cushioned seal — our WSS™ review weighs the fit, optics and the gaps."
 meta_description: "Our WSS™ review of the BuddySwim Ozean swim goggles: cushioned seal comfort, panoramic open-water vision, anti-fog clarity and where the standards data falls short."
-hero_image: "https://cdn.shopify.com/s/files/1/0988/1059/3625/files/58342571-gafas-buddyswim-ozean-black-orange-orange.jpg?v=1780661111"
+hero_image: "https://buddyswim.com/5185-thickbox_default/gafas-buddyswim-ozean-black-orange-orange.jpg"
 overall_score: 4.8
 affiliate_link: "https://shop.womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange"
 shopify_link: ""
@@ -35,7 +35,6 @@ draft: true
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Equipment framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). E4 reflects unconfirmed UV rating and safety/performance standards. Confirm tested_by/reviewer and scores before publishing."
 product_url: "https://shop.womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange"
 ---
-
 # BuddySwim Ozean Swim Goggles Black-Orange/Orange Review — Women's Swim
 
 ## Overview
@@ -44,7 +43,7 @@ Finding goggles that stay put through a choppy open-water session — or a punis
 
 > **Reviewed by Mel Berry**
 
-![BuddySwim Ozean Swim Goggles Black-Orange/Orange](https://cdn.shopify.com/s/files/1/0988/1059/3625/files/58342571-gafas-buddyswim-ozean-black-orange-orange.jpg?v=1780661111)
+![BuddySwim Ozean Swim Goggles Black-Orange/Orange](https://buddyswim.com/5185-thickbox_default/gafas-buddyswim-ozean-black-orange-orange.jpg)
 
 ## WSS™ Assessment
 
@@ -52,19 +51,17 @@ Finding goggles that stay put through a choppy open-water session — or a punis
 
 The **HCF Honeycomb Cushion Fit** seal is the real story: a structured silicone cushion that spreads pressure evenly across the orbital bone rather than concentrating it in two hard points, which can suit a finer facial structure well. The **TPR Monobloc frame** is pleasingly lightweight and the single-piece build keeps pressure points down. What I can't find is documented evidence that the Ozean is *engineered or dimensioned* specifically for female facial anatomy as distinct from a unisex design — the cushioning may passively suit a finer profile, but it isn't confirmed. *Not independently verified — based on product page claims only; worth contacting FCUP Sports if this matters to you.*
 
-![BuddySwim Ozean Swim Goggles Black-Orange/Orange — image 2](https://cdn.shopify.com/s/files/1/0988/1059/3625/files/7d94ad66-gafas-buddyswim-ozean-black-orange-orange-1.jpg?v=1780661111)
+
+
+![BuddySwim Ozean Swim Goggles Black-Orange/Orange — image 2](https://buddyswim.com/5186-thickbox_default/gafas-buddyswim-ozean-black-orange-orange.jpg)
 
 ### Functional Performance in Use — 5/5 ★★★★★
 
 This is where the **BuddySwim Ozean** earns its keep. The **panoramic lens design** gives that wide, open field of vision that matters enormously in open water — spotting a buoy or a fellow swimmer in your peripheral line without breaking stroke is a real competitive and safety advantage. The lightweight Monobloc frame keeps drag low, the **anti-fog coating** holds clarity across both pool chlorine and outdoor conditions, and the seal stayed reliable across the conditions this goggle is built for. For open-water plus pool versatility, it's a standout performer.
 
-![BuddySwim Ozean Swim Goggles Black-Orange/Orange — image 3](https://cdn.shopify.com/s/files/1/0988/1059/3625/files/d7bdc030-Buddyswim-Ozean-SW1-Orange.jpg?v=1780661112)
-
 ### Fit, Adjustability & Size Range — 5/5 ★★★★★
 
 The Ozean appears to come in a single universal size, and the **HCF cushion** adapts nicely to the contour of the face, with the TPR frame flexing slightly to sit flush. For a broad range of face shapes that works well. The limitation is adjustability: there's no nose-bridge interchangeability mentioned, and no petite or wide-fit variant listed, so the range you can dial in is narrower than goggles that ship with swappable bridges. If you're between fits, a dry-fit test before committing is sensible.
-
-![BuddySwim Ozean Swim Goggles Black-Orange/Orange — image 4](https://cdn.shopify.com/s/files/1/0988/1059/3625/files/6abeada5-Buddyswim-info.jpg?v=1780661111)
 
 ### Safety & Performance Standards — 5/5 ★★★★★
 
