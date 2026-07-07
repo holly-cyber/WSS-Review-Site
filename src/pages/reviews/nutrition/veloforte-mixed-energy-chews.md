@@ -39,23 +39,31 @@ product_url: "https://veloforte.com/collections/energy-chews-blocks-gummies/prod
 
 ### Gum-Free Real-Food Fuel With Mid-Ride Questions
 
-If you've ever spat out a rubbery, synthetic-tasting chew at the worst possible moment of a long ride, you'll understand the problem **[Veloforte Mixed Energy Chews](https://veloforte.com/collections/energy-chews-blocks-gummies/products/mixed-natural-energy-chews)** set out to solve: clean, real-food fuel that's actually pleasant to eat when you're working hard. As an active woman who's churned through far too many gum-set blocks, I was drawn to the *date-and-rice base* and the "no gums" promise. My overall take? This is a genuinely thoughtful, gentle-on-the-gut option with a real point of difference — but the label hedges where I want clarity, and the female-specific thinking just isn't here yet.
+If you've ever spat out a rubbery, synthetic-tasting chew at the worst possible moment of a long ride, you'll understand the problem **[Veloforte Mixed Energy Chews](https://veloforte.com/collections/energy-chews-blocks-gummies/products/mixed-natural-energy-chews)** set out to solve: clean, real-food fuel that's actually pleasant to eat when you're working hard. As an active woman who's churned through far too many gum-set blocks, I was drawn to the *date-and-rice base* and the "no gums" promise. My overall take? This is a genuinely thoughtful, gentle-on-the-gut option with a real point of difference. 
 
 ![Veloforte Mixed Energy Chews](https://cdn.shopify.com/s/files/1/1279/5219/files/2026chewsPDPpages-29.jpg?v=1773853759)
 
 ## WSS™ Assessment
 
 ### Taste & Texture — 4.5/5 ★★★★★
-The **"no gums" formulation** is the standout here, and it's a real one. Where SiS Go Chews and Clif Bloks lean on carrageenan, xanthan or gellan gum, Veloforte's date-and-rice base gives a softer, *melt-in-the-mouth* bite that's much closer to a dense fruit confection than a rubbery block — lovely if gums tend to churn your stomach. What I can't confirm is consistency: palatability across the mixed flavours isn't independently verified, and behaviour in a warm summer pocket (where natural-sugar chews can soften or fuse) is unaddressed. 
+The **"no gums" formulation** is the standout here, and it's a real one. Where SiS Go Chews and Clif Bloks lean on carrageenan, xanthan or gellan gum, Veloforte's date-and-rice base gives a softer, *melt-in-the-mouth* bite that's much closer to a dense fruit confection than a rubbery block — lovely if gums tend to churn your stomach. I confirm the chews are highly palatability across the mixed flavours and they stay in tact in both warm and colder conditions.  I used these for a 100K 32 hour Ultra and they were the only fuel I could eat at the end. 
 
 ### Nutrition Profile — 4.5/5 ★★★★★
-The **dual-source carbohydrate** approach (glucose plus fructose) is the strong card: the dual-transporter rationale is well supported, with research showing higher carbohydrate uptake from mixed sources than glucose alone. The "up to 44g" claim, though, is hedged — actual carbs per serving aren't confirmed and may vary across flavours. The **145mg electrolytes** figure lacks a sodium, potassium or magnesium split, which makes adequacy for sweat-loss replacement hard to judge (women's sweat sodium varies across the cycle). There's also no female-specific framing — no cycle-phase, iron or RED-S guidance — and "natural" carries no regulatory definition.
+The **dual-source carbohydrate** approach (glucose plus fructose) is the strong card: the dual-transporter rationale is well supported, with research showing higher carbohydrate uptake from mixed sources than glucose alone. Each pack delivers up to 44g of natural dual-source carbohydrates (glucose and fructose from real fruit juice) and 145mg of electrolytes (sodium and potassium) giving a solid hit for endurance fuelling. The two-chews-every-20-minutes protocol is easy to execute on the move, giving you a structured carb delivery system without overthinking it mid-run.
+
+The Amaro chew (sour cherry & guarana) also contains 75mg natural caffeine which is a meaningful dose for the later miles, and unlike most caffeinated energy chews, it doesn’t taste bitter or chemically. The ingredients list is clean throughout: real fruit, no artificial additives, no gums, no waxes.
 
 ### Performance — 5/5 ★★★★★
-The dual-source mechanism gives these a genuine performance rationale, and in principle it's sound. My reservation is the headline: the claim that electrolytes "fight the 30% performance drop caused by dehydration" overreaches — that figure traces to roughly 3% dehydration in heat-stress conditions, not a generalised guarantee. Without confirmed glucose-to-fructose ratio, confirmed carbs per serving, or any gastric-emptying data, the performance case rests on ingredient narrative rather than demonstrated efficacy. No tester data was available for this review, so this reflects formulation analysis and isn't independently verified.
+The dual-source mechanism gives these a genuine performance rationale, and in principle it's sound.These sat gently in my stomach with no bloating, no sloshing, no digestive issues even deep into a long run. For female runners, especially those navigating hormonal shifts that affect gut sensitivity, that’s not a small thing. Gut issues are one of the biggest performance risks in endurance sport, and natural energy chews that don’t cause problems are worth trying.
+
+The pack is genuinely vest-friendly compact, easy to store in a pocket, quick to open on the move. The range of flavours across one mixed pack also means you can use different chews strategically: lighter flavours early on, the caffeine hit (Amaro) in the back half of a long run or race when you need a nudge.
+
+The caffeine chew deserves a special mention. Caffeinated sports products have a reputation for bitterness this one doesn’t deliver that. It still tastes like something you’d want to eat, which puts it in a very small club of caffeinated running nutrition that doesn’t make you wince.
 
 ### Value — 4/5 ★★★★☆
-At **£13.75 a pack**, value hinges on serving yield, which isn't stated clearly. On Veloforte's standard format (three chews per serving) that's likely around three servings, or *roughly £4.58 each* — premium territory, level with Maurten. The difference is that Maurten backs its price with published hydrogel research and precise macros, while SiS (about £2.50) and Clif Bloks (about £1.40) deliver confirmed carbs for far less. Veloforte's premium is justified by real-food sourcing and the gum-free formulation, which genuinely matters for sensitive guts — but it isn't performance superiority.
+Veloforte sits at a slight premium compared to mainstream energy chews for running, but in this case you can taste where the money went. Real fruit ingredients, a clean formulation, a gut-friendly product that performs under pressure, and a flavour experience that means you’ll actually use it consistently which is ultimately what makes sports nutrition worth investing in.
+
+At £13.75 for a mixed pack of 5, it’s not cheap. But compared to synthetic alternatives that leave you feeling grim mid-run, the value case is clear.
 
 ## Scores
 Taste & Texture (25%): 4.5/5
