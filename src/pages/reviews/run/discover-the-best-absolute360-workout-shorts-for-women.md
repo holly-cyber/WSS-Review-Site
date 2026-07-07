@@ -11,13 +11,13 @@ draft: true
 excerpt: "Compressive, chafe-free and surprisingly good for recovery — a premium infrared workout short that earns its place in my training wardrobe."
 meta_description: "WSS™ review of the Absolute360 Women's Infrared Workout Short Tights — fit, 360° seamless comfort, infrared recovery claims, wash durability and value scored against the WSS apparel framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/ABSOLUTE360-Womens-Infrared-Workout-Short-Tights-Black-Black-01-2000px-1536x1536.webp"
-overall_score: 3.6
+overall_score: 3.7
 affiliate_link: "https://shop.absolute360.co.uk/products/womens-infrared-running-half-tights?variant=6172443607067"
 shopify_link: ""
 product_url: "https://shop.absolute360.co.uk/products/womens-infrared-running-half-tights?variant=6172443607067"
 price: ""
 pillar_scores:
-  p1: 3
+  p1: 3.5
   p2: 4
   p3: 4
   p4: 4
@@ -46,7 +46,7 @@ Finding **workout shorts** that stay exactly where you put them — no riding up
 
 ## WSS™ Assessment
 
-### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
+### Inclusive Fit & Proportional Sizing — 3.5/5 ★★★★☆
 The fit within my size was excellent: I took a **Large** and found them true to size, with a snug compressive feel that I genuinely enjoyed. The cut is shaped for women rather than scaled down from unisex, and the size guide is clear and accurate. The size range is limited to small , medium and large so not huge choice across the size range. 
 
 ### Functional Performance in Use — 4/5 ★★★★☆
@@ -66,13 +66,13 @@ I've put these shorts through real, varied training — short runs, strength ses
 
 ## Scores
 
-Inclusive Fit & Proportional Sizing: 3/5
+Inclusive Fit & Proportional Sizing: 3.5/5
 Functional Performance in Use: 4/5
 Adequate Support Standards: 4/5
 Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 3.5/5
 Transparency & User Reviews: 3/5
-**Overall: 3.6 / 5 ★★★★☆**
+**Overall: 3.7 / 5 ★★★★☆**
 
 ## Pros & Cons
 
