@@ -7,7 +7,6 @@ subcategory: "Wellness & Aromatherapy"
 date: "2026-02-17"
 product_type: "wellness"
 tested_by: "Mel Berry"
-draft: true
 excerpt: "Scentered’s 100% natural-wax candles turn an active woman’s wind-down into a ritual, with a clean burn and aromatherapy blends that genuinely calm."
 meta_description: "WSS™ review of Scentered candles — natural-wax, essential-oil aromatherapy candles scored on female-focused fit, efficacy, ingredients, sensory experience and transparency against the WSS Wellness & Recovery framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-15.13.46.webp"
