@@ -39,7 +39,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 ## Runr Rio Technical Running Cap Review
 ### Lightweight, breathable, all-weather: a cap that earns its place
 
-I used to think a cap was just a cap — something to grab last-minute for a bad hair day or to keep the sun out of my eyes. But after years of running, sweating and being caught in more downpours than I care to count, I've learned the right running cap genuinely makes or breaks your comfort. The **Runr Rio Technical Running Cap** has earned a permanent spot in my kit: light enough to forget you're wearing it, breathable enough to skip the "portable sauna" feeling, and weatherproof enough to handle whatever a British run throws at you. Here's how it scores against the WSS™ framework.
+I used to think a cap was just a cap — something to grab last-minute for a bad hair day or to keep the sun out of my eyes. But after years of running, sweating and being caught in more downpours than I care to count, I've learned the right running cap genuinely makes or breaks your comfort. The **[Runr Rio Technical Running Cap](https://runr.co.uk/collections/technical-running-hats/products/runr-rio-technical-running-hat)** has earned a permanent spot in my kit: light enough to forget you're wearing it, breathable enough to skip the "portable sauna" feeling, and weatherproof enough to handle whatever a British run throws at you. Here's how it scores against the WSS™ framework.
 
 ![Runr Technical Running Cap: Runr Rio Review](https://runr.co.uk/cdn/shop/products/Rio3-01.png?v=1655214153)
 
