@@ -20,7 +20,7 @@ pillar_scores:
   p3: 5
   p4: 5
   p5: 5
-  p7: 4
+  p7: 4.5
 faq:
   - q: "Is the Runderwear Power Running Bra true to size?"
     a: "Yes — in my experience it fits true to size, and Runderwear's sizing chart is refreshingly accurate. The elasticated yet structured fabric moulds to your shape, so it's forgiving for in-between sizes while still holding firm when you pick up the pace."
@@ -60,7 +60,7 @@ This is where the bra shines. The **racerback cut** allows full arm and shoulder
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">★</span></span></span>
 
-Support is the whole point of a running bra, and the **Power Bra** delivers it where it counts. The compression fit, wide pressure-distributing straps and firm-but-comfortable elastic under-bust band held everything secure through hill sprints and the full 50K of my latest ultra — no bounce, no shift, no failure under sustained high-impact effort. The band supports without constricting your breathing, which is exactly the balance you want. A formally stated impact rating and cup range (A–HH) are independently verified, and the hold I've experienced in genuine high-impact use is excellent.
+Support is the whole point of a running bra, and the **Power Bra** delivers it where it counts. The compression fit, wide pressure-distributing straps and firm-but-comfortable elastic under-bust band held everything secure through hill sprints and the full 50K of my latest ultra — no bounce, no shift, no failure under sustained high-impact effort. The band supports without constricting your breathing, which is exactly the balance you want. Independant testing shows that this bra significantly reduces breast movement by 72% during exercise, from 9.3cm down to 2.5cms and the hold I've experienced in genuine high-impact use is excellent.
 
 ### Thermal Regulation & Material Performance
 
@@ -87,12 +87,12 @@ Functional Performance in Use: 5/5
 Adequate Support Standards: 5/5
 Thermal Regulation & Material Performance: 5/5
 Genuine Female Design: 5/5
-Transparency & User Reviews: 4/5
+Transparency & User Reviews: 4.5/5
 **Overall: 4.8 / 5 ★★★★★**
 
 ## Pros & Cons
 
-<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li>Genuine no-bounce support held firm through hill sprints and a full 50K ultra</li><li>Wide straps and racerback distribute pressure with no digging or strap marks</li><li>True-to-size fit that moulds to petite and fuller-chested shapes alike</li><li>Breathable, moisture-wicking fabric that stays dry through the sweatiest sessions</li><li>Outstanding durability — still like new after three years and countless washes</li><li>Sleek enough to wear solo, streamlined enough to layer invisibly</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>Around £50 is an investment — though the lifespan more than justifies it</li><li>A formal impact rating and cup range (A–HH) aren't independently published — worth checking the size guide if you need a specific cup</li><li>Compression style rather than an adjustable encapsulation fit, so try before relying on it for very high cup sizes</li></ul></div></div>
+<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li>Genuine no-bounce support held firm through hill sprints and a full 50K ultra</li><li>Wide straps and racerback distribute pressure with no digging or strap marks</li><li>True-to-size fit that moulds to petite and fuller-chested shapes alike</li><li>Breathable, moisture-wicking fabric that stays dry through the sweatiest sessions</li><li>Outstanding durability — still like new after three years and countless washes</li><li>Sleek enough to wear solo, streamlined enough to layer invisibly</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>Around £50 is an investment — though the lifespan more than justifies it</li><li>No formal washing and wear ratings are published so life cycle may differ based on usage frequency</li><li>Compression style rather than an adjustable encapsulation fit, so try before relying on it for very high cup sizes</li></ul></div></div>
 
 <p class="pc-buy"><a href="https://runderwear.avln.me/c/sTAmhGRllrNg" target="_blank" rel="nofollow sponsored">Shop the Runderwear Power Running Bra →</a></p>
 
