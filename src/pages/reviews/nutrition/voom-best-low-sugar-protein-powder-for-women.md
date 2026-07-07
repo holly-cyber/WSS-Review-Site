@@ -6,21 +6,21 @@ category: "nutrition"
 subcategory: "protein"
 date: "2025-09-12"
 product_type: "nutrition"
-tested_by: "Mel Berry"
+tested_by: "Holly Woodford"
 draft: true
 excerpt: "My WSS™ review of VOOM Belgian Chocolate & Vanilla: a low-sugar whey isolate recovery shake that finally tastes like a treat."
 meta_description: "A hands-on WSS™ review of VOOM Belgian Chocolate & Vanilla low-sugar protein powder for women — taste, nutrition profile, recovery performance and value."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/09/VOM-Low-Sugar-Protein-Recovery-Shake-1536x1475.png"
-overall_score: 4.1
+hero_image: "https://www.voomnutrition.co.uk/wp-content/uploads/2025/11/Rapid-Recovery-Single-Serve-Sachet.webp"
+overall_score: 4.8
 affiliate_link: "https://www.voomnutrition.co.uk/products/protein-isolate-rapid-recovery-shake"
 shopify_link: ""
 product_url: "https://www.voomnutrition.co.uk/products/protein-isolate-rapid-recovery-shake"
 price: "£2.59 per serving (£33.06, was £38.90)"
 pillar_scores:
   taste: 5
-  nutrition: 4
-  performance: 4
-  value: 3
+  nutrition: 5
+  performance: 5
+  value: 3.5
 migration_source: "https://womenssportsstore.com/voom-best-low-sugar-protein-powder-for-women/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 faq:
@@ -35,38 +35,43 @@ faq:
   - q: What can I mix VOOM with?
     a: It blends cleanly with water, milk or plant-based options without lumps. My favourite is Belgian Chocolate with oat milk and a frozen banana — it tastes like dessert.
 ---
-
 ## VOOM Belgian Chocolate & Vanilla Review
 
 ### A low-sugar recovery shake that finally tastes like a treat
 
 The protein aisle is overflowing with powders that promise the world but leave you bloated, broke or bored to tears — and as a woman who trains hard and recovers harder, I want fuel that does the job *and* that I'll actually reach for. That's the brief VOOM set out to solve: a low-sugar whey recovery shake built around quality protein rather than filler. My thesis after putting the **[Belgian Chocolate & Vanilla](https://www.voomnutrition.co.uk/products/protein-isolate-rapid-recovery-shake)** through its paces? This is a genuinely enjoyable, smartly formulated shake that earns its place on my best low-sugar list, held back only by how far it stretches per scoop.
 
+![VOOM The Best Low Sugar Protein Recovery Powder for Women?](https://www.voomnutrition.co.uk/wp-content/uploads/2025/11/Rapid-Recovery-Single-Serve-Sachet.webp)
+
 ## WSS™ Assessment
 
 ### Taste & Texture — 5/5 ★★★★★
 
-Most protein shakes taste like punishment. **VOOM** doesn't. The Belgian Chocolate is rich, smooth and genuinely enjoyable, while the Vanilla is creamy and easy to pair with anything. Both mix beautifully with water, milk or plant-based options: no lumps, no chalky mouthfeel, none of those "why does this taste like cardboard?" moments. The 100% cocoa and natural flavouring give it a richer, more authentic taste than most — this is one I look forward to.
+Most protein shakes taste like punishment. **[VOOM](https://www.voomnutrition.co.uk/products/protein-isolate-rapid-recovery-shake)** doesn't. The Belgian Chocolate is rich, smooth and genuinely enjoyable, while the Vanilla is creamy and easy to pair with anything. Both mix beautifully with water, milk or plant-based options: no lumps, no chalky mouthfeel, none of those "why does this taste like cardboard?" moments. The 100% cocoa and natural flavouring give it a richer, more authentic taste than most — this is one I look forward to.
 
-### Nutrition Profile — 4/5 ★★★★☆
+
+
+![VOOM The Best Low Sugar Protein Recovery Powder for Women? — image 2](https://www.voomnutrition.co.uk/wp-content/uploads/2025/11/Rapid-Recovery-Pouch.webp)
+
+### Nutrition Profile — 5/5 ★★★★★
 
 The base is **whey protein isolate**, one of the highest-quality, fastest-absorbing forms of protein around (roughly 90% protein, versus about 80% for a concentrate). On top of that VOOM add smart extras: *leucine* to kick-start muscle protein synthesis, *glycine* for joints and sleep, and *Astragin* to help your body actually absorb what you're paying for. The caveats are minor — maltodextrin adds quick-release carbs (great post-workout, less so for sugar purists) and sucralose, while safe and calorie-free, won't win over the all-natural crowd.
 
-### Performance — 4/5 ★★★★☆
+### Performance — 5/5 ★★★★★
 
 This isn't just a tasty shake; it delivers where it counts. It goes down easy: no stomach drama, no chalky residue and *no post-shake bloat*, which matters if you've been burned by powders that feel heavy. For recovery, the whey isolate and leucine get muscle repair moving quickly, whether you've been smashing hill sprints, grinding a heavy lifting session or busting out lengths in the pool. The amino acid blend means your body is genuinely getting what it needs to rebuild — not just numbers on a label.
 
-### Value — 3/5 ★★★☆☆
+### Value — 3.5/5 ★★★★☆
 
 Here's where VOOM stumbles a little. The flavour, low sugar content and clean profile earn top marks, but you need *two scoops* to hit just 19g of protein — less efficient than rivals where a single scoop gives 20–25g. In real terms the tub runs out faster and the cost per serving creeps up, especially with daily use. At £2.59 a serving it's not outrageous, and the ingredient quality justifies plenty, but it doesn't stretch quite as far for your money.
 
 ## Scores
 
 Taste & Texture (25%): 5/5
-Nutrition Profile (30%): 4/5
-Performance (30%): 4/5
-Value (15%): 3/5
-**Overall: 4.1 / 5 ★★★★☆**
+Nutrition Profile (30%): 5/5
+Performance (30%): 5/5
+Value (15%): 3.5/5
+**Overall: 4.8 / 5 ★★★★★**
 
 ## Pros & Cons
 
@@ -92,8 +97,6 @@ It's less of a match if you count every penny per gram of protein, or if you wan
 Belgian Chocolate is the showstopper: rich, dessert-like and deeply satisfying. Vanilla is the versatile all-rounder, creamy enough to pair with anything. Use it as a pre-training snack or, where it really shines, as post-training recovery fuel. Mix two scoops with water for a lighter hit, or milk for something more indulgent.
 
 *Mel's Hack:* blend the Belgian Chocolate with oat milk and a frozen banana. It tastes like dessert but still counts as one of the best low-sugar recovery shakes you'll find.
-
-![VOOM Low Sugar Protein Recovery Shake](https://womenssportsstore.com/wp-content/uploads/2025/09/VOM-Low-Sugar-Protein-Recovery-Shake-1536x1475.png)
 
 ## How It Compares
 
