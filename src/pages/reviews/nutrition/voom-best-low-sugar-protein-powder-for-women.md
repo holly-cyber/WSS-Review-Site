@@ -7,7 +7,6 @@ subcategory: "protein"
 date: "2025-09-12"
 product_type: "nutrition"
 tested_by: "Holly Woodford"
-draft: true
 excerpt: "My WSS™ review of VOOM Belgian Chocolate & Vanilla: a low-sugar whey isolate recovery shake that finally tastes like a treat."
 meta_description: "A hands-on WSS™ review of VOOM Belgian Chocolate & Vanilla low-sugar protein powder for women — taste, nutrition profile, recovery performance and value."
 hero_image: "https://www.voomnutrition.co.uk/wp-content/uploads/2025/11/Rapid-Recovery-Single-Serve-Sachet.webp"
