@@ -33,7 +33,6 @@ faq:
     a: "The Caffeine Kick berry is a favourite for its balance of sweetness and mild tang. The Beta Blast orange can taste slightly bitter if you're not keen on citrus."
   - q: "Is it good value at £1.50 a bar?"
     a: "It's premium, but you're paying for clean whole-food ingredients, electrolytes and reliable digestion. Since one bar can replace multiple gels, the usable value stacks up well."
-draft: true
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
 
