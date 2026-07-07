@@ -11,9 +11,9 @@ excerpt: "Scentered’s Discovery tin packs six natural mini balms — a pocket-
 meta_description: "WSS™ review of the Scentered Aromatherapy Balm Discovery Set — six natural mini balms scored on female-focused suitability, real-use efficacy, ingredients, experience and transparency."
 hero_image: "https://www.scentered.com/cdn/shop/files/Scentered_Dicovery_balm_sona_plate_and_a_tin_on_the_desk.jpg?v=1764639840"
 overall_score: 4.2
-affiliate_link: "https://scentered.avln.me/c/yDNYbyXqduTt"
+affiliate_link: "https://www.scentered.com/collections/everything/products/aromatherapy-discovery-balm-set?_pos=13&_fid=4d91041b7&_ss=c"
 shopify_link: ""
-product_url: "https://scentered.avln.me/c/yDNYbyXqduTt"
+product_url: "https://www.scentered.com/collections/everything/products/aromatherapy-discovery-balm-set?_pos=13&_fid=4d91041b7&_ss=c"
 price: ""
 pillar_scores:
   w1: 4
@@ -45,7 +45,7 @@ Recovery isn’t only foam rollers and rest days — it’s also the quiet busin
 
 ### Female-Focused Suitability — 4/5 ★★★★☆
 
-What I loved is how neatly this slots into a real active woman’s day. The six blends map onto the exact moments that crop up between training, work and winding down: **Focus** for mid-afternoon brain fog, **De-stress** when tension builds, **Sleep Well** before bed and **Happy** for a pick-me-up. It isn’t marketed only as a generic “for her” product — it’s genuinely pitched at the stress, recovery and sleep needs of women juggling a busy routine, a curated set that meets you where your day actually is.
+What I loved is how neatly this slots into a real active woman’s day. The six blends map onto the exact moments that crop up between training, work and winding down: **[Focus](https://www.scentered.com/collections/everything/products/aromatherapy-discovery-balm-set?_pos=13&_fid=4d91041b7&_ss=c)**[ for mid-afternoon brain fog, ](https://www.scentered.com/collections/everything/products/aromatherapy-discovery-balm-set?_pos=13&_fid=4d91041b7&_ss=c)**De-stress** when tension builds, **Sleep Well** before bed and **Happy** for a pick-me-up. It isn’t marketed only as a generic “for her” product — it’s genuinely pitched at the stress, recovery and sleep needs of women juggling a busy routine, a curated set that meets you where your day actually is.
 
 
 
