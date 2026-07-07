@@ -22,6 +22,18 @@
   [headers.values]
     Cache-Control = "no-cache"
 
+# The pipeline is embedded as an iframe inside the console (same origin), so it
+# must allow same-origin framing. The public site keeps the global DENY above;
+# these more-specific rules override X-Frame-Options for the pipeline route only.
+[[headers]]
+  for = "/pipeline"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+[[headers]]
+  for = "/pipeline/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+
 [[redirects]]
   from = "/"
   to = "/reviews/"

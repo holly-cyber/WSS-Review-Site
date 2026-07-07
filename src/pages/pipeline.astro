@@ -179,19 +179,13 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 .pv-stars-wrap{position:relative;display:inline-block;white-space:nowrap;line-height:1;letter-spacing:.05em;font-size:18px}
 .pv-stars-bg{color:rgba(255,255,255,.35)}
 .pv-stars-fg{position:absolute;top:0;left:0;overflow:hidden;color:#FF5E84;width:0}
-/* Manage editor: split markdown / live-preview view */
-#meSplit{display:flex;gap:12px;align-items:stretch}
-#meSplit>textarea{flex:1 1 50%;min-width:0;margin:0}
-#mePreview{flex:1 1 50%;min-width:0;max-height:62vh;overflow:auto;border:1px solid #e5e5e5;border-radius:10px;background:#fff}
-#mePreview:empty::before{content:'Live preview appears here as you type.';display:block;padding:18px;color:#aaa;font-size:13px}
-#manageEditor.view-edit #mePreview{display:none}
-#manageEditor.view-edit #meContent{flex-basis:100%}
-#manageEditor.view-preview #meContent{display:none}
-#manageEditor.view-preview #mePreview{flex-basis:100%;max-height:70vh}
-#meViewToggle .meview{background:#f4f4f7;border:0;border-left:1px solid #ddd;padding:6px 13px;font-size:12px;font-weight:600;color:#555;cursor:pointer}
-#meViewToggle .meview:first-child{border-left:0}
-#meViewToggle .meview.active{background:#000036;color:#fff}
-@media(max-width:760px){#meSplit{flex-direction:column}#mePreview{max-height:48vh}}
+/* Embed mode: when the pipeline is framed inside the console (/pipeline?embed=1)
+   its page title and in-frame sign-out are redundant, so hide them and trim the
+   padding so the tool sits flush inside the console tab. */
+body.embed{padding:1rem}
+body.embed .hdr{margin-bottom:1rem}
+body.embed .hdr-l{display:none}
+body.embed .auth-signout{display:none !important}
 </style>
 <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -208,7 +202,6 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
     </div>
   </div>
   <div style="display:flex;gap:8px">
-    <button class="bset" id="manageBtn">📄 Manage</button>
     <button class="bset" id="settingsBtn">⚙ Settings</button>
   </div>
 </div>
@@ -379,50 +372,8 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
       <button class="bg" id="cancelSettingsBtn">Cancel</button>
       <button class="bg" id="forgetSettingsBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Forget saved login</button>
     </div>
-    <div class="mnote">Your reviewer profile is saved in this browser only. GitHub is connected centrally on the server, so reviewers never handle any keys.</div>
-  </div>
-</div>
-
-<div class="ov" id="manageOv">
-  <div class="mo" style="max-width:1040px">
-    <div class="moh"><div class="mot">Manage articles</div><button class="mox" id="manageCloseBtn">×</button></div>
-    <div id="manageAlert"></div>
-    <div id="manageList">
-      <div style="padding:10px;color:#aaa;font-size:13px">Loading…</div>
-    </div>
-    <div id="manageEditor" class="view-split" style="display:none">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
-        <div style="font-size:12px;color:#777">Editing: <strong id="meName"></strong></div>
-        <div id="meViewToggle" style="margin-left:auto;display:inline-flex;border:1px solid #ddd;border-radius:8px;overflow:hidden">
-          <button type="button" class="meview" data-view="edit">Markdown</button>
-          <button type="button" class="meview active" data-view="split">Split</button>
-          <button type="button" class="meview" data-view="preview">Live preview</button>
-        </div>
-      </div>
-      <div id="meSplit">
-        <textarea id="meContent" rows="24" style="font-family:monospace;font-size:12px"></textarea>
-        <div id="mePreview"></div>
-      </div>
-      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-        <button class="bp" id="meSaveBtn">Save changes</button>
-        <button class="bg" id="meBackBtn">← Back to list</button>
-        <button class="bg" id="meDeleteBtn" style="margin-left:auto;color:#c00;border-color:#fcc">Delete article</button>
-      </div>
-      <div id="meImages" style="margin-top:14px;border-top:1px solid #eee;padding-top:12px">
-        <div style="font-size:13px;font-weight:700;color:#000036;margin-bottom:4px">Images <span style="font-weight:400;color:#999">— run the image stage on this review</span></div>
-        <div style="font-size:12px;color:#777;margin-bottom:8px;line-height:1.5">Paste a <strong>product page URL</strong> (pre-filled from this review's buy link — edit it to point at the retailer's product page) and hit <strong>Find product images</strong>. First selected is the hero; the rest spread through the article. <strong>Insert</strong> writes them into the markdown above — then Save changes.</div>
-        <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center">
-          <input id="meImgUrl" style="flex:1;min-width:240px" placeholder="https://retailer.com/products/…"/>
-          <button class="bg" id="meFindImgBtn">Find product images</button>
-        </div>
-        <div style="margin-bottom:8px"><button class="bp" id="meInsertImgBtn" disabled>Insert selected images →</button></div>
-        <div id="meImageAlert"></div>
-        <div id="meImageGrid" class="igrid"></div>
-        <div id="meImgStatus" style="font-size:12px;color:#888;margin-top:8px;font-weight:600"></div>
-        <div style="margin-top:8px"><input id="meManualImgUrl" placeholder="…or paste a direct image URL (ending .jpg/.png) and press Enter"/></div>
-      </div>
-    </div>
-    <div class="mnote">Edits and deletes commit straight to GitHub; the site redeploys automatically within ~60 seconds.</div>
+    <div id="settingsAlert" style="margin-top:8px"></div>
+    <div class="mnote">Your reviewer profile is saved in this browser only. GitHub is connected centrally on the server, so reviewers never handle any keys. Manage existing reviews (edit, publish, delete) from the console's Reviews tab.</div>
   </div>
 </div>
 
@@ -436,6 +387,12 @@ label{font-size:12px;color:#666;display:block;margin-bottom:3px}
 
 <script type="application/json" id="wss-taxonomy" set:html={JSON.stringify(taxonomy)}></script>
 <script>
+// Embed mode: when opened inside the console's "New review" tab as an iframe
+// (/pipeline?embed=1, or simply framed), strip the redundant page title/sign-out
+// so the tool sits flush inside the console. See the body.embed rules above.
+if(new URLSearchParams(location.search).get('embed')==='1'||window.self!==window.top){
+  document.body.classList.add('embed');
+}
 const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v2.1 — score 6 pillars (Pillar 6 Diversity & Inclusion in Testing is EXCLUDED for now):
 PILLAR 1 INCLUSIVE FIT & PROPORTIONAL SIZING: UK 16 must NOT be labelled XL. Size range should span UK 6-24+. Women's proportions, not scaled-down unisex.
 PILLAR 2 FUNCTIONAL PERFORMANCE IN USE: Seam placement, waistband stability, torso coverage, chafe after 45+ min. Performance in the intended activity.
@@ -816,7 +773,7 @@ document.getElementById('forgetSettingsBtn').addEventListener('click',()=>{
   cfg={...CFG_DEFAULTS};
   fillReviewerInputs();
   reflectConnected();
-  setAlert('manageAlert','inf','Saved login cleared from this browser.');
+  setAlert('settingsAlert','inf','Saved login cleared from this browser.');
 });
 
 // AI helpers
@@ -1677,239 +1634,10 @@ document.getElementById('gsheetBtn').addEventListener('click',async()=>{
 document.getElementById('addImgBtn').addEventListener('click',addManualImage);
 document.getElementById('manualImgUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addManualImage();}});
 
-// Manage articles (edit / delete) via the GitHub API
+// GitHub proxy client — used by the "Push to GitHub" step below. (Editing and
+// deleting existing reviews now lives in the console's Reviews tab.)
 async function ghApi(action,params){const r=await fetch('/api/github-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...params})});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.message||('HTTP '+r.status));return data;}
 function b64decode(b){const clean=(b||'').replace(/\n/g,'');try{return decodeURIComponent(escape(atob(clean)));}catch{return atob(clean);}}
-let manageFiles=[],editingPath='',editingSha='';
-document.getElementById('manageBtn').addEventListener('click',openManage);
-document.getElementById('manageCloseBtn').addEventListener('click',()=>document.getElementById('manageOv').classList.remove('show'));
-document.getElementById('manageOv').addEventListener('click',e=>{if(e.target===document.getElementById('manageOv'))document.getElementById('manageOv').classList.remove('show')});
-document.getElementById('meBackBtn').addEventListener('click',showManageList);
-async function openManage(){
-  document.getElementById('manageOv').classList.add('show');
-  showManageList();
-  loadArticles();
-}
-function showManageList(){document.getElementById('manageEditor').style.display='none';document.getElementById('manageList').style.display='block';}
-async function loadArticles(){
-  const list=document.getElementById('manageList');
-  list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">Loading articles…</div>';
-  setAlert('manageAlert','','');
-  try{
-    const d=await ghApi('tree',{});
-    manageFiles=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/reviews\/.+\.md$/.test(t.path)).sort((a,b)=>a.path.localeCompare(b.path));
-    renderManageList();
-    // Fill in the date/time each review was added (its earliest commit) and its
-    // current draft status (from frontmatter), so each row can show Edit/Draft/Delete.
-    await Promise.all(manageFiles.map(async f=>{
-      try{const c=await ghApi('commits',{path:f.path});
-        if(Array.isArray(c)&&c.length){const first=c[c.length-1];f.added=first.commit?.author?.date||first.commit?.committer?.date||'';}
-      }catch(e){}
-      try{const d=await ghApi('get',{path:f.path});f.sha=d.sha;f.content=b64decode(d.content);
-        const fm=f.content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-        f.draft=fm?/^\s*draft\s*:\s*true\s*$/im.test(fm[1]):false;
-      }catch(e){}
-    }));
-    renderManageList();
-  }catch(e){list.innerHTML=`<div style="padding:10px;color:#c00;font-size:13px">Could not load: ${esc(e.message)}</div>`;}
-}
-function fmtAdded(iso){
-  if(!iso)return '';
-  const d=new Date(iso);if(isNaN(d))return '';
-  return 'Added '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-}
-function renderManageList(){
-  const list=document.getElementById('manageList');
-  if(!manageFiles.length){list.innerHTML='<div style="padding:10px;color:#aaa;font-size:13px">No review articles found.</div>';return}
-  const badge=(f)=>{if(f.draft===undefined)return '';const base='margin-left:8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:10px;padding:1px 7px';return f.draft
-    ?`<span style="${base};color:#8a5a00;background:#fffaf0;border:1px solid #f3d9a3">Draft</span>`
-    :`<span style="${base};color:#0a7a33;background:#f0fff4;border:1px solid #b6e8c4">Live</span>`;};
-  list.innerHTML=manageFiles.map((f,i)=>{const parts=f.path.split('/');const slug=parts.pop().replace('.md','');const cat=parts.pop();const added=fmtAdded(f.added);const draftLabel=f.draft?'Publish':'Draft';return `<div class="retitem" style="cursor:default"><div><div class="retn">${esc(slug)}${badge(f)}</div><div class="retd">${esc(cat)}${added?` · ${esc(added)}`:''}</div></div><div style="display:flex;gap:6px;margin-left:auto"><button class="bg" data-edit="${i}" style="padding:5px 11px">Edit</button><button class="bg" data-draft="${i}" style="padding:5px 11px">${draftLabel}</button><button class="bg" data-del="${i}" style="padding:5px 11px;color:#c00;border-color:#fcc">Delete</button></div></div>`;}).join('');
-}
-document.getElementById('manageList').addEventListener('click',e=>{
-  const ed=e.target.closest('[data-edit]'),dr=e.target.closest('[data-draft]'),dl=e.target.closest('[data-del]');
-  if(ed)editArticle(manageFiles[parseInt(ed.dataset.edit)]);
-  else if(dr)toggleDraft(parseInt(dr.dataset.draft));
-  else if(dl)deleteArticle(manageFiles[parseInt(dl.dataset.del)],false);
-});
-// Add or remove `draft: true` in a review's frontmatter (leaving the body untouched).
-function setDraftFlag(src,makeDraft){
-  src=src||'';
-  const m=src.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if(!m)return src;
-  let fm=m[1].replace(/^\s*draft\s*:.*$/gim,'').replace(/\n{2,}/g,'\n').replace(/^\n+|\n+$/g,'');
-  if(makeDraft)fm=fm+'\ndraft: true';
-  return src.replace(m[0],'---\n'+fm+'\n---');
-}
-async function toggleDraft(i){
-  const f=manageFiles[i];if(!f)return;
-  const makeDraft=!f.draft;
-  setAlert('manageAlert','inf',(makeDraft?'Setting to draft… ':'Publishing… ')+f.path);
-  try{
-    // Re-fetch fresh content+sha so the save can't collide with a stale revision.
-    const d=await ghApi('get',{path:f.path});
-    const updated=setDraftFlag(b64decode(d.content),makeDraft);
-    const r=await ghApi('put',{path:f.path,content:b64(updated),message:`${makeDraft?'Draft':'Publish'} review: ${f.path}`,sha:d.sha});
-    f.content=updated;f.sha=r.content?.sha||d.sha;f.draft=makeDraft;
-    renderManageList();
-    setAlert('manageAlert','ok',`${makeDraft?'Set to draft':'Published'} ✓ Netlify redeploys within ~60s.`);
-  }catch(e){setAlert('manageAlert','er','Could not update status: '+e.message);}
-}
-async function editArticle(f){
-  setAlert('manageAlert','inf','Loading '+f.path+'…');
-  try{
-    const d=await ghApi('get',{path:f.path});
-    editingPath=f.path;editingSha=d.sha;
-    document.getElementById('meContent').value=b64decode(d.content);
-    document.getElementById('meName').textContent=f.path;
-    meResetImages();
-    document.getElementById('manageList').style.display='none';
-    document.getElementById('manageEditor').style.display='block';
-    meSetView('split');
-    setAlert('manageAlert','','');
-  }catch(e){setAlert('manageAlert','er','Could not load: '+e.message);}
-}
-document.getElementById('meSaveBtn').addEventListener('click',async()=>{
-  const btn=document.getElementById('meSaveBtn');btn.disabled=true;btn.textContent='Saving…';
-  setAlert('manageAlert','inf','Saving…');
-  try{
-    const d=await ghApi('put',{path:editingPath,content:b64(document.getElementById('meContent').value),message:`Edit review: ${editingPath}`,sha:editingSha});editingSha=d.content.sha;
-    setAlert('manageAlert','ok','Saved ✓ Netlify will redeploy within ~60s.');
-  }catch(e){setAlert('manageAlert','er','Save failed: '+e.message);}
-  btn.disabled=false;btn.textContent='Save changes';
-});
-document.getElementById('meDeleteBtn').addEventListener('click',()=>deleteArticle({path:editingPath,sha:editingSha},true));
-async function deleteArticle(f,fromEditor){
-  if(!confirm('Delete this article permanently?\n\n'+f.path+'\n\nIt will be removed from the site on the next deploy.'))return;
-  setAlert('manageAlert','inf','Deleting…');
-  try{
-    // Re-fetch the file's current sha on this branch (robust against stale tree shas).
-    const g=await ghApi('get',{path:f.path});const sha=g.sha;
-    await ghApi('delete',{path:f.path,message:`Delete review: ${f.path}`,sha});
-    setAlert('manageAlert','ok','Deleted ✓ It will disappear from the site on the next deploy.');
-    manageFiles=manageFiles.filter(x=>x.path!==f.path);
-    renderManageList();
-    if(fromEditor)showManageList();
-  }catch(e){setAlert('manageAlert','er','Delete failed: '+e.message);}
-}
-
-// Manage editor — image stage for an existing draft. Pulls product images from
-// the review's buy link (or pasted URLs) and writes hero_image + inline images
-// into the loaded markdown, re-runnably (existing inline images are stripped first).
-let meImgs=[],meSel=[];
-function meResetImages(){meImgs=[];meSel=[];const g=document.getElementById('meImageGrid');if(g)g.innerHTML='';const u=document.getElementById('meImgUrl');if(u)u.value=meField('shopify_link')||meField('product_url')||meField('affiliate_link')||'';setAlert('meImageAlert','','');meUpdateImgStatus();}
-function meField(name){const t=document.getElementById('meContent').value||'';const m=t.match(new RegExp('^'+name+':[ \\t]*"?([^"\\n]*?)"?[ \\t]*$','im'));return m?m[1].trim():'';}
-function meProductName(){const b=meField('brand'),t=meField('title');if(b&&t&&!t.toLowerCase().startsWith(b.toLowerCase()))return (b+' '+t).trim();return (t||b||'Product image').trim();}
-// Switch the editor between Markdown-only / Split / Live-preview.
-function meSetView(v){
-  const ed=document.getElementById('manageEditor');if(!ed)return;
-  ed.classList.remove('view-edit','view-split','view-preview');ed.classList.add('view-'+v);
-  document.querySelectorAll('#meViewToggle .meview').forEach(x=>x.classList.toggle('active',x.dataset.view===v));
-  if(v!=='edit')meRenderLivePreview();
-}
-// Render the current markdown the way the live review page will look, into the
-// preview pane — reuses mdToHtml and the same pv- styles as the full preview.
-function meRenderLivePreview(){
-  const pane=document.getElementById('mePreview');if(!pane)return;
-  const md=document.getElementById('meContent').value||'';
-  const fmM=md.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  const fm=fmM?fmM[1]:'';const body=fmM?fmM[2]:md;
-  const f=(name)=>{const m=fm.match(new RegExp('^'+name+':[ \\t]*"?([^"\\n]*?)"?[ \\t]*$','im'));return m?m[1].trim():'';};
-  const title=f('title')||'Untitled review',brand=f('brand'),price=f('price');
-  const category=(f('category')||'').replace(/-/g,' '),overall=f('overall_score');
-  const tested=f('tested_by'),avatar=f('reviewer_avatar'),bio=f('reviewer_bio'),hero=f('hero_image');
-  const aff=f('affiliate_link'),shop=f('shopify_link');
-  const pct=Math.max(0,Math.min(100,(parseFloat(overall||'0')/5)*100));
-  const stars=`<span class="pv-stars-wrap"><span class="pv-stars-bg">★★★★★</span><span class="pv-stars-fg" style="width:${pct}%">★★★★★</span></span>`;
-  const heroBg=hero?` style="background-image:linear-gradient(rgba(0,0,54,.82),rgba(0,0,54,.82)),url('${esc(hero)}');background-size:cover;background-position:center"`:'';
-  let h=`<div class="pv-hero"${heroBg}>`;
-  if(category)h+=`<div class="pv-pill">${esc(category)}</div>`;
-  h+=`<div class="pv-title">${esc(title)}</div>`;
-  if(brand||price)h+=`<div class="pv-brand">${brand?'by <strong>'+esc(brand)+'</strong>':''}${price?' · £'+esc(price):''}</div>`;
-  if(overall)h+=`<div class="pv-score">${stars}<span class="overall-num">${esc(overall)}/5</span><span class="pv-badge">WSS™ Reviewed</span></div>`;
-  if(tested)h+=`<div class="pv-byline">${avatar?`<img src="${esc(avatar)}" alt=""/>`:''}<span>Reviewed by <strong>${esc(tested)}</strong></span></div>`;
-  h+=`</div>`;
-  let c=`<div class="pv-content">${mdToHtml(body)}`;
-  const buy=[];
-  if(shop)buy.push(`<span class="pv-buy">Buy from WSS store${price?' — £'+esc(price):''} →</span>`);
-  if(aff)buy.push(`<span class="pv-buy${shop?' alt':''}">Buy direct from ${esc(brand||'brand')} →</span>`);
-  if(buy.length)c+=`<div class="pv-cta">${buy.join('')}</div>`;
-  if(tested||bio)c+=`<div class="pv-reviewer">${avatar?`<img src="${esc(avatar)}" alt=""/>`:''}<div><div class="lbl">About the reviewer</div>${tested?`<div class="nm">${esc(tested)}</div>`:''}${bio?`<p class="bio">${esc(bio)}</p>`:''}</div></div>`;
-  c+=`</div>`;
-  pane.innerHTML=h+c;
-}
-async function meFindImages(){
-  const src=((document.getElementById('meImgUrl')||{}).value||'').trim()||meField('shopify_link')||meField('product_url')||meField('affiliate_link');
-  if(!/^https?:\/\//i.test(src)){setAlert('meImageAlert','inf','Enter a product page URL above (or paste a direct image URL below).');return;}
-  setAlert('meImageAlert','inf','Fetching images from '+src.replace(/^https?:\/\//,'').slice(0,40)+'…');
-  try{
-    const r=await fetch('/api/scrape-images',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:src})});
-    const data=await r.json().catch(()=>({}));
-    const found=(data.images||[]).map(u=>({url:u}));
-    if(found.length){meImgs=found;meSel=[0];meRenderImages();setAlert('meImageAlert','ok',found.length+' image(s) found — first is selected as the hero. Click to add up to 4, then Insert.');}
-    else setAlert('meImageAlert','wr','No images found automatically — paste the product image URLs below instead.');
-  }catch{setAlert('meImageAlert','wr','Could not fetch automatically — paste the product image URLs below instead.');}
-}
-function meRenderImages(){
-  const el=document.getElementById('meImageGrid');if(!el)return;
-  el.innerHTML=meImgs.map((im,i)=>`<div class="icard${meSel.includes(i)?' sel':''}${meSel[0]===i?' feat':''}" data-mi="${i}"><img src="${esc(im.url)}" loading="lazy" alt=""/><div class="ifeat">★ Featured</div><div class="itick">✓</div></div>`).join('');
-  el.querySelectorAll('.icard img').forEach(im=>im.addEventListener('error',()=>{const c=im.closest('.icard');if(c){c.style.opacity='.2';c.title='Image failed to load';}}));
-  meUpdateImgStatus();
-}
-function meUpdateImgStatus(){
-  const n=meSel.length,el=document.getElementById('meImgStatus');if(!el)return;
-  el.textContent=n?`${n}/4 selected · first is the hero, the rest spread through the article`:'No images selected — click thumbnails above, or paste a URL below.';
-  el.style.color=n?'#060':'#888';
-  const b=document.getElementById('meInsertImgBtn');if(b)b.disabled=!n;
-}
-function meInsertImagesIntoMarkdown(src,imgs,name){
-  imgs=imgs.slice(0,4);
-  const alt=String(name||'Product image').replace(/[\[\]]/g,'').trim();
-  const imgMd=(im,i)=>`\n\n![${alt}${i?' — image '+(i+1):''}](${im.url})\n`;
-  const fmM=src.match(/^(---\r?\n[\s\S]*?\r?\n---\r?\n)([\s\S]*)$/);
-  let fm=fmM?fmM[1]:'';let body=fmM?fmM[2]:src;
-  const hero=imgs[0]?imgs[0].url:'';
-  if(fm){
-    if(/^hero_image:.*$/im.test(fm))fm=fm.replace(/^hero_image:.*$/im,'hero_image: "'+hero+'"');
-    else fm=fm.replace(/(\r?\n---\r?\n)$/,'\nhero_image: "'+hero+'"$1');
-  }
-  // Strip any existing inline images so re-running doesn't duplicate them.
-  body=body.replace(/^[ \t]*!\[[^\]]*\]\([^)]*\)[ \t]*$/gm,'').replace(/\n{3,}/g,'\n\n').replace(/^\s+/,'');
-  const am=body.match(/^##[ \t]*WSS[^\n]*Assessment[^\n]*$/im);
-  if(!am){return fm+imgMd(imgs[0],0).replace(/^\n+/,'')+'\n\n'+body;}
-  const before=body.slice(0,am.index).replace(/\s+$/,'');
-  let restFromAsm=body.slice(am.index);
-  const afterHeadRel=restFromAsm.slice(am[0].length).search(/\n##[ \t]/);
-  const asmEnd=afterHeadRel>=0?am[0].length+afterHeadRel:restFromAsm.length;
-  let asm=restFromAsm.slice(0,asmEnd);
-  const tail=restFromAsm.slice(asmEnd);
-  const h3=[...asm.matchAll(/\n###[ \t]/g)].map(m=>m.index);
-  const inline=imgs.slice(1);
-  // Insert from the end so earlier indices stay valid; each inline image goes
-  // before a later criterion heading, spreading them through the assessment.
-  for(let k=Math.min(inline.length,Math.max(0,h3.length-1));k>=1;k--){
-    asm=asm.slice(0,h3[k])+'\n'+imgMd(inline[k-1],k)+asm.slice(h3[k]);
-  }
-  return fm+before+imgMd(imgs[0],0)+'\n'+asm+tail;
-}
-(function bindMeImages(){
-  const grid=document.getElementById('meImageGrid');
-  if(grid)grid.addEventListener('click',e=>{const c=e.target.closest('[data-mi]');if(!c)return;const i=parseInt(c.dataset.mi);const idx=meSel.indexOf(i);if(idx>=0)meSel.splice(idx,1);else{if(meSel.length>=4){setAlert('meImageAlert','inf','Maximum of 4 images — deselect one first.');return;}meSel.push(i);}meRenderImages();});
-  const man=document.getElementById('meManualImgUrl');
-  if(man)man.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const u=(e.target.value||'').trim();if(!/^https?:\/\//i.test(u)){setAlert('meImageAlert','er','Enter a full image URL starting with http(s)://');return;}meImgs.push({url:u});if(meSel.length<4)meSel.push(meImgs.length-1);e.target.value='';setAlert('meImageAlert','','');meRenderImages();});
-  const find=document.getElementById('meFindImgBtn');if(find)find.addEventListener('click',meFindImages);
-  const iu=document.getElementById('meImgUrl');if(iu)iu.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();meFindImages();}});
-  const vt=document.getElementById('meViewToggle');if(vt)vt.addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)meSetView(b.dataset.view);});
-  const mc=document.getElementById('meContent');if(mc)mc.addEventListener('input',()=>{clearTimeout(window.__mePvT);window.__mePvT=setTimeout(meRenderLivePreview,250);});
-  const ins=document.getElementById('meInsertImgBtn');
-  if(ins)ins.addEventListener('click',()=>{
-    const imgs=meSel.map(i=>meImgs[i]).filter(Boolean);
-    if(!imgs.length)return;
-    const ta=document.getElementById('meContent');
-    ta.value=meInsertImagesIntoMarkdown(ta.value,imgs,meProductName());
-    setAlert('meImageAlert','ok','Images written into the markdown above (hero + inline). Review it, then Save changes.');
-  });
-})();
 
 // Review preview (renders the final markdown the way the live page will)
 function mdToHtml(md){

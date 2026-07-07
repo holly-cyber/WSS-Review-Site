@@ -48,6 +48,9 @@ textarea{resize:vertical;line-height:1.6}
 .h1{font-size:22px;font-weight:700;color:#000036;margin-bottom:3px}
 .sub{color:#777;font-size:13px;margin-bottom:18px}
 .view{display:none}.view.active{display:block}
+/* Pipeline tab: the standalone /pipeline tool embedded (same-origin) so it lives
+   inside the console instead of a separate link-out. */
+.pipeframe{width:100%;height:calc(100vh - 120px);min-height:520px;border:1px solid #ececf1;border-radius:12px;background:#fff;display:block}
 
 /* Dashboard */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
@@ -159,12 +162,12 @@ table.rev tr:hover td{background:#fcfcfd}
       <div class="brand">WSS™ Console<small>Review management</small></div>
       <button class="navbtn active" data-nav="dashboard">▥ Dashboard</button>
       <button class="navbtn" data-nav="reviews">▤ Reviews</button>
+      <button class="navbtn" data-nav="pipeline">＋ New review</button>
       <button class="navbtn" data-nav="news">📰 News</button>
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/reviews/" target="_blank">🌐 View review site ↗</a>
-      <a class="ext" href="/pipeline" target="_blank">＋ New review (pipeline) ↗</a>
-      <div style="font-size:11px;color:#5b5b7a;margin-top:10px;letter-spacing:.04em">build r5 · 2026-06-24</div>
+      <div style="font-size:11px;color:#5b5b7a;margin-top:10px;letter-spacing:.04em">build r6 · 2026-07-07</div>
     </nav>
     <main class="main">
       <!-- Dashboard -->
@@ -188,6 +191,13 @@ table.rev tr:hover td{background:#fcfcfd}
           <button class="bg" id="fReload">↻ Reload</button>
         </div>
         <table class="rev"><thead><tr><th>Review</th><th>Category</th><th>Reviewer</th><th>Score</th><th>Status</th><th></th></tr></thead><tbody id="revBody"><tr><td colspan="6" style="color:#999;padding:16px">Loading…</td></tr></tbody></table>
+      </section>
+
+      <!-- New review (pipeline) -->
+      <section id="view-pipeline" class="view">
+        <div class="h1">New review</div>
+        <div class="sub">Create a full WSS™ review — scrape a product, research, write, and push it live. Manage existing reviews from the Reviews tab.</div>
+        <iframe id="pipelineFrame" title="WSS Review Pipeline" class="pipeframe" loading="lazy"></iframe>
       </section>
 
       <!-- Editor -->
@@ -473,6 +483,8 @@ function showView(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   $('view-'+name).classList.add('active');
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
+  // Load the embedded pipeline tool the first time its tab is opened.
+  if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
 }
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.nav)));
 
