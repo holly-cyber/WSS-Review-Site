@@ -11,17 +11,17 @@ draft: true
 excerpt: "Compressive, chafe-free and surprisingly good for recovery — a premium infrared workout short that earns its place in my training wardrobe."
 meta_description: "WSS™ review of the Absolute360 Women's Infrared Workout Short Tights — fit, 360° seamless comfort, infrared recovery claims, wash durability and value scored against the WSS apparel framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/ABSOLUTE360-Womens-Infrared-Workout-Short-Tights-Black-Black-01-2000px-1536x1536.webp"
-overall_score: 3.2
-affiliate_link: ""
+overall_score: 3.6
+affiliate_link: "https://shop.absolute360.co.uk/products/womens-infrared-running-half-tights?variant=6172443607067"
 shopify_link: ""
-product_url: ""
+product_url: "https://shop.absolute360.co.uk/products/womens-infrared-running-half-tights?variant=6172443607067"
 price: ""
 pillar_scores:
   p1: 3
   p2: 4
-  p3: 3
-  p4: 3
-  p5: 3
+  p3: 4
+  p4: 4
+  p5: 3.5
   p7: 3
 faq:
   - q: Are the Absolute360 Women's Infrared Workout Shorts true to size?
@@ -47,19 +47,19 @@ Finding **workout shorts** that stay exactly where you put them — no riding up
 ## WSS™ Assessment
 
 ### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
-The fit within my size was excellent: I took a **Large** and found them true to size, with a snug compressive feel that I genuinely enjoyed. The cut is shaped for women rather than scaled down from unisex, and the size guide is clear and accurate. Where I can't speak with confidence is the full size range — the breadth of sizing offered isn't something I could independently verify, so I'd love to see the curve confirmed before calling it inclusive.
+The fit within my size was excellent: I took a **Large** and found them true to size, with a snug compressive feel that I genuinely enjoyed. The cut is shaped for women rather than scaled down from unisex, and the size guide is clear and accurate. The size range is limited to small , medium and large so not huge choice across the size range. 
 
 ### Functional Performance in Use — 4/5 ★★★★☆
 This is where they shine. The **360° seamless construction** meant *no* rubbing, no chafing and no irritation, even on longer efforts and interval sessions where shorts usually ride up on me. They stayed put through sprinting, cycling and squats without a drawstring — something I expected to miss and simply didn't. Supportive, secure and flattering without cutting in: exactly what I want from a performance short.
 
-### Adequate Support Standards — 3/5 ★★★☆☆
-This criterion is really aimed at impact-support garments like bras, so it doesn't map directly onto a pair of shorts — I've scored it neutrally rather than marking it down. What I can say is that the compressive waist held everything securely in place across every session, with no shifting or readjusting needed.
+### Adequate Support Standards — 4/5 ★★★★☆
+These shorts combine lightweight comfort with unrestricted movement and infrared-responsive technology and are designed to support you before, during and after activity. Whether you're recovering from a hard training session, travelling, resting or simply relaxing at home, infrared-responsive technology is designed to complement your recovery routine and help keep you comfortable throughout the day. The shorts delivered on its support claim and I felt snug and supported. The compressive waist held everything securely in place across every session, with no shifting or readjusting needed.
 
-### Thermal Regulation & Material Performance — 3/5 ★★★☆☆
-The soft, stretchy fabric felt comfortable across runs, gym work and cycling, and crucially it lasted: after multiple washes the colour stayed sharp, the compression held and there was no pilling. The headline **infrared technology** — said to reflect body heat to boost circulation and recovery — isn't independently lab-tested as far as I can see, so I'd treat that claim as promising rather than proven. The material durability, though, I can vouch for.
+### Thermal Regulation & Material Performance — 4/5 ★★★★☆
+The soft, stretchy fabric felt comfortable across runs, gym work and cycling, and crucially it lasted: after multiple washes the colour stayed sharp, the compression held and there was no pilling. The headline **infrared technology** — said to reflect body heat to boost circulation and recovery — isn't independently lab-tested as far as I can see however i never felt like I was over heating in these shorts. The material durability, though, I can vouch for. They have gone through several washes and the fabric remains intact. 
 
-### Genuine Female Design — 3/5 ★★★☆☆
-The ergonomic, women-specific cut is the standout here: it hugs in the right places, moves with you and flatters without feeling restrictive. It's clearly engineered for a woman's shape rather than "pink it and shrink it" styling. I'd have loved a functional pocket or two for a key or gel, which would have lifted this further — the design is thoughtful, just not quite feature-complete.
+### Genuine Female Design — 3.5/5 ★★★★☆
+The ergonomic, women-specific cut is the standout here: it hugs in the right places, moves with you and flatters without feeling restrictive. It isnt clear if the have been specifically engineered for a woman's shape however they felt great on and fitted in all the right places. I would have loved a functional pocket or two for a key or gel, which would have lifted this further — the design is thoughtful, just not quite feature-complete.
 
 ### Transparency & User Reviews — 3/5 ★★★☆☆
 I've put these shorts through real, varied training — short runs, strength sessions and a longer ride — so this verdict is grounded in proper hands-on use rather than spec sheets. The infrared performance claims aren't independently published or verified, which I note neutrally rather than as a failing. Score them on comfort, fit and durability and they hold up well; the recovery science just needs more public evidence behind it.
@@ -68,11 +68,11 @@ I've put these shorts through real, varied training — short runs, strength ses
 
 Inclusive Fit & Proportional Sizing: 3/5
 Functional Performance in Use: 4/5
-Adequate Support Standards: 3/5
-Thermal Regulation & Material Performance: 3/5
-Genuine Female Design: 3/5
+Adequate Support Standards: 4/5
+Thermal Regulation & Material Performance: 4/5
+Genuine Female Design: 3.5/5
 Transparency & User Reviews: 3/5
-**Overall: 3.2 / 5 ★★★☆☆**
+**Overall: 3.6 / 5 ★★★★☆**
 
 ## Pros & Cons
 
