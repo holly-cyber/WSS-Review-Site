@@ -16,8 +16,8 @@ shopify_link: ""
 product_url: "https://veloforte.com/collections/protein-shakes-powders-drinks/products/nova-recovery-protein-shake"
 price: "£3.29 per serving (£2.80 on subscription)"
 pillar_scores:
-  taste: 5
-  nutrition: 4
+  taste: 4
+  nutrition: 5
   performance: 5
   value: 4
 faq:
@@ -42,11 +42,11 @@ Getting recovery fuelling right is one of the hardest habits to stick to as an a
 
 ## WSS™ Assessment
 
-### Taste & Texture — 5/5 ★★★★★
+### Taste & Texture — 4/5 ★★★★☆
 
 This is where the Nova shake truly shines. I tried the **banana and cocoa blend with maca**, and it genuinely surprised me: rich, chocolatey and slightly fruity without being overpowering. Where so many recovery shakes turn out chalky or artificial, this one was the opposite — silky smooth with no lumps, even without a shaker ball. Mixed with semi-skimmed milk it poured like a creamy treat, and over ice in my thermos it stayed cold and delicious right through my session.
 
-### Nutrition Profile — 4/5 ★★★★☆
+### Nutrition Profile — 5/5 ★★★★★
 
 Veloforte has built its reputation on sports nutrition that's as natural as it is effective, and the Nova lives up to it. Mixed with cow's milk, one serving packs **13g of plant protein, 40g of carbs and re-vitalising maca** — a clean, purposeful blend designed for quick absorption to aid muscle repair and replenish glycogen. There are no artificial ingredients, sulphites or unnecessary fillers, which feels refreshing in a market full of additives. My one note: the protein content is a little lower than some rivals, so I'd ideally want a touch more to help hit my daily target.
 
@@ -60,8 +60,8 @@ At first glance Veloforte shakes look pricier than supermarket alternatives, at 
 
 ## Scores
 
-Taste & Texture (25%): 5/5
-Nutrition Profile (30%): 4/5
+Taste & Texture (25%): 4/5
+Nutrition Profile (30%): 5/5
 Performance (30%): 5/5
 Value (15%): 4/5
 **Overall: 4.6 / 5 ★★★★★**
