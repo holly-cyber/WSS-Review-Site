@@ -7,7 +7,6 @@ subcategory: "clothing"
 date: "2025-10-03"
 product_type: "apparel"
 tested_by: "Mel Berry"
-draft: true
 excerpt: "Compressive, chafe-free and surprisingly good for recovery — a premium infrared workout short that earns its place in my training wardrobe."
 meta_description: "WSS™ review of the Absolute360 Women's Infrared Workout Short Tights — fit, 360° seamless comfort, infrared recovery claims, wash durability and value scored against the WSS apparel framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/ABSOLUTE360-Womens-Infrared-Workout-Short-Tights-Black-Black-01-2000px-1536x1536.webp"
