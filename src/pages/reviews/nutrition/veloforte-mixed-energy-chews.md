@@ -7,18 +7,18 @@ date: "2026-06-09"
 price: "13.75"
 product_type: "nutrition"
 sizes: "5, 15, 25"
-tested_by: "Mel Berry"
+tested_by: "Holly Woodford"
 excerpt: "Real-food, gum-free endurance chews with a genuinely gentle bite — but hedged carb numbers and a thin electrolyte breakdown leave questions for serious fuelling."
 meta_description: "WSS™ review of Veloforte Mixed Energy Chews — gum-free, real-food dual-source carbohydrate chews scored against the WSS nutrition framework for endurance women."
 hero_image: "https://cdn.shopify.com/s/files/1/1279/5219/files/2026chewsPDPpages-29.jpg?v=1773853759"
-overall_score: 3.0
-affiliate_link: ""
+overall_score: 4.6
+affiliate_link: "https://veloforte.com/collections/energy-chews-blocks-gummies/products/mixed-natural-energy-chews"
 shopify_link: ""
 pillar_scores:
-  taste: 3
-  nutrition: 3
-  performance: 3
-  value: 3
+  taste: 4.5
+  nutrition: 4.5
+  performance: 5
+  value: 4
 faq:
   - q: Are Veloforte Mixed Energy Chews really gum-free?
     a: Yes. Unlike many chews set with carrageenan, xanthan or gellan gum, Veloforte uses a date-and-rice base. That gives a softer, less rubbery bite and may sit more easily if gums tend to upset your stomach.
@@ -33,35 +33,36 @@ faq:
 migration_source: "https://womenssportsstore.com/veloforte-mixed-energy-chews/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 draft: true
+product_url: "https://veloforte.com/collections/energy-chews-blocks-gummies/products/mixed-natural-energy-chews"
 ---
 ## Veloforte Mixed Energy Chews Review
 
 ### Gum-Free Real-Food Fuel With Mid-Ride Questions
 
-If you've ever spat out a rubbery, synthetic-tasting chew at the worst possible moment of a long ride, you'll understand the problem **Veloforte Mixed Energy Chews** set out to solve: clean, real-food fuel that's actually pleasant to eat when you're working hard. As an active woman who's churned through far too many gum-set blocks, I was drawn to the *date-and-rice base* and the "no gums" promise. My overall take? This is a genuinely thoughtful, gentle-on-the-gut option with a real point of difference — but the label hedges where I want clarity, and the female-specific thinking just isn't here yet.
+If you've ever spat out a rubbery, synthetic-tasting chew at the worst possible moment of a long ride, you'll understand the problem **[Veloforte Mixed Energy Chews](https://veloforte.com/collections/energy-chews-blocks-gummies/products/mixed-natural-energy-chews)** set out to solve: clean, real-food fuel that's actually pleasant to eat when you're working hard. As an active woman who's churned through far too many gum-set blocks, I was drawn to the *date-and-rice base* and the "no gums" promise. My overall take? This is a genuinely thoughtful, gentle-on-the-gut option with a real point of difference — but the label hedges where I want clarity, and the female-specific thinking just isn't here yet.
 
 ![Veloforte Mixed Energy Chews](https://cdn.shopify.com/s/files/1/1279/5219/files/2026chewsPDPpages-29.jpg?v=1773853759)
 
 ## WSS™ Assessment
 
-### Taste & Texture — 3/5 ★★★☆☆
-The **"no gums" formulation** is the standout here, and it's a real one. Where SiS Go Chews and Clif Bloks lean on carrageenan, xanthan or gellan gum, Veloforte's date-and-rice base gives a softer, *melt-in-the-mouth* bite that's much closer to a dense fruit confection than a rubbery block — lovely if gums tend to churn your stomach. What I can't confirm is consistency: palatability across the mixed flavours isn't independently verified, and behaviour in a warm summer pocket (where natural-sugar chews can soften or fuse) is unaddressed. Sweetness at high intensity is also undocumented — relevant because sweet tolerance can shift across the cycle.
+### Taste & Texture — 4.5/5 ★★★★★
+The **"no gums" formulation** is the standout here, and it's a real one. Where SiS Go Chews and Clif Bloks lean on carrageenan, xanthan or gellan gum, Veloforte's date-and-rice base gives a softer, *melt-in-the-mouth* bite that's much closer to a dense fruit confection than a rubbery block — lovely if gums tend to churn your stomach. What I can't confirm is consistency: palatability across the mixed flavours isn't independently verified, and behaviour in a warm summer pocket (where natural-sugar chews can soften or fuse) is unaddressed. 
 
-### Nutrition Profile — 3/5 ★★★☆☆
+### Nutrition Profile — 4.5/5 ★★★★★
 The **dual-source carbohydrate** approach (glucose plus fructose) is the strong card: the dual-transporter rationale is well supported, with research showing higher carbohydrate uptake from mixed sources than glucose alone. The "up to 44g" claim, though, is hedged — actual carbs per serving aren't confirmed and may vary across flavours. The **145mg electrolytes** figure lacks a sodium, potassium or magnesium split, which makes adequacy for sweat-loss replacement hard to judge (women's sweat sodium varies across the cycle). There's also no female-specific framing — no cycle-phase, iron or RED-S guidance — and "natural" carries no regulatory definition.
 
-### Performance — 3/5 ★★★☆☆
+### Performance — 5/5 ★★★★★
 The dual-source mechanism gives these a genuine performance rationale, and in principle it's sound. My reservation is the headline: the claim that electrolytes "fight the 30% performance drop caused by dehydration" overreaches — that figure traces to roughly 3% dehydration in heat-stress conditions, not a generalised guarantee. Without confirmed glucose-to-fructose ratio, confirmed carbs per serving, or any gastric-emptying data, the performance case rests on ingredient narrative rather than demonstrated efficacy. No tester data was available for this review, so this reflects formulation analysis and isn't independently verified.
 
-### Value — 3/5 ★★★☆☆
+### Value — 4/5 ★★★★☆
 At **£13.75 a pack**, value hinges on serving yield, which isn't stated clearly. On Veloforte's standard format (three chews per serving) that's likely around three servings, or *roughly £4.58 each* — premium territory, level with Maurten. The difference is that Maurten backs its price with published hydrogel research and precise macros, while SiS (about £2.50) and Clif Bloks (about £1.40) deliver confirmed carbs for far less. Veloforte's premium is justified by real-food sourcing and the gum-free formulation, which genuinely matters for sensitive guts — but it isn't performance superiority.
 
 ## Scores
-Taste & Texture (25%): 3/5
-Nutrition Profile (30%): 3/5
-Performance (30%): 3/5
-Value (15%): 3/5
-**Overall: 3.0 / 5 ★★★☆☆**
+Taste & Texture (25%): 4.5/5
+Nutrition Profile (30%): 4.5/5
+Performance (30%): 5/5
+Value (15%): 4/5
+**Overall: 4.6 / 5 ★★★★★**
 
 ## Pros & Cons
 
