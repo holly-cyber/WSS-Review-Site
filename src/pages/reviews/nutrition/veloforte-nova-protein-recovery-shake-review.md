@@ -11,9 +11,9 @@ excerpt: "A genuinely indulgent plant-based recovery shake that tastes like a tr
 meta_description: "WSS™ review of the Veloforte Nova Protein Recovery Shake — taste, nutrition profile, performance and value scored against the WSS nutrition framework for active women."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-01-at-18.31.06-1536x1461.png"
 overall_score: 4.6
-affiliate_link: ""
+affiliate_link: "https://veloforte.com/collections/protein-shakes-powders-drinks/products/nova-recovery-protein-shake"
 shopify_link: ""
-product_url: ""
+product_url: "https://veloforte.com/collections/protein-shakes-powders-drinks/products/nova-recovery-protein-shake"
 price: "£3.29 per serving (£2.80 on subscription)"
 pillar_scores:
   taste: 5
@@ -38,7 +38,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### A Plant Protein Recovery Shake That Tastes Like a Treat
 
-Getting recovery fuelling right is one of the hardest habits to stick to as an active woman: so many shakes taste chalky, artificial or like a chore, and that's exactly when good intentions slide. I want something I'll actually look forward to after a hard session — something that does the nutritional job *and* feels like a reward. I put the **Veloforte Nova Protein Recovery Shake** to the test after one of my swim sessions, and it quickly became part of my routine. It's smooth, indulgent and genuinely effective, and knowing it was waiting for me made me push harder in the pool.
+Getting recovery fuelling right is one of the hardest habits to stick to as an active woman: so many shakes taste chalky, artificial or like a chore, and that's exactly when good intentions slide. I want something I'll actually look forward to after a hard session — something that does the nutritional job *and* feels like a reward. I put the **[Veloforte Nova Protein Recovery Shake](https://veloforte.com/collections/protein-shakes-powders-drinks/products/nova-recovery-protein-shake)** to the test after one of my swim sessions, and it quickly became part of my routine. It's smooth, indulgent and genuinely effective, and knowing it was waiting for me made me push harder in the pool.
 
 ## WSS™ Assessment
 
