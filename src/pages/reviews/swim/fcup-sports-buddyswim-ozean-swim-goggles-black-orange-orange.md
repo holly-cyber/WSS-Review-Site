@@ -31,7 +31,6 @@ faq:
     a: "The **HCF (Honeycomb Cushion Fit)** is BuddySwim's structured cushioning. It distributes seal pressure evenly across the orbital bone rather than concentrating it at fixed points, reducing the discomfort and pressure marks common with harder-edged frames — especially useful on long training sessions."
   - q: "How do BuddySwim Ozean goggles compare to Speedo Futura Biofuse?"
     a: "Both sit in a similar **£30–£35 bracket**. The Ozean edges ahead on panoramic vision and open-water performance; the **Speedo Futura Biofuse** offers adjustable nose-bridge inserts and documented female-fit variants. Your choice comes down to fit priority (Speedo) versus open-water optics (Ozean)."
-draft: true
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Equipment framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). E4 reflects unconfirmed UV rating and safety/performance standards. Confirm tested_by/reviewer and scores before publishing."
 product_url: "https://shop.womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange"
 ---
