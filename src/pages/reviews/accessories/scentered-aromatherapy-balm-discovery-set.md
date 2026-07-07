@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "Scentered’s Discovery tin packs six natural mini balms — a pocket-sized mood toolkit for active women juggling focus, stress and sleep."
 meta_description: "WSS™ review of the Scentered Aromatherapy Balm Discovery Set — six natural mini balms scored on female-focused suitability, real-use efficacy, ingredients, experience and transparency."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Aromatherapy_Discovery_Set_Closed_balms_front_row.webp"
+hero_image: "https://www.scentered.com/cdn/shop/files/Scentered_Dicovery_balm_sona_plate_and_a_tin_on_the_desk.jpg?v=1764639840"
 overall_score: 4.2
 affiliate_link: "https://www.scentered.com/products/aromatherapy-discovery-balm-set"
 shopify_link: ""
@@ -36,10 +36,11 @@ faq:
 migration_source: "https://womenssportsstore.com/scentered-aromatherapy-balm-discovery-set/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Wellness & Recovery framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
-
 ## Overview
 
-Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **[Scentered Aromatherapy Balm Discovery tin](https://www.scentered.com/products/aromatherapy-discovery-balm-set)** sets out to fill, packing **six 100% natural mini balms** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made “mood toolkit” for active women rather than a pretty novelty.
+Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **[Scentered Aromatherapy Balm Discovery tin](https://www.scentered.com/products/aromatherapy-discovery-balm-set)**[ sets out to fill, packing ](https://www.scentered.com/products/aromatherapy-discovery-balm-set)**six 100% natural mini balms** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made “mood toolkit” for active women rather than a pretty novelty.
+
+![Scentered Best Aromatherapy Balm for women: Is Scentered Aromatherapy Balm Discovery Set best in show?](https://www.scentered.com/cdn/shop/files/Scentered_Dicovery_balm_sona_plate_and_a_tin_on_the_desk.jpg?v=1764639840)
 
 ## WSS™ Assessment
 
@@ -47,13 +48,25 @@ Recovery isn’t only foam rollers and rest days — it’s also the quiet busin
 
 What I loved is how neatly this slots into a real active woman’s day. The six blends map onto the exact moments that crop up between training, work and winding down: **Focus** for mid-afternoon brain fog, **De-stress** when tension builds, **Sleep Well** before bed and **Happy** for a pick-me-up. It isn’t marketed only as a generic “for her” product — it’s genuinely pitched at the stress, recovery and sleep needs of women juggling a busy routine, a curated set that meets you where your day actually is.
 
+
+
+![Scentered Best Aromatherapy Balm for women: Is Scentered Aromatherapy Balm Discovery Set best in show? — image 2](https://www.scentered.com/cdn/shop/files/Aromatherapy_Discovery_Balm_Tin_Set.jpg?v=1764640088)
+
 ### Efficacy & Performance — 4/5 ★★★★☆
 
 This is where it won me over. Carried in my day bag, my nightstand drawer and on my desk, I reached for different balms depending on the moment, and they delivered the intended effect. The texture is silky and non-greasy, absorbing reasonably fast and leaving my pulse points lightly scented without a heavy, oily residue. The scent lingers long enough to feel meaningful but never overpowers — _Sleep Well_ soft and settling, _De-stress_ more vibrant for a tense afternoon reset.
 
+
+
+![Scentered Best Aromatherapy Balm for women: Is Scentered Aromatherapy Balm Discovery Set best in show? — image 3](https://www.scentered.com/cdn/shop/files/Aromatherapy_Discovery_Tin_6_balm_blends_tin_closed.jpg?v=1764640998)
+
 ### Quality, Ingredients & Materials — 5/5 ★★★★★
 
 The balms are described as **100% natural** and behaved gently on my skin, absorbing cleanly with no greasy film at the pulse points. The solid-balm format feels premium and considered — slim, spill-proof sticks housed in an elegant tin. In very warm or humid conditions some warmth may slightly soften them, though I saw no major melting in normal daily use. Ingredient sourcing and any clean-formulation credentials aren’t independently verified here — based on product claims only — but everything felt kind and well-made in practice.
+
+
+
+![Scentered Best Aromatherapy Balm for women: Is Scentered Aromatherapy Balm Discovery Set best in show? — image 4](https://www.scentered.com/cdn/shop/files/Scentered_Ingredient_Blend_Wheel_for_all_6_essential_balms.jpg?v=1764641284)
 
 ### Experience & Usability — 4/5 ★★★★☆
 
@@ -92,8 +105,6 @@ It’s for active women who want **mood support in their pocket** — anyone cur
 ## Ingredients & Use
 
 Each of the six signature blends — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — comes as a compact mini balm of roughly **1.5 g**, described as **100% natural**. The format is the strength: slim, solid, spill-proof sticks that travel anywhere and apply straight to pulse points (wrists, neck, temples) without mess. To use, swipe onto a pulse point, cup your hands and take a few slow breaths — the included guide nudges you toward this simple breath-and-inhale ritual. Scent strengths vary by design (De-stress brighter, Sleep Well softer), which makes the set easy to dose to the moment.
-
-![A neatly arranged Scentered Aromatherapy Balm Discovery tin and six mini balms in various colours, displayed on a textured tray, all resting on a wooden table.](https://womenssportsstore.com/wp-content/uploads/2025/10/Scentered-Best-Aromatherapy-Balm-for-women.--1024x1004.png)
 
 ## How It Compares
 
