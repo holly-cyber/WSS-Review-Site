@@ -38,7 +38,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ## Overview
 
-The unsung hero of my bathroom cabinet is the humble **menstrual cup** — and the **Sea & Flo** cup has genuinely changed how I experience my cycle. The problem it solves is a familiar one for active women: a period product that lets you train, swim and get on with your day without leaks, discomfort or constant bathroom breaks. I've tried my fair share of reusable period products and I don't hand out praise lightly, but this one earned it. Comfortable, reliable, thoughtfully designed by a female-founded brand and great value — it's become a quiet essential.
+The unsung hero of my bathroom cabinet is the humble **[menstrual cup](https://seaandflo.com/products/flo-menstrual-cup-a)**[ — and the ](https://seaandflo.com/products/flo-menstrual-cup-a)**Sea & Flo** cup has genuinely changed how I experience my cycle. The problem it solves is a familiar one for active women: a period product that lets you train, swim and get on with your day without leaks, discomfort or constant bathroom breaks. I've tried my fair share of reusable period products and I don't hand out praise lightly, but this one earned it. Comfortable, reliable, thoughtfully designed by a female-founded brand and great value — it's become a quiet essential.
 
 ![Ladies hand holding a Sea & Flow Menstrual Cup](https://womenssportsstore.com/wp-content/uploads/2026/02/DSC08978-683x1024.jpg)
 
