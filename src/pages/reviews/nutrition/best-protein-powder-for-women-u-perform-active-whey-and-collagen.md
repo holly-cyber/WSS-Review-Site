@@ -12,7 +12,7 @@ excerpt: "Two powerhouses in one scoop: U Perform's whey-and-collagen blend tast
 meta_description: "Our WSS™ review of U Perform Active Whey & Collagen Chocolate — taste, nutrition, performance and value for active women looking to train and recover."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-30-at-16.18.49-1530x1536.png"
 overall_score: 4.9
-tested_by: "Mel Berry"
+tested_by: "Holly Woodford"
 pillar_scores:
   taste: 5
   nutrition: 5
@@ -21,7 +21,7 @@ pillar_scores:
 affiliate_link: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
 shopify_link: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
 product_url: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
-price: "Just over £1 per serving when bought on a monthly subscription"
+price:
 migration_source: "https://womenssportsstore.com/best-protein-powder-for-women-u-perform-active-whey-and-collagen/"
 faq:
   - q: "How much protein and collagen does U Perform Active Whey & Collagen contain?"
@@ -75,7 +75,7 @@ Value (15%): 4/5
 **Gentle watch-outs:**
 - Single-ingredient powders will cost less per serving
 - The protein dose per scoop is modest if you want a big post-session hit
-- Chocolate is the flavour I tested — your mileage may vary across the range
+- Chocolate is the flavour I tested 
 
 ## Who It's For / Who It's Not For
 
