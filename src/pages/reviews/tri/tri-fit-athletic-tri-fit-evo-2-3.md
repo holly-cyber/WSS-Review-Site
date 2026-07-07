@@ -7,7 +7,7 @@ date: "2026-06-09"
 price: "235"
 product_type: "apparel"
 sizes: "XS, S, M, L, XL,"
-tested_by: "Mel Berry"
+tested_by: "Jennifer Sophie"
 excerpt: "I've raced the Tri-Fit Athletic Tri-Fit EVO 2/3 Review — Women's Tri suit across two full 140.6-mile iron-distance events: Challenge Roth and Ironman Talli"
 meta_description: "Two iron-distance races. Zero chafe. Six pockets that actually work. A named, verified chamois. An honest brand that tells you where this suit…"
 hero_image: "https://tri-fitathletic.com/cdn/shop/files/2-_285_1080x.jpg?v=1762528308"
@@ -20,6 +20,8 @@ pillar_scores:
   p3: 4
   p5: 4
   p7: 5
+reviewer_bio: "Triathlete | Sports Massage | Journalist. Jen is a Jen is a Six-time Ironman finisher and IRONMAN World Championship qualifier."
+reviewer_avatar: ""
 ---
 
 ## Overview
