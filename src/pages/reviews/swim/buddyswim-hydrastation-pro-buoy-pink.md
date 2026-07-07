@@ -9,22 +9,20 @@ date: "2026-07-07"
 price: "48.00"
 product_type: "equipment"
 sizes: ""
-tested_by: "Holly Woodford"
-reviewer_bio: "Holly is the Co-Founder of WomensSportsStore.com and an experienced ultra runner, triathlete, cyclist and swimmer.  She has tested all manor of kit, nutrition and tech on trails, on the road, in the lake and in all conditions."
-reviewer_avatar: "https://womenssportsstore.com/wp-content/uploads/2026/01/WSS-Post-Image-Size-3-2048x2048.png"
+tested_by: "Mel Berry"
 excerpt: "There's a moment, about forty minutes into a long lake swim, when your mouth goes dry and you're mentally calculating whether it's worth stopping to root a"
 meta_description: "The **BuddySwim HydraStation Pro Buoy (Pink)** is the open water swim accessory I didn't know I needed until I couldn't train without it. The…"
 hero_image: "https://buddyswim.com/5447-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg"
-overall_score: 4.1
+overall_score: 4.5
 0601968842949.html"
 product_url: "https://buddyswim.com/en/open-water-buoys/2841-boya-buddyswim-hydrastation-pro-rosa-0601968842949.html"
 shopify_link: "https://shop.womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
 pillar_scores:
   e1: 4
-  e2: 4
+  e2: 5
   e3: 4
   e4: 5
-  e5: 3
+  e5: 4
 faq:
   - q: "Is the BuddySwim HydraStation Pro Buoy suitable for open water swimming in the UK?"
     a: "Yes — it's well-suited to UK lake and sea swimming. The high-visibility pink colouring makes you clearly visible to other water users, and the integrated hydration and storage system is ideal for longer open water sessions common in UK triathlon and wild swimming communities."
