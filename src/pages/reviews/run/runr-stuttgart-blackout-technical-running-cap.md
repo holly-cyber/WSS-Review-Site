@@ -7,7 +7,7 @@ subcategory: "accessories"
 date: "2025-10-03"
 product_type: "accessory"
 tested_by: "Holly Woodford"
-overall_score: 3.8
+overall_score: 4.3
 excerpt: "Lightweight, breathable and weatherproof: the WSS™ review of the Runr Stuttgart Blackout running cap for women who run."
 meta_description: "WSS™ review of the Runr Rio Technical Running Cap — fit, sweat management, ponytail compatibility, sun and rain protection for women who run."
 hero_image: "https://runr.co.uk/cdn/shop/products/Rio3-01.png?v=1655214153"
@@ -16,10 +16,10 @@ shopify_link: ""
 product_url: "https://runr.co.uk/collections/technical-running-hats/products/runr-rio-technical-running-hat"
 price: ""
 pillar_scores:
-  p1: 3
-  p2: 4
+  p1: 3.5
+  p2: 5
   p3: 4
-  p4: 4
+  p4: 5
   p5: 4
   p7: 4
 faq:
@@ -46,14 +46,14 @@ I used to think a cap was just a cap — something to grab last-minute for a bad
 
 ## WSS™ Assessment
 
-### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
+### Inclusive Fit & Proportional Sizing — 3.5/5 ★★★★☆
 Sizing isn't quite one size fits all but it did fit me well with a small to medium head size. The **webbed band with a clip** adjusts across a wide range, so average and larger heads are well catered for — no tight marks across the forehead. The only caveat: very small heads may want a touch more cinch. For an accessory, that's an acceptable, accommodating fit.
 
 
 
 ![Runr Technical Running Cap: Runr Rio Review — image 2](https://runr.co.uk/cdn/shop/products/Rio2-01.png?v=1774366726)
 
-### Functional Performance in Use — 4/5 ★★★★☆
+### Functional Performance in Use — 5/5 ★★★★★
 This is where the **Runr Rio** shines. The clip-and-band adjustment feels secure without digging in, unlike a clunky snapback, and on the run it sits light and barely noticeable. There's plenty of room for a **ponytail** to thread through comfortably. It stays put across the miles — for most runners, exactly what you want from a technical cap. 
 
 
@@ -67,7 +67,7 @@ The cap stays planted on the head through faster efforts and gusty conditions, w
 
 ![Runr Technical Running Cap: Runr Rio Review — image 4](https://runr.co.uk/cdn/shop/products/Rio4-01.png?v=1774366726)
 
-### Thermal Regulation & Material Performance — 4/5 ★★★★☆
+### Thermal Regulation & Material Performance — 5/5 ★★★★★
 The **breathable fabric** is a genuine game-changer: no sweaty, clammy build-up even on warmer days, and the structured-yet-ventilated crown lets heat escape. The brim sheds rain without drooping, and the material has held its shape beautifully through sweaty summers, autumn showers and more than a few crushed kit-bag journeys. Durability and weather performance are not independently lab-verified, but in sustained real-world use it has held up impressively.
 
 ### Genuine Female Design — 4/5 ★★★★☆
@@ -77,13 +77,13 @@ This earns its marks through practical engineering and nothing in this cap is an
 My scoring here rests on documented WSS hands-on testing across sunshine, drizzle and a surprise mid-run shower, plus repeated everyday use. Manufacturer claims around fabric breathability and weather resistance are not independently lab-verified, but the lived experience strongly supports them. They also get great reviews on their websitr which is worth a look if you are unsure. 
 
 ## Scores
-Inclusive Fit & Proportional Sizing: 3/5
-Functional Performance in Use: 4/5
+Inclusive Fit & Proportional Sizing: 3.5/5
+Functional Performance in Use: 5/5
 Adequate Support Standards: 4/5
-Thermal Regulation & Material Performance: 4/5
+Thermal Regulation & Material Performance: 5/5
 Genuine Female Design: 4/5
 Transparency & User Reviews: 4/5
-**Overall: 3.8 / 5 ★★★★☆**
+**Overall: 4.3 / 5 ★★★★☆**
 
 ## Pros & Cons
 **What I loved:**
