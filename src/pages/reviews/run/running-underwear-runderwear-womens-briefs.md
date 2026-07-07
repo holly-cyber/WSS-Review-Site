@@ -11,14 +11,14 @@ draft: true
 excerpt: "After 30 years running commando, Runderwear's Women's Running Briefs converted me — chafe-free, stay-put comfort from the first wear."
 meta_description: "Our WSS™ review of the Runderwear Women's Running Briefs — fit, seam placement, chafe-free comfort, breathability and value for women who run."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/234_HS_031222_BigTimages-1536x1024.jpg"
-overall_score: 3.5
+overall_score: 4.2
 pillar_scores:
-  p1: 3
+  p1: 4
   p2: 5
-  p3: 3
+  p3: 4
   p4: 4
   p5: 4
-  p7: 3
+  p7: 4
 affiliate_link: "https://runderwear.avln.me/c/gPSXQpKPNlMC"
 shopify_link: ""
 product_url: "https://runderwear.avln.me/c/gPSXQpKPNlMC"
@@ -45,14 +45,14 @@ Running underwear rarely earns a standing ovation, but these briefs genuinely ch
 
 ## WSS™ Assessment
 
-### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
+### Inclusive Fit & Proportional Sizing — 4/5 ★★★★☆
 The sizing is one of the nicer surprises here: I took my usual **L** and they fit like they were made for me, hugging in all the right places without restricting. The stretch is forgiving enough that *between-sizes* runners can usually stay put, and the fit stayed consistent wash after wash. The published range runs **S to XL**, which serves a good middle band of women well but stops short of the broader UK 6–24+ spread we like to see.
 
 ### Functional Performance in Use — 5/5 ★★★★★
 This is where the briefs shine. The **seamless edges** mean no awkward seams digging into sensitive areas, and the waistband sits perfectly without ever cutting in. Across short runs and long runs the coverage stayed put — no rolling, no riding up, no "running wedgie" moment. From tempo efforts to interval sprints they moved *with* me, not against me, so I could focus on pace instead of constantly adjusting my kit. For chafe-free comfort over distance, they're outstanding.
 
-### Adequate Support Standards — 3/5 ★★★☆☆
-Impact support isn't really the job of a pair of briefs, so I've scored this neutrally rather than as a strength or a failing. What matters at this layer is secure, supportive coverage that stays in place — and on that count they deliver, holding firm through dynamic movement without pinching. There's no compression or cup structure to assess here, which is exactly as it should be for this garment.
+### Adequate Support Standards — 4/5 ★★★★☆
+Impact support isn't really the job of a pair of briefs. What matters at this layer is secure, supportive coverage that stays in place and on that count they deliver. The Runderwear women's briefs hold firm through dynamic movement without pinching. 
 
 ### Thermal Regulation & Material Performance — 4/5 ★★★★☆
 The lightweight, breathable fabric kept me cool and dry even on the sweatiest runs, and the moisture-managing feel is a clear step up from everyday underwear. Just as importantly, the fit and shape held after **multiple washes**, with no sagging or loss of elasticity. The wicking and longevity claims aren't independently lab-tested, but in sustained real-world use the material performed consistently and reliably.
@@ -60,17 +60,17 @@ The lightweight, breathable fabric kept me cool and dry even on the sweatiest ru
 ### Genuine Female Design — 4/5 ★★★★☆
 These feel designed for women who run, not simply scaled down or recoloured. The **anti-chafe construction**, the seam placement around sensitive areas, and the way the elasticity adapts to different body shapes all point to thoughtful, women-specific engineering. The bright Fiesta pattern and five-colour range add a bit of fun, but the design substance sits underneath the colour, not in place of it.
 
-### Transparency & User Reviews — 3/5 ★★★☆☆
-My scoring here rests on documented hands-on WSS testing across a range of runs, which gives a solid, grounded picture of how the briefs perform. Runderwear's sizing guide proved accurate and dependable, which builds trust. Beyond that, the breathability and durability claims are *not independently verified* against published lab data, so I've kept this at a measured middle score.
+### Transparency & User Reviews — 4/5 ★★★★☆
+My scoring here rests on documented hands-on WSS testing across a range of runs, which gives a solid, grounded picture of how the briefs perform. Runderwear's sizing guide proved accurate and dependable, which builds trust. Beyond that, the breathability and durability claims are *not independently verified* against published lab data. Reviews on the Runderwear site reflect the scoring in my review. 
 
 ## Scores
-Inclusive Fit & Proportional Sizing: 3/5
+Inclusive Fit & Proportional Sizing: 4/5
 Functional Performance in Use: 5/5
-Adequate Support Standards: 3/5
+Adequate Support Standards: 4/5
 Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 4/5
-Transparency & User Reviews: 3/5
-**Overall: 3.5 / 5 ★★★★☆**
+Transparency & User Reviews: 4/5
+**Overall: 4.2 / 5 ★★★★☆**
 
 ## Pros & Cons
 
@@ -91,10 +91,6 @@ Transparency & User Reviews: 3/5
 
 These are for any runner who values chafe-free comfort and a stay-put fit — from weekend joggers to seasoned marathoners — especially if you've battled seams, wedgies or constant adjusting before. They're ideal if you want running-specific underwear that disappears the moment you start moving. They're less likely to suit you if you need a size beyond XL, or if you're after underwear with built-in impact support, which isn't what briefs are designed to provide.
 
-## Size & Fit
-
-Runderwear nails the sizing spectrum here. The briefs come in **S to XL** and genuinely feel true to their guide — refreshing in a market where sizing can feel like guesswork. I went with my usual **L** and they fit like they were tailor-made, hugging the right places without restricting. The elasticity adapts to different body shapes and movements, and the fit stayed consistent even after multiple washes. Tip: if you're between sizes, the forgiving stretch means you can usually stick with your usual size, but sizing up won't leave you feeling suffocated either.
-
 ![A model wearing Runderwear's women's running briefs and matching sports bra in a vibrant light green color, showcasing the comfort fit and design.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-11-18-at-14.05.56-1024x968.png)
 
 ## How It Compares
@@ -104,7 +100,6 @@ Runderwear nails the sizing spectrum here. The briefs come in **S to XL** and ge
 | **Runderwear Women's Running Briefs** | Premium | S–XL | Seamless, chafe-free | Stay-put comfort |
 | Runderwear Hipster Brief | Mid–premium | S–XL | More coverage | Great for layering |
 | Adidas Performance Brief | Mid | XS–XL | Breathable mesh | Solid everyday option |
-| Sweaty Betty Stamina Brief | Premium | XS–XXL | Wider sizing | Broader fit range |
 
 ![White women's running briefs from Runderwear with a soft, lightweight design and a comfortable waistband.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-11-18-at-14.07.55-1024x781.png)
 
