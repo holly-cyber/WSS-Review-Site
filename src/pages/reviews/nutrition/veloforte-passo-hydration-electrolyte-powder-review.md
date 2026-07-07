@@ -7,14 +7,14 @@ subcategory: "race-day-and-performance"
 date: "2026-04-07"
 product_type: "nutrition"
 sizes: ""
-tested_by: "Mel Berry"
+tested_by: "Holly Woodford"
 excerpt: "A light, natural electrolyte powder that lets you top up carbs without overloading them — gut-friendly, genuinely enjoyable to drink and built for long endurance days."
 meta_description: "WSS™ review of Veloforte Passo electrolyte powder — natural ingredients, taste, carb and electrolyte profile, gut-friendly performance and value, scored against the WSS nutrition framework."
 hero_image: "https://veloforte.com/cdn/shop/files/veloforte-electrolyte-powders-passo-electrolyte-powder-1172354368.jpg?v=1749487748"
 overall_score: 4.6
-affiliate_link: "https://veloforte.avln.me/c/gyKUlMgzpqGI"
+affiliate_link: "https://veloforte.com/products/passo-hydration-electrolyte-powder"
 shopify_link: ""
-product_url: "https://veloforte.avln.me/c/gyKUlMgzpqGI"
+product_url: "https://veloforte.com/products/passo-hydration-electrolyte-powder"
 price: ""
 pillar_scores:
   taste: 5
@@ -39,7 +39,7 @@ migration_notes: "WSS pilot rewrite from the migrated WordPress article against 
 
 ### Natural Electrolyte Hydration for Long Endurance Days
 
-Getting hydration right is a balancing act: too sweet and it turns your stomach, too weak and it does nothing, too heavy and it throws your whole fuelling plan off. Deep into ultra training — especially building towards a 100K mountain race — I want something that quietly does its job without drama or a sugar overload. **Veloforte Passo** has become one of those products I reach for without thinking. It's simple, natural and genuinely effective, and after weeks of long sessions it's earned a permanent spot in my race vest.
+Getting hydration right is a balancing act: too sweet and it turns your stomach, too weak and it does nothing, too heavy and it throws your whole fuelling plan off. Deep into ultra training — especially building towards a 100K mountain race — I want something that quietly does its job without drama or a sugar overload. **[Veloforte Passo](https://veloforte.com/products/passo-hydration-electrolyte-powder)** has become one of those products I reach for without thinking. It's simple, natural and genuinely effective, and after weeks of long sessions it's earned a permanent spot in my race vest.
 
 ![Veloforte Passo Hydration Electrolyte Powder](https://veloforte.com/cdn/shop/files/veloforte-electrolyte-powders-passo-electrolyte-powder-1172354368.jpg?v=1749487748)
 
