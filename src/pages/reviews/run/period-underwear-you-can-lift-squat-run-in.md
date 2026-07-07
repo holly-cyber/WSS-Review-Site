@@ -6,20 +6,20 @@ category: "run"
 subcategory: "clothing"
 date: "2026-01-05"
 product_type: "apparel"
-tested_by: "Mel Berry"
+tested_by: "Gemma Richardson"
 excerpt: "Period underwear you can squat, lift and run in without a second thought — the Nixi Body Gracie Sporty thong is seamless reassurance in disguise."
 meta_description: "Our WSS™ review of the Nixi Body Gracie Sporty VPL-Free Thong — fit, leak protection, movement and value for active women who lift, squat and run."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/12/Gemma-Nixi-1152x1536.jpeg"
-overall_score: 3.7
-affiliate_link: ""
+overall_score: 4.3
+affiliate_link: "https://www.nixibody.com/collections/knickers/products/gracie-sporty-thong?variant=40109718994979"
 shopify_link: ""
-product_url: ""
+product_url: "https://www.nixibody.com/collections/knickers/products/gracie-sporty-thong?variant=40109718994979"
 price: ""
 pillar_scores:
-  p1: 3
-  p2: 4
-  p3: 3
-  p4: 3
+  p1: 4
+  p2: 4.5
+  p3: 4
+  p4: 4
   p5: 5
   p7: 4
 faq:
@@ -48,39 +48,39 @@ When it comes to **period underwear**, I've tested enough pairs to know most fal
 
 ## WSS™ Assessment
 
-### Inclusive Fit & Proportional Sizing — 3/5 ★★★☆☆
+### Inclusive Fit & Proportional Sizing — 4/5 ★★★★☆
 
-The **Gracie thong** is cut for women's proportions rather than scaled down from a unisex block, and the "sporty" shape is genuinely flattering — the waistband sits neatly without rolling or pinching, even during a gym session. I found it true to size, with nothing digging in. The published size span isn't something I can verify here, so I'd love to see the full UK range confirmed; on fit and proportion as worn, though, it's spot on.
+The **Gracie thong** is cut for women's proportions rather than scaled down from a unisex block, and the "sporty" shape is genuinely flattering — the waistband sits neatly without rolling or pinching, even during a gym session. I found it true to size, with nothing digging in. The published size span is 6 to 18 so offers reasonably good size range. 
 
-### Functional Performance in Use — 4/5 ★★★★☆
+### Functional Performance in Use — 4.5/5 ★★★★★
 
 This is where the **Gracie thong** earns its place in a kit bag. I wore it on the last day of my period — support without "full period mode" — and it handled everything, staying secure and absorbing light flow with a slim, discreet safety net. The real test was movement: a full squats session with *zero* budge, zero chafing, then a run where I completely forgot I was wearing period underwear. Coverage stayed put, seams didn't travel, and the leak protection never announced itself. "Invisible but reliable" sums it up.
 
-### Adequate Support Standards — 3/5 ★★★☆☆
+### Adequate Support Standards — 4/5 ★★★★☆
 
-Impact support in the sports-bra sense doesn't really apply to underwear, so I've scored this neutrally — it's not a product designed to deliver cup-range bounce control, and it shouldn't be penalised for that. What matters here is secure, stay-put coverage during high-movement training, and on that front it delivers comfortably. Treat the score as "not the relevant pillar for this category" rather than a shortfall.
+What matters here is secure, stay-put coverage during high-movement training, and on that front it delivers comfortably. Holds up to 2 tampons worth of blood and ideal for light periods or the start or end of your period. 
 
-### Thermal Regulation & Material Performance — 3/5 ★★★☆☆
+### Thermal Regulation & Material Performance — 4/5 ★★★★☆
 
-The fabric is super soft with an almost seamless feel, and the brand's layered construction — moisture-wicking cotton, absorbent microfibre and a breathable outer — is built for active wear. Through a sweaty gym session and a run it stayed comfortable, with no clammy bulk. Breathability and wash-durability claims aren't independently lab-tested or wash-cycle verified that I can see, so I've kept this neutral pending published data — the in-use feel, though, was excellent.
+The fabric is super soft with an almost seamless feel, and the brand's layered construction — moisture-wicking cotton, absorbent microfibre and a breathable outer — is built for active wear. Through a sweaty gym session and a run it stayed comfortable, with no clammy bulk. 
 
 ### Genuine Female Design — 5/5 ★★★★★
 
-This is the standout. The **Gracie thong** is an inherently female-specific piece, engineered around real needs: light-flow days, *and* the occasional light stress-incontinence leak that so many active women quietly manage. The VPL-free finish means no pant-line, no ridges, no adjusting — function delivered through cut and construction, not colour. This is the opposite of "pink it and shrink it": it's seamless, sporty design solving a genuine problem women face in the gym.
+This is the standout. The **Gracie thong** is an inherently female-specific piece, engineered around real needs: light-flow days, *and* the occasional light stress-incontinence leak that so many active women quietly manage. The VPL-free finish means no pant-line, no ridges, no adjusting — function delivered through cut and construction, not colour. 
 
 ### Transparency & User Reviews — 4/5 ★★★★☆
 
-My assessment is grounded in documented hands-on WSS testing: worn through squats, a run and a full day, on a real last-day-of-period scenario. That practical evidence is reflected in this score. What I'd still like to see published is independent lab data on absorbency and breathability, plus verified wash-durability figures — those remain not independently verified, noted neutrally rather than as a failing.
+My assessment is grounded in documented hands-on WSS testing: worn through squats, a run and a full day, on a real last-day-of-period scenario. That practical evidence is reflected in this score. What I'd still like to see published is independent lab data on absorbency and breathability, plus verified wash-durability figures.
 
 ## Scores
 
-Inclusive Fit & Proportional Sizing: 3/5
-Functional Performance in Use: 4/5
-Adequate Support Standards: 3/5
-Thermal Regulation & Material Performance: 3/5
+Inclusive Fit & Proportional Sizing: 4/5
+Functional Performance in Use: 4.5/5
+Adequate Support Standards: 4/5
+Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 5/5
 Transparency & User Reviews: 4/5
-**Overall: 3.7 / 5 ★★★★☆**
+**Overall: 4.3 / 5 ★★★★☆**
 
 ## Pros & Cons
 
