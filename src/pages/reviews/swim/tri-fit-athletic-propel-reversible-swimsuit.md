@@ -32,6 +32,7 @@ faq:
     a: "The **PROPEL** features a **plain side and a patterned side**, letting you wear either as the outer layer. This effectively gives you two distinct looks from one suit. Seam comfort when reversed is not independently verified, so a test swim on both sides is a sensible first step."
   - q: "Does the TRI-FIT PROPEL Swimsuit have UV protection?"
     a: "Yes — **UV protection** is listed as a feature, consistent with the Carvico fabric's known properties. A specific **UPF rating** is not published in the available specs, so if you need a confirmed UPF number for outdoor swimming, it's worth checking directly with TRI-FIT Athletic."
+draft: true
 ---
 
 # TRI-FIT Athletic PROPEL Reversible Swimsuit Review — Women's Swim
