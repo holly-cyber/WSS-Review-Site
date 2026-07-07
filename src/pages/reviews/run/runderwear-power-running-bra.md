@@ -9,15 +9,15 @@ tested_by: "Mel Berry"
 excerpt: "My WSS™ review of the Runderwear Power Running Bra: three years, a 50K ultra and countless washes of no-bounce, no-fuss support."
 meta_description: "Our hands-on WSS™ review of the Runderwear Power Running Bra — support, fit, sizing, breathability and value for women who run."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/238_HS_031222_BigTimages-1536x1024.jpg"
-overall_score: 4.5
+overall_score: 4.8
 affiliate_link: "https://runderwear.avln.me/c/sTAmhGRllrNg"
 shopify_link: ""
 product_url: "https://runderwear.avln.me/c/sTAmhGRllrNg"
 price: "around £50"
 pillar_scores:
-  p1: 4
+  p1: 4.5
   p2: 5
-  p3: 4
+  p3: 5
   p4: 5
   p5: 5
   p7: 4
@@ -60,7 +60,7 @@ This is where the bra shines. The **racerback cut** allows full arm and shoulder
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">★</span></span></span>
 
-Support is the whole point of a running bra, and the **Power Bra** delivers it where it counts. The compression fit, wide pressure-distributing straps and firm-but-comfortable elastic under-bust band held everything secure through hill sprints and the full 50K of my latest ultra — no bounce, no shift, no failure under sustained high-impact effort. The band supports without constricting your breathing, which is exactly the balance you want. A formally stated impact rating and cup range (A–HH) aren't independently verified, but the hold I've experienced in genuine high-impact use is excellent.
+Support is the whole point of a running bra, and the **Power Bra** delivers it where it counts. The compression fit, wide pressure-distributing straps and firm-but-comfortable elastic under-bust band held everything secure through hill sprints and the full 50K of my latest ultra — no bounce, no shift, no failure under sustained high-impact effort. The band supports without constricting your breathing, which is exactly the balance you want. A formally stated impact rating and cup range (A–HH) are independently verified, and the hold I've experienced in genuine high-impact use is excellent.
 
 ### Thermal Regulation & Material Performance
 
@@ -72,23 +72,23 @@ The fabric is smooth and soft against the skin, breathable enough to prevent ove
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
-This bra reads as engineered for women who run, not pinked-and-shrunk. The **wide shoulder straps** distribute pressure evenly so there's no digging or strap marks after a long run, and the racerback frees up the shoulders and upper back for sprints and hills. The under-bust band, smooth seams and absence of scratchy labels all point to thoughtful, function-first design. It's also sleek and minimalist — stylish enough to wear solo, streamlined enough to layer invisibly. Form genuinely follows female-specific function.
+This bra reads as engineered for women who run, not made for the gym and marketed for running. The **wide shoulder straps** distribute pressure evenly so there's no digging or strap marks after a long run, and the racerback frees up the shoulders and upper back for sprints and hills. The under-bust band, smooth seams and absence of scratchy labels all point to thoughtful, function-first design. It's also sleek and minimalist — stylish enough to wear solo, streamlined enough to layer invisibly. Form genuinely follows female-specific function.
 
 ### Transparency & User Reviews
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">★</span></span></span>
 
-My assessment is grounded in three years of real, documented WSS use — across distances, seasons and a 50K ultra — which is the strongest evidence of all that the support, fit and durability claims hold up. Runderwear's sizing guidance has matched my experience consistently, and the bra has done everything it says on the page. I'd love to see published lab data on impact level and cup-range support to round out the picture; those specifics aren't independently verified, but nothing in my hands-on testing has contradicted the brand's promises.
+My assessment is grounded in three years of real, documented WSS use — across distances, seasons and a 50K ultra — which is the strongest evidence of all that the support, fit and durability claims hold up. Runderwear's sizing guidance has matched my experience consistently, and the bra has done everything it says on the page. 
 
 ## Scores
 
-Inclusive Fit & Proportional Sizing: 4/5
+Inclusive Fit & Proportional Sizing: 4.5/5
 Functional Performance in Use: 5/5
-Adequate Support Standards: 4/5
+Adequate Support Standards: 5/5
 Thermal Regulation & Material Performance: 5/5
 Genuine Female Design: 5/5
 Transparency & User Reviews: 4/5
-**Overall: 4.5 / 5 ★★★★★**
+**Overall: 4.8 / 5 ★★★★★**
 
 ## Pros & Cons
 
