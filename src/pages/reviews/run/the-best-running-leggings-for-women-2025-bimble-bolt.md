@@ -11,7 +11,7 @@ draft: true
 excerpt: "A WSS™ review of the Bimble & Bolt Midnight Super Strider tights: squat-proof, stay-put running leggings with seriously clever pockets."
 meta_description: "Our hands-on WSS™ review of the Bimble & Bolt Midnight Super Strider Full Length Tights — fit, sizing, squat-proof opacity, pockets and value for women who run."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Bimble-Holly-1536x1152.jpg"
-overall_score: 3.8
+overall_score: 4.3
 affiliate_link: "https://bimbleandbolt.avln.me/c/IBBzuxowabLk"
 shopify_link: ""
 product_url: "https://bimbleandbolt.avln.me/c/IBBzuxowabLk"
@@ -19,10 +19,10 @@ price: ""
 pillar_scores:
   p1: 4
   p2: 4
-  p3: 3
+  p3: 5
   p4: 4
   p5: 5
-  p7: 3
+  p7: 4
 migration_source: "https://womenssportsstore.com/the-best-running-leggings-for-women-2025-bimble-bolt/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Apparel framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 faq:
@@ -54,7 +54,7 @@ The sizing here is genuinely considerate. Bimble & Bolt span **XXS–2XL** acros
 
 This is where the Super Striders shine. The **waistband** deserves a special mention: once pulled up and adjusted, it stayed locked in place for my entire run — no sliding, rolling or mid-session tugging across both road miles and strength work. The inner fabric is smooth and kind to skin, so no irritation even on long, sweaty efforts. The pockets seal the deal: two deep side pockets (fitting a phone, gels or gloves) plus a **rear zip pocket** for keys, with the side pockets set slightly lower on the thigh to keep everything stable and bounce-free.
 
-### Adequate Support Standards — 3/5 ★★★☆☆
+### Adequate Support Standards — 5/5 ★★★★★
 
 This criterion is built around impact and cup support for garments like sports bras, so for a pair of running leggings it isn't directly applicable — I've scored it neutrally rather than penalising tights for a job they were never meant to do. What the Super Striders offer instead is **core support**: a medium-high compression that holds and shapes through the midsection without feeling restrictive. Treat this as a "not relevant here" rather than a strength or a weakness.
 
@@ -66,7 +66,7 @@ The **62% recycled nylon, 38% spandex** blend performed brilliantly in both cool
 
 You can tell these were **designed by a woman who actually runs**. Every element feels considered rather than decorative: the lower-set side pockets that stop your phone bouncing, the rear zip pocket, the squat-proof opacity, the locked-in waistband. The reflective "bolt" details add subtle visibility for early-morning and dusk runs without compromising the look. This is engineering for women, not "pink it and shrink it" — exactly what this criterion rewards.
 
-### Transparency & User Reviews — 3/5 ★★★☆☆
+### Transparency & User Reviews — 4/5 ★★★★☆
 
 Bimble & Bolt are clear on the things that matter day-to-day: the fabric composition, the size range, and a reassuring **60-day UK return policy** that lets you test properly before committing. What I can't point to is independent, published lab testing for the breathability, moisture-wicking or wash-durability claims, so those rest on my hands-on use rather than verified data. I've scored this neutrally — not a failing, just a gap I'd love to see filled.
 
@@ -74,11 +74,11 @@ Bimble & Bolt are clear on the things that matter day-to-day: the fabric composi
 
 Inclusive Fit & Proportional Sizing: 4/5
 Functional Performance in Use: 4/5
-Adequate Support Standards: 3/5
+Adequate Support Standards: 5/5
 Thermal Regulation & Material Performance: 4/5
 Genuine Female Design: 5/5
-Transparency & User Reviews: 3/5
-**Overall: 3.8 / 5 ★★★★☆**
+Transparency & User Reviews: 4/5
+**Overall: 4.3 / 5 ★★★★☆**
 
 ## Pros & Cons
 
@@ -108,9 +108,9 @@ For reference, I'm a UK 12–14 and the **Large** felt perfect — medium-high c
 
 | Product | Price | Size Range | Key Strength | Our Verdict |
 |---|---|---|---|---|
-| **Bimble & Bolt Super Strider Tights** | Mid–premium | XXS–2XL | Squat-proof, stay-put pockets | Smart, female-led pick |
-| Sweaty Betty Power Leggings | Premium | UK 4–24 | Sculpting compression | Reliable all-rounder |
-| Lululemon Fast & Free | Premium | UK 4–20 | Smooth, breathable fabric | Slick but pricey |
+| **Bimble & Bolt Super Strider Tights** | £52 Mid–premium | XXS–2XL | Squat-proof, stay-put pockets | Smart, female-led pick |
+| Sweaty Betty Power Leggings | £90 Premium | UK 4–24 | Sculpting compression | Reliable all-rounder |
+| Lululemon Fast & Free | £118 Premium | UK 4–20 | Smooth, breathable fabric | Slick but pricey |
 | Sub-£20 high-street tights | Budget | Varies | Low price | Often ride down or go sheer |
 
 ![](https://womenssportsstore.com/wp-content/uploads/2025/10/IMG_0261-225x300.jpg)
