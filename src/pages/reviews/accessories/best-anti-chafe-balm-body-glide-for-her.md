@@ -9,7 +9,7 @@ product_type: "wellness"
 tested_by: "Mel Berry"
 excerpt: "Body Glide For Her is the fragrance-free, water-resistant anti-chafe balm I now reach for before every swim, ride and run."
 meta_description: "WSS™ review of Body Glide For Her anti-chafe balm — fragrance-free, sweat- and water-resistant comfort for swimmers, runners and cyclists, hands-on tested."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-07-at-17.15.20.png"
+hero_image: "https://www.bodyglide.co.uk/cdn/shop/products/For-Her-42g.jpg?v=1627999747"
 overall_score: 4.0
 pillar_scores:
   w1: 4
@@ -17,9 +17,9 @@ pillar_scores:
   w3: 4
   w4: 4
   w5: 4
-affiliate_link: ""
+affiliate_link: "https://www.bodyglide.co.uk/products/for-her"
 shopify_link: ""
-product_url: ""
+product_url: "https://www.bodyglide.co.uk/products/for-her"
 price: ""
 migration_source: "https://womenssportsstore.com/best-anti-chafe-balm-body-glide-for-her/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Wellness & Recovery framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
@@ -35,18 +35,27 @@ faq:
   - q: Will it leave marks on my swimsuit or kit?
     a: Not in my experience. It applies smoothly with no sticky residue or greasiness, and I've had no streaks or tell-tale marks on my swimsuits or training gear.
 ---
-
 ## Overview
 
-Chafing is one of those small wellbeing niggles that can quietly ruin a session — a rubbing strap, a new swimsuit seam, saltwater friction around the neck — and it tends to catch women in the places kit sits closest. **Body Glide For Her** is the anti-chafe balm I now reach for before every swim, and one of those products you don't realise you need until you try it. Designed to prevent chafing and irritation, it's a small but mighty recovery essential. Across pool training, open water and the odd ride and run, it's become a quiet fixture in my kit bag.
+Chafing is one of those small wellbeing niggles that can quietly ruin a session — a rubbing strap, a new swimsuit seam, saltwater friction around the neck — and it tends to catch women in the places kit sits closest. **[Body Glide For Her](https://www.bodyglide.co.uk/products/for-her)** is the anti-chafe balm I now reach for before every swim, and one of those products you don't realise you need until you try it. Designed to prevent chafing and irritation, it's a small but mighty recovery essential. Across pool training, open water and the odd ride and run, it's become a quiet fixture in my kit bag.
+
+![Body Glide The Best Anti-Chafe Balm for Swimmers: Body Glide For Her](https://www.bodyglide.co.uk/cdn/shop/products/For-Her-42g.jpg?v=1627999747)
 
 ## WSS™ Assessment
 
 ### Female-Focused Suitability — 4/5 ★★★★☆
-What I love is that this is the **"For Her"** formulation, aimed squarely at the friction points that catch active women out — under sports-bra and swimsuit straps, around the neck, and along the inner upper arms and thighs. It's **fragrance-free**, which genuinely matters for sensitive and intimate areas, and built around skin-kind, plant-based ingredients. This speaks to women's bodies and routines rather than being a generic unisex stick with a pink label.
+What I love is that this is the **["For Her"](https://www.bodyglide.co.uk/products/for-her)** formulation, aimed squarely at the friction points that catch active women out — under sports-bra and swimsuit straps, around the neck, and along the inner upper arms and thighs. It's **fragrance-free**, which genuinely matters for sensitive and intimate areas, and built around skin-kind, plant-based ingredients. This speaks to women's bodies and routines rather than being a generic unisex stick with a pink label.
+
+
+
+![Body Glide The Best Anti-Chafe Balm for Swimmers: Body Glide For Her — image 2](https://www.bodyglide.co.uk/cdn/shop/products/For-Her-22g.jpg?v=1627999747)
 
 ### Efficacy & Performance — 4/5 ★★★★☆
 This is where Body Glide really shines. I use it before every pool swim, gliding it around my neck, under the straps and on the inside of my upper arms — anywhere prone to rubbing — and especially when breaking in a new swimsuit. It's **sweat- and water-resistant**, so it holds up through long sessions: *no streaks, no marks, no soreness*, just smooth, comfortable skin even after hours in the water. On real-world use, it delivers exactly the protection it promises.
+
+
+
+![Body Glide The Best Anti-Chafe Balm for Swimmers: Body Glide For Her — image 3](https://www.bodyglide.com/wp-content/uploads/2019/04/Cruelty-Free-3-450x450.png)
 
 ### Quality, Ingredients & Materials — 4/5 ★★★★☆
 The reassuring part is the **plant-based, fragrance-free** formulation, with **sweet almond oil** that leaves my skin feeling hydrated rather than coated. There's no sticky residue or greasiness, and it sits comfortably against skin through long, wet sessions. The ingredient story is skin-friendly and well suited to sensitive areas — though the specific dermatological claims are *not independently verified — based on product claims only*.
@@ -88,8 +97,6 @@ Transparency, Ethics & Value (10%): 4/5
 ## Ingredients & Use
 
 Body Glide For Her is built around skin-kind, **plant-based ingredients** including **sweet almond oil**, and it's **fragrance-free** — the combination that makes it so well suited to sensitive areas and pre-swim use. It comes in a single, handy **pocket-sized stick** you can throw in a swim bag, race kit or jersey pocket and forget about. It applies like a dream: smooth, even and lightweight, with no sticky residue and nothing to rub in. A little really does go a long way. For pool swims I keep application light around the neck and straps; for **open-water swimming**, where saltwater adds friction, I'm more generous around the neck, underarms and the edges of my wetsuit.
-
-![Infographic showing areas of the body where Body Glide For Her anti-chafe balm can be applied, including Neck, Shoulders, Under Arm, Chest, Groin, Buttocks, Inner Thighs, and Feet.](https://womenssportsstore.com/wp-content/uploads/2025/10/anti-chafe-blam-body-Glide-For-Her-ponits-to-apply-the-balm-718x1024.png)
 
 ## How It Compares
 
