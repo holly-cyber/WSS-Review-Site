@@ -1,5 +1,5 @@
 ---
-import { taxonomy, slugify } from '../data/taxonomy.js';
+import { taxonomy, slugify, withBase } from '../data/taxonomy.js';
 
 export interface Props {
   title: string;
@@ -25,15 +25,20 @@ const umamiId = rawUmamiId || (rawUmamiSrc.match(/data-website-id=["']([^"']+)["
 
 // Latest review per category (for the mega-menu featured card) + which sub /
 // sub-sub categories actually have reviews (only those are shown in nav).
-const reviewMods = import.meta.glob('../pages/reviews/*/*.md', { eager: true });
+// Reviews now live at src/pages/<category>/<slug>.md (flattened for the /reviews
+// base path). Glob every top-level folder and keep only real taxonomy categories
+// so sibling content like news/ is never treated as a review.
+const reviewMods = import.meta.glob('../pages/*/*.md', { eager: true });
+const CAT_SLUGS = new Set(taxonomy.map((t: any) => t.slug));
 const latestByCat: Record<string, any> = {};
 const subWithReviews = new Set<string>();
 const subsubWithReviews = new Set<string>();
 for (const [path, mod] of Object.entries(reviewMods)) {
   const fm = (mod as any).frontmatter || {};
+  const parts = path.split('/');
+  if (!CAT_SLUGS.has(parts[parts.length - 2])) continue;
   // Hide draft reviews in production; show them in dev.
   if (import.meta.env.PROD && fm.draft === true) continue;
-  const parts = path.split('/');
   const cat = fm.category || parts[parts.length - 2];
   const slug = parts[parts.length - 1].replace('.md', '');
   const entry = { title: fm.title, brand: fm.brand, slug, cat, score: fm.overall_score, image: fm.hero_image, date: fm.date };
@@ -58,16 +63,16 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:type" content="website" />
-  {ogImage && <meta property="og:image" content={ogImage} />}
+  {ogImage && <meta property="og:image" content={new URL(withBase(ogImage), Astro.site)} />}
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=4" />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=4" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+  <link rel="icon" type="image/svg+xml" href="/reviews/favicon.svg?v=4" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/reviews/favicon-32.png?v=4" />
+  <link rel="icon" type="image/x-icon" href="/reviews/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" href="/reviews/apple-touch-icon.png?v=4" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles/global.css" />
+  <link rel="stylesheet" href="/reviews/styles/global.css" />
   <!-- Netlify Identity: loaded site-wide so invite / recovery links (which land
        on the public site root) are handled. Public pages stay fully public. -->
   <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -76,7 +81,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
-            document.location.href = "/pipeline/";
+            document.location.href = "/reviews/pipeline/";
           });
         }
       });
@@ -124,7 +129,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
         <span></span><span></span><span></span>
       </button>
       <a href="/reviews/" class="logo" aria-label="Women's Sports Store — home">
-        <img src="/logo.svg" alt="Women's Sports Store" class="logo-img" width="48" height="48" />
+        <img src="/reviews/logo.svg" alt="Women's Sports Store" class="logo-img" width="48" height="48" />
         <span class="logo-wordmark">WomensSportsStore.com</span>
       </a>
 
@@ -154,7 +159,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
                   {latestByCat[cat.slug] ? (
                     <a class="feature-card" href={`/reviews/${latestByCat[cat.slug].cat}/${latestByCat[cat.slug].slug}/`}>
                       <span class="feature-label">Latest {cat.name} review</span>
-                      {latestByCat[cat.slug].image && <img class="feature-img" src={latestByCat[cat.slug].image} alt="" loading="lazy" />}
+                      {latestByCat[cat.slug].image && <img class="feature-img" src={withBase(latestByCat[cat.slug].image)} alt="" loading="lazy" />}
                       <span class="feature-title">{latestByCat[cat.slug].title}</span>
                       <span class="feature-meta">by {latestByCat[cat.slug].brand}{latestByCat[cat.slug].score ? ` · ${latestByCat[cat.slug].score}/5 ★` : ''}</span>
                     </a>
@@ -171,11 +176,11 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
           </div>
         ))}
         <div class="mega-item">
-          <a class:list={["mega-trigger", Astro.url.pathname.startsWith('/news') && "active"]} href="/news/">News</a>
+          <a class:list={["mega-trigger", Astro.url.pathname.startsWith('/news') && "active"]} href="/reviews/news/">News</a>
         </div>
       </nav>
 
-      <form class="site-search" action="/search" method="get" role="search">
+      <form class="site-search" action="/reviews/search" method="get" role="search">
         <input type="search" name="q" placeholder="Search reviews…" aria-label="Search reviews" />
       </form>
       <a href="https://shop.womenssportsstore.com" class="btn btn-pink shop-btn" target="_blank" rel="noopener">Shop →</a>
@@ -186,10 +191,10 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
   <div class="drawer-overlay" id="drawerOverlay" hidden></div>
   <aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
     <div class="drawer-head">
-      <a href="/reviews/" class="logo" aria-label="Women's Sports Store — home"><img src="/logo.svg" alt="Women's Sports Store" class="logo-img" width="44" height="44" /></a>
+      <a href="/reviews/" class="logo" aria-label="Women's Sports Store — home"><img src="/reviews/logo.svg" alt="Women's Sports Store" class="logo-img" width="44" height="44" /></a>
       <button class="drawer-close" aria-label="Close menu">✕</button>
     </div>
-    <form class="drawer-search" action="/search" method="get" role="search">
+    <form class="drawer-search" action="/reviews/search" method="get" role="search">
       <input type="search" name="q" placeholder="Search reviews…" aria-label="Search reviews" />
     </form>
     <nav class="drawer-nav" aria-label="Mobile">
@@ -206,7 +211,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
           </div>
         </div>
       ))}
-      <div class="drawer-cat"><a class="drawer-cat-btn" href="/news/" style="display:flex;text-decoration:none"><span>News</span></a></div>
+      <div class="drawer-cat"><a class="drawer-cat-btn" href="/reviews/news/" style="display:flex;text-decoration:none"><span>News</span></a></div>
     </nav>
     <a href="https://shop.womenssportsstore.com" class="btn btn-pink drawer-shop" target="_blank" rel="noopener">Shop →</a>
   </aside>
@@ -232,20 +237,20 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
         <a href="/reviews/nutrition/">Nutrition</a>
         <a href="/reviews/technology/">Technology</a>
         <a href="/reviews/equipment/">Equipment</a>
-        <a href="/news/">News</a>
+        <a href="/reviews/news/">News</a>
       </div>
       <div class="footer-col">
         <h4>WSS™</h4>
         <a href="https://womenssportsstandard.com" target="_blank" rel="noopener noreferrer">The Women's Sports Standard</a>
         <a href="https://shop.womenssportsstore.com" target="_blank" rel="noopener noreferrer">Shop</a>
-        <a href="/about/">About Us</a>
-        <a href="/about/#team">Our Team</a>
-        <a href="/coaching-plans/">Coaching Plans</a>
+        <a href="/reviews/about/">About Us</a>
+        <a href="/reviews/about/#team">Our Team</a>
+        <a href="/reviews/coaching-plans/">Coaching Plans</a>
       </div>
       <div class="footer-col">
         <h4>Legal &amp; Social</h4>
-        <a href="/privacy-and-cookies/#privacy-policy">Privacy Policy</a>
-        <a href="/privacy-and-cookies/#cookie-policy">Cookie Policy</a>
+        <a href="/reviews/privacy-and-cookies/#privacy-policy">Privacy Policy</a>
+        <a href="/reviews/privacy-and-cookies/#cookie-policy">Cookie Policy</a>
         <div class="footer-social">
           <a href="https://www.facebook.com/womenssportsstore" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6 4.39 10.97 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.96H15.83c-1.49 0-1.95.93-1.95 1.87v2.26h3.32l-.53 3.47h-2.79v8.38C19.61 23.04 24 18.07 24 12.07z"/></svg>
@@ -320,7 +325,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
        below knows whether marketing (affiliate tracking) cookies are allowed. -->
   <div id="cookieConsent" class="cookie-consent" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
     <div class="cookie-consent-inner">
-      <p class="cookie-consent-text">We use cookies to understand how the site is used and to track affiliate referrals that help fund our independent reviews. Accept marketing cookies, or reject them and only essential cookies are used. See our <a href="/privacy-and-cookies/#cookie-policy">Cookie Policy</a>.</p>
+      <p class="cookie-consent-text">We use cookies to understand how the site is used and to track affiliate referrals that help fund our independent reviews. Accept marketing cookies, or reject them and only essential cookies are used. See our <a href="/reviews/privacy-and-cookies/#cookie-policy">Cookie Policy</a>.</p>
       <div class="cookie-consent-actions">
         <button type="button" class="cookie-btn cookie-reject" id="cookieReject">Reject</button>
         <button type="button" class="cookie-btn cookie-accept" id="cookieAccept">Accept all</button>

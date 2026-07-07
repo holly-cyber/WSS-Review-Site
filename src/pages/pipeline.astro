@@ -1403,8 +1403,8 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     reviewBody=replaceLinkTokens(reviewBody,affLink,shopifyLink);
     reviewBody=replaceOtherTokens(reviewBody);
     const reviewerBio=val('reviewerBio'),reviewerAvatar=val('reviewerAvatar');
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\nsubcategory: ${yaml(val('pSubcategory'))}\nsubsubcategory: ${yaml(val('pSubsubcategory'))}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ${yaml(shopifyLink)}\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
-    const path=`src/pages/reviews/${category}/${slug}.md`;
+    const frontmatter=`---\nlayout: "../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\nsubcategory: ${yaml(val('pSubcategory'))}\nsubsubcategory: ${yaml(val('pSubsubcategory'))}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ${yaml(shopifyLink)}\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
+    const path=`src/pages/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
     try{const d=await ghApi('get',{path});sha=d.sha||'';}catch{}

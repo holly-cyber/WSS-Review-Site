@@ -54,7 +54,7 @@
       btn.disabled = true;
       btn.textContent = 'Signing up…';
       try {
-        const res = await fetch('/api/subscribe', {
+        const res = await fetch('/reviews/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: value, source: location.pathname }),

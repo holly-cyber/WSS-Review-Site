@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { team, igIcon } from '../data/team.js';
+import { withBase } from '../data/taxonomy.js';
 
 const stats = [
   { num: '80%', label: 'of women have experienced poor product fit' },
@@ -72,12 +73,12 @@ const pillars = [
           <article class="reviewer-card">
             <div class="reviewer-avatar">
               <span class="reviewer-initials">{m.initials}</span>
-              {m.image && <img class="reviewer-photo" src={m.image} alt={m.name} loading="lazy" onerror="this.style.display='none'" />}
+              {m.image && <img class="reviewer-photo" src={withBase(m.image)} alt={m.name} loading="lazy" onerror="this.style.display='none'" />}
             </div>
             <div class="reviewer-role">{m.role}</div>
-            <h3 class="reviewer-name"><a href={`/reviewers/${m.slug}/`}>{m.name}</a></h3>
+            <h3 class="reviewer-name"><a href={`/reviews/reviewers/${m.slug}/`}>{m.name}</a></h3>
             <p class="reviewer-bio">{m.bio}</p>
-            <a class="reviewer-more" href={`/reviewers/${m.slug}/`}>View {m.name.split(' ')[0]}'s reviews →</a>
+            <a class="reviewer-more" href={`/reviews/reviewers/${m.slug}/`}>View {m.name.split(' ')[0]}'s reviews →</a>
             <div class="reviewer-tags">
               {m.specialisms.map((s) => <span class="tag">{s}</span>)}
             </div>

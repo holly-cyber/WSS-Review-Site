@@ -464,7 +464,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta, isReviewPath } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -484,7 +484,7 @@ function showView(name){
   $('view-'+name).classList.add('active');
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
   // Load the embedded pipeline tool the first time its tab is opened.
-  if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
+  if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/reviews/pipeline?embed=1'; }
 }
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.nav)));
 
@@ -515,7 +515,7 @@ async function loadAll(){
   alert('revAlert','inf','Loading reviews…'); alert('dashAlert','inf','Loading…');
   try{
     const tree = await ghApi('tree', {});
-    const paths = (tree.tree||[]).filter(t=>t.type==='blob' && /^src\/pages\/reviews\/.+\.md$/.test(t.path)).map(t=>t.path);
+    const paths = (tree.tree||[]).filter(t=>t.type==='blob' && isReviewPath(t.path)).map(t=>t.path);
     // Build the list from the tree alone so the UI is usable immediately.
     files = paths.map((path)=>{ const m=reviewMeta(path);
       return { path, sha:'', ...m, content:'', title:m.slug, brand:'', tested_by:'', overall:'', draft:undefined }; })
@@ -746,7 +746,7 @@ async function saveEditor(){
     if(newCat!==current.category){
       // Move: create at the new path, then delete the old one.
       const oldUrl=current.liveUrl, wasPublished=current.draft===false;
-      const newPath=`src/pages/reviews/${newCat}/${current.slug}.md`;
+      const newPath=`src/pages/${newCat}/${current.slug}.md`;
       let newSha; try{ const g=await ghApi('get',{path:newPath}); newSha=g.sha; }catch(_){}
       const put=await ghApi('put',{path:newPath, content:b64(content), message:`Move review to ${newCat}: ${newPath}`, ...(newSha?{sha:newSha}:{})});
       try{ const g=await ghApi('get',{path:current.path}); await ghApi('delete',{path:current.path, message:`Move review (remove old path): ${current.path}`, sha:g.sha}); }catch(_){}
@@ -1354,7 +1354,7 @@ async function pushNews(){
     const fm=`---\nlayout: "../../layouts/NewsLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('nwTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(date)}\nauthor: ${yamlStr($('nwAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr(hero)}\nhero_credit: ${yamlStr(nwHeroCredit)}\ndraft: ${keepDraft?'true':'false'}\n${sourcesYaml}---\n\n${body}\n`;
     await ghApi('put',{path,content:b64(fm),message:`${editing?'Edit':'Add'} news article: ${path}`,...(sha?{sha}:{})});
     alert('nwPushAlert','ok',`${editing?'Saved':'Pushed'} ✓ ${keepDraft?'Draft':'Published'} — builds on the next deploy${keepDraft&&!editing?'. Publish it from the list above.':'.'}`);
-    $('nwView').href=`/news/${slug}/`; $('nwView').style.display='inline-block';
+    $('nwView').href=`/reviews/news/${slug}/`; $('nwView').style.display='inline-block';
     nwLibLoaded=true; loadNwLib();
   }catch(e){ alert('nwPushAlert','er','Push failed: '+e.message); }
   btn.disabled=false; btn.textContent=nwEditPath?'Save changes →':'Push as draft →';

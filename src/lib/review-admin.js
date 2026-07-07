@@ -1,9 +1,19 @@
 // Shared client-side logic for the WSS review admin surfaces (the new console
-// at /console and, in time, the pipeline's Manage modal). Pure string helpers
-// plus thin clients over the existing Netlify function proxies. No top-level
-// DOM access so it can be imported anywhere.
+// at /console). Pure string helpers plus thin clients over the existing Netlify
+// function proxies. No top-level DOM access so it can be imported anywhere.
+
+import { taxonomy } from '../data/taxonomy.js';
 
 export const esc = (t) => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+// Reviews live at src/pages/<category>/<slug>.md (flattened for the /reviews base
+// path). A path is a review only if its folder is a real taxonomy category — this
+// keeps sibling content like src/pages/news/*.md out of the review list.
+const REVIEW_CATEGORY_SLUGS = new Set(taxonomy.map((t) => t.slug));
+export function isReviewPath(p) {
+  const m = /^src\/pages\/([^/]+)\/[^/]+\.md$/.exec(p || '');
+  return !!m && REVIEW_CATEGORY_SLUGS.has(m[1]);
+}
 export const b64 = (str) => btoa(unescape(encodeURIComponent(str)));
 export const b64decode = (b) => {
   const clean = (b || '').replace(/\n/g, '');
@@ -381,7 +391,7 @@ export function insertImages(src, imgs, name) {
   return fm + before + imgMd(imgs[0], 0) + '\n' + asm + tail;
 }
 
-// Parse a review path into useful bits: src/pages/reviews/<cat>/<slug>.md
+// Parse a review path into useful bits: src/pages/<cat>/<slug>.md
 export function reviewMeta(path) {
   const parts = path.split('/');
   const slug = parts.pop().replace(/\.md$/, '');

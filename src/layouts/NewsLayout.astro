@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../data/taxonomy.js';
 import BaseLayout from './BaseLayout.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 import { findReviewer } from '../data/team.js';
@@ -26,19 +27,19 @@ const sourceHost = (u: string) => { try { return new URL(u).hostname.replace(/^w
 <BaseLayout title={fm.title} description={fm.meta_description || fm.excerpt} ogImage={fm.hero_image} noindex={import.meta.env.PROD && fm.draft === true}>
   <article class="news">
     <div class="container news-head">
-      <div class="breadcrumb"><a href="/news/">News</a>{fm.topic ? <> / <span>{fm.topic}</span></> : null}</div>
+      <div class="breadcrumb"><a href="/reviews/news/">News</a>{fm.topic ? <> / <span>{fm.topic}</span></> : null}</div>
       <h1>{fm.title}</h1>
       {fm.excerpt && <p class="news-standfirst">{fm.excerpt}</p>}
       <div class="news-meta">
-        {avatar && <img class="news-avatar" src={avatar} alt={author} loading="lazy" />}
+        {avatar && <img class="news-avatar" src={withBase(avatar)} alt={author} loading="lazy" />}
         <span>
-          {author && (<>By {writer ? <a href={`/reviewers/${writer.slug}/`}><strong>{author}</strong></a> : <strong>{author}</strong>}</>)}
+          {author && (<>By {writer ? <a href={`/reviews/reviewers/${writer.slug}/`}><strong>{author}</strong></a> : <strong>{author}</strong>}</>)}
           {author && dateLabel ? ' · ' : ''}{dateLabel}
         </span>
       </div>
     </div>
 
-    {fm.hero_image && <div class="container"><img class="news-hero" src={fm.hero_image} alt={fm.title} />{fm.hero_credit && <p class="news-hero-credit">{fm.hero_credit}</p>}</div>}
+    {fm.hero_image && <div class="container"><img class="news-hero" src={withBase(fm.hero_image)} alt={fm.title} />{fm.hero_credit && <p class="news-hero-credit">{fm.hero_credit}</p>}</div>}
 
     <div class="container news-body">
       <div class="news-prose"><slot /></div>
@@ -62,8 +63,8 @@ const sourceHost = (u: string) => { try { return new URL(u).hostname.replace(/^w
         <h2>More news</h2>
         <div class="news-more-grid">
           {moreNews.map((n) => (
-            <a class="news-more-card" href={`/news/${n.slug}/`}>
-              {n.hero_image && <img src={n.hero_image} alt={n.title} loading="lazy" />}
+            <a class="news-more-card" href={`/reviews/news/${n.slug}/`}>
+              {n.hero_image && <img src={withBase(n.hero_image)} alt={n.title} loading="lazy" />}
               <div class="news-more-body">
                 {n.topic && <span class="news-more-topic">{n.topic}</span>}
                 <span class="news-more-title">{n.title}</span>

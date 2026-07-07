@@ -12,7 +12,8 @@
     X-Content-Type-Options = "nosniff"
 
 # Admin surfaces change often — never serve a stale HTML shell, so the latest
-# client bundle is always loaded.
+# client bundle is always loaded. Cover both the raw paths (origin-direct access)
+# and the /reviews-prefixed paths (the site is served under the /reviews base).
 [[headers]]
   for = "/console/*"
   [headers.values]
@@ -21,16 +22,33 @@
   for = "/pipeline/*"
   [headers.values]
     Cache-Control = "no-cache"
+[[headers]]
+  for = "/reviews/console/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/reviews/pipeline/*"
+  [headers.values]
+    Cache-Control = "no-cache"
 
 # The pipeline is embedded as an iframe inside the console (same origin), so it
 # must allow same-origin framing. The public site keeps the global DENY above;
-# these more-specific rules override X-Frame-Options for the pipeline route only.
+# these more-specific rules override X-Frame-Options for the pipeline route only
+# (both the raw path and the /reviews-prefixed path it is served under).
 [[headers]]
   for = "/pipeline"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
 [[headers]]
   for = "/pipeline/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+[[headers]]
+  for = "/reviews/pipeline"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+[[headers]]
+  for = "/reviews/pipeline/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
 
@@ -106,6 +124,14 @@
 [[redirects]]
   from = "/api/image-fetch"
   to = "/.netlify/functions/image-fetch"
+  status = 200
+
+# The site is served under the /reviews base, so public pages call the API at
+# /reviews/api/* (e.g. the newsletter signup). Map that to the functions BEFORE
+# the /reviews/* catch-all below, which would otherwise swallow it.
+[[redirects]]
+  from = "/reviews/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
 
 # ---------------------------------------------------------------------------
@@ -324,3 +350,17 @@
   from = "/tri-fit-womens-hyrox-shorts-and-bra-review/"
   to = "/reviews/hyrox/tri-fit-womens-hyrox-shorts-and-bra-review/"
   status = 301
+
+# ---------------------------------------------------------------------------
+# Serve the whole site under the /reviews base. Astro is built with
+# base:'/reviews', so every page, asset and admin route is referenced under
+# /reviews/*, but the built files sit at the dist root. This rewrite maps the
+# incoming /reviews-prefixed request back to the file at the root (strip one
+# /reviews). It also lets the Cloudflare edge proxy forward /reviews/* straight
+# through to this origin without any prefix juggling. Keep this LAST so every
+# specific rule above (API, legacy 301s) is matched first.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/reviews/*"
+  to = "/:splat"
+  status = 200
