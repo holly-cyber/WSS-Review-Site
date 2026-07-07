@@ -33,7 +33,6 @@ faq:
     a: The bars have a 12-month shelf life when stored in a cool, dry place, so they're easy to keep in your training bag or kit drawer without worrying about them spoiling quickly.
 migration_source: "https://womenssportsstore.com/veloforte-high-protein-crunch-bar-for-women/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
-draft: true
 ---
 ## Veloforte Cocoa & Stem Ginger High Protein Crunch Bar Review
 
