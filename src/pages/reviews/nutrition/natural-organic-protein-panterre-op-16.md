@@ -33,7 +33,6 @@ faq:
     a: It works beautifully in milk or a smoothie, as a post-workout recovery shake or a breakfast base. I'd skip stirring it into Greek yoghurt — the texture and colour weren't for me.
 migration_source: "https://womenssportsstore.com/natural-organic-protein-panterre-op-16/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
-draft: true
 ---
 ## Panterre OP-16 Organic Protein Review
 
