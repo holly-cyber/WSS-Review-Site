@@ -6,18 +6,18 @@ category: "nutrition"
 subcategory: "protein"
 date: "2025-10-07"
 product_type: "nutrition"
-tested_by: "Mel Berry"
+tested_by: "Holly Woodford"
 excerpt: "A crunchy, cocoa-and-ginger protein bar that tastes like a treat — 20g plant protein plus collagen, with real recovery staying power."
 meta_description: "WSS™ review of the Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — taste, nutrition, recovery performance and value, scored against the WSS nutrition framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforte-Coca-and-stem-ginger-protein-crunch-bar--1516x1536.png"
-overall_score: 4.3
-affiliate_link: ""
+overall_score: 4.6
+affiliate_link: "https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
 shopify_link: ""
-product_url: ""
+product_url: "https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
 price: "£3.29 per serving (£2.80 on subscription)"
 pillar_scores:
   taste: 5
-  nutrition: 4
+  nutrition: 5
   performance: 4
   value: 4
 faq:
@@ -39,16 +39,16 @@ draft: true
 
 ### A Recovery Bar That Eats Like a Proper Treat
 
-Getting recovery snacks right is a constant juggle for active women: you want real protein, but most bars taste chalky, artificial or far too sweet, and they rarely feel like something you'd actually *choose* to eat. The **Veloforte Cocoa & Stem Ginger High Protein Crunch Bar** is the rare exception. I put it to work after a tough gym session and it delivered exactly what I needed — clean nutrition, genuine recovery support and a flavour that feels indulgent rather than functional. It's earned a permanent spot in my training bag.
+Getting recovery snacks right is a constant juggle for active women: you want real protein, but most bars taste chalky, artificial or far too sweet, and they rarely feel like something you'd actually *choose* to eat. The **[Veloforte Cocoa & Stem Ginger High Protein Crunch Bar](https://veloforte.com/collections/protein-bars/products/cocoa-stem-ginger-high-protein-crunch-bar)** is the rare exception. I put it to work after a tough gym session and it delivered exactly what I needed — clean nutrition, genuine recovery support and a flavour that feels indulgent rather than functional. It's earned a permanent spot in my training bag.
 
 ![Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — 20g protein and 5g collagen](https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforte-Protein-Crunch-Bar-20g-protein-anf-5g-collagen.--1024x1022.png)
 
 ## WSS™ Assessment
 
 ### Taste & Texture — 5/5 ★★★★★
-This is where the bar wins me over. The first thing that hit me was the *flavour-rich* **cocoa** (I love chocolate) with a fiery kick of **stem ginger**: the chocolate is smooth and indulgent, while the ginger adds warmth and a gentle zing. Best of all, it skips the chalky, artificial edge so many protein bars carry. And the **crunchy texture** is a real change from the chewy density you usually get — satisfying to bite into and never heavy or dry.
+This is where the bar wins me over. The first thing that hit me was the *flavour-rich* **[cocoa](https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars)** (I love chocolate) with a fiery kick of **stem ginger**: the chocolate is smooth and indulgent, while the ginger adds warmth and a gentle zing. Best of all, it skips the chalky, artificial edge so many protein bars carry. And the **crunchy texture** is a real change from the chewy density you usually get — satisfying to bite into and never heavy or dry.
 
-### Nutrition Profile — 4/5 ★★★★☆
+### Nutrition Profile — 5/5 ★★★★★
 The formulation is built around real food rather than synthetic fillers. You get a balanced mix of **soy and rice protein crisps (29%)**, almond paste, dates and ginger, delivering **20g of plant-based protein** plus **5g of bovine hydrolysed collagen** (7%, from high-welfare cattle) to support muscle recovery and joint health. It's gluten-free and free from artificial additives, with cocoa and stem ginger adding antioxidant benefits. The trade-off: it contains almonds, soy and bovine collagen, so it's *not* suitable for vegetarians or vegans.
 
 ### Performance — 4/5 ★★★★☆
@@ -60,10 +60,10 @@ On the surface, Veloforte bars look more premium than supermarket alternatives, 
 ## Scores
 
 Taste & Texture (25%): 5/5
-Nutrition Profile (30%): 4/5
+Nutrition Profile (30%): 5/5
 Performance (30%): 4/5
 Value (15%): 4/5
-**Overall: 4.3 / 5 ★★★★☆**
+**Overall: 4.6 / 5 ★★★★★**
 
 ## Pros & Cons
 
