@@ -14,7 +14,7 @@ excerpt: "There's a moment, about forty minutes into a long lake swim, when your
 meta_description: "The **BuddySwim HydraStation Pro Buoy (Pink)** is the open water swim accessory I didn't know I needed until I couldn't train without it. The…"
 hero_image: "https://buddyswim.com/5447-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg"
 overall_score: 4.5
-0601968842949.html"
+affiliate_link: "https://buddyswim.com/en/open-water-buoys/2841-boya-buddyswim-hydrastation-pro-rosa-0601968842949.html"
 product_url: "https://buddyswim.com/en/open-water-buoys/2841-boya-buddyswim-hydrastation-pro-rosa-0601968842949.html"
 shopify_link: "https://shop.womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
 pillar_scores:
