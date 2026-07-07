@@ -58,10 +58,19 @@ ORIGIN = "https://wss-review-site-tool.netlify.app"
 
 # Scope the Worker to the /reviews subtree only. Everything else is served by
 # Shopify without touching the Worker.
+#
+# ⚠ Use EXACTLY this pattern. Do NOT use `*.womenssportsstore.com/*`,
+#   `*womenssportsstore.com/*`, `womenssportsstore.com/*`, or a
+#   shop.womenssportsstore.com route — any of those pull the whole Shopify store
+#   (product pages, /cdn/shop images) through the Worker and cause errors.
 [[routes]]
 pattern = "womenssportsstore.com/reviews*"
 zone_name = "womenssportsstore.com"
 ```
+
+Optionally disable the auto-generated `*.workers.dev` route for this Worker
+(Cloudflare dashboard → the Worker → Settings → Domains & Routes) so it can't be
+hit directly.
 
 ```bash
 npx wrangler deploy
@@ -105,6 +114,22 @@ Run against the **live** domain once the Worker + Netlify deploy are up:
 - [ ] `…/reviews/console` on the store domain returns 404; the console works on
       the Netlify origin.
 - [ ] Newsletter signup on the hub succeeds (posts to `/reviews/api/subscribe`).
+
+## Troubleshooting
+
+**Worker errors on `shop.womenssportsstore.com/...` or `/products/...` /
+`/cdn/shop/...` URLs.** The Worker is receiving traffic it should never see —
+the route is too broad. It must be `womenssportsstore.com/reviews*` only. Remove
+any `*.womenssportsstore.com/*`, `*womenssportsstore.com/*`,
+`womenssportsstore.com/*`, or shop-subdomain route. The Worker code also
+host-guards (`REVIEWS_HOST`) so stray traffic degrades to a harmless
+pass-through rather than erroring — redeploy the latest
+`cloudflare-reviews-proxy.js` to pick that up.
+
+**`/reviews/` loads unstyled.** The `/reviews/_astro/*` assets aren't resolving.
+Check the route is `womenssportsstore.com/reviews*` (with the wildcard, so it
+also covers `/reviews/_astro/...`), and that Netlify has deployed `main` (the
+origin needs the `/reviews/* -> /:splat` rewrite).
 
 ## Notes
 
