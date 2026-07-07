@@ -7,7 +7,6 @@ subcategory: "protein"
 date: "2025-10-31"
 product_type: "nutrition"
 sizes: ""
-draft: true
 excerpt: "Two powerhouses in one scoop: U Perform's whey-and-collagen blend tastes like a treat and fuels recovery for active women."
 meta_description: "Our WSS™ review of U Perform Active Whey & Collagen Chocolate — taste, nutrition, performance and value for active women looking to train and recover."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-30-at-16.18.49-1530x1536.png"
