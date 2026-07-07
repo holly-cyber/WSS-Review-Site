@@ -102,9 +102,9 @@ You're looking for a maximally vented, ultra-short speed short — the 10" lengt
 | Product | Price | Size Range | Key Strength | Our Verdict |
 |---|---|---|---|---|
 | **Bimble Black Super Strider Shorts 10"** | £46.00 | XXS–2XL | 10" women-first design, recycled fabric | Best for coverage-seekers |
-| Sweaty Betty Run 5" Shorts | £55.00 | XS–XL | Premium construction, pockets confirmed | Great finish, shorter length |
-| Lululemon Speed Up Short 6" | £68.00 | 0–20 | Liner included, broad size range | Strong spec, premium price |
-| Runderwear Anti-Chafe Shorts | £35.00 | XS–2XL | Anti-chafe focus, close-fit | Functional, less versatile |
+| Sweaty Betty Run 6" Shorts | £60.00 | XS–XL | Premium construction, pockets confirmed | Great finish, shorter length |
+| Lululemon High Rise Short 6" | £58.00 | 0–20 | Liner included, broad size range | Strong spec, premium price |
+| Runderwear Anti-Chafe Shorts | £23.00 | XS–2XL | Anti-chafe focus, close-fit | Functional, less versatile |
 
 ## The Verdict
 
