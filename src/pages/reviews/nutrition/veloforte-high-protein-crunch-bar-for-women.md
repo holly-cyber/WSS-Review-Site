@@ -10,7 +10,7 @@ tested_by: "Holly Woodford"
 excerpt: "A crunchy, cocoa-and-ginger protein bar that tastes like a treat — 20g plant protein plus collagen, with real recovery staying power."
 meta_description: "WSS™ review of the Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — taste, nutrition, recovery performance and value, scored against the WSS nutrition framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforte-Coca-and-stem-ginger-protein-crunch-bar--1516x1536.png"
-overall_score: 4.6
+overall_score: 4.9
 affiliate_link: "https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
 shopify_link: ""
 product_url: "https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
@@ -18,7 +18,7 @@ price: "£3.29 per serving (£2.80 on subscription)"
 pillar_scores:
   taste: 5
   nutrition: 5
-  performance: 4
+  performance: 5
   value: 4
 faq:
   - q: How much protein is in the Veloforte crunch bar?
@@ -51,7 +51,7 @@ This is where the bar wins me over. The first thing that hit me was the *flavour
 ### Nutrition Profile — 5/5 ★★★★★
 The formulation is built around real food rather than synthetic fillers. You get a balanced mix of **soy and rice protein crisps (29%)**, almond paste, dates and ginger, delivering **20g of plant-based protein** plus **5g of bovine hydrolysed collagen** (7%, from high-welfare cattle) to support muscle recovery and joint health. It's gluten-free and free from artificial additives, with cocoa and stem ginger adding antioxidant benefits. The trade-off: it contains almonds, soy and bovine collagen, so it's *not* suitable for vegetarians or vegans.
 
-### Performance — 4/5 ★★★★☆
+### Performance — 5/5 ★★★★★
 The real test is whether it supports recovery, and it did exactly that. After my session I felt refuelled and satisfied — without the sugar crash that comes from overly sweet recovery snacks. It also kept me fuller for longer: normally I'd be reaching for another snack within the hour, but the protein and fibre kept hunger at bay and gave me steady energy through the afternoon. A big win when you're training hard but still need to get on with your day.
 
 ### Value — 4/5 ★★★★☆
@@ -61,9 +61,9 @@ On the surface, Veloforte bars look more premium than supermarket alternatives, 
 
 Taste & Texture (25%): 5/5
 Nutrition Profile (30%): 5/5
-Performance (30%): 4/5
+Performance (30%): 5/5
 Value (15%): 4/5
-**Overall: 4.6 / 5 ★★★★★**
+**Overall: 4.9 / 5 ★★★★★**
 
 ## Pros & Cons
 
