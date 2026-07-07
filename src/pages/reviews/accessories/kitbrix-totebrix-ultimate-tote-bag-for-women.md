@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 excerpt: "A waterproof, structured all-rounder that swallows gym kit, swim gear, a laptop and a weekend's worth of clothes — and still looks put-together."
 meta_description: "Our WSS™ review of the KitBrix ToteBrix Extra Large Tote Bag — a waterproof, structured, comfortable carry-all for gym, swim, work and travel."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/ToteBrix-Tote-Bag-all-colours-by-sea-California-for-women-.jpg"
-overall_score: 4.0
+overall_score: 4.2
 affiliate_link: "https://kitbrix.com/collections/totes/products/totepack"
 shopify_link: ""
 product_url: "https://kitbrix.com/collections/totes/products/totepack"
@@ -18,7 +18,7 @@ price: ""
 migration_source: "https://womenssportsstore.com/kitbrix-totebrix-ultimate-tote-bag-for-women/"
 pillar_scores:
   e1: 4
-  e2: 4
+  e2: 5
   e3: 4
   e4: 4
   e5: 4
@@ -48,7 +48,7 @@ I'll admit it: I'm a bit of a tote bag snob. I've owned everything from flimsy h
 
 The **ToteBrix** is clearly designed with women in mind, and it shows in the details that matter to how it carries. The padded, adjustable shoulder strap sits comfortably across a female shoulder and distributes weight evenly, so even loaded with gym gear, a laptop and a spare hoodie it never bites in. It's *functional, feminine and fuss-free*, a rare combination.
 
-### Functional Performance in Use — 4/5 ★★★★☆
+### Functional Performance in Use — 5/5 ★★★★★
 
 This is where the **ToteBrix** earns its stripes. I tested it over two days dashing around London — tube, coffee shops, client meetings, gym — and it didn't miss a beat. It's genuinely **waterproof**, so kit stays dry on a damp changing-room floor or in a downpour, and the **BaseBrix™** moulded base is practically indestructible on gravel or in a puddle. The 600D polyester is strong without being heavy, so a full bag never feels like lugging a brick.
 
@@ -67,11 +67,11 @@ My score here rests on my hands-on use: I lived with this bag across gym session
 ## Scores
 
 Female-Specific Design & Sizing (25%): 4/5
-Functional Performance in Use (25%): 4/5
+Functional Performance in Use (25%): 5/5
 Fit, Adjustability & Size Range (20%): 4/5
 Safety & Performance Standards (20%): 4/5
 Transparency & User Reviews (10%): 4/5
-**Overall: 4.0 / 5 ★★★★☆**
+**Overall: 4.2 / 5 ★★★★☆**
 
 ## Pros & Cons
 
