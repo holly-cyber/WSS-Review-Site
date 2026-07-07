@@ -12,9 +12,9 @@ excerpt: "Veloforte Overnight Oats: a creamy, 15g-plant-protein breakfast I reac
 meta_description: "WSS™ review of Veloforte Overnight Oats — taste, nutrition, performance and value for active women wanting a wholesome, protein-packed breakfast."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/veloforte-protein-overnight-oats-apple-cinnamon-complete-overnight-oats-1180616190-1536x1536.webp"
 overall_score: 4.6
-affiliate_link: ""
+affiliate_link: "https://veloforte.com/collections/overnight-oats/products/overnight-oats-apple-cinnamon"
 shopify_link: ""
-product_url: ""
+product_url: "https://veloforte.com/collections/overnight-oats/products/overnight-oats-apple-cinnamon"
 price: "£13.99 for a 602g pouch with seven servings (roughly £2.00 per portion)"
 pillar_scores:
   taste: 5
@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### A Creamy, Protein-Packed Breakfast for Busy Active Mornings
 
-Mornings before a long run can be chaos: kit everywhere, nerves kicking in, and zero time to think about breakfast. That's exactly the gap **Veloforte Overnight Oats** fill for me. I've been reaching for them as a quick, protein-packed start that actually *tastes* amazing — no faffing, no cooking, just grab and go. With 15g of plant protein and plenty of fibre per serving, plus three genuinely lovely flavours, my overall thesis is simple: this is one of the easiest wholesome breakfasts an active woman can keep in the fridge.
+Mornings before a long run can be chaos: kit everywhere, nerves kicking in, and zero time to think about breakfast. That's exactly the gap **[Veloforte Overnight Oats](https://veloforte.com/collections/overnight-oats/products/overnight-oats-apple-cinnamon)** fill for me. I've been reaching for them as a quick, protein-packed start that actually *tastes* amazing — no faffing, no cooking, just grab and go. With 15g of plant protein and plenty of fibre per serving, plus three genuinely lovely flavours, my overall thesis is simple: this is one of the easiest wholesome breakfasts an active woman can keep in the fridge.
 
 ## WSS™ Assessment
 
@@ -83,7 +83,7 @@ Value (15%): 4/5
 
 ## Who It's For / Who It's Not For
 
-These are made for active women who want a wholesome, protein-led breakfast without the morning faff — runners fuelling before a long one, anyone after gut- and heart-friendly ingredients, and vegan or gluten-free eaters who don't want to compromise on taste. They're less suited to riders looking for a portable mid-session fuel, or to anyone chasing the lowest possible price per breakfast.
+These are made for active women who want a wholesome, protein-led breakfast without the morning faff — runners fuelling before a long one, anyone after gut- and heart-friendly ingredients, and vegan or gluten-free eaters who don't want to compromise on taste. They're less suited to women looking for a portable mid-session fuel, or to anyone chasing the lowest possible price per breakfast.
 
 ## Taste & Usage
 
