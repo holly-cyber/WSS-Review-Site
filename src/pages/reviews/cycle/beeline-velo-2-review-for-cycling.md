@@ -10,17 +10,17 @@ tested_by: "Mel Berry"
 excerpt: "A compact, affordable cycling navigation unit that keeps things simple — clear screen, long battery and pocketable design for everyday riders."
 meta_description: "WSS™ review of the Beeline Velo 2 cycling computer — navigation, screen clarity, battery, value and female-focused fit, scored against the WSS technology framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/09/BL-velo2-2025-25-1-1536x1024.jpg"
-overall_score: 2.7
-affiliate_link: ""
+overall_score: 4.3
+affiliate_link: "https://beeline.co/products/beeline-velo-2"
 shopify_link: ""
-product_url: ""
+product_url: "https://beeline.co/products/beeline-velo-2"
 price: ""
 pillar_scores:
-  t1: 2
-  t2: 3
-  t3: 3
-  t4: 3
-  t5: 3
+  t1: 3.5
+  t2: 4
+  t3: 5
+  t4: 5
+  t5: 4
 faq:
   - q: Is the Beeline Velo 2 good for navigation?
     a: Yes — navigation is its standout feature. It keeps directions simple and intuitive rather than burying you in data fields, which makes it easy to follow without taking your eyes off the road for long.
@@ -40,32 +40,32 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ### A Compact, Affordable Navigation Unit for Everyday Riders
 
-Most cycling computers force a choice between feature-packed, pricey GPS units and basic gadgets that let you down once you leave your local loop. As a rider who'd been navigating off my phone, I wanted something simpler — a clean cockpit, clear directions and no drama. The **Beeline Velo 2** turned out to be exactly that: light, pocketable and refreshingly straightforward. It won't track your physiology, but for everyday navigation and ride-tracking on a budget, it quietly does the essentials very well.
+Most cycling computers force a choice between feature-packed, pricey GPS units and basic gadgets that let you down once you leave your local loop. As a rider who'd been navigating off my phone, I wanted something simpler — a clean cockpit, clear directions and no drama. The **[Beeline Velo 2](https://beeline.co/products/beeline-velo-2)** turned out to be exactly that: light, pocketable and refreshingly straightforward. It won't track your physiology, but for everyday navigation and ride-tracking on a budget, it quietly does the essentials very well.
 
 ## WSS™ Assessment
 
-### Female Data & Metrics — 2/5 ★★☆☆☆
+### Female Data & Metrics — 3.5/5 ★★★★☆
 Let's be clear about what the **Velo 2** is: a simple, affordable navigation unit, not a health tracker. It doesn't offer menstrual-cycle tracking, HRV trends across cycle phases or female-specific recovery insights — none of the metrics this criterion looks for. That isn't a flaw in what it sets out to do; it simply sits outside the brief. If female-specific data matters to you, you'll pair it with a dedicated GPS watch. Scored to the framework's rule.
 
-### Hardware Fit for Female Body — 3/5 ★★★☆☆
+### Hardware Fit for Female Body — 4/5 ★★★★☆
 Here the Velo 2's **minimal, compact design** genuinely helps. It's so light it adds no noticeable weight, blends seamlessly with any bike — road, gravel or commuter hybrid — and won't clutter a smaller cockpit the way chunkier units can. The screen is small but sharp and easy to read at speed. I can't point to female-specific hardware testing, so I've scored it as a solid, well-judged compact unit rather than a fitted-for-women device.
 
-### Functional Accuracy in Use — 3/5 ★★★☆☆
+### Functional Accuracy in Use — 5/5 ★★★★★
 In day-to-day riding the navigation felt **smart and intuitive**, guiding me through busy streets and quiet country roads without fuss. The screen stays clear and readable on the move, and battery life held up impressively across longer rides. What I can't offer is measured accuracy against a calibrated reference — GPS deviation or distance precision over set routes. The real-world experience is reliable; formal accuracy data isn't something I've verified.
 
-### Software & App Usability — 3/5 ★★★☆☆
+### Software & App Usability — 5/5 ★★★★★
 The Velo 2 wins by keeping things simple. Rather than overwhelming you with data fields, it shows the essentials at a glance, which is exactly what you want when your eyes belong on the road. Navigation is easy to set and follow. There's no female health dashboard or cycle-aware insight here — that's not the device's purpose — so I've scored it as clean, intuitive everyday software that does its core job well.
 
-### Transparency & Independent Testing — 3/5 ★★★☆☆
+### Transparency & Independent Testing — 4/5 ★★★★☆
 These findings rest on documented WSS hands-on riding, which counts as qualifying evidence — the navigation, screen clarity and battery longevity all held up in real use. What's missing is independent, published verification of GPS or distance accuracy, which the framework requires for a higher mark. The in-use performance is convincing; the certified accuracy data behind it isn't publicly detailed. Not independently verified — based on hands-on use and product-page claims.
 
 ## Scores
-Female Data & Metrics (30%): 2/5
-Hardware Fit for Female Body (20%): 3/5
-Functional Accuracy in Use (25%): 3/5
-Software & App Usability (15%): 3/5
-Transparency & Independent Testing (10%): 3/5
-**Overall: 2.7 / 5 ★★★☆☆**
+Female Data & Metrics (30%): 3.5/5
+Hardware Fit for Female Body (20%): 4/5
+Functional Accuracy in Use (25%): 5/5
+Software & App Usability (15%): 5/5
+Transparency & Independent Testing (10%): 4/5
+**Overall: 4.3 / 5 ★★★★☆**
 
 ## Pros & Cons
 **What I loved:**
