@@ -33,7 +33,6 @@ faq:
     a: Yes. I mixed mine with semi-skimmed milk and it turned creamy and smooth with no lumps, even without a shaker ball. It also held up beautifully poured over ice in a thermos mug.
 migration_source: "https://womenssportsstore.com/veloforte-nova-protein-recovery-shake-review/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
-draft: true
 ---
 ## Veloforte Nova Protein Recovery Shake Review
 
