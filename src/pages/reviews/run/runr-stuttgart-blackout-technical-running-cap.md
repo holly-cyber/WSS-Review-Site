@@ -33,7 +33,6 @@ faq:
     a: "Easily. It's lightweight enough to tuck into a vest pocket or clip onto a pack without feeling weighed down, and mine has held its shape after being stuffed into kit bags repeatedly."
   - q: "Is the Runr Rio cap good value?"
     a: "For its price point, yes — it feels well made, doesn't look cheap, and has held up through sweaty summers and autumn showers. Compared with branded caps costing double, it's strong value."
-draft: true
 migration_source: "https://womenssportsstore.com/runr-stuttgart-blackout-technical-running-cap/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Apparel framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
