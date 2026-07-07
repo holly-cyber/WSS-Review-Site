@@ -12,9 +12,9 @@ excerpt: "Scentered’s 100% natural-wax candles turn an active woman’s wind-d
 meta_description: "WSS™ review of Scentered candles — natural-wax, essential-oil aromatherapy candles scored on female-focused fit, efficacy, ingredients, sensory experience and transparency against the WSS Wellness & Recovery framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-15.13.46.webp"
 overall_score: 3.9
-affiliate_link: ""
+affiliate_link: "https://www.scentered.com/products/sleep-well-aromatherapy-candle?_pos=2&_sid=c988b94c2&_ss=r"
 shopify_link: ""
-product_url: ""
+product_url: "https://www.scentered.com/products/sleep-well-aromatherapy-candle?_pos=2&_sid=c988b94c2&_ss=r"
 price: ""
 pillar_scores:
   w1: 4
@@ -39,7 +39,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 ## Overview
 
-After a hard training day, switching off is half the battle — and for a lot of active women the evenings are when the nervous system stays stubbornly on. **Scentered candles** set out to make that wind-down a ritual rather than an afterthought, pairing **100% natural wax** with **premium essential oils** blended for relaxation, focus and sleep. I was sceptical that a candle could move the needle on recovery, but after weaving the _De-Stress_ and _Sleep Well_ blends into my evenings, my verdict is warm: this is a small, sensory cue that genuinely helps me come down.
+After a hard training day, switching off is half the battle — and for a lot of active women the evenings are when the nervous system stays stubbornly on. **[Scentered candles](https://www.scentered.com/products/sleep-well-aromatherapy-candle?_pos=2&_sid=c988b94c2&_ss=r)** set out to make that wind-down a ritual rather than an afterthought, pairing **100% natural wax** with **premium essential oils** blended for relaxation, focus and sleep. I was sceptical that a candle could move the needle on recovery, but after weaving the _De-Stress_ and _Sleep Well_ blends into my evenings, my verdict is warm: this is a small, sensory cue that genuinely helps me come down.
 
 ## WSS™ Assessment
 
