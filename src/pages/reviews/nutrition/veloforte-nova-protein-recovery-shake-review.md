@@ -6,7 +6,7 @@ category: "nutrition"
 subcategory: "protein"
 date: "2025-10-03"
 product_type: "nutrition"
-tested_by: "Mel Berry"
+tested_by: "Holly Woodford"
 excerpt: "A genuinely indulgent plant-based recovery shake that tastes like a treat, refuels properly and curbs the post-session snacking."
 meta_description: "WSS™ review of the Veloforte Nova Protein Recovery Shake — taste, nutrition profile, performance and value scored against the WSS nutrition framework for active women."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-01-at-18.31.06-1536x1461.png"
@@ -84,7 +84,7 @@ Value (15%): 4/5
 
 **It's for you if:** you struggle to stick to recovery fuelling and want a shake that feels like a reward, you train hard (swimming, running, gym) and want clean plant-based nutrition, or you find post-workout snacking derails your progress.
 
-**It's maybe not for you if:** you're chasing the highest possible protein hit per serving, or you want the cheapest functional shake on the shelf regardless of taste and ingredient quality.
+**It's maybe not for you if:** you are not a fan of pea protein, you're chasing the highest possible protein hit per serving, or you want the cheapest functional shake on the shelf regardless of taste and ingredient quality.
 
 ## Taste & Usage
 
