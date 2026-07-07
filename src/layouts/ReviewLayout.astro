@@ -3,7 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import { findReviewer } from '../data/team.js';
-import { slugify } from '../data/taxonomy.js';
+import { slugify, withBase } from '../data/taxonomy.js';
 
 const { frontmatter: fm } = Astro.props;
 const category = fm.category || 'run';
@@ -28,7 +28,7 @@ const subsubSlug = fm.subsubcategory ? slugify(fm.subsubcategory) : '';
 
 // Link the byline / reviewer box to the reviewer's own page when we can match.
 const reviewer = findReviewer(fm.tested_by);
-const bylineAvatar = fm.reviewer_avatar || reviewer?.image;
+const bylineAvatar = withBase(fm.reviewer_avatar || reviewer?.image);
 
 // Buy CTA buttons. Shopify = primary (nofollow); affiliate = secondary (nofollow sponsored).
 const shopLink = fm.shopify_link || '';
@@ -129,7 +129,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
   <script type="application/ld+json" set:html={schemaProduct} />
   {schemaFaq && <script type="application/ld+json" set:html={schemaFaq} />}
 
-  <div class="review-hero" style={fm.hero_image ? `background-image:url(${fm.hero_image})` : ''}>
+  <div class="review-hero" style={fm.hero_image ? `background-image:url(${withBase(fm.hero_image)})` : ''}>
     <div class="container">
       <div class="breadcrumb">
         <a href="/reviews/">Reviews</a> / <a href={`/reviews/${category}/`}>{category.replace('-',' ')}</a> / <span>{fm.brand}</span>
@@ -151,10 +151,10 @@ const schemaFaq = faqItems.length ? JSON.stringify({
       {fm.tested_by && (
         <div class="hero-byline">
           {bylineAvatar && (reviewer
-            ? <a href={`/reviewers/${reviewer.slug}/`}><img class="hero-byline-img" src={bylineAvatar} alt={reviewer.name} loading="lazy" /></a>
+            ? <a href={`/reviews/reviewers/${reviewer.slug}/`}><img class="hero-byline-img" src={bylineAvatar} alt={reviewer.name} loading="lazy" /></a>
             : <img class="hero-byline-img" src={bylineAvatar} alt={fm.tested_by} loading="lazy" />)}
           <span class="hero-byline-text">Reviewed by {reviewer
-            ? <a class="hero-byline-link" href={`/reviewers/${reviewer.slug}/`}><strong>{fm.tested_by}</strong></a>
+            ? <a class="hero-byline-link" href={`/reviews/reviewers/${reviewer.slug}/`}><strong>{fm.tested_by}</strong></a>
             : <strong>{fm.tested_by}</strong>}</span>
         </div>
       )}
@@ -188,7 +188,7 @@ const schemaFaq = faqItems.length ? JSON.stringify({
         {fm.price && <div class="fact"><span>Price</span><span>£{fm.price}</span></div>}
         {fm.sizes && <div class="fact"><span>Sizes</span><span>{fm.sizes}</span></div>}
         {fm.tested_by && <div class="fact"><span>Tested by</span><span>{reviewer
-          ? <a class="fact-link" href={`/reviewers/${reviewer.slug}/`}>{reviewer.name}</a>
+          ? <a class="fact-link" href={`/reviews/reviewers/${reviewer.slug}/`}>{reviewer.name}</a>
           : fm.tested_by}</span></div>}
         {fm.date && <div class="fact"><span>Reviewed</span><span>{new Date(fm.date).toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span></div>}
       </div>
@@ -203,15 +203,15 @@ const schemaFaq = faqItems.length ? JSON.stringify({
       {(fm.tested_by || fm.reviewer_bio || reviewer) && (
         <div class="rv-reviewer">
           {bylineAvatar && (reviewer
-            ? <a href={`/reviewers/${reviewer.slug}/`}><img class="rv-reviewer-img" src={bylineAvatar} alt={reviewer.name} loading="lazy" /></a>
+            ? <a href={`/reviews/reviewers/${reviewer.slug}/`}><img class="rv-reviewer-img" src={bylineAvatar} alt={reviewer.name} loading="lazy" /></a>
             : <img class="rv-reviewer-img" src={bylineAvatar} alt={fm.tested_by || 'Reviewer'} loading="lazy" />)}
           <div class="rv-reviewer-body">
             <div class="rv-reviewer-label">About the reviewer</div>
             {fm.tested_by && <div class="rv-reviewer-name">{reviewer
-              ? <a href={`/reviewers/${reviewer.slug}/`}>{fm.tested_by}</a>
+              ? <a href={`/reviews/reviewers/${reviewer.slug}/`}>{fm.tested_by}</a>
               : fm.tested_by}</div>}
             {(fm.reviewer_bio || reviewer?.bio) && <p class="rv-reviewer-bio">{fm.reviewer_bio || reviewer.bio}</p>}
-            {reviewer && <a class="rv-reviewer-link" href={`/reviewers/${reviewer.slug}/`}>View all reviews by {reviewer.name.split(' ')[0]} →</a>}
+            {reviewer && <a class="rv-reviewer-link" href={`/reviews/reviewers/${reviewer.slug}/`}>View all reviews by {reviewer.name.split(' ')[0]} →</a>}
           </div>
         </div>
       )}

@@ -84,3 +84,13 @@ export const taxonomy = [
 
 // Categories that already have a hand-built index.astro (don't double-generate them).
 export const STATIC_CATEGORY_INDEXES = ['run', 'swim', 'cycle', 'tri', 'sports-bras', 'nutrition'];
+
+// Prefix a root-absolute asset path (e.g. "/images/team/holly.jpg") with the
+// configured base ("/reviews") so self-hosted images resolve when the site is
+// served under the /reviews subpath. External URLs and protocol-relative URLs
+// are returned unchanged. Safe to wrap any image/asset value.
+export const withBase = (u) => {
+  if (typeof u !== 'string' || !u.startsWith('/') || u.startsWith('//')) return u;
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+  return u.startsWith(base + '/') ? u : base + u;
+};

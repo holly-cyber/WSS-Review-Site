@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReviewCard from '../../components/ReviewCard.astro';
 import { team, findReviewer, igIcon } from '../../data/team.js';
-import { taxonomy, slugify } from '../../data/taxonomy.js';
+import { taxonomy, slugify, withBase } from '../../data/taxonomy.js';
 
 export async function getStaticPaths() {
   const reviewMods = import.meta.glob('../reviews/*/*.md', { eager: true });
@@ -58,10 +58,10 @@ const pageTitle = `${member.name} — Reviewer`;
     <div class="container rv-hero-inner">
       <div class="rv-avatar">
         <span class="rv-initials">{member.initials}</span>
-        {member.image && <img class="rv-photo" src={member.image} alt={member.name} loading="lazy" onerror="this.style.display='none'" />}
+        {member.image && <img class="rv-photo" src={withBase(member.image)} alt={member.name} loading="lazy" onerror="this.style.display='none'" />}
       </div>
       <div class="rv-hero-text">
-        <div class="rv-crumb"><a href="/about/">About</a> / <a href="/about/#team">Our team</a></div>
+        <div class="rv-crumb"><a href="/reviews/about/">About</a> / <a href="/reviews/about/#team">Our team</a></div>
         <div class="rv-role">{member.role}</div>
         <h1>{member.name}</h1>
         <p class="rv-bio">{member.bio}</p>

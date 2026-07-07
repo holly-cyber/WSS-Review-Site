@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/taxonomy.js';
 
 const mods = import.meta.glob('./*.md', { eager: true });
 const articles = Object.entries(mods)
@@ -21,8 +22,8 @@ const rest = articles.slice(1);
     {articles.length === 0 && <p class="news-empty">No news articles yet. New stories will appear here.</p>}
 
     {featured && (
-      <a class="news-feature" href={`/news/${featured.slug}/`}>
-        {featured.hero_image && <img src={featured.hero_image} alt={featured.title} />}
+      <a class="news-feature" href={`/reviews/news/${featured.slug}/`}>
+        {featured.hero_image && <img src={withBase(featured.hero_image)} alt={featured.title} />}
         <div class="news-feature-body">
           {featured.topic && <span class="news-topic">{featured.topic}</span>}
           <h2>{featured.title}</h2>
@@ -35,8 +36,8 @@ const rest = articles.slice(1);
     {rest.length > 0 && (
       <div class="news-grid">
         {rest.map((a: any) => (
-          <a class="news-card" href={`/news/${a.slug}/`}>
-            {a.hero_image && <img src={a.hero_image} alt={a.title} loading="lazy" />}
+          <a class="news-card" href={`/reviews/news/${a.slug}/`}>
+            {a.hero_image && <img src={withBase(a.hero_image)} alt={a.title} loading="lazy" />}
             <div class="news-card-body">
               {a.topic && <span class="news-topic">{a.topic}</span>}
               <h3>{a.title}</h3>

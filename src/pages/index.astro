@@ -1,42 +1,235 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+import { taxonomy, withBase } from '../data/taxonomy.js';
+// Reviews live at src/pages/<category>/<slug>.md; keep only real taxonomy
+// categories so sibling content (e.g. news/) is not pulled into the hub feed.
+const CAT_SLUGS = new Set(taxonomy.map((t: any) => t.slug));
+const mods = import.meta.glob('./*/*.md', { eager: true });
+const sorted = Object.entries(mods)
+  .map(([path, mod]: [string, any]) => {
+    const parts = path.split('/');
+    return { ...mod.frontmatter, slug: parts[parts.length - 1].replace('.md',''), _cat: parts[parts.length - 2] };
+  })
+  .filter((r: any) => CAT_SLUGS.has(r._cat))
+  .filter((r: any) => import.meta.env.PROD ? r.draft !== true : true)
+  .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+function starHtml(score: number) {
+  const pct = Math.max(0, Math.min(100, (Number(score) / 5) * 100));
+  return `<span class="stars-wrap"><span class="stars-bg">★★★★★</span><span class="stars-fg" style="width:${pct}%">★★★★★</span></span>`;
+}
+const featured = sorted[0];
+const miniLatest = sorted.slice(1, 4);
+const cats = [
+  {slug:'run',label:'Run',emoji:'🏃‍♀️',desc:'Running shoes, kit, and accessories tested on real training runs.'},
+  {slug:'swim',label:'Swim',emoji:'🏊‍♀️',desc:'Open water and pool kit reviewed by swimmers who actually use it.'},
+  {slug:'cycle',label:'Cycle',emoji:'🚴‍♀️',desc:'Cycling apparel and gear tested in real-world conditions.'},
+  {slug:'tri',label:'Tri',emoji:'🏅',desc:'Triathlon kit from race-day trisuits to transition essentials.'},
+  {slug:'sports-bras',label:'Sports Bras',emoji:'💪',desc:'Support, fit, and comfort across A–HH cup range.'},
+  {slug:'nutrition',label:'Nutrition',emoji:'⚡',desc:'Fuelling products reviewed against female-specific physiology.'},
+];
 ---
-<BaseLayout title="Women's Sports Store — Independent Reviews">
-  <section class="home-hero">
+<BaseLayout title="Independent Women's Sports Product Reviews" description="Expert product reviews tested against the Women's Sports Standard™. Every review is independent, honest, and scored.">
+  <section class="hub-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-top">
+          <div class="wss-badge">WSS™ Independent Reviews</div>
+          <img src="/reviews/logo.svg" alt="Women's Sports Store" class="hero-logo" width="120" height="120" />
+        </div>
+        <h1>Real testing. Female physiology. No fluff.</h1>
+        <p>Every product we review is scored against the Women's Sports Standard™ — the certification framework we built to assess whether women's kit actually works for women. Seven pillars, independently scored. The brand can't buy a better result.</p>
+        <div class="hero-ctas">
+          <a href="#latest" class="btn btn-pink">See the latest reviews<span class="cta-arrow"> →</span></a>
+          <a href="https://shop.womenssportsstore.com" class="btn btn-ghost" target="_blank" rel="noopener">Visit the shop</a>
+        </div>
+      </div>
+
+      {featured && (
+        <div class="hero-feature">
+          <a class="feature-main" href={`/reviews/${featured._cat}/${featured.slug}/`}>
+            <div class="feature-img" style={featured.hero_image ? `background-image:url(${withBase(featured.hero_image)})` : ''}>
+              <span class="feature-flag">★ Latest review</span>
+              <span class={`pill pill-${featured._cat} feature-pill`}>{featured._cat.replace('-', ' ')}</span>
+            </div>
+            <div class="feature-body">
+              <h2>{featured.title}</h2>
+              <p class="feature-brand">by {featured.brand}</p>
+              <div class="feature-score">
+                <span class="stars" set:html={starHtml(featured.overall_score)} />
+                <span class="feature-num">{featured.overall_score}/5</span>
+              </div>
+              <p class="feature-excerpt">{featured.excerpt}</p>
+              <span class="feature-cta">Read the full review →</span>
+            </div>
+          </a>
+
+          {miniLatest.length > 0 && (
+            <div class="mini-latest">
+              {miniLatest.map((r: any) => (
+                <a class="mini-card" href={`/reviews/${r._cat}/${r.slug}/`}>
+                  <div class="mini-thumb" style={r.hero_image ? `background-image:url(${withBase(r.hero_image)})` : ''}></div>
+                  <div class="mini-body">
+                    <span class="mini-cat">{r._cat.replace('-', ' ')}</span>
+                    <span class="mini-title">{r.title}</span>
+                    <span class="mini-score"><span class="stars" set:html={starHtml(r.overall_score)} /> {r.overall_score}/5</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </section>
+
+  {sorted.length > 0 && (
+    <section class="latest-section" id="latest">
+      <div class="container">
+        <h2 class="section-title">Latest reviews</h2>
+        <div class="reviews-grid">
+          {sorted.slice(0,6).map((r: any) => (
+            <ReviewCard title={r.title} brand={r.brand} slug={r.slug} category={r._cat} score={r.overall_score} excerpt={r.excerpt} image={r.hero_image} date={r.date} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="categories-section" id="categories">
     <div class="container">
-      <div class="wss-badge">WSS™ Independent Reviews</div>
-      <h1>Sports products,<br/><span class="pink">honestly tested</span><br/>for women.</h1>
-      <p>Independent product reviews scored against the Women's Sports Standard™. No brand bias. No vague praise. Just evidence-based assessments that actually help you buy better.</p>
-      <div class="hero-ctas">
-        <a href="/reviews/" class="btn btn-pink">Browse all reviews →</a>
-        <a href="https://shop.womenssportsstore.com" class="btn btn-outline" target="_blank">Visit the shop</a>
+      <div class="carousel-head">
+        <h2 class="section-title">Browse by category</h2>
+        <div class="carousel-nav">
+          <button class="carousel-btn" type="button" data-dir="-1" aria-label="Scroll categories left">‹</button>
+          <button class="carousel-btn" type="button" data-dir="1" aria-label="Scroll categories right">›</button>
+        </div>
+      </div>
+      <div class="categories-track" id="catTrack">
+        {cats.map(cat => (
+          <a href={`/reviews/${cat.slug}/`} class="cat-card">
+            <h3>{cat.label}</h3>
+            <p>{cat.desc}</p>
+            <span class="cat-arrow">Browse reviews →</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
-  <section class="home-categories container">
-    <h2>What are you shopping for?</h2>
-    <div class="cat-grid">
-      <a href="/reviews/run/" class="cat-btn"><span>🏃‍♀️</span>Run</a>
-      <a href="/reviews/swim/" class="cat-btn"><span>🏊‍♀️</span>Swim</a>
-      <a href="/reviews/cycle/" class="cat-btn"><span>🚴‍♀️</span>Cycle</a>
-      <a href="/reviews/tri/" class="cat-btn"><span>🏅</span>Tri</a>
-      <a href="/reviews/sports-bras/" class="cat-btn"><span>💪</span>Sports Bras</a>
-      <a href="/reviews/nutrition/" class="cat-btn"><span>⚡</span>Nutrition</a>
+
+  <section class="wss-explainer">
+    <div class="container explainer-inner">
+      <div class="explainer-text">
+        <div class="wss-badge">The Women's Sports Standard™</div>
+        <h2>What makes a WSS™ review different</h2>
+        <p>Every product is held to the seven pillars of the Women's Sports Standard™. If it fails one, we say so — clearly, with evidence.</p>
+        <div class="pillars-list">
+          {[['1','Inclusive Fit & Proportional Sizing','Tested across UK 6–24+'],['2','Functional Performance in Use','Real activity, real conditions'],['3','Adequate Support Standards','Across A–HH cup range'],['4','Thermal Regulation & Material Performance','Lab-tested breathability, 30-wash durability'],['5','Genuine Female Design','Engineering, not just colour'],['6','Diversity & Inclusion in Testing','Diverse panels, ages 18–65+'],['7','Transparency & Verification','Independent data only']].map(([n,t,s]) => (
+            <div class="pillar-item">
+              <div class="pillar-n">{n}</div>
+              <div><div class="pillar-title">{t}</div><div class="pillar-sub">{s}</div></div>
+            </div>
+          ))}
+        </div>
+        <a href="https://womenssportsstandard.com" target="_blank" class="btn btn-navy">About the standard →</a>
+      </div>
+      <div class="explainer-stats">
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-pct">80%</div><p>of women surveyed experienced poor product fit</p></div>
+          <div class="stat-card"><div class="stat-pct">86%</div><p>more likely to buy a WSS™-certified product</p></div>
+          <div class="stat-card"><div class="stat-pct">98%</div><p>want clearer independent standards</p></div>
+        </div>
+        <p class="stat-source">Source: WSS consumer survey, March 2026</p>
+      </div>
     </div>
   </section>
+
+  <EmailSignup />
 </BaseLayout>
+
+<script>
+  const track = document.getElementById('catTrack');
+  if (track) {
+    document.querySelectorAll('.carousel-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const dir = Number(btn.getAttribute('data-dir')) || 1;
+        track.scrollBy({ left: dir * Math.min(track.clientWidth * 0.85, 560), behavior: 'smooth' });
+      });
+    });
+  }
+</script>
 <style>
-.home-hero { background: var(--navy); color: white; padding: 5rem 0 4rem; }
-.home-hero .wss-badge { margin-bottom: 1.5rem; }
-.home-hero h1 { font-size: clamp(2.25rem, 5vw, 4rem); color: white; margin-bottom: 1.25rem; line-height: 1.1; }
-.pink { color: var(--pink); }
-.home-hero p { font-size: 1.15rem; opacity: .75; max-width: 560px; margin-bottom: 2rem; }
-.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-.btn-outline { border-color: rgba(255,255,255,.4); color: white; }
-.btn-outline:hover { background: rgba(255,255,255,.1); }
-.home-categories { padding: 3.5rem 0; }
-.home-categories h2 { font-size: 1.5rem; margin-bottom: 1.5rem; }
-.cat-grid { display: flex; flex-wrap: wrap; gap: .75rem; }
-.cat-btn { display: flex; align-items: center; gap: .5rem; padding: .75rem 1.25rem; background: var(--off-white); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: .9rem; font-weight: 600; color: var(--navy); transition: all .15s; }
-.cat-btn:hover { border-color: var(--pink); color: var(--pink); background: var(--light-pink); }
+.hub-hero{background:var(--navy);color:white;padding:5rem 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center}
+.hero-top{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:1.25rem;margin-bottom:1.75rem}
+.hero-logo{display:none;width:150px;height:150px;flex-shrink:0}
+.hero-top .wss-badge{margin-bottom:0}
+.hero-copy h1{font-size:clamp(2rem,3.6vw,3rem);color:white;margin-bottom:1.5rem;line-height:1.18}
+.hero-copy>p{font-size:1.1rem;opacity:.8;max-width:540px;margin-bottom:2.25rem;line-height:1.75}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+
+/* Featured latest review */
+.hero-feature{display:flex;flex-direction:column;gap:1rem}
+.feature-main{display:block;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);transition:transform .2s,box-shadow .2s}
+.feature-main:hover{transform:translateY(-3px);box-shadow:0 26px 60px rgba(0,0,0,.45)}
+.feature-img{position:relative;aspect-ratio:16/9;background-size:cover;background-position:center;background-color:#11113a}
+.feature-flag{position:absolute;top:.85rem;left:.85rem;background:var(--pink);color:#fff;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.3rem .7rem;border-radius:999px}
+.feature-pill{position:absolute;bottom:.85rem;left:.85rem}
+.feature-body{padding:1.25rem 1.4rem 1.5rem}
+.feature-body h2{font-size:1.3rem;color:var(--navy);margin:0 0 .2rem;line-height:1.25}
+.feature-brand{font-size:.85rem;color:var(--text-muted);margin:0 0 .6rem}
+.feature-score{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem}
+.feature-score .stars{font-size:1.05rem}
+.feature-num{font-weight:700;color:var(--navy);font-size:.9rem}
+.feature-excerpt{font-size:.92rem;color:var(--text-secondary);line-height:1.55;margin:0 0 .9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.feature-cta{font-size:.85rem;font-weight:700;color:var(--pink)}
+.mini-latest{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem}
+.mini-card{display:flex;flex-direction:column;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;transition:background .15s,border-color .15s}
+.mini-card:hover{background:rgba(255,255,255,.12);border-color:var(--pink)}
+.mini-thumb{aspect-ratio:4/3;background-size:cover;background-position:center;background-color:#11113a}
+.mini-body{padding:.5rem .6rem .65rem;display:flex;flex-direction:column;gap:.2rem}
+.mini-cat{font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--pink);font-weight:700}
+.mini-title{font-size:.78rem;font-weight:600;color:#fff;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mini-score{font-size:.68rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem}
+.mini-score .stars{font-size:.7rem}
+.section-title{font-size:1.5rem;margin-bottom:1.5rem}
+.categories-section{padding:3.5rem 0;background:var(--off-white)}
+.carousel-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem}
+.carousel-head .section-title{margin-bottom:0}
+.carousel-nav{display:flex;gap:.5rem;flex-shrink:0}
+.carousel-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--navy);font-size:1.4rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.carousel-btn:hover{background:var(--pink);color:#fff;border-color:var(--pink)}
+.categories-track{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.75rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.categories-track::-webkit-scrollbar{height:6px}
+.categories-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.cat-card{flex:0 0 230px;scroll-snap-align:start;background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.1rem;transition:all .2s}
+.cat-card:hover{border-color:var(--pink);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.cat-card h3{font-size:1rem;margin-bottom:.3rem}
+.cat-card p{font-size:.8rem;color:var(--text-secondary);margin-bottom:.65rem;line-height:1.45}
+.cat-arrow{font-size:.75rem;font-weight:600;color:var(--pink)}
+.latest-section{padding:3.5rem 0}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:1.5rem}
+.wss-explainer{padding:4rem 0;background:var(--off-white)}
+.explainer-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.explainer-text .wss-badge{margin-bottom:1rem}
+.explainer-text h2{font-size:1.75rem;margin-bottom:1rem}
+.explainer-text>p{color:var(--text-secondary);margin-bottom:1.5rem}
+.pillars-list{margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.625rem}
+.pillar-item{display:flex;align-items:flex-start;gap:.875rem}
+.pillar-n{width:28px;height:28px;background:var(--pink);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.pillar-title{font-size:.875rem;font-weight:600;color:var(--navy)}
+.pillar-sub{font-size:.75rem;color:var(--text-muted)}
+.explainer-stats{display:flex;flex-direction:column;gap:1.25rem}
+.stat-cards{display:flex;flex-direction:column;gap:1.25rem}
+.stat-card{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;box-shadow:var(--shadow-sm)}
+.stat-pct{font-size:2.5rem;font-weight:700;color:var(--pink);line-height:1;margin-bottom:.375rem}
+.stat-card p{font-size:.875rem;color:var(--text-secondary)}
+.stat-source{font-size:.7rem;color:var(--text-muted);margin-top:.25rem}
+@media(max-width:900px){.explainer-inner{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr;gap:2rem}}
+@media(max-width:600px){.hub-hero{padding:2.75rem 0}.categories-section,.latest-section{padding:2.5rem 0}.wss-explainer{padding:2.75rem 0}.hero-ctas .btn{flex:1;justify-content:center}.cta-arrow{display:none}.hero-top{flex-direction:row;align-items:center;justify-content:space-between;gap:1rem}.hero-logo{display:block;width:72px;height:72px}}
+@media(max-width:480px){.mini-latest{grid-template-columns:1fr 1fr}.mini-latest .mini-card:last-child{display:none}}
 </style>

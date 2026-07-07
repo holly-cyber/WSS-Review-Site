@@ -688,7 +688,7 @@ function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^`
 // with the MailerLite unsubscribe merge tag.
 function wrapEmailHtml(body,opts){
   opts=opts||{};
-  const site='https://wss-review-site-tool.netlify.app';
+  const site='https://womenssportsstore.com';
   const logo=site+'/email-logo.png';
   const alt=(opts.product||'Featured product').replace(/"/g,'&quot;');
   const link=opts.link||(site+'/reviews/');
@@ -1403,8 +1403,8 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     reviewBody=replaceLinkTokens(reviewBody,affLink,shopifyLink);
     reviewBody=replaceOtherTokens(reviewBody);
     const reviewerBio=val('reviewerBio'),reviewerAvatar=val('reviewerAvatar');
-    const frontmatter=`---\nlayout: "../../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\nsubcategory: ${yaml(val('pSubcategory'))}\nsubsubcategory: ${yaml(val('pSubsubcategory'))}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ${yaml(shopifyLink)}\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
-    const path=`src/pages/reviews/${category}/${slug}.md`;
+    const frontmatter=`---\nlayout: "../../layouts/ReviewLayout.astro"\ntitle: ${yaml(name)}\nbrand: ${yaml(brand)}\ncategory: ${yaml(category)}\nsubcategory: ${yaml(val('pSubcategory'))}\nsubsubcategory: ${yaml(val('pSubsubcategory'))}\ndate: ${yaml(today)}\nprice: ${yaml(price)}\nproduct_type: ${yaml(pType)}\nsizes: ${yaml(sizes)}\ntested_by: ${yaml(val('reviewerName'))}\nreviewer_bio: ${yaml(reviewerBio)}\nreviewer_avatar: ${yaml(reviewerAvatar)}\nexcerpt: ${yaml(excerpt)}\nmeta_description: ${yaml(meta)}\nhero_image: ${yaml(heroImg)}\noverall_score: ${overall}\naffiliate_link: ${yaml(affLink)}\nproduct_url: ${yaml(productPage)}\nshopify_link: ${yaml(shopifyLink)}\npillar_scores:\n${Object.entries(pillarScores).map(([k,v])=>`  ${k}: ${v}`).join('\n')}\n${faqYaml}---\n\n${reviewBody}`;
+    const path=`src/pages/${category}/${slug}.md`;
     const content=b64(frontmatter);
     let sha='';
     try{const d=await ghApi('get',{path});sha=d.sha||'';}catch{}
@@ -1414,7 +1414,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     document.getElementById('pushResult').style.display='block';
     document.getElementById('pushBadge').textContent=`✓ Pushed — ${path}`;
     document.getElementById('pushBadge').className='gh-status ok';
-    document.getElementById('pushLinks').innerHTML=`<a class="deploy-link" href="${commitUrl}" target="_blank">View commit on GitHub →</a><a class="deploy-link pink" href="https://app.netlify.com/sites/wss-review-site-tool/deploys" target="_blank">Watch Netlify deploy →</a><a class="deploy-link" style="background:#4CAF50" href="https://wss-review-site-tool.netlify.app/reviews/${category}/${slug}/" target="_blank">Live URL (after deploy) →</a>`;
+    document.getElementById('pushLinks').innerHTML=`<a class="deploy-link" href="${commitUrl}" target="_blank">View commit on GitHub →</a><a class="deploy-link pink" href="https://app.netlify.com/sites/wss-review-site-tool/deploys" target="_blank">Watch Netlify deploy →</a><a class="deploy-link" style="background:#4CAF50" href="https://womenssportsstore.com/reviews/${category}/${slug}/" target="_blank">Live URL (after deploy) →</a>`;
     markDone('push');
   }catch(e){
     setAlert('pushAlert','er','GitHub push failed: '+e.message);
@@ -1527,7 +1527,7 @@ document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
     return Array.from({length:n},(_,i)=>selUrls[Math.round(i*(selUrls.length-1)/(n-1))]);
   })();
   const slug=slugify((val('pBrand')||'')+'-'+product)||'review';
-  const reviewUrl=`https://wss-review-site-tool.netlify.app/reviews/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`;
+  const reviewUrl=`https://womenssportsstore.com/reviews/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`;
   const labels=['Review Drop','Buy Nudge','Social Proof'];
   const btn=document.getElementById('emailsPushMlBtn');const orig=btn.textContent;btn.disabled=true;
   let ok=0;const errs=[];
@@ -1599,7 +1599,7 @@ function gatherApprovedContent(){
     'Category':cat,'Subcategory':val('pSubcategory'),'Sub-subcategory':val('pSubsubcategory'),
     'Overall Score':overall,'Pillar Scores':state.providedScores?JSON.stringify(state.providedScores):'',
     'Meta Description':state.metaDescription||'','Excerpt':extractExcerpt(review),
-    'Review URL':`https://wss-review-site-tool.netlify.app/reviews/${cat}/${slug}/`,
+    'Review URL':`https://womenssportsstore.com/reviews/${cat}/${slug}/`,
     'Affiliate Link':val('pUrl')||'','Product URL':val('pUrl'),
     'Hero Image':selImgs[0]||'','Images':selImgs.join(', '),
     'Review (Markdown)':review,

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../data/taxonomy.js';
 export interface Props {
   title: string;
   brand: string;
@@ -19,7 +20,7 @@ function starHtml(score: number) {
 <article class="review-card">
   {image && (
     <a href={`/reviews/${category}/${slug}/`} class="card-img-wrap" data-open-review={slug} data-open-category={category} data-open-brand={brand} data-open-from="card-image">
-      <img src={image} alt={title} loading="lazy" />
+      <img src={withBase(image)} alt={title} loading="lazy" />
     </a>
   )}
   <div class="card-body">
