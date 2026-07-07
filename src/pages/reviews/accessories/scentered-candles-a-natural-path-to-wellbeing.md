@@ -11,7 +11,7 @@ draft: true
 excerpt: "Scentered’s 100% natural-wax candles turn an active woman’s wind-down into a ritual, with a clean burn and aromatherapy blends that genuinely calm."
 meta_description: "WSS™ review of Scentered candles — natural-wax, essential-oil aromatherapy candles scored on female-focused fit, efficacy, ingredients, sensory experience and transparency against the WSS Wellness & Recovery framework."
 hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-15.13.46.webp"
-overall_score: 3.9
+overall_score: 4.0
 affiliate_link: "https://www.scentered.com/products/sleep-well-aromatherapy-candle?_pos=2&_sid=c988b94c2&_ss=r"
 shopify_link: ""
 product_url: "https://www.scentered.com/products/sleep-well-aromatherapy-candle?_pos=2&_sid=c988b94c2&_ss=r"
@@ -21,7 +21,7 @@ pillar_scores:
   w2: 4
   w3: 4
   w4: 4
-  w5: 3
+  w5: 4
 faq:
   - q: Do Scentered candles actually help you sleep?
     a: In my use, the _Sleep Well_ candle worked as a gentle bedtime cue — I light it 30 minutes before bed, blow it out at lights-off, and paired with a short meditation I settle faster and wake up fresher.
@@ -59,7 +59,7 @@ The build feels considered rather than cheap. The **100% natural wax** — plant
 
 As a sensory ritual it’s lovely. The scent is calming and gentle, the burn is steady, and the format makes it easy to fold into a real routine — light it, breathe, blow it out at lights-off. The **travel tins** are genuinely portable for a desk, a hotel room or gifting, while the **full-sized candles** fill a living space. The only practical watch-out is that the smaller tins burn through faster if you light yours nightly.
 
-### Transparency, Ethics & Value — 3/5 ★★★☆☆
+### Transparency, Ethics & Value — 4/5 ★★★★☆
 
 Scentered is fairly open about what goes into the blends — the _Sleep Well_ candle names its calming oils, and the natural-wax and sustainability claims are clearly published. What’s missing is independent verification of those clean-burn and sustainability claims, so I’ve scored this constructively: strong on stated transparency, with room to grow on third-party proof. At £16.95–£39.00 it’s pricier than a supermarket candle, but fair for natural ingredients and a ritual that works.
 
@@ -69,8 +69,8 @@ Female-Focused Suitability (25%): 4/5
 Efficacy & Performance (30%): 4/5
 Quality, Ingredients & Materials (20%): 4/5
 Experience & Usability (15%): 4/5
-Transparency, Ethics & Value (10%): 3/5
-**Overall: 3.9 / 5 ★★★★☆**
+Transparency, Ethics & Value (10%): 4/5
+**Overall: 4.0 / 5 ★★★★☆**
 
 ## Pros & Cons
 
