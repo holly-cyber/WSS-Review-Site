@@ -712,6 +712,18 @@ $('edIntroLink').addEventListener('click',()=>{
   alert('edAlert','inf','Linked the product in the intro — click Save changes to commit.');
 });
 
+// Append a Netlify 301 redirect (public/_redirects) so a moved published review's
+// old URL keeps working. Creates the file if needed; skips exact duplicates.
+async function addRedirect(from,to){
+  if(!from||!to||from===to) return;
+  const path='public/_redirects';
+  let content='', sha;
+  try{ const g=await ghApi('get',{path}); sha=g.sha; content=b64decode(g.content); }catch(_){ content=''; }
+  const line=`${from} ${to} 301`;
+  if(content.split('\n').some(l=>l.trim()===line)) return;   // already present
+  const updated=(content.replace(/\s*$/,'')+'\n'+line+'\n').replace(/^\n+/,'');
+  await ghApi('put',{path,content:b64(updated),message:`Add redirect ${from} -> ${to}`,...(sha?{sha}:{})});
+}
 async function saveEditor(){
   if(!current) return;
   const btn=$('edSave'); btn.disabled=true; btn.textContent='Saving…'; alert('edAlert','inf','Saving…');
@@ -721,6 +733,7 @@ async function saveEditor(){
     $('edBody').value=content;
     if(newCat!==current.category){
       // Move: create at the new path, then delete the old one.
+      const oldUrl=current.liveUrl, wasPublished=current.draft===false;
       const newPath=`src/pages/reviews/${newCat}/${current.slug}.md`;
       let newSha; try{ const g=await ghApi('get',{path:newPath}); newSha=g.sha; }catch(_){}
       const put=await ghApi('put',{path:newPath, content:b64(content), message:`Move review to ${newCat}: ${newPath}`, ...(newSha?{sha:newSha}:{})});
@@ -729,7 +742,10 @@ async function saveEditor(){
       current.path=newPath; current.sha=(put.content&&put.content.sha)||''; current.category=newCat; current.liveUrl=`/reviews/${newCat}/${current.slug}/`;
       const fe=files.find(x=>x.path===oldPath); if(fe){ fe.path=newPath; fe.category=newCat; fe.liveUrl=current.liveUrl; }
       $('edPath').textContent=newPath; $('edView').href=current.liveUrl;
-      alert('edAlert','ok',`Moved to “${esc(newCat)}” & saved ✓ New URL: ${esc(current.liveUrl)}. (Old URL will 404 once deployed — add a redirect if it was published.)`);
+      // For a published review, drop a 301 from the old URL so it doesn't 404.
+      let redir='';
+      if(wasPublished){ try{ await addRedirect(oldUrl, current.liveUrl); redir=' A 301 redirect from the old URL was added.'; }catch(e){ redir=' (Couldn’t add the redirect: '+e.message+')'; } }
+      alert('edAlert','ok',`Moved to “${esc(newCat)}” & saved ✓ New URL: ${esc(current.liveUrl)}.${esc(redir)}`);
     } else {
       const d=await ghApi('put',{path:current.path, content:b64(content), message:`Edit review: ${current.path}`, sha:current.sha});
       current.sha=d.content.sha;
