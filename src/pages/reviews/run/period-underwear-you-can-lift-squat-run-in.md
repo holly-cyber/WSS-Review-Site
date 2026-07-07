@@ -33,7 +33,6 @@ faq:
     a: "Yes — the seamless, VPL-free finish means no pant-line, no ridges and no adjusting. It sits invisibly under gym leggings and close-fitting kit, which is exactly what makes it so wearable for training."
   - q: "Is the Nixi Body Gracie thong worth the money?"
     a: "For me, yes. You're paying for several functions in one: seamless gym-friendly pants, last-day reassurance and reusable, eco-friendlier absorbency. The materials and stitching feel high-quality, so it's a piece you reach for repeatedly."
-draft: true
 migration_source: "https://womenssportsstore.com/period-underwear-you-can-lift-squat-run-in/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Apparel framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
