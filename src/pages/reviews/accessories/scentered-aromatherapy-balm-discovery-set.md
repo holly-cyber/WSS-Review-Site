@@ -12,9 +12,9 @@ excerpt: "Scentered’s Discovery tin packs six natural mini balms — a pocket-
 meta_description: "WSS™ review of the Scentered Aromatherapy Balm Discovery Set — six natural mini balms scored on female-focused suitability, real-use efficacy, ingredients, experience and transparency."
 hero_image: "https://www.scentered.com/cdn/shop/files/Scentered_Dicovery_balm_sona_plate_and_a_tin_on_the_desk.jpg?v=1764639840"
 overall_score: 4.2
-affiliate_link: "https://www.scentered.com/products/aromatherapy-discovery-balm-set"
+affiliate_link: "https://scentered.avln.me/c/yDNYbyXqduTt"
 shopify_link: ""
-product_url: "https://www.scentered.com/products/aromatherapy-discovery-balm-set"
+product_url: "https://scentered.avln.me/c/yDNYbyXqduTt"
 price: ""
 pillar_scores:
   w1: 4
@@ -38,7 +38,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 ---
 ## Overview
 
-Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **[Scentered Aromatherapy Balm Discovery tin](https://www.scentered.com/products/aromatherapy-discovery-balm-set)**[ sets out to fill, packing ](https://www.scentered.com/products/aromatherapy-discovery-balm-set)**six 100% natural mini balms** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made “mood toolkit” for active women rather than a pretty novelty.
+Recovery isn’t only foam rollers and rest days — it’s also the quiet business of switching off, sharpening up and actually sleeping. That’s the gap the **[Scentered Aromatherapy Balm Discovery tin](https://www.scentered.com/products/aromatherapy-discovery-balm-set)**[ sets out to fill, packing ](https://www.scentered.com/products/aromatherapy-discovery-balm-set)**[six 100% natural mini balms](https://scentered.avln.me/c/yDNYbyXqduTt)** — _Happy, Focus, De-stress, Escape, Love_ and _Sleep Well_ — into one elegant, travel-ready kit. After living with it on my desk, in my bag and beside my bed, my verdict is that it’s a genuinely useful, beautifully made “mood toolkit” for active women rather than a pretty novelty.
 
 ![Scentered Best Aromatherapy Balm for women: Is Scentered Aromatherapy Balm Discovery Set best in show?](https://www.scentered.com/cdn/shop/files/Scentered_Dicovery_balm_sona_plate_and_a_tin_on_the_desk.jpg?v=1764639840)
 
