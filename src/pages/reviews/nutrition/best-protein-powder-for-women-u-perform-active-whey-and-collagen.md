@@ -17,7 +17,6 @@ pillar_scores:
   nutrition: 5
   performance: 5
   value: 4
-affiliate_link: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
 shopify_link: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
 product_url: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
 price:
