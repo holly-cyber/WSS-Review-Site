@@ -32,7 +32,6 @@ faq:
     a: "For me, yes. It holds its shape and support year after year, so it can replace two or three cheaper bras over its lifespan. If you train several times a week, that longevity makes it a genuine investment rather than a splurge."
   - q: "Can you wear the Runderwear Power Running Bra on its own?"
     a: "Absolutely. The sleek, minimalist design layers invisibly under vests and tees with no bunching, but it's also streamlined and supportive enough to wear solo on warmer days without feeling exposed."
-draft: true
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Apparel framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
 
