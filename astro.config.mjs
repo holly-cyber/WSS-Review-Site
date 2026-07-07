@@ -1,5 +1,8 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://wss-reviews.netlify.app',
+  site: 'https://womenssportsstore.com',
+  base: '/reviews',
+  integrations: [sitemap()],
 });
