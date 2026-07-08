@@ -464,7 +464,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta, isReviewPath } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta, isReviewPath, apiUrl } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -1093,7 +1093,7 @@ async function refreshFeeds(){
   const btn=$('nwRefresh'); btn.disabled=true; btn.textContent='Fetching…';
   alert('newsAlert','inf','Fetching '+sources.length+' feed(s)…');
   try{
-    const r=await fetch('/api/rss-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sources})});
+    const r=await fetch(apiUrl('/api/rss-proxy'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sources})});
     const data=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(data.message||('HTTP '+r.status));
     nwResults=data.results||[]; nwAllItems=[]; nwSel=[];
@@ -1234,7 +1234,7 @@ async function nwAttachFullText(items){
   const urls=(items||[]).map(it=>it.link).filter(Boolean);
   if(!urls.length) return;
   try{
-    const r=await fetch('/api/article-text',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({urls})});
+    const r=await fetch(apiUrl('/api/article-text'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({urls})});
     const d=await r.json().catch(()=>({}));
     const map={}; (d.results||[]).forEach(x=>{ if(x&&x.ok&&x.text) map[x.url]=x.text; });
     items.forEach(it=>{ if(map[it.link]) it.fulltext=map[it.link]; });
@@ -1303,7 +1303,7 @@ async function nwSearchStock(){
   if(!q){ alert('nwPushAlert','inf','Type what to search for (e.g. women running).'); return; }
   const btn=$('nwStockSearch'); btn.disabled=true; btn.textContent='Searching…';
   try{
-    const r=await fetch('/api/stock-photo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
+    const r=await fetch(apiUrl('/api/stock-photo'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
     const d=await r.json().catch(()=>({}));
     nwHeroImgs=(d.images||[]);
     if(nwHeroImgs.length){ renderNwHeroGrid(); nwHeroNote(`Rights-free results via <strong>${esc(d.provider||'stock')}</strong> — free for commercial use. Click one to set it as the hero.`); }
@@ -1321,7 +1321,7 @@ function yamlStr(s){ return '"'+String(s||'').replace(/\\/g,'\\\\').replace(/"/g
 // Download an external hero image (server-side) and commit it into the repo,
 // returning the local /images/news/<slug>.<ext> path.
 async function nwHostHeroImage(url,slug){
-  const r=await fetch('/api/image-fetch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+  const r=await fetch(apiUrl('/api/image-fetch'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
   const d=await r.json().catch(()=>({}));
   if(!d||!d.ok||!d.base64) throw new Error((d&&d.error)||'fetch failed');
   const ext=String(d.ext||'jpg').replace(/[^a-z0-9]/gi,'')||'jpg';

@@ -393,6 +393,18 @@ body.embed .auth-signout{display:none !important}
 if(new URLSearchParams(location.search).get('embed')==='1'||window.self!==window.top){
   document.body.classList.add('embed');
 }
+// Admin tooling is pinned to the canonical Netlify origin: the custom domain
+// (reviews.womenssportsstore.com) fronts the same deploy, but Netlify's edge
+// only reliably serves the serverless functions from the *.netlify.app origin,
+// so route API traffic there from whatever host this tool loads on. The
+// functions send permissive CORS, so the cross-origin call just works.
+// (Same-origin on *.netlify.app deploys and on localhost dev.)
+const ADMIN_API_ORIGIN='https://wss-review-site-tool.netlify.app';
+function apiUrl(path){
+  const h=location.hostname||'';
+  const sameOrigin=!h||h==='localhost'||h==='127.0.0.1'||h.endsWith('.netlify.app');
+  return (sameOrigin?'':ADMIN_API_ORIGIN)+path;
+}
 const WSS_APPAREL=`WSS APPAREL REVIEW FRAMEWORK v2.1 — score 6 pillars (Pillar 6 Diversity & Inclusion in Testing is EXCLUDED for now):
 PILLAR 1 INCLUSIVE FIT & PROPORTIONAL SIZING: UK 16 must NOT be labelled XL. Size range should span UK 6-24+. Women's proportions, not scaled-down unisex.
 PILLAR 2 FUNCTIONAL PERFORMANCE IN USE: Seam placement, waistband stability, torso coverage, chafe after 45+ min. Performance in the intended activity.
@@ -785,7 +797,7 @@ async function aiStream(msgs,sys,outEl,btnEl,btnLabel,maxTokens){
   outEl.innerHTML='<span class="cursor"></span>';
   let text='';
   try{
-    const res=await fetch('/.netlify/functions/ai-proxy',{
+    const res=await fetch(apiUrl('/.netlify/functions/ai-proxy'),{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,stream:true,system:sys,messages:msgs})
     });
@@ -817,7 +829,7 @@ async function aiStream(msgs,sys,outEl,btnEl,btnLabel,maxTokens){
 }
 
 async function aiCall(msgs,sys,maxTokens){
-  const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,system:sys,messages:msgs})});
+  const res=await fetch(apiUrl('/.netlify/functions/ai-proxy'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,system:sys,messages:msgs})});
   const ct=res.headers.get('content-type')||'';
   if(!res.ok||!ct.includes('application/json')){
     const t=await res.text();let msg=t;try{const j=JSON.parse(t);msg=(j.error&&(j.error.message||j.error))||j.message||t;}catch{}
@@ -829,7 +841,7 @@ async function aiCall(msgs,sys,maxTokens){
 // Streams a response and returns the full text (no UI) — for long generations
 // like the emails, which would otherwise time out as a single buffered call.
 async function aiCollect(msgs,sys,maxTokens){
-  const res=await fetch('/.netlify/functions/ai-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,stream:true,system:sys,messages:msgs})});
+  const res=await fetch(apiUrl('/.netlify/functions/ai-proxy'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,stream:true,system:sys,messages:msgs})});
   const ct=res.headers.get('content-type')||'';
   if(!res.ok||ct.includes('application/json')){
     const t=await res.text();let msg=t;try{const j=JSON.parse(t);msg=(j.error&&(j.error.message||j.error))||j.message||t;}catch{}
@@ -951,7 +963,7 @@ async function fetchImages(url){
   const el=document.getElementById('imageGrid');
   el.innerHTML='<p style="font-size:12px;color:#aaa">Fetching images…</p>';
   try{
-    const r=await fetch('/api/scrape-images',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+    const r=await fetch(apiUrl('/api/scrape-images'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
     const data=await r.json().catch(()=>({}));
     const found=(data.images||[]).map((u,i)=>({url:u,type:i===0?'hero':'product',alt:'Product image'}));
     if(found.length){state.allImages=found;renderImages(found,true);}
@@ -1099,7 +1111,7 @@ document.getElementById('compareWarn').addEventListener('click',e=>{
   if(e.target&&e.target.id==='swapCompBtn')swapCompetitors();
 });
 async function checkUrl(url){
-  try{const r=await fetch('/.netlify/functions/url-check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});const d=await r.json().catch(()=>({}));return !!d.ok;}catch(e){return false;}
+  try{const r=await fetch(apiUrl('/.netlify/functions/url-check'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});const d=await r.json().catch(()=>({}));return !!d.ok;}catch(e){return false;}
 }
 async function swapCompetitors(){
   if(!flaggedComp.length)return;
@@ -1492,7 +1504,7 @@ function renderEmails(){
 // Push the (edited) emails straight to MailerLite as draft campaigns, via the
 // /api/mailerlite-campaign Netlify function (API key stays server-side).
 async function mlApi(action,payload){
-  const r=await fetch('/api/mailerlite-campaign',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,payload})});
+  const r=await fetch(apiUrl('/api/mailerlite-campaign'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,payload})});
   const data=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(data.message||data.error||('HTTP '+r.status));
   return data;
@@ -1619,7 +1631,7 @@ document.getElementById('gsheetBtn').addEventListener('click',async()=>{
   const btn=document.getElementById('gsheetBtn');const orig=btn.textContent;btn.disabled=true;btn.textContent='Saving…';
   setAlert('gsheetAlert','inf','Saving all approved content to Google Sheet…');
   try{
-    const r=await fetch('/api/sheet-log',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:cfg.gsheetUrl||url,payload})});
+    const r=await fetch(apiUrl('/api/sheet-log'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:cfg.gsheetUrl||url,payload})});
     const data=await r.json().catch(()=>({}));
     if(!r.ok)throw new Error(data.message||data.error||('HTTP '+r.status));
     // Only treat it as saved if the Apps Script explicitly confirms it (ok:true).
@@ -1636,7 +1648,7 @@ document.getElementById('manualImgUrl').addEventListener('keydown',e=>{if(e.key=
 
 // GitHub proxy client — used by the "Push to GitHub" step below. (Editing and
 // deleting existing reviews now lives in the console's Reviews tab.)
-async function ghApi(action,params){const r=await fetch('/api/github-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...params})});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.message||('HTTP '+r.status));return data;}
+async function ghApi(action,params){const r=await fetch(apiUrl('/api/github-proxy'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...params})});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.message||('HTTP '+r.status));return data;}
 function b64decode(b){const clean=(b||'').replace(/\n/g,'');try{return decodeURIComponent(escape(atob(clean)));}catch{return atob(clean);}}
 
 // Review preview (renders the final markdown the way the live page will)

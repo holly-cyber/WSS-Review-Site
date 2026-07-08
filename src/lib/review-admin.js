@@ -21,6 +21,21 @@ export const b64decode = (b) => {
 };
 
 // --- Server proxies -------------------------------------------------------
+// Admin tooling is pinned to the canonical Netlify origin. The public site is
+// served from the custom domain (reviews.womenssportsstore.com), which fronts
+// the same deploy, but Netlify's edge only reliably serves the serverless
+// functions from the *.netlify.app origin — POSTs to /api/* on the custom
+// domain can surface as a bare edge 500. So route admin API traffic to the
+// netlify.app origin from whatever host the tool happens to be loaded on.
+// (Same-origin on *.netlify.app deploys and on localhost dev.) The functions
+// already send permissive CORS, so the cross-origin call just works.
+export const ADMIN_API_ORIGIN = 'https://wss-review-site-tool.netlify.app';
+export function apiUrl(path) {
+  const h = (typeof location !== 'undefined' && location.hostname) || '';
+  const sameOrigin = !h || h === 'localhost' || h === '127.0.0.1' || h.endsWith('.netlify.app');
+  return (sameOrigin ? '' : ADMIN_API_ORIGIN) + path;
+}
+
 export async function ghApi(action, params) {
   // Hard timeout so a non-responding proxy surfaces as a visible error
   // instead of an indefinite "Loading…".
@@ -28,7 +43,7 @@ export async function ghApi(action, params) {
   const timer = setTimeout(() => ctrl.abort(), 25000);
   let r;
   try {
-    r = await fetch('/api/github-proxy', {
+    r = await fetch(apiUrl('/api/github-proxy'), {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action, ...params }), signal: ctrl.signal,
     });
@@ -46,7 +61,7 @@ export async function ghApi(action, params) {
 // Stream a completion from the ai-proxy (Anthropic Messages API). Calls
 // onText(fullTextSoFar) as tokens arrive and resolves with the final text.
 export async function aiStream({ system, messages, model = 'claude-sonnet-4-6', max_tokens = 2000, onText } = {}) {
-  const res = await fetch('/.netlify/functions/ai-proxy', {
+  const res = await fetch(apiUrl('/.netlify/functions/ai-proxy'), {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ model, max_tokens, stream: true, system, messages }),
   });
@@ -137,7 +152,7 @@ export function buildRewritePrompt(article, phrases) {
 }
 
 export async function scrapeImages(url) {
-  const r = await fetch('/api/scrape-images', {
+  const r = await fetch(apiUrl('/api/scrape-images'), {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url }),
   });
