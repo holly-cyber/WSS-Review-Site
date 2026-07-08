@@ -74,11 +74,11 @@ const heading = level === 'category' ? cat.name : level === 'subcategory' ? sub.
 const children = level === 'category'
   ? cat.subs
       .filter((s: any) => subWithReviews.has(`${cat.slug}/${slugify(s.name)}`))
-      .map((s: any) => ({ name: s.name, href: `/reviews/${cat.slug}/${slugify(s.name)}/` }))
+      .map((s: any) => ({ name: s.name, href: `/${cat.slug}/${slugify(s.name)}/` }))
   : level === 'subcategory'
   ? sub.items
       .filter((it: string) => subsubWithReviews.has(`${cat.slug}/${slugify(sub.name)}/${slugify(it)}`))
-      .map((it: string) => ({ name: it, href: `/reviews/${cat.slug}/${slugify(sub.name)}/${slugify(it)}/` }))
+      .map((it: string) => ({ name: it, href: `/${cat.slug}/${slugify(sub.name)}/${slugify(it)}/` }))
   : [];
 
 const pageTitle = `${heading} Reviews — Women's ${cat.name}`;
@@ -87,8 +87,8 @@ const pageTitle = `${heading} Reviews — Women's ${cat.name}`;
   <section class="cat-hero">
     <div class="container">
       <div class="crumb">
-        <a href="/reviews/">Reviews</a> / <a href={`/reviews/${cat.slug}/`}>{cat.name}</a>
-        {level !== 'category' && <span> / {level === 'subsub' ? <a href={`/reviews/${cat.slug}/${slugify(sub.name)}/`}>{sub.name}</a> : sub.name}</span>}
+        <a href="/">Reviews</a> / <a href={`/${cat.slug}/`}>{cat.name}</a>
+        {level !== 'category' && <span> / {level === 'subsub' ? <a href={`/${cat.slug}/${slugify(sub.name)}/`}>{sub.name}</a> : sub.name}</span>}
         {level === 'subsub' && <span> / {item}</span>}
       </div>
       <h1>{heading} Reviews</h1>
@@ -112,7 +112,7 @@ const pageTitle = `${heading} Reviews — Women's ${cat.name}`;
     ) : (
       <div class="empty">
         <p>No {heading.toLowerCase()} reviews published here yet — they're on the way.</p>
-        <a class="btn btn-pink" href={`/reviews/${cat.slug}/`}>Browse all {cat.name} reviews →</a>
+        <a class="btn btn-pink" href={`/${cat.slug}/`}>Browse all {cat.name} reviews →</a>
       </div>
     )}
   </section>

@@ -688,10 +688,10 @@ function cleanJson(s){return(s||'').trim().replace(/^```json\n?/,'').replace(/^`
 // with the MailerLite unsubscribe merge tag.
 function wrapEmailHtml(body,opts){
   opts=opts||{};
-  const site='https://womenssportsstore.com';
+  const site='https://reviews.womenssportsstore.com';
   const logo=site+'/email-logo.png';
   const alt=(opts.product||'Featured product').replace(/"/g,'&quot;');
-  const link=opts.link||(site+'/reviews/');
+  const link=opts.link||(site+'/');
   const imgRow=opts.image?`<tr><td style="padding:0"><a href="${link}"><img src="${opts.image}" alt="${alt}" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0"/></a></td></tr>`:'';
   return `<style>
 @media only screen and (max-width:600px){
@@ -716,7 +716,7 @@ ${body}
 </td></tr>
 <tr><td class="wss-foot" style="padding:18px 28px 28px;border-top:1px solid #eeeeee;text-align:center;color:#888888;font-size:12px;line-height:1.7">
 <p style="margin:0 0 6px">Women&rsquo;s Sports Store &mdash; independent reviews tested against the Women&rsquo;s Sports Standard&trade;.</p>
-<p style="margin:0"><a href="{$unsubscribe}" style="color:#888888;text-decoration:underline">Unsubscribe</a> &nbsp;&middot;&nbsp; <a href="${site}/reviews/" style="color:#888888;text-decoration:underline">Visit the site</a></p>
+<p style="margin:0"><a href="{$unsubscribe}" style="color:#888888;text-decoration:underline">Unsubscribe</a> &nbsp;&middot;&nbsp; <a href="${site}/" style="color:#888888;text-decoration:underline">Visit the site</a></p>
 </td></tr>
 </table>
 </td></tr>
@@ -1414,7 +1414,7 @@ document.getElementById('pushBtn').addEventListener('click',async()=>{
     document.getElementById('pushResult').style.display='block';
     document.getElementById('pushBadge').textContent=`✓ Pushed — ${path}`;
     document.getElementById('pushBadge').className='gh-status ok';
-    document.getElementById('pushLinks').innerHTML=`<a class="deploy-link" href="${commitUrl}" target="_blank">View commit on GitHub →</a><a class="deploy-link pink" href="https://app.netlify.com/sites/wss-review-site-tool/deploys" target="_blank">Watch Netlify deploy →</a><a class="deploy-link" style="background:#4CAF50" href="https://womenssportsstore.com/reviews/${category}/${slug}/" target="_blank">Live URL (after deploy) →</a>`;
+    document.getElementById('pushLinks').innerHTML=`<a class="deploy-link" href="${commitUrl}" target="_blank">View commit on GitHub →</a><a class="deploy-link pink" href="https://app.netlify.com/sites/wss-review-site-tool/deploys" target="_blank">Watch Netlify deploy →</a><a class="deploy-link" style="background:#4CAF50" href="https://reviews.womenssportsstore.com/${category}/${slug}/" target="_blank">Live URL (after deploy) →</a>`;
     markDone('push');
   }catch(e){
     setAlert('pushAlert','er','GitHub push failed: '+e.message);
@@ -1527,7 +1527,7 @@ document.getElementById('emailsPushMlBtn').addEventListener('click',async()=>{
     return Array.from({length:n},(_,i)=>selUrls[Math.round(i*(selUrls.length-1)/(n-1))]);
   })();
   const slug=slugify((val('pBrand')||'')+'-'+product)||'review';
-  const reviewUrl=`https://womenssportsstore.com/reviews/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`;
+  const reviewUrl=`https://reviews.womenssportsstore.com/${(val('pType')==='nutrition'?'nutrition':guessCategory())}/${slug}/`;
   const labels=['Review Drop','Buy Nudge','Social Proof'];
   const btn=document.getElementById('emailsPushMlBtn');const orig=btn.textContent;btn.disabled=true;
   let ok=0;const errs=[];
@@ -1599,7 +1599,7 @@ function gatherApprovedContent(){
     'Category':cat,'Subcategory':val('pSubcategory'),'Sub-subcategory':val('pSubsubcategory'),
     'Overall Score':overall,'Pillar Scores':state.providedScores?JSON.stringify(state.providedScores):'',
     'Meta Description':state.metaDescription||'','Excerpt':extractExcerpt(review),
-    'Review URL':`https://womenssportsstore.com/reviews/${cat}/${slug}/`,
+    'Review URL':`https://reviews.womenssportsstore.com/${cat}/${slug}/`,
     'Affiliate Link':val('pUrl')||'','Product URL':val('pUrl'),
     'Hero Image':selImgs[0]||'','Images':selImgs.join(', '),
     'Review (Markdown)':review,

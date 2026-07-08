@@ -27,13 +27,13 @@ const sourceHost = (u: string) => { try { return new URL(u).hostname.replace(/^w
 <BaseLayout title={fm.title} description={fm.meta_description || fm.excerpt} ogImage={fm.hero_image} noindex={import.meta.env.PROD && fm.draft === true}>
   <article class="news">
     <div class="container news-head">
-      <div class="breadcrumb"><a href="/reviews/news/">News</a>{fm.topic ? <> / <span>{fm.topic}</span></> : null}</div>
+      <div class="breadcrumb"><a href="/news/">News</a>{fm.topic ? <> / <span>{fm.topic}</span></> : null}</div>
       <h1>{fm.title}</h1>
       {fm.excerpt && <p class="news-standfirst">{fm.excerpt}</p>}
       <div class="news-meta">
         {avatar && <img class="news-avatar" src={withBase(avatar)} alt={author} loading="lazy" />}
         <span>
-          {author && (<>By {writer ? <a href={`/reviews/reviewers/${writer.slug}/`}><strong>{author}</strong></a> : <strong>{author}</strong>}</>)}
+          {author && (<>By {writer ? <a href={`/reviewers/${writer.slug}/`}><strong>{author}</strong></a> : <strong>{author}</strong>}</>)}
           {author && dateLabel ? ' · ' : ''}{dateLabel}
         </span>
       </div>
@@ -63,7 +63,7 @@ const sourceHost = (u: string) => { try { return new URL(u).hostname.replace(/^w
         <h2>More news</h2>
         <div class="news-more-grid">
           {moreNews.map((n) => (
-            <a class="news-more-card" href={`/reviews/news/${n.slug}/`}>
+            <a class="news-more-card" href={`/news/${n.slug}/`}>
               {n.hero_image && <img src={withBase(n.hero_image)} alt={n.title} loading="lazy" />}
               <div class="news-more-body">
                 {n.topic && <span class="news-more-topic">{n.topic}</span>}

@@ -76,9 +76,9 @@ const pillars = [
               {m.image && <img class="reviewer-photo" src={withBase(m.image)} alt={m.name} loading="lazy" onerror="this.style.display='none'" />}
             </div>
             <div class="reviewer-role">{m.role}</div>
-            <h3 class="reviewer-name"><a href={`/reviews/reviewers/${m.slug}/`}>{m.name}</a></h3>
+            <h3 class="reviewer-name"><a href={`/reviewers/${m.slug}/`}>{m.name}</a></h3>
             <p class="reviewer-bio">{m.bio}</p>
-            <a class="reviewer-more" href={`/reviews/reviewers/${m.slug}/`}>View {m.name.split(' ')[0]}'s reviews →</a>
+            <a class="reviewer-more" href={`/reviewers/${m.slug}/`}>View {m.name.split(' ')[0]}'s reviews →</a>
             <div class="reviewer-tags">
               {m.specialisms.map((s) => <span class="tag">{s}</span>)}
             </div>

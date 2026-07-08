@@ -5,7 +5,7 @@ import { team, findReviewer, igIcon } from '../../data/team.js';
 import { taxonomy, slugify, withBase } from '../../data/taxonomy.js';
 
 export async function getStaticPaths() {
-  const reviewMods = import.meta.glob('../reviews/*/*.md', { eager: true });
+  const reviewMods = import.meta.glob('../*/*.md', { eager: true });
   const all = Object.entries(reviewMods).map(([p, m]: [string, any]) => {
     const parts = p.split('/');
     const slug = parts[parts.length - 1].replace('.md', '');
@@ -42,7 +42,7 @@ for (const r of reviews) {
   if (!groupsMap[key]) {
     groupsMap[key] = {
       label: subSlug ? `${catName(cat)} · ${subName(cat, subSlug)}` : catName(cat),
-      href: subSlug ? `/reviews/${cat}/${subSlug}/` : `/reviews/${cat}/`,
+      href: subSlug ? `/${cat}/${subSlug}/` : `/${cat}/`,
       items: [],
     };
   }
@@ -61,7 +61,7 @@ const pageTitle = `${member.name} — Reviewer`;
         {member.image && <img class="rv-photo" src={withBase(member.image)} alt={member.name} loading="lazy" onerror="this.style.display='none'" />}
       </div>
       <div class="rv-hero-text">
-        <div class="rv-crumb"><a href="/reviews/about/">About</a> / <a href="/reviews/about/#team">Our team</a></div>
+        <div class="rv-crumb"><a href="/about/">About</a> / <a href="/about/#team">Our team</a></div>
         <div class="rv-role">{member.role}</div>
         <h1>{member.name}</h1>
         <p class="rv-bio">{member.bio}</p>
