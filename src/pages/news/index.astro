@@ -22,7 +22,7 @@ const rest = articles.slice(1);
     {articles.length === 0 && <p class="news-empty">No news articles yet. New stories will appear here.</p>}
 
     {featured && (
-      <a class="news-feature" href={`/reviews/news/${featured.slug}/`}>
+      <a class="news-feature" href={`/news/${featured.slug}/`}>
         {featured.hero_image && <img src={withBase(featured.hero_image)} alt={featured.title} />}
         <div class="news-feature-body">
           {featured.topic && <span class="news-topic">{featured.topic}</span>}
@@ -36,7 +36,7 @@ const rest = articles.slice(1);
     {rest.length > 0 && (
       <div class="news-grid">
         {rest.map((a: any) => (
-          <a class="news-card" href={`/reviews/news/${a.slug}/`}>
+          <a class="news-card" href={`/news/${a.slug}/`}>
             {a.hero_image && <img src={withBase(a.hero_image)} alt={a.title} loading="lazy" />}
             <div class="news-card-body">
               {a.topic && <span class="news-topic">{a.topic}</span>}

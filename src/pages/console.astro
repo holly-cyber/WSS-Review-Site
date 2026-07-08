@@ -166,7 +166,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="news">📰 News</button>
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
-      <a class="ext" href="/reviews/" target="_blank">🌐 View review site ↗</a>
+      <a class="ext" href="/" target="_blank">🌐 View review site ↗</a>
       <div style="font-size:11px;color:#5b5b7a;margin-top:10px;letter-spacing:.04em">build r6 · 2026-07-07</div>
     </nav>
     <main class="main">
@@ -227,7 +227,7 @@ table.rev tr:hover td{background:#fcfcfd}
           <!-- Category -->
           <div class="panel" id="edCatPanel">
             <h3>Category</h3>
-            <div class="hint">Moves the review to another section. This changes its URL to <code>/reviews/&lt;category&gt;/&lt;slug&gt;/</code> — on Save the file is moved to the new folder and the old one removed. If it was already published, the old URL will 404, so add a redirect.</div>
+            <div class="hint">Moves the review to another section. This changes its URL to <code>/&lt;category&gt;/&lt;slug&gt;/</code> — on Save the file is moved to the new folder and the old one removed. If it was already published, the old URL will 404, so add a redirect.</div>
             <select id="edCategory" style="max-width:260px">{categories.map((c) => <option value={c}>{c}</option>)}</select>
           </div>
 
@@ -484,7 +484,7 @@ function showView(name){
   $('view-'+name).classList.add('active');
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
   // Load the embedded pipeline tool the first time its tab is opened.
-  if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/reviews/pipeline?embed=1'; }
+  if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
 }
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.nav)));
 
@@ -649,7 +649,7 @@ $('edCategory').addEventListener('change',()=>{
   const c=$('edCategory').value;
   $('edBody').value=setFrontmatterField($('edBody').value,'category',c);
   renderEdPreview();
-  if(current && c!==current.category) alert('edAlert','inf',`Category → ${esc(c)}. Save changes to move the review (its URL will change to /reviews/${esc(c)}/${esc(current.slug)}/).`);
+  if(current && c!==current.category) alert('edAlert','inf',`Category → ${esc(c)}. Save changes to move the review (its URL will change to /${esc(c)}/${esc(current.slug)}/).`);
 });
 async function openEditor(f){
   current=f; imgs=[]; sel=[];
@@ -751,7 +751,7 @@ async function saveEditor(){
       const put=await ghApi('put',{path:newPath, content:b64(content), message:`Move review to ${newCat}: ${newPath}`, ...(newSha?{sha:newSha}:{})});
       try{ const g=await ghApi('get',{path:current.path}); await ghApi('delete',{path:current.path, message:`Move review (remove old path): ${current.path}`, sha:g.sha}); }catch(_){}
       const oldPath=current.path;
-      current.path=newPath; current.sha=(put.content&&put.content.sha)||''; current.category=newCat; current.liveUrl=`/reviews/${newCat}/${current.slug}/`;
+      current.path=newPath; current.sha=(put.content&&put.content.sha)||''; current.category=newCat; current.liveUrl=`/${newCat}/${current.slug}/`;
       const fe=files.find(x=>x.path===oldPath); if(fe){ fe.path=newPath; fe.category=newCat; fe.liveUrl=current.liveUrl; }
       $('edPath').textContent=newPath; $('edView').href=current.liveUrl;
       // For a published review, drop a 301 from the old URL so it doesn't 404.
@@ -1354,7 +1354,7 @@ async function pushNews(){
     const fm=`---\nlayout: "../../layouts/NewsLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('nwTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(date)}\nauthor: ${yamlStr($('nwAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr(hero)}\nhero_credit: ${yamlStr(nwHeroCredit)}\ndraft: ${keepDraft?'true':'false'}\n${sourcesYaml}---\n\n${body}\n`;
     await ghApi('put',{path,content:b64(fm),message:`${editing?'Edit':'Add'} news article: ${path}`,...(sha?{sha}:{})});
     alert('nwPushAlert','ok',`${editing?'Saved':'Pushed'} ✓ ${keepDraft?'Draft':'Published'} — builds on the next deploy${keepDraft&&!editing?'. Publish it from the list above.':'.'}`);
-    $('nwView').href=`/reviews/news/${slug}/`; $('nwView').style.display='inline-block';
+    $('nwView').href=`/news/${slug}/`; $('nwView').style.display='inline-block';
     nwLibLoaded=true; loadNwLib();
   }catch(e){ alert('nwPushAlert','er','Push failed: '+e.message); }
   btn.disabled=false; btn.textContent=nwEditPath?'Save changes →':'Push as draft →';

@@ -37,7 +37,7 @@ const cats = [
       <div class="hero-copy">
         <div class="hero-top">
           <div class="wss-badge">WSS™ Independent Reviews</div>
-          <img src="/reviews/logo.svg" alt="Women's Sports Store" class="hero-logo" width="120" height="120" />
+          <img src="/logo.svg" alt="Women's Sports Store" class="hero-logo" width="120" height="120" />
         </div>
         <h1>Real testing. Female physiology. No fluff.</h1>
         <p>Every product we review is scored against the Women's Sports Standard™ — the certification framework we built to assess whether women's kit actually works for women. Seven pillars, independently scored. The brand can't buy a better result.</p>
@@ -49,7 +49,7 @@ const cats = [
 
       {featured && (
         <div class="hero-feature">
-          <a class="feature-main" href={`/reviews/${featured._cat}/${featured.slug}/`}>
+          <a class="feature-main" href={`/${featured._cat}/${featured.slug}/`}>
             <div class="feature-img" style={featured.hero_image ? `background-image:url(${withBase(featured.hero_image)})` : ''}>
               <span class="feature-flag">★ Latest review</span>
               <span class={`pill pill-${featured._cat} feature-pill`}>{featured._cat.replace('-', ' ')}</span>
@@ -69,7 +69,7 @@ const cats = [
           {miniLatest.length > 0 && (
             <div class="mini-latest">
               {miniLatest.map((r: any) => (
-                <a class="mini-card" href={`/reviews/${r._cat}/${r.slug}/`}>
+                <a class="mini-card" href={`/${r._cat}/${r.slug}/`}>
                   <div class="mini-thumb" style={r.hero_image ? `background-image:url(${withBase(r.hero_image)})` : ''}></div>
                   <div class="mini-body">
                     <span class="mini-cat">{r._cat.replace('-', ' ')}</span>
@@ -109,7 +109,7 @@ const cats = [
       </div>
       <div class="categories-track" id="catTrack">
         {cats.map(cat => (
-          <a href={`/reviews/${cat.slug}/`} class="cat-card">
+          <a href={`/${cat.slug}/`} class="cat-card">
             <h3>{cat.label}</h3>
             <p>{cat.desc}</p>
             <span class="cat-arrow">Browse reviews →</span>

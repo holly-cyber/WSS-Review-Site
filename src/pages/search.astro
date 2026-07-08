@@ -1,9 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ReviewCard from '../components/ReviewCard.astro';
+import { taxonomy } from '../data/taxonomy.js';
 
-const reviews = import.meta.glob('./reviews/*/*.md', { eager: true });
+// Reviews live at src/pages/<category>/<slug>.md; keep only real taxonomy
+// categories so sibling content (e.g. news/) isn't indexed as a review.
+const CAT_SLUGS = new Set(taxonomy.map((t: any) => t.slug));
+const reviews = import.meta.glob('./*/*.md', { eager: true });
 const index = Object.entries(reviews)
+  .filter(([path]: [string, any]) => CAT_SLUGS.has(path.split('/').slice(-2)[0]))
   .filter(([, mod]: [string, any]) => import.meta.env.PROD ? mod.frontmatter?.draft !== true : true)
   .map(([path, mod]: [string, any]) => {
     const parts = path.split('/');

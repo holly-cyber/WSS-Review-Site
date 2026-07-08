@@ -396,5 +396,5 @@ export function reviewMeta(path) {
   const parts = path.split('/');
   const slug = parts.pop().replace(/\.md$/, '');
   const category = parts.pop();
-  return { slug, category, liveUrl: `/reviews/${category}/${slug}/` };
+  return { slug, category, liveUrl: `/${category}/${slug}/` };
 }
