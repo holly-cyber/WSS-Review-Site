@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "Our WSS™ review of the Zoggs Boronia Hi Front: a flattering, eco-conscious swimsuit with light support, true-to-size fit and chlorine-resistant Ecolast fabric."
 meta_description: "WSS™ review of the Zoggs Boronia Hi Front Swimsuit — inclusive fit, light shelf-bra support, chlorine-resistant Ecolast fabric, sizing and value for women swimmers."
-hero_image: "/wp-img/2025/10/picture-1202x1536.jpg"
+hero_image: "/images/reviews/zoggs-boronia-high-front-swimsuit-review.webp"
 overall_score: 3.5
 affiliate_link: "https://www.zoggs.com/en_GB/boronia-hi-front-swimsuit-462383-boro#u463"
 shopify_link: ""
