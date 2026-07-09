@@ -12,7 +12,7 @@ sizes: ""
 tested_by: "Mel Berry"
 excerpt: "There's a moment, about forty minutes into a long lake swim, when your mouth goes dry and you're mentally calculating whether it's worth stopping to root a"
 meta_description: "The **BuddySwim HydraStation Pro Buoy (Pink)** is the open water swim accessory I didn't know I needed until I couldn't train without it. The…"
-hero_image: "https://buddyswim.com/5447-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg"
+hero_image: "https://buddyswim.com/4616-thickbox_default/boya-buddyswim-hydrastation-pro.jpg"
 overall_score: 4.5
 affiliate_link: "https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
 product_url: "https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
@@ -35,6 +35,8 @@ faq:
   - q: "Is the BuddySwim HydraStation Pro a safety buoy or just a storage buoy?"
     a: "Both. It functions as a **high-visibility safety buoy** — making you visible to boats, paddleboards and support crews — and as a practical storage and fuelling system. It's widely used in open water events and is consistent with guidance from open water safety organisations."
 ---
+![BuddySwim HydraStation Pro Buoy](https://buddyswim.com/4616-thickbox_default/boya-buddyswim-hydrastation-pro.jpg)
+
 
 ## BuddySwim HydraStation Pro Buoy (Pink) Review
 
@@ -42,15 +44,11 @@ faq:
 
 There's a moment, about forty minutes into a long lake swim, when your mouth goes dry and you're mentally calculating whether it's worth stopping to root around in your dry bag — and then deciding it isn't. That was me, every single session, until I started using the <a href="https://shop.womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange" rel="nofollow" target="_blank">BuddySwim HydraStation Pro Buoy (Pink/Orange)</a> (£48.00). This bright, high-visibility buoy completely changed the way I approach long-distance open water sessions. The integrated hydration pouch and nutrition netting mean I can fuel on the move without compromising my kit — and at £48.00, it punches well above its weight.
 
-![BuddySwim HydraStation Pro Buoy (Pink)](https://buddyswim.com/5447-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg)
-
 ### Female-Specific Design & Sizing
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-The **[pink and orange colourway](https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange)** is immediately eye-catching, and while colour alone never earns points here, what genuinely impressed me is how the **waist belt system** sits and behaves on a female body during a full open water session. The belt is comfortable through the hips without digging in, and I found I could wear it over both a swimsuit and a wetsuit without awkward bunching or shifting. It would be fair to say that this isn't positioned as a product engineered exclusively for women from the ground up — and I'd love to see BuddySwim publish more detail on how female swimmers were consulted at the design stage. But in practice, it fits and functions well for female open water swimmers in a way that many unisex swim accessories simply don't. The **high-visibility pink** also does genuine safety work here, not just aesthetic.
-
-![BuddySwim HydraStation Pro Buoy (Pink) — image 2](https://buddyswim.com/5446-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg)
+The **[pink and orange colourway](https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange)**[ is immediately eye-catching, and while colour alone never earns points here, what genuinely impressed me is how the ](https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange)**[waist belt system](https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange)** sits and behaves on a female body during a full open water session. The belt is comfortable through the hips without digging in, and I found I could wear it over both a swimsuit and a wetsuit without awkward bunching or shifting. It would be fair to say that this isn't positioned as a product engineered exclusively for women from the ground up — and I'd love to see BuddySwim publish more detail on how female swimmers were consulted at the design stage. But in practice, it fits and functions well for female open water swimmers in a way that many unisex swim accessories simply don't. The **high-visibility pink** also does genuine safety work here, not just aesthetic.
 
 ### Fit, Adjustability & Size Range
 
@@ -58,15 +56,11 @@ The **[pink and orange colourway](https://womenssportsstore.com/products/buddysw
 
 The **waist belt** adjusted smoothly to my fit and held its position throughout a long session — no creeping, no recentring. I tested it both over a one-piece and over a wetsuit and it performed well in both scenarios; the adjustment range felt genuinely broad. I'd recommend checking the brand's size guide before purchasing if you sit at the smaller or larger end of the spectrum, as published adjustment range specifications aren't prominently displayed — something I'd like to see BuddySwim address with clearer sizing guidance online. That said, in my own use, fit was stable, comfortable, and confidence-inspiring, which is ultimately what matters when you're an hour into a solo swim.
 
-![BuddySwim HydraStation Pro Buoy (Pink) — image 3](https://buddyswim.com/5447-large_default/boya-buddyswim-hydrastation-pro-rosa.jpg)
-
 ### Safety & Performance Standards
 
 <span class="wss-score"><span class="wss-score-num">5</span><span class="wss-score-stars">★★★★★<span class="off"></span></span></span>
 
 The **HydraStation Pro Buoy** ticks the core open water safety boxes with real conviction. The **high-visibility pink** colouring is striking — I had a paddleboarder tell me she could spot me clearly from the far side of the lake — which is exactly what you want. Open water swim buoys of this type are widely used in **World Aquatics-sanctioned events** and are recommended by open water safety bodies including Swim England. The buoy's inflated volume provides meaningful passive flotation support, and inflation is reliable and consistent. The **dry bag compartment** seals securely, protecting valuables and medication during swims. Not independently verified against a specific EN/ISO standard based on available product information — based on product page claims only — but the construction quality and in-use performance inspire genuine confidence.
-
-![BuddySwim HydraStation Pro Buoy (Pink) — image 4](https://buddyswim.com/5445-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg)
 
 ### Transparency & User Reviews
 
