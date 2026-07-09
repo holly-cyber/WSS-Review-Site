@@ -103,11 +103,13 @@
 
 # Same-origin proxy for legacy WordPress media (womenssportsstore.com/wp-content
 # /uploads/…). Loading those images cross-origin from reviews.womenssportsstore.com
-# fails (hotlink/referrer blocking), so hero + inline review images point at
-# /wp-img/… and Netlify fetches the file server-side and serves it same-origin.
+# fails (WordPress hotlink/referrer protection). Hero + inline review images point
+# at /wp-img/… → the wp-img function, which fetches server-side with a browser UA
+# and a womenssportsstore.com Referer (passing hotlink protection) and serves the
+# image same-origin, cached hard at the CDN.
 [[redirects]]
   from = "/wp-img/*"
-  to = "https://womenssportsstore.com/wp-content/uploads/:splat"
+  to = "/.netlify/functions/wp-img?path=:splat"
   status = 200
 
 # ---------------------------------------------------------------------------
