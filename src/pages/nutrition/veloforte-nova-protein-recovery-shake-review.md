@@ -9,7 +9,7 @@ product_type: "nutrition"
 tested_by: "Holly Woodford"
 excerpt: "A genuinely indulgent plant-based recovery shake that tastes like a treat, refuels properly and curbs the post-session snacking."
 meta_description: "WSS™ review of the Veloforte Nova Protein Recovery Shake — taste, nutrition profile, performance and value scored against the WSS nutrition framework for active women."
-hero_image: "/wp-img/2025/10/Screenshot-2025-10-01-at-18.31.06-1536x1461.png"
+hero_image: "/images/reviews/veloforte-nova-protein-recovery-shake-review.webp"
 overall_score: 4.6
 affiliate_link: "https://veloforte.com/collections/protein-shakes-powders-drinks/products/nova-recovery-protein-shake"
 shopify_link: ""
