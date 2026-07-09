@@ -14,8 +14,8 @@ excerpt: "There's a moment, about forty minutes into a long lake swim, when your
 meta_description: "The **BuddySwim HydraStation Pro Buoy (Pink)** is the open water swim accessory I didn't know I needed until I couldn't train without it. The…"
 hero_image: "https://buddyswim.com/5447-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg"
 overall_score: 4.5
-affiliate_link: "https://buddyswim.com/en/open-water-buoys/2841-boya-buddyswim-hydrastation-pro-rosa-0601968842949.html"
-product_url: "https://buddyswim.com/en/open-water-buoys/2841-boya-buddyswim-hydrastation-pro-rosa-0601968842949.html"
+affiliate_link: "https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
+product_url: "https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
 shopify_link: "https://shop.womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
 pillar_scores:
   e1: 4
@@ -49,7 +49,7 @@ There's a moment, about forty minutes into a long lake swim, when your mouth goe
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-The **pink colourway** is immediately eye-catching, and while colour alone never earns points here, what genuinely impressed me is how the **waist belt system** sits and behaves on a female body during a full open water session. The belt is comfortable through the hips without digging in, and I found I could wear it over both a swimsuit and a wetsuit without awkward bunching or shifting. It would be fair to say that this isn't positioned as a product engineered exclusively for women from the ground up — and I'd love to see BuddySwim publish more detail on how female swimmers were consulted at the design stage. But in practice, it fits and functions well for female open water swimmers in a way that many unisex swim accessories simply don't. The **high-visibility pink** also does genuine safety work here, not just aesthetic.
+The **pink and orange colourway** is immediately eye-catching, and while colour alone never earns points here, what genuinely impressed me is how the **waist belt system** sits and behaves on a female body during a full open water session. The belt is comfortable through the hips without digging in, and I found I could wear it over both a swimsuit and a wetsuit without awkward bunching or shifting. It would be fair to say that this isn't positioned as a product engineered exclusively for women from the ground up — and I'd love to see BuddySwim publish more detail on how female swimmers were consulted at the design stage. But in practice, it fits and functions well for female open water swimmers in a way that many unisex swim accessories simply don't. The **high-visibility pink** also does genuine safety work here, not just aesthetic.
 
 ![BuddySwim HydraStation Pro Buoy (Pink) — image 2](https://buddyswim.com/5446-thickbox_default/boya-buddyswim-hydrastation-pro-rosa.jpg)
 
@@ -85,13 +85,13 @@ At £48.00 and an overall WSS™ score of 4.1/5, the BuddySwim HydraStation Pro 
 
 ## Who It's For / Who It's Not For
 
-**This buoy is made for you if** you're a serious open water swimmer doing longer lake or sea sessions — particularly if fuelling and hydration mid-swim has been a logistical headache. If you're in the **Elle profile** (32–44, serious amateur endurance), training for an open water event, or building mileage through the summer season, the <a href="https://buddyswim.com/en/open-water-buoys/2841-boya-buddyswim-hydrastation-pro-rosa-0601968842949.html" rel="nofollow sponsored" target="_blank">BuddySwim HydraStation Pro is worth every penny</a>. It's also a brilliant choice for **solo swimmers** who want the peace of mind of high-visibility safety equipment without sacrificing convenience. For **Maya** (44–58, peri/post-menopausal), the easy access to hydration and nutrition mid-swim is particularly valuable — keeping on top of fuelling during longer efforts matters enormously at this stage of athletic life.
+**This buoy is made for you if** you're a serious open water swimmer doing longer lake or sea sessions — particularly if fuelling and hydration mid-swim has been a logistical headache. If you're training for an open water event, or building mileage through the summer season, the <a href="https://buddyswim.com/en/open-water-buoys/2841-boya-buddyswim-hydrastation-pro-rosa-0601968842949.html" rel="nofollow sponsored" target="_blank">BuddySwim HydraStation Pro is worth every penny</a>. It's also a brilliant choice for **solo swimmers** who want the peace of mind of high-visibility safety equipment without sacrificing convenience. The easy access to hydration and nutrition mid-swim is particularly valuable — keeping on top of fuelling during longer efforts matters enormously at this stage of athletic life.
 
 **It's probably not for you if** you're a pool-only swimmer, or if you're doing short, supervised open water swims where a basic tow float is sufficient. It's also overkill for casual paddlers or beginners who aren't yet doing the kind of sustained effort that requires mid-swim fuelling.
 
 ## Fit & Sizing
 
-The **waist belt** adjusts to cover a good range of circumferences and sits comfortably over both a swimsuit and a wetsuit — I tested both. Belt positioning feels natural through the hips without digging in during extended effort. I'd recommend referring to BuddySwim's own size guidance before ordering, as published minimum/maximum circumference specs aren't currently prominent on the product page. If you're between sizes or have specific fit concerns, it's worth reaching out to the brand directly before purchase.
+The **waist belt** adjusts to cover a good range of circumferences and sits comfortably over both a swimsuit and a wetsuit — I tested both. Belt positioning feels natural through the hips without digging in during extended effort. I'd recommend referring to BuddySwim's own size guidance before ordering, as published minimum/maximum circumference specs aren't currently prominent on the product page.
 
 ## How It Compares
 
@@ -103,13 +103,13 @@ The **waist belt** adjusts to cover a good range of circumferences and sits comf
 
 ## The Verdict
 
-The **BuddySwim HydraStation Pro Buoy (Pink)** is the open water swim accessory I didn't know I needed until I couldn't train without it. The combination of accessible mid-swim hydration, clever nutrition netting, and reliable dry storage genuinely transforms longer lake sessions. High-visibility pink, comfortable tow, and a secure waist belt round out a product that delivers where it matters most. At £48.00, it's a straightforward recommendation for any woman who takes her open water swimming seriously.
+The **BuddySwim HydraStation Pro Buoy (Pink/Orange)** is the open water swim accessory I didn't know I needed until I couldn't train without it. The combination of accessible mid-swim hydration, clever nutrition netting, and reliable dry storage genuinely transforms longer lake sessions. High-visibility pink (and comes in orange too), comfortable tow, and a secure waist belt round out a product that delivers where it matters most. At £48.00, it's a straightforward recommendation for any woman who takes her open water swimming seriously.
 
 ## FAQ
 
 ### Is the BuddySwim HydraStation Pro Buoy suitable for open water swimming in the UK?
 
-Yes — it's well-suited to UK lake and sea swimming. The high-visibility pink colouring makes you clearly visible to other water users, and the integrated hydration and storage system is ideal for longer open water sessions common in UK triathlon and wild swimming communities.
+Yes — it's well-suited to UK lake and sea swimming. The high-visibility pink & orange colouring makes you clearly visible to other water users, and the integrated hydration and storage system is ideal for longer open water sessions common in UK triathlon and wild swimming communities.
 
 ### Can you drink from the BuddySwim HydraStation Pro whilst swimming?
 
