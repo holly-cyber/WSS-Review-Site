@@ -9,7 +9,7 @@ product_type: "apparel"
 tested_by: "Gemma Richardson"
 excerpt: "Period underwear you can squat, lift and run in without a second thought — the Nixi Body Gracie Sporty thong is seamless reassurance in disguise."
 meta_description: "Our WSS™ review of the Nixi Body Gracie Sporty VPL-Free Thong — fit, leak protection, movement and value for active women who lift, squat and run."
-hero_image: "/wp-img/2025/12/Gemma-Nixi-1152x1536.jpeg"
+hero_image: "/images/reviews/period-underwear-you-can-lift-squat-run-in.webp"
 overall_score: 4.3
 affiliate_link: "https://www.nixibody.com/collections/knickers/products/gracie-sporty-thong?variant=40109718994979"
 shopify_link: ""
