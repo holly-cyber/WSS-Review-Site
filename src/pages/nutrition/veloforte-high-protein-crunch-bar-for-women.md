@@ -9,7 +9,7 @@ product_type: "nutrition"
 tested_by: "Holly Woodford"
 excerpt: "A crunchy, cocoa-and-ginger protein bar that tastes like a treat — 20g plant protein plus collagen, with real recovery staying power."
 meta_description: "WSS™ review of the Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — taste, nutrition, recovery performance and value, scored against the WSS nutrition framework."
-hero_image: "/wp-img/2025/10/Veloforte-Coca-and-stem-ginger-protein-crunch-bar--1516x1536.png"
+hero_image: "/images/reviews/veloforte-high-protein-crunch-bar-for-women.webp"
 overall_score: 4.9
 affiliate_link: "https://womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
 shopify_link: ""
