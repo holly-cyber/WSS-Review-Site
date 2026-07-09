@@ -164,6 +164,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="reviews">▤ Reviews</button>
       <button class="navbtn" data-nav="pipeline">＋ New review</button>
       <button class="navbtn" data-nav="news">📰 News</button>
+      <button class="navbtn" data-nav="blog">✍ Blog</button>
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/" target="_blank">🌐 View review site ↗</a>
@@ -380,6 +381,75 @@ table.rev tr:hover td{background:#fcfcfd}
         </div><!-- /nwtab-generate -->
       </section>
 
+      <!-- Blog -->
+      <section id="view-blog" class="view">
+        <div class="h1">Blog</div>
+        <div class="sub">Generate an original blog post from a content theme — it links out to your relevant reviews and news automatically.</div>
+        <div class="nw-tabbar">
+          <button class="nw-tab active" data-bltab="drafts" type="button">📝 Drafts <span class="nw-tabcount" id="blCountDrafts"></span></button>
+          <button class="nw-tab" data-bltab="published" type="button">✅ Published <span class="nw-tabcount" id="blCountPublished"></span></button>
+          <button class="nw-tab" data-bltab="generate" type="button">✦ Generate</button>
+        </div>
+        <div id="blogAlert"></div>
+        <div id="blLibAlert"></div>
+
+        <div id="bltab-drafts" class="nwtab">
+        <div class="panel">
+          <h3>Draft posts <button class="bg" id="blLibReload" style="font-weight:400;font-size:12px;padding:3px 9px;margin-left:6px">↻ Reload</button></h3>
+          <div class="hint">Hidden from the live site until you publish them.</div>
+          <div id="blLibDrafts"><p style="color:#999;font-size:13px;padding:4px">Loading…</p></div>
+        </div>
+        </div><!-- /bltab-drafts -->
+
+        <div id="bltab-published" class="nwtab" hidden>
+        <div class="panel">
+          <h3>Published posts <button class="bg" id="blLibReload2" style="font-weight:400;font-size:12px;padding:3px 9px;margin-left:6px">↻ Reload</button></h3>
+          <div class="hint">Live on the site at <code>/blog/</code>.</div>
+          <div id="blLibPublished"><p style="color:#999;font-size:13px;padding:4px">Loading…</p></div>
+        </div>
+        </div><!-- /bltab-published -->
+
+        <div id="bltab-generate" class="nwtab" hidden>
+        <div class="panel">
+          <h3>Write a new post</h3>
+          <div class="hint">Enter a content theme; the post is written in original wording and links to the most relevant reviews and news from your site. Add an optional angle and pick an author.</div>
+          <textarea id="blTheme" rows="2" placeholder="Content theme — e.g. “How to transition from pool to open-water swimming” or “Recovery essentials for marathon training”"></textarea>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px">
+            <input id="blAngle" style="flex:1;min-width:240px" placeholder="Optional angle (e.g. beginner-friendly; UK; tie to winter training)"/>
+            <select id="blAuthor" style="max-width:220px"></select>
+          </div>
+          <div style="font-size:11.5px;color:#888;margin-top:6px" id="blCatalogNote"></div>
+          <button class="bp" id="blGenerate" style="margin-top:8px">✦ Generate post</button>
+        </div>
+
+        <div class="panel" id="blOutPanel" style="display:none">
+          <h3>Generated post</h3>
+          <div class="nw-meta">
+            <label>Headline<input id="blTitle"/></label>
+            <label>URL slug<input id="blSlug"/></label>
+            <label>Topic<input id="blTopic"/></label>
+            <label>Hero image<span class="nw-hero-row"><input id="blHero" placeholder="https://… paste or search free photos"/></span></label>
+          </div>
+          <div class="nw-hero-row" style="margin-bottom:6px">
+            <input id="blStockQuery" placeholder="🔍 Search rights-free photos (e.g. women running, swimming)"/>
+            <button type="button" class="bp" id="blStockSearch">Free photos</button>
+          </div>
+          <div id="blHeroGrid" class="nw-hero-grid"></div>
+          <div id="blHeroNote" class="hint" style="display:none"></div>
+          <div class="nw-split">
+            <textarea id="blBody" spellcheck="false"></textarea>
+            <div id="blPreview" class="nw-preview"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <button class="bp" id="blPush">Push as draft →</button>
+            <button class="bg" id="blRegen">↻ Regenerate</button>
+            <a class="bg" id="blView" target="_blank" rel="noopener" style="display:none">View ↗</a>
+          </div>
+          <div id="blPushAlert"></div>
+        </div>
+        </div><!-- /bltab-generate -->
+      </section>
+
       <!-- Social -->
       <section id="view-social" class="view">
         <div class="h1">Social &amp; outbound</div>
@@ -464,7 +534,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, insertImages, reviewMeta, isReviewPath, apiUrl } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, BLOG_SYSTEM, buildBlogPrompt, insertImages, reviewMeta, isReviewPath, apiUrl } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -483,6 +553,7 @@ function showView(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   $('view-'+name).classList.add('active');
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
+  if(name==='blog'){ if(!blLibLoaded){ blLibLoaded=true; loadBlLib(); } updateBlCatalogNote(); }
   // Load the embedded pipeline tool the first time its tab is opened.
   if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
 }
@@ -546,12 +617,14 @@ async function loadAll(){
 function renderDashboard(){
   const total=files.length, live=files.filter(f=>f.draft===false).length, draft=files.filter(f=>f.draft===true).length;
   const nwTotal=nwLib.length, nwDraft=nwLib.filter(f=>f.draft).length;
+  const blTotal=blLib.length, blDraft=blLib.filter(f=>f.draft).length;
   $('dashCards').innerHTML =
     `<div class="card"><div class="n">${total}</div><div class="l">Total reviews</div></div>`+
     `<div class="card"><div class="n">${live}</div><div class="l">Live</div></div>`+
     `<div class="card"><div class="n">${draft}</div><div class="l">Drafts</div></div>`+
     `<div class="card"><div class="n">${new Set(files.map(f=>f.category)).size}</div><div class="l">Categories</div></div>`+
-    `<div class="card"><div class="n">${nwTotal}</div><div class="l">News articles${nwDraft?` · ${nwDraft} draft`:''}</div></div>`;
+    `<div class="card"><div class="n">${nwTotal}</div><div class="l">News articles${nwDraft?` · ${nwDraft} draft`:''}</div></div>`+
+    `<div class="card"><div class="n">${blTotal}</div><div class="l">Blog posts${blDraft?` · ${blDraft} draft`:''}</div></div>`;
   const byCat={}; files.forEach(f=>{byCat[f.category]=(byCat[f.category]||0)+1;});
   const max=Math.max(1,...Object.values(byCat));
   $('dashCats').innerHTML = '<h3 style="font-size:13px;color:#000036;margin-bottom:10px">Reviews by category</h3>'+
@@ -915,10 +988,10 @@ let nwLastItems=[];  // source items behind the current draft, for the originali
 
 // News sub-tabs: Articles (library) / Generate
 function setNwTab(name){
-  document.querySelectorAll('.nw-tab').forEach(b=>b.classList.toggle('active',b.dataset.nwtab===name));
-  document.querySelectorAll('.nwtab').forEach(t=>{ t.hidden = t.id!=='nwtab-'+name; });
+  document.querySelectorAll('#view-news .nw-tab').forEach(b=>b.classList.toggle('active',b.dataset.nwtab===name));
+  document.querySelectorAll('#view-news .nwtab').forEach(t=>{ t.hidden = t.id!=='nwtab-'+name; });
 }
-document.querySelectorAll('.nw-tab').forEach(b=>b.addEventListener('click',()=>setNwTab(b.dataset.nwtab)));
+document.querySelectorAll('#view-news .nw-tab').forEach(b=>b.addEventListener('click',()=>setNwTab(b.dataset.nwtab)));
 
 // --- RSS feed manager: reads/writes src/data/feeds.json via GitHub ---
 let nwFeeds=feeds.slice(), nwFeedsSha='';
@@ -1320,16 +1393,18 @@ $('nwHero').addEventListener('input',()=>{ nwHeroCredit=''; renderNwHeroGrid(); 
 function yamlStr(s){ return '"'+String(s||'').replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"'; }
 // Download an external hero image (server-side) and commit it into the repo,
 // returning the local /images/news/<slug>.<ext> path.
-async function nwHostHeroImage(url,slug){
+async function hostHeroImage(url,slug,folder){
+  folder=folder||'news';
   const r=await fetch(apiUrl('/api/image-fetch'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
   const d=await r.json().catch(()=>({}));
   if(!d||!d.ok||!d.base64) throw new Error((d&&d.error)||'fetch failed');
   const ext=String(d.ext||'jpg').replace(/[^a-z0-9]/gi,'')||'jpg';
-  const path=`public/images/news/${slug}.${ext}`;
+  const path=`public/images/${folder}/${slug}.${ext}`;
   let sha; try{ const g=await ghApi('get',{path}); sha=g.sha; }catch(_){ }
-  await ghApi('put',{path,content:d.base64,message:`Add news hero image: ${path}`,...(sha?{sha}:{})});
-  return `/images/news/${slug}.${ext}`;
+  await ghApi('put',{path,content:d.base64,message:`Add ${folder} hero image: ${path}`,...(sha?{sha}:{})});
+  return `/images/${folder}/${slug}.${ext}`;
 }
+const nwHostHeroImage=(url,slug)=>hostHeroImage(url,slug,'news');
 async function pushNews(){
   const title=$('nwTitle').value.trim(), slug=slugify($('nwSlug').value||title), body=$('nwBody').value.trim();
   if(!title||!slug||!body){ alert('nwPushAlert','er','Headline, slug and body are all required.'); return; }
@@ -1368,8 +1443,184 @@ $('nwRecheck').addEventListener('click',async()=>{
   btn.disabled=false; btn.textContent='✓ Check originality';
 });
 
+// ================= Blog generator =================
+let blLib=[], blLibLoaded=false, blHeroImgs=[], blHeroCredit='', blEditPath='', blEditDate='', blPvT=null;
+(function initBlAuthors(){ const s=$('blAuthor'); if(s) s.innerHTML=team.map(m=>`<option value="${esc(m.name)}">${esc(m.name)}</option>`).join(''); })();
+function setBlTab(name){
+  document.querySelectorAll('#view-blog .nw-tab').forEach(b=>b.classList.toggle('active',b.dataset.bltab===name));
+  ['drafts','published','generate'].forEach(t=>{ const el=$('bltab-'+t); if(el) el.hidden=(t!==name); });
+}
+document.querySelectorAll('#view-blog .nw-tab').forEach(b=>b.addEventListener('click',()=>{ setBlTab(b.dataset.bltab); if(b.dataset.bltab==='generate') updateBlCatalogNote(); }));
+
+function blogCatalog(){
+  const reviews=(files||[]).filter(f=>f.draft===false).map(f=>({title:f.title||f.slug, brand:f.brand||'', category:f.category, url:f.liveUrl}));
+  const news=(nwLib||[]).filter(f=>!f.draft).map(f=>{ let topic=''; try{ topic=fmField(splitFrontmatter(f.content).fm,'topic'); }catch(_){} return {title:f.title||f.slug, topic, url:`/news/${f.slug}/`}; });
+  return {reviews, news};
+}
+function updateBlCatalogNote(){ const {reviews,news}=blogCatalog(); const el=$('blCatalogNote'); if(el) el.textContent=`Can link to ${reviews.length} published review${reviews.length===1?'':'s'} and ${news.length} published news article${news.length===1?'':'s'}.`; }
+
+// --- Library ---
+$('blLibReload').addEventListener('click',loadBlLib);
+$('blLibReload2').addEventListener('click',loadBlLib);
+function setBlLibAlert(t,m){ $('blLibAlert').innerHTML=m?`<div class="al ${t}">${m}</div>`:''; }
+async function loadBlLib(){
+  $('blLibDrafts').innerHTML=$('blLibPublished').innerHTML='<p style="color:#999;font-size:13px;padding:4px">Loading…</p>';
+  setBlLibAlert('','');
+  try{
+    const d=await ghApi('tree',{});
+    const fl=(d.tree||[]).filter(t=>t.type==='blob'&&/^src\/pages\/blog\/.+\.md$/.test(t.path));
+    blLib=fl.map(t=>({path:t.path,slug:t.path.split('/').pop().replace('.md',''),sha:'',content:'',draft:false}));
+    await Promise.all(blLib.map(async f=>{
+      try{ const g=await ghApi('get',{path:f.path}); f.sha=g.sha; f.content=b64decode(g.content);
+        const {fm}=splitFrontmatter(f.content);
+        f.title=fmField(fm,'title')||f.slug; f.date=fmField(fm,'date'); f.author=fmField(fm,'author'); f.draft=isDraft(f.content);
+      }catch(_){ }
+    }));
+    renderBlLib(); renderDashboard();
+  }catch(e){ $('blLibDrafts').innerHTML=$('blLibPublished').innerHTML=`<p style="color:#c00;font-size:13px;padding:4px">Could not load: ${esc(e.message)}</p>`; }
+}
+function blLibRow(f){
+  const d=f.date?new Date(f.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
+  return `<div class="nw-lib-row" data-path="${esc(f.path)}"><div><div class="nw-lib-title">${esc(f.title||f.slug)}</div><div class="nw-lib-meta">${esc(f.author||'—')}${d?' · '+d:''} · ${esc(f.slug)}</div></div><div class="nw-lib-acts"><button class="bg" data-act="edit">Edit</button><button class="bg" data-act="preview">Preview</button><button class="bg" data-act="toggle">${f.draft?'Publish':'Unpublish'}</button><button class="bg bdanger" data-act="delete">Delete</button></div></div>`;
+}
+function renderBlLib(){
+  const drafts=blLib.filter(f=>f.draft).sort(byDateDesc), live=blLib.filter(f=>!f.draft).sort(byDateDesc);
+  $('blLibDrafts').innerHTML=drafts.length?drafts.map(blLibRow).join(''):'<p class="nw-lib-empty">No draft posts. Generate one in the Generate tab.</p>';
+  $('blLibPublished').innerHTML=live.length?live.map(blLibRow).join(''):'<p class="nw-lib-empty">Nothing published yet.</p>';
+  $('blCountDrafts').textContent=drafts.length||''; $('blCountPublished').textContent=live.length||'';
+}
+async function onBlLibClick(e){
+  const btn=e.target.closest('[data-act]'), row=e.target.closest('[data-path]'); if(!btn||!row) return;
+  const f=blLib.find(x=>x.path===row.dataset.path); if(!f) return;
+  const act=btn.dataset.act;
+  if(act==='preview') openBlPreview(f.content);
+  else if(act==='toggle') toggleBlDraft(f);
+  else if(act==='delete') deleteBlArticle(f);
+  else if(act==='edit') editBlArticle(f);
+}
+$('blLibDrafts').addEventListener('click',onBlLibClick);
+$('blLibPublished').addEventListener('click',onBlLibClick);
+function openBlPreview(md){
+  const {fm,body}=splitFrontmatter(md); const f=n=>fmField(fm,n);
+  const hero=f('hero_image'), title=f('title')||'Untitled', author=f('author'), date=f('date');
+  const dl=date?new Date(date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'';
+  $('pvBody').innerHTML=`<div class="pv-content" style="padding:18px">${hero?`<img src="${esc(hero)}" style="width:100%;border-radius:8px;margin-bottom:12px" alt=""/>`:''}<h1 style="font-size:24px;color:#000036;margin:0 0 6px;line-height:1.2">${esc(title)}</h1><div style="color:#888;font-size:13px;margin-bottom:12px">${esc(author||'')}${author&&dl?' · ':''}${esc(dl)}</div>${mdToHtml(body)}</div>`;
+  $('pvOv').classList.add('show');
+}
+async function toggleBlDraft(f){
+  const makeDraft=!f.draft; setBlLibAlert('inf',makeDraft?'Unpublishing…':'Publishing…');
+  try{ const g=await ghApi('get',{path:f.path}); const upd=setDraftFlag(b64decode(g.content),makeDraft);
+    const r=await ghApi('put',{path:f.path,content:b64(upd),message:`${makeDraft?'Unpublish':'Publish'} blog: ${f.path}`,sha:g.sha});
+    f.content=upd; f.sha=(r.content&&r.content.sha)||g.sha; f.draft=makeDraft; renderBlLib();
+    setBlLibAlert('ok',`${makeDraft?'Set to draft':'Published'} ✓ Redeploys within ~60s.`);
+  }catch(e){ setBlLibAlert('er','Could not update: '+e.message); }
+}
+async function deleteBlArticle(f){
+  if(!confirm('Delete this blog post permanently?\n\n'+f.path)) return;
+  setBlLibAlert('inf','Deleting…');
+  try{ const g=await ghApi('get',{path:f.path}); await ghApi('delete',{path:f.path,message:`Delete blog: ${f.path}`,sha:g.sha});
+    blLib=blLib.filter(x=>x.path!==f.path); renderBlLib(); setBlLibAlert('ok','Deleted ✓');
+  }catch(e){ setBlLibAlert('er','Delete failed: '+e.message); }
+}
+
+// --- Generate ---
+$('blGenerate').addEventListener('click',generateBlog);
+$('blRegen').addEventListener('click',generateBlog);
+async function generateBlog(){
+  const theme=($('blTheme').value||'').trim();
+  if(!theme){ alert('blogAlert','wr','Enter a content theme first.'); return; }
+  const {reviews,news}=blogCatalog();
+  blEditPath=''; blEditDate=''; $('blSlug').readOnly=false; $('blPush').textContent='Push as draft →';
+  const btn=$('blGenerate'), rbtn=$('blRegen'); btn.disabled=true; rbtn.disabled=true; btn.textContent='Generating…';
+  $('blOutPanel').style.display='block';
+  $('blBody').value=''; $('blPreview').innerHTML='<p style="padding:12px;color:#999">Writing…</p>';
+  $('blView').style.display='none'; alert('blPushAlert','','');
+  blHeroImgs=[]; blHeroCredit=''; $('blHeroGrid').innerHTML=''; $('blHero').value=''; $('blStockQuery').value=''; $('blHeroNote').style.display='none';
+  try{
+    const text=await aiStream({ system:BLOG_SYSTEM, messages:[{role:'user',content:buildBlogPrompt(theme,$('blAngle').value.trim(),reviews,news)}], max_tokens:2000, onText:(t)=>{ $('blBody').value=t; } });
+    const {title,body}=splitHeadline(text);
+    $('blTitle').value=title||'Untitled post';
+    $('blSlug').value=slugify(title||'blog-post');
+    $('blBody').value=body;
+    if(!$('blTopic').value) $('blTopic').value=theme.slice(0,40);
+    renderBlPreview();
+    const links=(body.match(/\]\((\/[a-z-]+\/)[^)]+\)/g)||[]).length;
+    alert('blogAlert','ok',`Draft generated with ${links} internal link${links===1?'':'s'} to your reviews/news. Review and push.`);
+    $('blStockQuery').value=theme.split(/\s+/).slice(0,4).join(' ');
+  }catch(e){ $('blPreview').innerHTML=''; alert('blogAlert','er','Generation failed: '+e.message); }
+  btn.disabled=false; rbtn.disabled=false; btn.textContent='✦ Generate post';
+}
+function renderBlPreview(){
+  const hero=$('blHero').value.trim();
+  $('blPreview').innerHTML=`<div class="pv-content" style="padding:16px">${hero?`<img src="${esc(hero)}" style="width:100%;border-radius:8px;margin-bottom:12px" alt=""/>`:''}<h1 style="font-size:22px;color:#000036;margin:0 0 10px;line-height:1.2">${esc($('blTitle').value||'Untitled')}</h1>${mdToHtml($('blBody').value)}</div>`;
+}
+['blBody','blTitle'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(blPvT);blPvT=setTimeout(renderBlPreview,250);}));
+$('blSlug').addEventListener('input',()=>{ $('blSlug').value=slugify($('blSlug').value); });
+
+// --- Hero (rights-free stock) ---
+$('blStockSearch').addEventListener('click',blSearchStock);
+$('blStockQuery').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); blSearchStock(); } });
+function blHeroNote(msg){ const n=$('blHeroNote'); n.innerHTML=msg||''; n.style.display=msg?'block':'none'; }
+function blHeroUrl(u){ return (u&&u.url)||u||''; } function blHeroThumb(u){ return (u&&u.thumb)||blHeroUrl(u); }
+async function blSearchStock(){
+  const q=($('blStockQuery').value||'').trim()||($('blTopic').value||'').trim()||($('blTitle').value||'').trim();
+  if(!q){ alert('blPushAlert','inf','Type what to search for.'); return; }
+  const btn=$('blStockSearch'); btn.disabled=true; btn.textContent='Searching…';
+  try{ const r=await fetch(apiUrl('/api/stock-photo'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})}); const d=await r.json().catch(()=>({}));
+    blHeroImgs=(d.images||[]);
+    if(blHeroImgs.length){ renderBlHeroGrid(); blHeroNote(`Rights-free results via <strong>${esc(d.provider||'stock')}</strong> — free for commercial use. Click one to set the hero.`); }
+    else { renderBlHeroGrid(); blHeroNote('No rights-free photos found — try different keywords.'); }
+  }catch(e){ alert('blPushAlert','er','Photo search failed: '+e.message); }
+  btn.disabled=false; btn.textContent='Free photos';
+}
+function selectBlHero(i){ if(i<0||i>=blHeroImgs.length) return; const u=blHeroImgs[i]; $('blHero').value=blHeroUrl(u); blHeroCredit=(u&&u.credit)||''; renderBlHeroGrid(); renderBlPreview(); }
+function renderBlHeroGrid(){ const cur=$('blHero').value.trim(); $('blHeroGrid').innerHTML=blHeroImgs.map((u,i)=>`<img src="${esc(blHeroThumb(u))}" data-i="${i}" class="${blHeroUrl(u)===cur?'sel':''}" title="${esc((u&&u.credit)||'')}" loading="lazy" alt=""/>`).join(''); }
+$('blHeroGrid').addEventListener('click',e=>{ const im=e.target.closest('[data-i]'); if(im) selectBlHero(parseInt(im.dataset.i)); });
+$('blHeroGrid').addEventListener('error',e=>{ if(e.target.tagName==='IMG') e.target.style.display='none'; },true);
+$('blHero').addEventListener('input',()=>{ blHeroCredit=''; renderBlHeroGrid(); clearTimeout(blPvT); blPvT=setTimeout(renderBlPreview,250); });
+
+// --- Edit existing ---
+function editBlArticle(f){
+  const {fm,body}=splitFrontmatter(f.content); const g=n=>fmField(fm,n);
+  blEditPath=f.path; blEditDate=g('date');
+  $('blTitle').value=g('title')||f.slug; $('blSlug').value=f.slug; $('blSlug').readOnly=true;
+  $('blTopic').value=g('topic')||''; $('blHero').value=g('hero_image')||''; blHeroCredit=g('hero_credit')||'';
+  $('blBody').value=body.trim();
+  const a=g('author'); if(a){ const sel=$('blAuthor'); if([...sel.options].some(o=>o.value===a)) sel.value=a; }
+  blHeroImgs=[]; $('blHeroGrid').innerHTML=''; $('blHeroNote').style.display='none';
+  setBlTab('generate'); $('blOutPanel').style.display='block'; renderBlPreview();
+  $('blPush').textContent='Save changes →';
+  alert('blPushAlert','inf',`Editing “${esc(f.slug)}” — Save changes to commit.`);
+  $('blOutPanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// --- Push ---
+$('blPush').addEventListener('click',pushBlog);
+async function pushBlog(){
+  const title=$('blTitle').value.trim(), slug=slugify($('blSlug').value||title), body=$('blBody').value.trim();
+  if(!title||!slug||!body){ alert('blPushAlert','er','Headline, slug and body are all required.'); return; }
+  const editing=!!blEditPath;
+  const path=editing?blEditPath:`src/pages/blog/${slug}.md`;
+  const btn=$('blPush'); btn.disabled=true; btn.textContent=editing?'Saving…':'Pushing…'; alert('blPushAlert','inf',(editing?'Saving ':'Pushing ')+path+'…');
+  try{
+    let sha, keepDraft=true;
+    try{ const g=await ghApi('get',{path}); sha=g.sha; if(editing) keepDraft=isDraft(b64decode(g.content)); }catch(_){}
+    let hero=$('blHero').value.trim();
+    if(/^https?:\/\//i.test(hero)){ alert('blPushAlert','inf','Saving hero image into the repo…'); try{ const local=await hostHeroImage(hero,slug,'blog'); if(local) hero=local; }catch(e){ alert('blPushAlert','wr','Could not self-host the hero image ('+e.message+') — keeping the external URL.'); } }
+    const date=(editing&&blEditDate)?blEditDate:new Date().toISOString().slice(0,10);
+    const excerpt=deriveExcerpt(body);
+    const fm=`---\nlayout: "../../layouts/BlogLayout.astro"\ntitle: ${yamlStr(title)}\ntopic: ${yamlStr($('blTopic').value.trim()||"Women's Sport")}\ndate: ${yamlStr(date)}\nauthor: ${yamlStr($('blAuthor').value||(team[0]&&team[0].name)||'')}\nexcerpt: ${yamlStr(excerpt)}\nmeta_description: ${yamlStr(excerpt)}\nhero_image: ${yamlStr(hero)}\nhero_credit: ${yamlStr(blHeroCredit)}\ndraft: ${keepDraft?'true':'false'}\n---\n\n${body}\n`;
+    await ghApi('put',{path,content:b64(fm),message:`${editing?'Edit':'Add'} blog post: ${path}`,...(sha?{sha}:{})});
+    alert('blPushAlert','ok',`${editing?'Saved':'Pushed'} ✓ ${keepDraft?'Draft':'Published'} — builds on the next deploy.`);
+    $('blView').href=`/blog/${slug}/`; $('blView').style.display='inline-block';
+    blLibLoaded=true; loadBlLib();
+  }catch(e){ alert('blPushAlert','er','Push failed: '+e.message); }
+  btn.disabled=false; btn.textContent=blEditPath?'Save changes →':'Push as draft →';
+}
+
 loadAll();
 nwLibLoaded=true; loadNwLib();  // also drives the dashboard "News articles" count
+blLibLoaded=true; loadBlLib();  // drives the dashboard "Blog posts" count
 loadNwFeeds();                  // pull the managed feed list from the repo
 </script>
 </body>
