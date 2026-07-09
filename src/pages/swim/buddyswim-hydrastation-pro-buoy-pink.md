@@ -34,6 +34,7 @@ faq:
     a: "The sealed **dry bag compartment** is suited to valuables, a mobile phone, keys, or medication. The separate nutrition netting at the front holds gels or snacks — meaning the dry bag can stay sealed and dry throughout your swim."
   - q: "Is the BuddySwim HydraStation Pro a safety buoy or just a storage buoy?"
     a: "Both. It functions as a **high-visibility safety buoy** — making you visible to boats, paddleboards and support crews — and as a practical storage and fuelling system. It's widely used in open water events and is consistent with guidance from open water safety organisations."
+draft: true
 ---
 
 ## BuddySwim HydraStation Pro Buoy (Pink) Review
