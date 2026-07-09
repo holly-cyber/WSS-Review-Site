@@ -9,7 +9,7 @@ product_type: "apparel"
 tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Bimble & Bolt Midnight Super Strider tights: squat-proof, stay-put running leggings with seriously clever pockets."
 meta_description: "Our hands-on WSS™ review of the Bimble & Bolt Midnight Super Strider Full Length Tights — fit, sizing, squat-proof opacity, pockets and value for women who run."
-hero_image: "/wp-img/2025/10/Bimble-Holly-1536x1152.jpg"
+hero_image: "https://bimbleandbolt.com/cdn/shop/files/Black8_8wr.png?v=1781189115"
 overall_score: 4.3
 affiliate_link: "https://bimbleandbolt.avln.me/c/IBBzuxowabLk"
 shopify_link: ""
@@ -36,12 +36,13 @@ faq:
   - q: Are they long enough for taller women?
     a: Yes. At 5′10″ I usually find "full-length" leggings graze the ankle, but the Super Strider tights hit just right with no bunching or creeping up.
 ---
-
 ## Bimble & Bolt Midnight Super Strider Full Length Tights Review
 
 ### Squat-proof, stay-put leggings built for women who actually run
 
 When you spend hours pounding pavements and tackling trails, you learn fast that not all **[running leggings](https://bimbleandbolt.avln.me/c/IBBzuxowabLk)** are equal: some ride down, some chafe, and some quietly turn sheer the moment you bend. That's the problem the **Bimble & Bolt Midnight Super Strider Full Length Tights** set out to solve, and after testing them on the rugged slopes of the Old Man of Coniston, I think they largely crack it. My thesis: this is a thoughtfully female-designed, squat-proof pair that stays put through everything from steep climbs to strength sets — premium kit that earns its place in the drawer.
+
+![Bimble & Bolt The best running leggings for women | Bimble & Bolt Midnight Super Strider Full Length Tights](https://bimbleandbolt.com/cdn/shop/files/Black8_8wr.png?v=1781189115)
 
 ## WSS™ Assessment
 
@@ -49,13 +50,25 @@ When you spend hours pounding pavements and tackling trails, you learn fast that
 
 The sizing here is genuinely considerate. Bimble & Bolt span **XXS–2XL** across four colourways, and the online size guide was spot-on — I'm a UK 12–14, went for a **Large**, and it felt perfect. At 5′10″ I usually find "full-length" leggings are really awkward ankle-grazers, but these hit just right with no bunching or creeping. These feel cut for women's proportions, not scaled down from unisex.
 
+
+
+![Bimble & Bolt The best running leggings for women | Bimble & Bolt Midnight Super Strider Full Length Tights — image 2](https://bimbleandbolt.com/cdn/shop/files/BimbleBoltLeggingsBlackandBurntOrange.jpg?v=1768476917)
+
 ### Functional Performance in Use — 4/5 ★★★★☆
 
 This is where the Super Striders shine. The **waistband** deserves a special mention: once pulled up and adjusted, it stayed locked in place for my entire run — no sliding, rolling or mid-session tugging across both road miles and strength work. The inner fabric is smooth and kind to skin, so no irritation even on long, sweaty efforts. The pockets seal the deal: two deep side pockets (fitting a phone, gels or gloves) plus a **rear zip pocket** for keys, with the side pockets set slightly lower on the thigh to keep everything stable and bounce-free.
 
+
+
+![Bimble & Bolt The best running leggings for women | Bimble & Bolt Midnight Super Strider Full Length Tights — image 3](https://bimbleandbolt.com/cdn/shop/collections/Bimble_Bolt_Leggings_-_Gilly_Photo-092.jpg?v=1724842512)
+
 ### Adequate Support Standards — 5/5 ★★★★★
 
 This criterion is built around impact and cup support for garments like sports bras, so for a pair of running leggings it isn't directly applicable — I've scored it neutrally rather than penalising tights for a job they were never meant to do. What the Super Striders offer instead is **core support**: a medium-high compression that holds and shapes through the midsection without feeling restrictive. Treat this as a "not relevant here" rather than a strength or a weakness.
+
+
+
+![Bimble & Bolt The best running leggings for women | Bimble & Bolt Midnight Super Strider Full Length Tights — image 4](https://bimbleandbolt.com/cdn/shop/files/BimbleBoltLeggingsBlackleggingssretch.jpg?v=1768476917)
 
 ### Thermal Regulation & Material Performance — 4/5 ★★★★☆
 
@@ -101,8 +114,6 @@ These are for women who train hard and want **do-it-all** leggings: road runs, t
 
 For reference, I'm a UK 12–14 and the **Large** felt perfect — medium-high compression, snug enough for support but still breathable. The range runs **XXS–2XL** across four colourways, and the online size guide matched my experience exactly. At 5′10″ the full length actually reached full length, with no bunching or creeping. If you're between sizes or prefer a relaxed feel, size up.
 
-![A woman wearing black running leggings paired with bright sneakers, standing confidently with hands on her hips, showcasing the leggings' fit and design.](/wp-img/2025/10/Screenshot-2025-10-17-at-12.36.13-1011x1024.png)
-
 ## How It Compares
 
 | Product | Price | Size Range | Key Strength | Our Verdict |
@@ -111,8 +122,6 @@ For reference, I'm a UK 12–14 and the **Large** felt perfect — medium-high c
 | Sweaty Betty Power Leggings | £90 Premium | UK 4–24 | Sculpting compression | Reliable all-rounder |
 | Lululemon Fast & Free | £118 Premium | UK 4–20 | Smooth, breathable fabric | Slick but pricey |
 | Sub-£20 high-street tights | Budget | Varies | Low price | Often ride down or go sheer |
-
-![](/wp-img/2025/10/IMG_0261-225x300.jpg)
 
 ## The Verdict
 
