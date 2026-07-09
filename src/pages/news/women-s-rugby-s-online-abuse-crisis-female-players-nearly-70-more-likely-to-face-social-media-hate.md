@@ -8,7 +8,6 @@ excerpt: "The extraordinary growth of women's rugby is being shadowed by a deepl
 meta_description: "The extraordinary growth of women's rugby is being shadowed by a deeply troubling trend: female players face dramatically higher rates of online abuse than their male counterparts,"
 hero_image: "/images/news/women-s-rugby-s-online-abuse-crisis-female-players-nearly-70-more-likely-to-face-social-media-hate.jpg"
 hero_credit: ""
-draft: true
 sources:
   - title: "Female players 69% more likely to suffer online abuse"
     url: "https://www.bbc.co.uk/sport/rugby-union/articles/cm2rmy2nlxzo?at_medium=RSS&amp;at_campaign=rss"
