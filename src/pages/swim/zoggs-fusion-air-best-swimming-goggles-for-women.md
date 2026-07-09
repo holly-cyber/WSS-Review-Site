@@ -9,7 +9,7 @@ product_type: "accessory"
 tested_by: "Mel Berry"
 excerpt: "After years of red marks and sore eye sockets, the Zoggs Fusion Air Titanium are the most comfortable goggles I've worn — my pick for women's swim."
 meta_description: "Our WSS™ review of the Zoggs Fusion Air Titanium goggles — air-cushioned seals, interchangeable nose bridges and mirrored lenses, scored for women swimmers."
-hero_image: "/wp-img/2025/10/Fusion--1536x1152.jpg"
+hero_image: "/images/reviews/zoggs-fusion-air-best-swimming-goggles-for-women.webp"
 overall_score: 3.8
 affiliate_link: "https://www.zoggs.com/en_GB/fusion-air-titanium-goggles-461106#u463"
 shopify_link: ""
