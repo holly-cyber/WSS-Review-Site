@@ -83,7 +83,7 @@ At £40.00 and an overall WSS™ score of 3.5/5, the **PROPEL Goggles** offer ge
 
 ## Who It's For / Who It's Not For
 
-**These are ideal for** serious recreational swimmers and triathletes — both Elle (32–44, training regularly for events) and Maya (44–58, peri/post-menopausal, prioritising comfort and reliable kit) will find a lot to like here. If you train in the pool multiple times a week or race triathlons and want a goggle that won't let you down on the start line, <a href="https://trifitathletic.avln.me/c/eYsOpIuSMfVl" rel="nofollow sponsored" target="_blank">the PROPEL is worth the investment</a>. The low-drag frame, secure seal, and sharp optics make them equally useful for structured pool training and race-day use.
+**These are ideal for** serious recreational swimmers and triathletes who are prioritising comfort and reliable kit who will find a lot to like here. If you train in the pool multiple times a week or race triathlons and want a goggle that won't let you down on the start line, <a href="https://trifitathletic.avln.me/c/eYsOpIuSMfVl" rel="nofollow sponsored" target="_blank">the PROPEL is worth the investment</a>. The low-drag frame, secure seal, and sharp optics make them equally useful for structured pool training and race-day use.
 
 **They may not suit you if** you prefer a larger, cushioned fitness goggle for casual or recreational swimming — the racing-style gasket and close-profile fit is purposeful, and if you find race goggles uncomfortable for long distances, you might prefer a softer, wider-sealing option. Women with particularly narrow or wide facial structures may also want to try before committing, given the absence of published frame dimensions.
 
