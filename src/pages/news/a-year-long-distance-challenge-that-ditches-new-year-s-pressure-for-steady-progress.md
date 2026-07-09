@@ -11,6 +11,7 @@ hero_credit: "Image: Fotorech / Pixabay"
 sources:
   - title: "Want to Galvanize Your 2025 Running Goals? Take the “You vs. the Year 2025” Running Challenge"
     url: "https://www.womensrunning.com/training/want-to-galvanize-your-2025-running-goals-take-the-you-vs-the-year-2025-running-challenge/"
+draft: true
 ---
 
 If you've ever watched a January resolution dissolve by the first week of February, you're in excellent company. The problem isn't ambition — it's the all-or-nothing framing that makes a single missed session feel like total defeat. A distance challenge highlighted by Women's Running offers a more forgiving, sustainable alternative for 2025.
