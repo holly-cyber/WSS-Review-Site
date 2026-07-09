@@ -11,7 +11,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "The no-leak, no-faff pair that carried me across the English Channel — a WSS™ review of the Zoggs Predator Clear goggles for women."
 meta_description: "WSS™ review of the Zoggs Predator Clear goggles — seal, fit, anti-fog, clear lenses and value for women swimmers, scored against the WSS equipment framework."
-hero_image: "/wp-img/2025/10/Screenshot-2025-10-13-at-17.02.45-1536x1032.png"
+hero_image: "/images/reviews/best-swim-goggles-zoggs-predator-clear.webp"
 overall_score: 4.1
 affiliate_link: "https://www.zoggs.com/en_GB/predator-flex-goggles-461041#u463"
 shopify_link: ""
