@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../data/taxonomy.js';
+
+const mods = import.meta.glob('./*.md', { eager: true });
+const posts = Object.entries(mods)
+  .map(([path, mod]: [string, any]) => ({ ...mod.frontmatter, slug: path.split('/').pop().replace('.md', '') }))
+  .filter((a: any) => (import.meta.env.PROD ? a.draft !== true : true))
+  .sort((a: any, b: any) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+
+const fmtDate = (d: string) => d ? new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+const featured = posts[0];
+const rest = posts.slice(1);
+---
+<BaseLayout title="Women's Sport Blog" description="Training tips, kit guides and inspiration for active women — from the Women's Sports Store team.">
+  <section class="container blog-hub">
+    <div class="blog-hub-head">
+      <h1>Blog</h1>
+      <p>Training tips, kit guides and inspiration for active women — with links to our tested reviews and the latest news.</p>
+    </div>
+
+    {posts.length === 0 && <p class="blog-empty">No blog posts yet. New articles will appear here.</p>}
+
+    {featured && (
+      <a class="blog-feature" href={`/blog/${featured.slug}/`}>
+        {featured.hero_image && <img src={withBase(featured.hero_image)} alt={featured.title} />}
+        <div class="blog-feature-body">
+          {featured.topic && <span class="blog-topic">{featured.topic}</span>}
+          <h2>{featured.title}</h2>
+          {featured.excerpt && <p>{featured.excerpt}</p>}
+          <span class="blog-byline">{featured.author ? `By ${featured.author}` : ''}{featured.author && featured.date ? ' · ' : ''}{fmtDate(featured.date)}</span>
+        </div>
+      </a>
+    )}
+
+    {rest.length > 0 && (
+      <div class="blog-grid">
+        {rest.map((a: any) => (
+          <a class="blog-card" href={`/blog/${a.slug}/`}>
+            {a.hero_image && <img src={withBase(a.hero_image)} alt={a.title} loading="lazy" />}
+            <div class="blog-card-body">
+              {a.topic && <span class="blog-topic">{a.topic}</span>}
+              <h3>{a.title}</h3>
+              {a.excerpt && <p>{a.excerpt}</p>}
+              <span class="blog-byline">{a.author ? `By ${a.author}` : ''}{a.author && a.date ? ' · ' : ''}{fmtDate(a.date)}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+.blog-hub { padding: 2.5rem 1rem 3.5rem; }
+.blog-hub-head { max-width: 760px; margin: 0 0 2rem; }
+.blog-hub-head h1 { font-size: clamp(2rem, 5vw, 3rem); color: #000036; margin: 0 0 .5rem; }
+.blog-hub-head p { font-size: 1.1rem; color: #555; margin: 0; }
+.blog-empty { color: #888; }
+.blog-topic { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: #FF5E84; font-weight: 700; }
+.blog-byline { font-size: .85rem; color: #999; }
+.blog-feature { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; align-items: center; text-decoration: none; border: 1px solid #ececf3; border-radius: 16px; overflow: hidden; background: #fff; margin-bottom: 2rem; transition: box-shadow .15s; }
+.blog-feature:hover { box-shadow: 0 10px 30px rgba(0,0,54,.1); }
+.blog-feature img { width: 100%; height: 100%; min-height: 240px; object-fit: cover; }
+.blog-feature-body { padding: 1.4rem 1.6rem 1.6rem; display: flex; flex-direction: column; gap: .6rem; }
+.blog-feature-body h2 { font-size: 1.6rem; color: #000036; margin: 0; line-height: 1.2; }
+.blog-feature-body p { color: #555; margin: 0; line-height: 1.55; }
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.4rem; }
+.blog-card { display: flex; flex-direction: column; text-decoration: none; border: 1px solid #ececf3; border-radius: 14px; overflow: hidden; background: #fff; transition: box-shadow .15s; }
+.blog-card:hover { box-shadow: 0 8px 24px rgba(0,0,54,.08); }
+.blog-card img { width: 100%; height: 160px; object-fit: cover; }
+.blog-card-body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; }
+.blog-card-body h3 { font-size: 1.1rem; color: #000036; margin: 0; line-height: 1.3; }
+.blog-card-body p { font-size: .92rem; color: #666; margin: 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 700px) { .blog-feature { grid-template-columns: 1fr; } .blog-feature img { min-height: 200px; } }
+</style>

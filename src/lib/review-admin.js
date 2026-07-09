@@ -151,6 +151,24 @@ export function buildRewritePrompt(article, phrases) {
   return `The WSS news article below still reuses wording from its source too closely. Rewrite it so that NONE of the flagged phrases below — and no run of 6+ consecutive words — match the source, while keeping every fact accurate, the same overall structure and subheadings, and British English. Return the FULL article in the same format: the first line is "# <headline>", then the body with "## " subheadings. Output only the article, no commentary.\n\nFLAGGED PHRASES (these must be reworded):\n${list}\n\nARTICLE TO REWRITE:\n${article}`;
 }
 
+// --- Blog generation: theme-based, with internal links to reviews + news ------
+export const BLOG_SYSTEM = `You are a blog editor for Women's Sports Store (WSS), writing original, genuinely useful articles for an audience of active women. British English, warm, expert and encouraging. You write evergreen guides, tips and inspiration — not news reports. Never fabricate facts, quotes or statistics, and never copy text from any source.`;
+
+export const BLOG_RULES = `BLOG RULES — follow every one:
+1. Write an ORIGINAL, genuinely useful article on the given theme (evergreen advice/inspiration, not a news report). 700–1100 words, British English, with 3–6 "## " subheadings.
+2. The first line MUST be the headline as "# <headline>" — benefit-led, keyword-aware, your own wording.
+3. INTERNAL LINKS: weave in 2–5 markdown links to the MOST RELEVANT items from the "Linkable content" list below, using their EXACT URLs and natural anchor text. Never invent a URL, and never link something irrelevant. Prefer a product review when you mention a product type, and a news piece when you mention a trend or event.
+4. No fabricated facts, quotes or statistics; do not copy text from anywhere.
+5. End with a short, encouraging closing paragraph — no "click here", no hard sell.`;
+
+// Build the blog prompt from a theme + the internal-link catalog (reviews, news).
+export function buildBlogPrompt(theme, angle, reviews, news) {
+  const rev = (reviews || []).slice(0, 40).map((r) => `- "${r.title}"${r.brand ? ` by ${r.brand}` : ''} (${r.category || 'review'}) → ${r.url}`).join('\n');
+  const nws = (news || []).slice(0, 20).map((n) => `- "${n.title}" (${n.topic || 'news'}) → ${n.url}`).join('\n');
+  const angleLine = angle ? `\nEditor's angle: ${angle}\n` : '';
+  return `Write an original WSS blog article on this theme:\n"${theme}"\n${angleLine}\n${BLOG_RULES}\n\nLINKABLE CONTENT — link the most relevant of these by their EXACT URL (skip irrelevant ones, never invent a URL):\nPRODUCT REVIEWS:\n${rev || '(none available)'}\n\nNEWS:\n${nws || '(none available)'}`;
+}
+
 export async function scrapeImages(url) {
   const r = await fetch(apiUrl('/api/scrape-images'), {
     method: 'POST', headers: { 'Content-Type': 'application/json' },

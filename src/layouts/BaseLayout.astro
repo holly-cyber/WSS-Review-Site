@@ -179,6 +179,9 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
         <div class="mega-item">
           <a class:list={["mega-trigger", Astro.url.pathname.startsWith('/news') && "active"]} href="/news/">News</a>
         </div>
+        <div class="mega-item">
+          <a class:list={["mega-trigger", Astro.url.pathname.startsWith('/blog') && "active"]} href="/blog/">Blog</a>
+        </div>
       </nav>
 
       <form class="site-search" action="/search" method="get" role="search">
@@ -213,6 +216,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
         </div>
       ))}
       <div class="drawer-cat"><a class="drawer-cat-btn" href="/news/" style="display:flex;text-decoration:none"><span>News</span></a></div>
+      <div class="drawer-cat"><a class="drawer-cat-btn" href="/blog/" style="display:flex;text-decoration:none"><span>Blog</span></a></div>
     </nav>
     <a href="https://shop.womenssportsstore.com" class="btn btn-pink drawer-shop" target="_blank" rel="noopener">Shop →</a>
   </aside>
@@ -239,6 +243,7 @@ const visibleItems = (catSlug: string, sub: any) => sub.items.filter((it: string
         <a href="/technology/">Technology</a>
         <a href="/equipment/">Equipment</a>
         <a href="/news/">News</a>
+        <a href="/blog/">Blog</a>
       </div>
       <div class="footer-col">
         <h4>WSS™</h4>
