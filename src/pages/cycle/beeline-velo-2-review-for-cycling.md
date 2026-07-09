@@ -9,7 +9,7 @@ product_type: "tech"
 tested_by: "Mel Berry"
 excerpt: "A compact, affordable cycling navigation unit that keeps things simple — clear screen, long battery and pocketable design for everyday riders."
 meta_description: "WSS™ review of the Beeline Velo 2 cycling computer — navigation, screen clarity, battery, value and female-focused fit, scored against the WSS technology framework."
-hero_image: "/wp-img/2025/09/BL-velo2-2025-25-1-1536x1024.jpg"
+hero_image: "/images/reviews/beeline-velo-2-review-for-cycling.webp"
 overall_score: 4.3
 affiliate_link: "https://beeline.co/products/beeline-velo-2"
 shopify_link: ""
