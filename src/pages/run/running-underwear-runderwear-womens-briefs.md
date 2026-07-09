@@ -9,7 +9,7 @@ product_type: "apparel"
 tested_by: "Mel Berry"
 excerpt: "After 30 years running commando, Runderwear's Women's Running Briefs converted me — chafe-free, stay-put comfort from the first wear."
 meta_description: "Our WSS™ review of the Runderwear Women's Running Briefs — fit, seam placement, chafe-free comfort, breathability and value for women who run."
-hero_image: "https://www.runderwear.co.uk/cdn/shop/files/womens-power-bra-black-front-studio-runderwear.jpg?v=1763579449&width=2048"
+hero_image: "https://www.runderwear.co.uk/cdn/shop/files/womens-briefs-front-black-runderwear.jpg?v=1763654731&width=2048"
 overall_score: 4.2
 pillar_scores:
   p1: 4
@@ -41,7 +41,7 @@ faq:
 
 Running underwear rarely earns a standing ovation, but these briefs genuinely changed how I run. For active women, the problem is real: ill-fitting underwear means chafing, the dreaded "running wedgie", and constant mid-run fiddling that pulls your focus from your pace. I'll admit I ran commando for 30 years to avoid all of it. The **[<a href="https://runderwear.avln.me/c/gPSXQpKPNlMC" target="_blank" rel="nofollow sponsored">Runderwear Women's Running Briefs</a>](https://runderwear.avln.me/c/gPSXQpKPNlMC)** converted me on the first wear: soft, lightweight, seamless and reassuringly stay-put. For sheer chafe-free comfort over the miles, they're a small luxury that makes a big difference.
 
-![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review](https://www.runderwear.co.uk/cdn/shop/files/womens-power-bra-black-front-studio-runderwear.jpg?v=1763579449&width=2048)
+![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review](https://www.runderwear.co.uk/cdn/shop/files/womens-briefs-front-black-runderwear.jpg?v=1763654731&width=2048)
 
 ## WSS™ Assessment
 
@@ -50,21 +50,21 @@ The sizing is one of the nicer surprises here: I took my usual **L** and they fi
 
 
 
-![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review — image 2](https://www.runderwear.co.uk/cdn/shop/files/Power-Bra-Black-Front-1-Model.jpg?v=1763579446&width=1500)
+![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review — image 2](https://www.runderwear.co.uk/cdn/shop/files/womens-briefs-model-front3-black-runderwear.jpg?v=1763654731&width=1500)
 
 ### Functional Performance in Use — 5/5 ★★★★★
 This is where the briefs shine. The **seamless edges** mean no awkward seams digging into sensitive areas, and the waistband sits perfectly without ever cutting in. Across short runs and long runs the coverage stayed put — no rolling, no riding up, no "running wedgie" moment. From tempo efforts to interval sprints they moved *with* me, not against me, so I could focus on pace instead of constantly adjusting my kit. For chafe-free comfort over distance, they're outstanding.
 
 
 
-![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review — image 3](https://www.runderwear.co.uk/cdn/shop/files/Bra_assets_mobile_Final_3.jpg?v=1738145864&width=1300)
+![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review — image 3](https://www.runderwear.co.uk/cdn/shop/files/womens-briefs-model-back-black-runderwear.jpg?v=1763654731&width=1500)
 
 ### Adequate Support Standards — 4/5 ★★★★☆
 Impact support isn't really the job of a pair of briefs. What matters at this layer is secure, supportive coverage that stays in place and on that count they deliver. The Runderwear women's briefs hold firm through dynamic movement without pinching. 
 
 
 
-![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review — image 4](https://www.runderwear.co.uk/cdn/shop/files/Bra_assets_mobile_Final_1_8f35cf38-dea2-4139-b413-8b657da00997.jpg?v=1738145863&width=1300)
+![Runderwear Best Running Underwear | Runderwear Women's Running Briefs Review — image 4](https://www.runderwear.co.uk/cdn/shop/files/womens-briefs-model-front-black-runderwear.jpg?v=1763654731&width=1500)
 
 ### Thermal Regulation & Material Performance — 4/5 ★★★★☆
 The lightweight, breathable fabric kept me cool and dry even on the sweatiest runs, and the moisture-managing feel is a clear step up from everyday underwear. Just as importantly, the fit and shape held after **multiple washes**, with no sagging or loss of elasticity. The wicking and longevity claims aren't independently lab-tested, but in sustained real-world use the material performed consistently and reliably.
