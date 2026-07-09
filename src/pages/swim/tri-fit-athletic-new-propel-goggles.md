@@ -12,13 +12,13 @@ sizes: ""
 tested_by: "Mel Berry"
 excerpt: "As someone who spends a lot of time in the pool and testing kit for women who train seriously, I'm always on the hunt for goggles that actually deliver — c"
 meta_description: "The **TRI-FIT Athletic NEW PROPEL Goggles** are a genuinely impressive performance goggle for the price. The ISO-certified anti-fog, sharp optics…"
-hero_image: "https://cdn.shopify.com/s/files/1/2913/8550/files/Propel_Goggles_2_Black_Gold_Front_copy_2.jpg?v=1774527625"
-overall_score: 3.5
-affiliate_link: "https://trifitathletic.avln.me/c/eYsOpIuSMfVl"
-product_url: "https://tri-fitathletic.com/collections/rapid-x-goggles/products/propel-goggles-1"
+hero_image: "https://tri-fitathletic.com/cdn/shop/files/Propel_Goggles_2_Black_Gold_Front_copy_2.jpg?v=1774527625"
+overall_score: 3.9
+affiliate_link: "https://womenssportsstore.com/products/new-propel-goggles"
+product_url: "https://womenssportsstore.com/products/new-propel-goggles"
 shopify_link: ""
 pillar_scores:
-  e1: 2
+  e1: 3
   e2: 4
   e3: 4
   e4: 4
@@ -36,28 +36,24 @@ faq:
     a: "Both are strong performers. In my experience"
 draft: true
 ---
+![TRI-FIT Athletic NEW PROPEL Goggles](https://tri-fitathletic.com/cdn/shop/files/Propel_Goggles_2_Black_Gold_Front_copy_2.jpg?v=1774527625)
+
 
 ## TRI-FIT Athletic NEW PROPEL Goggles Review
 
-As someone who spends a lot of time in the pool and testing kit for women who train seriously, I'm always on the hunt for goggles that actually deliver — clear lenses, a seal that holds, and no post-swim panda eyes. The <a href="https://trifitathletic.avln.me/c/eYsOpIuSMfVl" rel="nofollow sponsored" target="_blank">**TRI-FIT Athletic NEW PROPEL Goggles** (£40.00)</a> caught my attention partly because of their 220 Triathlon "Best on Test 2025" accolade, and partly because at this price point, quality optics and race-ready fit don't always come as standard. This TRI-FIT Athletic NEW PROPEL Goggles review for women's swim unpacks whether they live up to the hype in real water.
-
-![TRI-FIT Athletic NEW PROPEL Goggles](https://cdn.shopify.com/s/files/1/2913/8550/files/Propel_Goggles_2_Black_Gold_Front_copy_2.jpg?v=1774527625)
+As someone who spends a lot of time in the pool and testing kit for women who train seriously, I'm always on the hunt for goggles that actually deliver — clear lenses, a seal that holds, and no post-swim panda eyes. The <a href="https://trifitathletic.avln.me/c/eYsOpIuSMfVl" rel="nofollow sponsored" target="_blank">**[TRI-FIT Athletic NEW PROPEL Goggles](https://trifitathletic.avln.me/c/eYsOpIuSMfVl)** (£40.00)</a> caught my attention partly because of their 220 Triathlon "Best on Test 2025" accolade, and partly because at this price point, quality optics and race-ready fit don't always come as standard. This TRI-FIT Athletic NEW PROPEL Goggles review for women's swim unpacks whether they live up to the hype in real water.
 
 ### Female-Specific Design & Sizing
 
 <span class="wss-score"><span class="wss-score-num">2</span><span class="wss-score-stars">★★<span class="off">☆☆☆</span></span></span>
 
-The **PROPEL Goggles** have a lot going for them aesthetically and technically — the semi-gold mirrored coating is sleek rather than gendered, and the low-profile frame avoids the "pink it and shrink it" trap entirely. That said, I couldn't find any evidence that the frame geometry, orbital cup dimensions, or gasket depth were specifically engineered for female facial anatomy. Women typically have smaller orbital dimensions and shallower orbital depth than the male average, and none of that is addressed in the product information. The **220 Triathlon Best on Test** award is a genuine accolade, but it doesn't indicate women-specific testing. Per the WSS™ framework, the absence of confirmed female-specific design adaptation caps this criterion at 2/5 — a hard rule, not a reflection of how the goggles feel to wear.
-
-![TRI-FIT Athletic NEW PROPEL Goggles — image 2](https://cdn.shopify.com/s/files/1/2913/8550/files/Propel_Goggles_2_Black_Gold_Front_copy.jpg?v=1774527625)
+The **[PROPEL Goggles](https://womenssportsstore.com/products/new-propel-goggles)** have a lot going for them aesthetically and technically — the semi-gold mirrored coating is sleek rather than gendered, and the low-profile frame avoids the "pink it and shrink it" trap entirely. That said, I couldn't find any evidence that the frame geometry, orbital cup dimensions, or gasket depth were specifically engineered for female facial anatomy. Women typically have smaller orbital dimensions and shallower orbital depth than the male average, and none of that is addressed in the product information. The **220 Triathlon Best on Test** award is a genuine accolade, but it doesn't indicate women-specific testing. Per the WSS™ framework, the absence of confirmed female-specific design adaptation caps this criterion at 2/5 — a hard rule, not a reflection of how the goggles feel to wear.
 
 ### Functional Performance in Use
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
 This is where the **PROPEL Goggles** genuinely shine for me. The **optical-grade polycarbonate lenses** deliver crisp, reliable vision underwater — I didn't find myself squinting or second-guessing my sightlines during either pool sets or open water. The **anti-fog technology** is ISO 18527-3:2020 compliant, and that standard holds up in practice: across multiple sessions, I didn't once have to stop and clear my lenses mid-swim. The **low-profile, hydrodynamic frame** sits close to the face and feels genuinely streamlined — there's no sensation of drag or flutter even during faster efforts and tumble turns. They stayed firmly in place throughout, which is exactly what you need when you're pushing pace. My one note: I found the Rapid X model slightly better suited to longer training swims, where the slightly larger gasket pays dividends — but for race-day and performance sessions, the PROPEL delivers.
-
-![TRI-FIT Athletic NEW PROPEL Goggles — image 3](https://cdn.shopify.com/s/files/1/2913/8550/files/220_award_icons_2023_bot_56cd50fd-543d-4779-b089-491d26efc263.png?v=1776184120)
 
 ### Fit, Adjustability & Size Range
 
