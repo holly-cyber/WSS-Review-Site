@@ -9,7 +9,7 @@ product_type: "accessory"
 tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Zoggs Fusion Air Titanium goggles: superb titanium-lens clarity for bright swims, held back by a strap that won't stay put."
 meta_description: "Our WSS™ review of the Zoggs Fusion Air Titanium goggles — excellent vision and comfort, but questionable strap stability for women open water swimmers."
-hero_image: "/wp-img/2026/04/Screenshot-2026-04-30-at-09.33.51-1-1536x859.png"
+hero_image: "/images/reviews/zoggs-fusion-air-review-excellent-vision-questionable-stability.webp"
 overall_score: 2.9
 affiliate_link: "https://www.zoggs.com/en_GB/product/fusion-air-titanium-goggles-461106#u463"
 shopify_link: ""
