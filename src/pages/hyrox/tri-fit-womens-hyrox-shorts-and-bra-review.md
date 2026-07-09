@@ -9,7 +9,7 @@ product_type: "clothing"
 tested_by: "Lucie Beales"
 excerpt: "A WSS™ review of the Tri-Fit Roxy Hyrox shorts and bra: a true-to-size, stay-put set with genuine bra support for high-intensity training."
 meta_description: "Our hands-on WSS™ review of the Tri-Fit Roxy women’s Hyrox shorts and bra — fit, sizing, bra support, sweat-proof performance, female-specific design and value."
-hero_image: "/wp-img/2026/04/Screenshot-2026-04-13-at-13.06.44.webp"
+hero_image: "/images/reviews/tri-fit-womens-hyrox-shorts-and-bra-review.webp"
 overall_score: 4.0
 affiliate_link: "https://tri-fitathletic.com/collections/tri-fit-sitech-womens-athleticwear/products/roxi-4-shorts-black-edition"
 shopify_link: ""
