@@ -8,7 +8,7 @@ product_type: "apparel"
 tested_by: "Mel Berry"
 excerpt: "My WSS™ review of the Runderwear Power Running Bra: three years, a 50K ultra and countless washes of no-bounce, no-fuss support."
 meta_description: "Our hands-on WSS™ review of the Runderwear Power Running Bra — support, fit, sizing, breathability and value for women who run."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/238_HS_031222_BigTimages-1536x1024.jpg"
+hero_image: "https://www.runderwear.co.uk/cdn/shop/files/womens-power-bra-black-front-studio-runderwear.jpg?v=1763579449&width=2048"
 overall_score: 4.8
 affiliate_link: "https://runderwear.avln.me/c/sTAmhGRllrNg"
 shopify_link: ""
@@ -34,6 +34,8 @@ faq:
     a: "Absolutely. The sleek, minimalist design layers invisibly under vests and tees with no bunching, but it's also streamlined and supportive enough to wear solo on warmer days without feeling exposed."
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Apparel framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
+![Runderwear The Best Running Bra | Runderwear Power Bra review](https://www.runderwear.co.uk/cdn/shop/files/womens-power-bra-black-front-studio-runderwear.jpg?v=1763579449&width=2048)
+
 
 ## Runderwear Power Running Bra Review
 
@@ -46,8 +48,6 @@ If you've ever spent the first mile of a run fighting your bra straps and the se
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">★</span></span></span>
 
 Runderwear gets sizing *right*, and that's a real win. The **Power Running Bra** fits true to size, and the brand's sizing chart is refreshingly accurate — whether you're petite or fuller-chested, the elasticated yet supportive fabric moulds comfortably to your shape. It's forgiving enough for those in-between sizes but structured enough to provide serious support when you pick up the pace. A published cup-and-band range isn't independently verified here, but the real-world fit across body shapes is a strong one.
-
-![Black Runderwear Power Running Bra with wide shoulder straps and racerback design, showcasing its smooth and structured fabric.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-30-at-16.59.01-985x1024.png)
 
 ### Functional Performance in Use
 
