@@ -10,7 +10,7 @@ sizes: "6-22"
 tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Zoggs Sea Tribe Silver Lined Strikeback: thermal warmth, recycled Ecofeel fabric and a flattering open-water fit."
 meta_description: "Our WSS™ review of the Zoggs Sea Tribe Silver Lined Strikeback open water swimsuit — thermal lining, recycled Ecofeel fabric, inclusive fit and real-world performance for women swimmers."
-hero_image: "/wp-img/2025/10/Zoggs-1-1151x1536.webp"
+hero_image: "/images/reviews/zoggs-silver-lined-sea-tribe-open-water-swimsuit.webp"
 overall_score: 3.8
 affiliate_link: "https://www.zoggs.com/en_GB/sea-tribe-silver-lined-strikeback-swimsuit-462377-seat#u463"
 shopify_link: ""
