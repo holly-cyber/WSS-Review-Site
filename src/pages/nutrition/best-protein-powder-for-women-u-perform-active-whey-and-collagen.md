@@ -17,8 +17,8 @@ pillar_scores:
   nutrition: 5
   performance: 5
   value: 4
-shopify_link: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
-product_url: "https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
+shopify_link: "https://womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
+product_url: "https://womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969"
 price:
 migration_source: "https://womenssportsstore.com/best-protein-powder-for-women-u-perform-active-whey-and-collagen/"
 faq:
@@ -38,7 +38,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 ## U Perform Active Whey & Collagen Review
 ### Two powerhouse ingredients, one chocolate scoop built for recovery
 
-Finding the <a href="https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969" target="_blank" rel="nofollow sponsored">**[best protein powder for women](https://shop.womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969)**</a> can feel like a minefield: too many powders promise the world, then taste chalky, clump in the shaker or leave you bloated. I've worked through my fair share over the years, and **U Perform Active Whey and Collagen Chocolate** is the one that stuck. It cleverly pairs two powerhouse ingredients — whey protein for muscle recovery and collagen for joint and skin health — in a single scoop. For an active woman trying to train, recover and feel her best, that two-in-one approach is exactly what I'd been missing.
+Finding the <a href="https://womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969" target="_blank" rel="nofollow sponsored">**[best protein powder for women](https://womenssportsstore.com/products/u-perform-active-whey-collagen?variant=57234964250969)**</a> can feel like a minefield: too many powders promise the world, then taste chalky, clump in the shaker or leave you bloated. I've worked through my fair share over the years, and **U Perform Active Whey and Collagen Chocolate** is the one that stuck. It cleverly pairs two powerhouse ingredients — whey protein for muscle recovery and collagen for joint and skin health — in a single scoop. For an active woman trying to train, recover and feel her best, that two-in-one approach is exactly what I'd been missing.
 
 ## WSS™ Assessment
 

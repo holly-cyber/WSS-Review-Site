@@ -12,7 +12,7 @@ excerpt: "A comfortable, panoramic open-water and pool goggle with a genuinely s
 meta_description: "Our WSS™ review of the BuddySwim Ozean swim goggles: cushioned seal comfort, panoramic open-water vision, anti-fog clarity and where the standards data falls short."
 hero_image: "https://buddyswim.com/5185-thickbox_default/gafas-buddyswim-ozean-black-orange-orange.jpg"
 overall_score: 4.8
-affiliate_link: "https://shop.womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange"
+affiliate_link: "https://womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange"
 shopify_link: ""
 pillar_scores:
   e1: 4
@@ -32,13 +32,13 @@ faq:
   - q: "How do BuddySwim Ozean goggles compare to Speedo Futura Biofuse?"
     a: "Both sit in a similar **£30–£35 bracket**. The Ozean edges ahead on panoramic vision and open-water performance; the **Speedo Futura Biofuse** offers adjustable nose-bridge inserts and documented female-fit variants. Your choice comes down to fit priority (Speedo) versus open-water optics (Ozean)."
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Equipment framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). E4 reflects unconfirmed UV rating and safety/performance standards. Confirm tested_by/reviewer and scores before publishing."
-product_url: "https://shop.womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange"
+product_url: "https://womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange"
 ---
 # BuddySwim Ozean Swim Goggles Black-Orange/Orange Review — Women's Swim
 
 ## Overview
 
-Finding goggles that stay put through a choppy open-water session — or a punishing pool interval set — is one of swimming's most underrated challenges. I've been there: mid-race, mask flooding, vision blurring. So when I came to the **[BuddySwim Ozean Swim Goggles Black-Orange/Orange](https://shop.womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange)**, I wanted to know whether they could deliver comfort *and* performance across both environments. At **[£35](https://shop.womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange)** they sit in a competitive mid-range bracket, and for the most part they make a genuinely compelling case for women who want one dependable pair for the lake and the lane.
+Finding goggles that stay put through a choppy open-water session — or a punishing pool interval set — is one of swimming's most underrated challenges. I've been there: mid-race, mask flooding, vision blurring. So when I came to the **[BuddySwim Ozean Swim Goggles Black-Orange/Orange](https://womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange)**, I wanted to know whether they could deliver comfort *and* performance across both environments. At **[£35](https://womenssportsstore.com/products/buddyswim-ozean-swim-goggles-black-orange-orange)** they sit in a competitive mid-range bracket, and for the most part they make a genuinely compelling case for women who want one dependable pair for the lake and the lane.
 
 > **Reviewed by Mel Berry**
 

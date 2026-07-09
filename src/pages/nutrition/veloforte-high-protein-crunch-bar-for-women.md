@@ -11,9 +11,9 @@ excerpt: "A crunchy, cocoa-and-ginger protein bar that tastes like a treat — 2
 meta_description: "WSS™ review of the Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — taste, nutrition, recovery performance and value, scored against the WSS nutrition framework."
 hero_image: "/wp-img/2025/10/Veloforte-Coca-and-stem-ginger-protein-crunch-bar--1516x1536.png"
 overall_score: 4.9
-affiliate_link: "https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
+affiliate_link: "https://womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
 shopify_link: ""
-product_url: "https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
+product_url: "https://womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
 price: "£3.29 per serving (£2.80 on subscription)"
 pillar_scores:
   taste: 5
@@ -45,7 +45,7 @@ Getting recovery snacks right is a constant juggle for active women: you want re
 ## WSS™ Assessment
 
 ### Taste & Texture — 5/5 ★★★★★
-This is where the bar wins me over. The first thing that hit me was the *flavour-rich* **[cocoa](https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars)** (I love chocolate) with a fiery kick of **stem ginger**: the chocolate is smooth and indulgent, while the ginger adds warmth and a gentle zing. Best of all, it skips the chalky, artificial edge so many protein bars carry. And the **crunchy texture** is a real change from the chewy density you usually get — satisfying to bite into and never heavy or dry.
+This is where the bar wins me over. The first thing that hit me was the *flavour-rich* **[cocoa](https://womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars)** (I love chocolate) with a fiery kick of **stem ginger**: the chocolate is smooth and indulgent, while the ginger adds warmth and a gentle zing. Best of all, it skips the chalky, artificial edge so many protein bars carry. And the **crunchy texture** is a real change from the chewy density you usually get — satisfying to bite into and never heavy or dry.
 
 ### Nutrition Profile — 5/5 ★★★★★
 The formulation is built around real food rather than synthetic fillers. You get a balanced mix of **soy and rice protein crisps (29%)**, almond paste, dates and ginger, delivering **20g of plant-based protein** plus **5g of bovine hydrolysed collagen** (7%, from high-welfare cattle) to support muscle recovery and joint health. It's gluten-free and free from artificial additives, with cocoa and stem ginger adding antioxidant benefits. The trade-off: it contains almonds, soy and bovine collagen, so it's *not* suitable for vegetarians or vegans.
