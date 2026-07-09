@@ -9,7 +9,7 @@ product_type: "accessory"
 tested_by: "Mel Berry"
 excerpt: "After years of red marks and sore eye sockets, the Zoggs Fusion Air Titanium are the most comfortable goggles I've worn — my pick for women's swim."
 meta_description: "Our WSS™ review of the Zoggs Fusion Air Titanium goggles — air-cushioned seals, interchangeable nose bridges and mirrored lenses, scored for women swimmers."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Fusion--1536x1152.jpg"
+hero_image: "/wp-img/2025/10/Fusion--1536x1152.jpg"
 overall_score: 3.8
 affiliate_link: "https://www.zoggs.com/en_GB/fusion-air-titanium-goggles-461106#u463"
 shopify_link: ""
@@ -49,7 +49,7 @@ If you've spent years swimming with red marks pressed into your skin and sore ey
 
 Fit is exactly where these goggles win me over for women. The **air-cushioned seals** hug your face with a soft, gentle pressure that holds without digging in, and the **three interchangeable nose bridges (S, M, L)** let you personalise the seal around your own facial structure rather than accepting a one-size compromise. For my narrower face the small bridge was ideal — snug, comfortable and completely leak-free — and that flexibility is what makes them feel suited to women who normally battle goggle fit. Zoggs designs around comfort here, though a documented female-specific design or prototype process isn't published, so I'm scoring on the very real fit personalisation rather than confirmed female-specific engineering.
 
-![A smiling woman wearing a blue swimming cap and Zoggs Fusion Air Titanium Goggles with mirrored lenses, showcasing a snug fit and comfortable design.](https://womenssportsstore.com/wp-content/uploads/2025/10/Zoggs-Fusion-Air-Titanium-Best-swimming-google-for-women.--899x1024.png)
+![A smiling woman wearing a blue swimming cap and Zoggs Fusion Air Titanium Goggles with mirrored lenses, showcasing a snug fit and comfortable design.](/wp-img/2025/10/Zoggs-Fusion-Air-Titanium-Best-swimming-google-for-women.--899x1024.png)
 
 ### Functional Performance in Use — 4/5 ★★★★☆
 

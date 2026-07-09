@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "A WSS™ review of the LUCA Momentum jacket in grey: one of the best-fitting, softest lightweight cycling jackets I've worn."
 meta_description: "Our hands-on WSS™ review of the LUCA Momentum Women's Cycling Jacket in grey — fit, sizing, thermal performance, female-specific design and value for women who ride."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-03-at-17.31.25-3-1152x1536.jpeg"
+hero_image: "/wp-img/2025/11/WhatsApp-Image-2025-11-03-at-17.31.25-3-1152x1536.jpeg"
 overall_score: 3.7
 affiliate_link: "https://rideluca.avln.me/c/pHVpOpMPhShc"
 shopify_link: ""
@@ -66,7 +66,7 @@ The balance here is lovely: snug enough to block the chill, breathable enough to
 
 This is design *for* women, not pink-it-and-shrink-it. The proportions suit a petite chest and torso, the **reflective markers** on front, back and sleeves are practical engineering rather than decoration, and the pockets are properly usable. Nothing here feels like an afterthought or a colourway gimmick — the grey is understated and grown-up, and the cut does the real work.
 
-![Front view of a grey LUCA women's cycling jacket with a high collar and full zipper.](https://womenssportsstore.com/wp-content/uploads/2025/11/Screenshot-2025-11-18-at-14.42.25-840x1024.png)
+![Front view of a grey LUCA women's cycling jacket with a high collar and full zipper.](/wp-img/2025/11/Screenshot-2025-11-18-at-14.42.25-840x1024.png)
 
 ### Transparency & User Reviews — 4/5 ★★★★☆
 
@@ -107,7 +107,7 @@ Transparency & User Reviews: 4/5
 
 True to size with enough elasticity for slight body variation. I'm a UK 8 with a small build and chest, and the **Small** fits flawlessly — no excess length, no bulk. If you want a race-tight fit I could comfortably have dropped to an **XS**, but the Small gave me the best mix of performance and comfort. Petite riders who normally fight long, boxy jackets should feel right at home.
 
-![Close-up of the back of the LUCA Momentum Women's Cycling Jacket, featuring the brand logo and details like the rubberised lining and pockets.](https://womenssportsstore.com/wp-content/uploads/2025/11/Screenshot-2025-11-18-at-14.45.11-1024x953.png)
+![Close-up of the back of the LUCA Momentum Women's Cycling Jacket, featuring the brand logo and details like the rubberised lining and pockets.](/wp-img/2025/11/Screenshot-2025-11-18-at-14.45.11-1024x953.png)
 
 ## How It Compares
 

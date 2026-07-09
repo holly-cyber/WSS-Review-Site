@@ -9,7 +9,7 @@ product_type: "tech"
 tested_by: "Mel Berry"
 excerpt: "A compact, affordable cycling navigation unit that keeps things simple — clear screen, long battery and pocketable design for everyday riders."
 meta_description: "WSS™ review of the Beeline Velo 2 cycling computer — navigation, screen clarity, battery, value and female-focused fit, scored against the WSS technology framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/09/BL-velo2-2025-25-1-1536x1024.jpg"
+hero_image: "/wp-img/2025/09/BL-velo2-2025-25-1-1536x1024.jpg"
 overall_score: 4.3
 affiliate_link: "https://beeline.co/products/beeline-velo-2"
 shopify_link: ""
@@ -84,7 +84,7 @@ Transparency & Independent Testing (10%): 4/5
 ## Who It's For / Who It's Not For
 The Velo 2 is for **commuters, weekend riders and adventure cyclists** who value simplicity, affordability and reliability — anyone stepping up from phone navigation who wants a cleaner, more focused ride. It's not for data-driven athletes chasing power figures, structured training analytics or cycle-aware health insights; those riders will want a fuller GPS ecosystem. But for everyday navigation done well, on a sensible budget, it's a lovely little companion.
 
-![Beeline Velo 2 mounted on handlebars](https://womenssportsstore.com/wp-content/uploads/2025/09/BL-velo2-2025-25-1-1536x1024.jpg)
+![Beeline Velo 2 mounted on handlebars](/wp-img/2025/09/BL-velo2-2025-25-1-1536x1024.jpg)
 
 ## Compatibility & Setup
 Setup is refreshingly low-effort. The Velo 2 mounts cleanly on the handlebars, **blends with any bike** from carbon road machines to gravel grinders and commuter hybrids, and slips straight off into your pocket when you stop — quick, secure and reassuring for café breaks or anywhere you leave the bike. The small footprint keeps your cockpit tidy, and the simple interface means you're navigating in moments rather than wrestling with menus. It's pitched at riders who want the essentials — navigation, clarity, battery life and ease of use — without endless configuration.

@@ -9,7 +9,7 @@ product_type: "nutrition"
 tested_by: "Mel Berry"
 excerpt: "Veloforte Overnight Oats: a creamy, 15g-plant-protein breakfast I reach for before long runs — wholesome, naturally sweet and ready when you are."
 meta_description: "WSS™ review of Veloforte Overnight Oats — taste, nutrition, performance and value for active women wanting a wholesome, protein-packed breakfast."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/veloforte-protein-overnight-oats-apple-cinnamon-complete-overnight-oats-1180616190-1536x1536.webp"
+hero_image: "/wp-img/2025/10/veloforte-protein-overnight-oats-apple-cinnamon-complete-overnight-oats-1180616190-1536x1536.webp"
 overall_score: 4.6
 affiliate_link: "https://veloforte.com/collections/overnight-oats/products/overnight-oats-apple-cinnamon"
 shopify_link: ""
@@ -88,7 +88,7 @@ These are made for active women who want a wholesome, protein-led breakfast with
 
 The beauty here is simplicity: spoon into a tub or bowl, eat straight from the fridge, or leave to soak for a few minutes for a softer finish. I add real Greek yoghurt straight from the fridge for an extra protein hit, which makes them even creamier. The flavours rotate nicely — Apple & Cinnamon before long runs, the others on easier mornings — so you get variety without the eating experience ever feeling samey.
 
-![A bowl of Veloforte Overnight Oats topped with slices of green apple, blackberries, and toasted almonds, with a dollop of Greek yogurt, all set against a dark background.](https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforote-Overnight-Oats-high-in-protein-in-a-bowl-with-greek-yoghurt--1024x1019.png)
+![A bowl of Veloforte Overnight Oats topped with slices of green apple, blackberries, and toasted almonds, with a dollop of Greek yogurt, all set against a dark background.](/wp-img/2025/10/Veloforote-Overnight-Oats-high-in-protein-in-a-bowl-with-greek-yoghurt--1024x1019.png)
 
 ## How It Compares
 
@@ -99,7 +99,7 @@ The beauty here is simplicity: spoon into a tub or bowl, eat straight from the f
 | Bottled protein oats | ~£2.50/serving | ~20g protein | Sweet, smooth | Convenient, less whole-food |
 | Protein overnight oats (DIY) | ~£1.20/serving | Varies | You control it | Cheaper but more effort |
 
-![An infographic displaying key nutritional information about Veloforte Overnight Oats, highlighting '15g Protein', 'Nutritionally Complete', and 'Heart & Gut Healthy' along with images of oats, seeds, chia, and apple.](https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforote-Overnight-Oats-high-in-protein-1022x1024.png)
+![An infographic displaying key nutritional information about Veloforte Overnight Oats, highlighting '15g Protein', 'Nutritionally Complete', and 'Heart & Gut Healthy' along with images of oats, seeds, chia, and apple.](/wp-img/2025/10/Veloforote-Overnight-Oats-high-in-protein-1022x1024.png)
 
 ## The Verdict
 

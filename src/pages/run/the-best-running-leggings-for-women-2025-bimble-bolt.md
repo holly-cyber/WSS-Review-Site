@@ -9,7 +9,7 @@ product_type: "apparel"
 tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Bimble & Bolt Midnight Super Strider tights: squat-proof, stay-put running leggings with seriously clever pockets."
 meta_description: "Our hands-on WSS™ review of the Bimble & Bolt Midnight Super Strider Full Length Tights — fit, sizing, squat-proof opacity, pockets and value for women who run."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Bimble-Holly-1536x1152.jpg"
+hero_image: "/wp-img/2025/10/Bimble-Holly-1536x1152.jpg"
 overall_score: 4.3
 affiliate_link: "https://bimbleandbolt.avln.me/c/IBBzuxowabLk"
 shopify_link: ""
@@ -101,7 +101,7 @@ These are for women who train hard and want **do-it-all** leggings: road runs, t
 
 For reference, I'm a UK 12–14 and the **Large** felt perfect — medium-high compression, snug enough for support but still breathable. The range runs **XXS–2XL** across four colourways, and the online size guide matched my experience exactly. At 5′10″ the full length actually reached full length, with no bunching or creeping. If you're between sizes or prefer a relaxed feel, size up.
 
-![A woman wearing black running leggings paired with bright sneakers, standing confidently with hands on her hips, showcasing the leggings' fit and design.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-17-at-12.36.13-1011x1024.png)
+![A woman wearing black running leggings paired with bright sneakers, standing confidently with hands on her hips, showcasing the leggings' fit and design.](/wp-img/2025/10/Screenshot-2025-10-17-at-12.36.13-1011x1024.png)
 
 ## How It Compares
 
@@ -112,7 +112,7 @@ For reference, I'm a UK 12–14 and the **Large** felt perfect — medium-high c
 | Lululemon Fast & Free | £118 Premium | UK 4–20 | Smooth, breathable fabric | Slick but pricey |
 | Sub-£20 high-street tights | Budget | Varies | Low price | Often ride down or go sheer |
 
-![](https://womenssportsstore.com/wp-content/uploads/2025/10/IMG_0261-225x300.jpg)
+![](/wp-img/2025/10/IMG_0261-225x300.jpg)
 
 ## The Verdict
 

@@ -9,7 +9,7 @@ product_type: "clothing"
 tested_by: "Lucie Beales"
 excerpt: "A WSS™ review of the Tri-Fit Roxy Hyrox shorts and bra: a true-to-size, stay-put set with genuine bra support for high-intensity training."
 meta_description: "Our hands-on WSS™ review of the Tri-Fit Roxy women’s Hyrox shorts and bra — fit, sizing, bra support, sweat-proof performance, female-specific design and value."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-13-at-13.06.44.webp"
+hero_image: "/wp-img/2026/04/Screenshot-2026-04-13-at-13.06.44.webp"
 overall_score: 4.0
 affiliate_link: "https://tri-fitathletic.com/collections/tri-fit-sitech-womens-athleticwear/products/roxi-4-shorts-black-edition"
 shopify_link: ""
@@ -67,7 +67,7 @@ The fabric feels premium: a luxurious, *second-skin* softness with enough compre
 
 This is design *for* women, not pink-it-and-shrink-it. The **crossback configuration** is real engineering — secure fit, even support, free shoulders — and the **longline cut** adds functional coverage and confidence rather than decoration. The 4-inch shorts give flattering coverage that moves with the body through dynamic stations. The cut, not the colourway, does the work, and it suits women's proportions properly.
 
-![A woman shown from the back wearing a blue sports bra with a criss-cross design and matching high-waisted shorts, set against a neutral background.](https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-13-at-13.08.42-760x1024.png)
+![A woman shown from the back wearing a blue sports bra with a criss-cross design and matching high-waisted shorts, set against a neutral background.](/wp-img/2026/04/Screenshot-2026-04-13-at-13.08.42-760x1024.png)
 
 ### Transparency & User Reviews — 4/5 ★★★★☆
 
@@ -109,7 +109,7 @@ Transparency & User Reviews: 4/5
 
 True to size — stick with your usual. I'm typically a **UK 6 at 5'1"** and wore an **XS** in both the shorts and the bra: snug, comfortable and never restrictive. The compression is supportive without being overly tight, and the longline bra adds coverage around the midsection. If you're between sizes or want a more relaxed feel, size up; for most athletes your regular size should be spot on.
 
-![A person taking a mirror selfie wearing a blue sports outfit and sunglasses, in a tidy bedroom with white bedding.](https://womenssportsstore.com/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-13-at-13.03.36-1-768x1024.jpeg)
+![A person taking a mirror selfie wearing a blue sports outfit and sunglasses, in a tidy bedroom with white bedding.](/wp-img/2026/04/WhatsApp-Image-2026-04-13-at-13.03.36-1-768x1024.jpeg)
 
 ## How It Compares
 

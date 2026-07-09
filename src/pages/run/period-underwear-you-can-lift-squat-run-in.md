@@ -9,7 +9,7 @@ product_type: "apparel"
 tested_by: "Gemma Richardson"
 excerpt: "Period underwear you can squat, lift and run in without a second thought — the Nixi Body Gracie Sporty thong is seamless reassurance in disguise."
 meta_description: "Our WSS™ review of the Nixi Body Gracie Sporty VPL-Free Thong — fit, leak protection, movement and value for active women who lift, squat and run."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/12/Gemma-Nixi-1152x1536.jpeg"
+hero_image: "/wp-img/2025/12/Gemma-Nixi-1152x1536.jpeg"
 overall_score: 4.3
 affiliate_link: "https://www.nixibody.com/collections/knickers/products/gracie-sporty-thong?variant=40109718994979"
 shopify_link: ""
@@ -43,7 +43,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 When it comes to **period underwear**, I've tested enough pairs to know most fall into one of two camps: reassuring but bulky, or discreet but a bit *nervy*. Active women shouldn't have to choose between feeling protected and feeling normal — especially mid-workout, when the last thing you want is to be reminded you're wearing anything absorbent at all. The **Nixi Body Gracie Sporty VPL-Free Thong** is one of the rare exceptions that genuinely nails both. From the moment I pulled it on, it felt far more like premium seamless underwear than anything period-specific: soft, smooth fabric quietly doing its job in the background. My thesis? This is what good functional design feels like.
 
-![An infographic showcasing how award-winning leak-proof knickers work, featuring a smiling woman wearing a black top and period underwear, with text boxes describing moisture-wicking cotton, absorbent microfiber, leak-proof layer, and breathable outer fabric.](https://womenssportsstore.com/wp-content/uploads/2026/01/Screenshot-2026-01-05-at-18.53.31-1008x1024.png)
+![An infographic showcasing how award-winning leak-proof knickers work, featuring a smiling woman wearing a black top and period underwear, with text boxes describing moisture-wicking cotton, absorbent microfiber, leak-proof layer, and breathable outer fabric.](/wp-img/2026/01/Screenshot-2026-01-05-at-18.53.31-1008x1024.png)
 
 ## WSS™ Assessment
 

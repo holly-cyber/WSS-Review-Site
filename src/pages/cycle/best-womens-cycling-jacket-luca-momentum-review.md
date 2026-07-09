@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "A fitted, waterproof and windproof women's cycling jacket with a sleek performance cut and thoughtful, ride-ready pockets."
 meta_description: "WSS™ review of the LUCA Momentum women's cycling jacket — fit, waterproofing, thermal performance and value, scored against the WSS apparel framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/11/IMG_6198-1-1152x1536.jpg"
+hero_image: "/wp-img/2025/11/IMG_6198-1-1152x1536.jpg"
 overall_score: 3.7
 affiliate_link: "https://rideluca.avln.me/c/MSPSGNGfInhN"
 shopify_link: ""
@@ -93,7 +93,7 @@ It's for riders who value performance, comfort and style in equal measure, and w
 ## Size & Fit
 I went for my usual size and, while it fits well, it's definitely a *snug, performance cut*. The material has a little give for comfort without feeling restrictive, though it isn't a "stretchy" fabric — so if you like a roomier feel or plan to layer up, I'd size up. The body length is slightly shorter than some women's cycling jackets, but worn with bib shorts there was no gap at the back; with a waistband short you may notice a slight gap. The silicone gripper at the hem keeps everything securely in place.
 
-![A fitted black women's cycling jacket featuring a zip front, minimalist design, and reflective logo accents.](https://womenssportsstore.com/wp-content/uploads/2025/11/Screenshot-2025-11-17-at-17.54.30-1023x1024.png)
+![A fitted black women's cycling jacket featuring a zip front, minimalist design, and reflective logo accents.](/wp-img/2025/11/Screenshot-2025-11-17-at-17.54.30-1023x1024.png)
 
 ## How It Compares
 
@@ -104,7 +104,7 @@ I went for my usual size and, while it fits well, it's definitely a *snug, perfo
 | dhb Aeron Women's | Mid | 8–18 | Value | Practical, less refined |
 | Castelli Perfetto W | Premium | XS–XL | All-season versatility | Brilliant in shoulder seasons |
 
-![A woman wearing a fitted black cycling jacket with a zippered front, styled against a textured stone wall.](https://womenssportsstore.com/wp-content/uploads/2025/11/Screenshot-2025-11-17-at-17.56.09-1024x952.png)
+![A woman wearing a fitted black cycling jacket with a zippered front, styled against a textured stone wall.](/wp-img/2025/11/Screenshot-2025-11-17-at-17.56.09-1024x952.png)
 
 ## The Verdict
 The **LUCA Momentum** is a premium women's cycling jacket that feels as good as it looks. Waterproof, windproof and breathable, with a flattering performance cut and genuinely useful pockets, it's the kind of jacket you'll reach for again and again — and cost per wear quickly becomes excellent value. Buy it if you want stylish, capable wet-weather protection and don't mind a close, aerodynamic fit. Size up if you like a little extra room.

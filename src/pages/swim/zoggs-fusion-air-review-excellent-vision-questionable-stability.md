@@ -9,7 +9,7 @@ product_type: "accessory"
 tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Zoggs Fusion Air Titanium goggles: superb titanium-lens clarity for bright swims, held back by a strap that won't stay put."
 meta_description: "Our WSS™ review of the Zoggs Fusion Air Titanium goggles — excellent vision and comfort, but questionable strap stability for women open water swimmers."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-30-at-09.33.51-1-1536x859.png"
+hero_image: "/wp-img/2026/04/Screenshot-2026-04-30-at-09.33.51-1-1536x859.png"
 overall_score: 2.9
 affiliate_link: "https://www.zoggs.com/en_GB/product/fusion-air-titanium-goggles-461106#u463"
 shopify_link: ""
@@ -42,7 +42,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 Swimming goggles should feel effortless — clear vision, all-day comfort, and a fit so secure you forget they're there. As someone who swims regularly in open water and tests kit for women who train seriously, that's the brief I hold every pair to. The <a href="https://www.zoggs.com/en_GB/product/fusion-air-titanium-goggles-461106#u463" target="_blank" rel="nofollow sponsored">**[Zoggs Fusion Air Titanium goggles](https://www.zoggs.com/en_GB/product/fusion-air-titanium-goggles-461106#u463)**</a> nail two of those three: the optics are genuinely superb and the air-cushioned seal is lovely to wear. But there's a trade-off, and it's a real one — the strap simply won't stay where it's told.
 
-![Zoggs Fusion Air swimming goggles with titanium lens](https://womenssportsstore.com/wp-content/uploads/2026/04/fusion-air-swimming-goggles-titanium-lens-bkgymsm-768x1024.webp)
+![Zoggs Fusion Air swimming goggles with titanium lens](/wp-img/2026/04/fusion-air-swimming-goggles-titanium-lens-bkgymsm-768x1024.webp)
 
 ## WSS™ Assessment
 

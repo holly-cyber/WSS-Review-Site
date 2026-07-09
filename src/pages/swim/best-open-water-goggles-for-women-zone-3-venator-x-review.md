@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "Featherweight, leak-free open water goggles that finally fit a smaller female face — comfortable enough for a 17-hour swim and built to last years."
 meta_description: "WSS™ review of the Zone 3 Venator-X open water goggles — seal fit for a smaller female face, anti-fog and lens performance, comfort and value, scored against the WSS equipment framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-13-at-14.19.16-1536x980.png"
+hero_image: "/wp-img/2025/10/Screenshot-2025-10-13-at-14.19.16-1536x980.png"
 overall_score: 3.3
 affiliate_link: ""
 shopify_link: ""
@@ -91,7 +91,7 @@ These are for women who clock up serious open-water mileage — triathletes, end
 
 As someone with a smaller face, finding goggles that don't leak or overwhelm my features has always been a challenge — and these fit *snug, streamlined and just the right size*. The soft silicone gaskets create a secure seal without digging in, and the lens profile gives great coverage without feeling bulky. There's **no adjustable nose bridge**, but I've never found that a problem. If you've ever resorted to children's goggles for a proper fit, the relief of an adult pair that finally works is real.
 
-![A pair of Zone 3 Venator-X open water goggles featuring a sleek design with black silicone frames and mirrored lenses.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-13-at-14.19.16-1024x653.png)
+![A pair of Zone 3 Venator-X open water goggles featuring a sleek design with black silicone frames and mirrored lenses.](/wp-img/2025/10/Screenshot-2025-10-13-at-14.19.16-1024x653.png)
 
 ## How It Compares
 
@@ -101,7 +101,7 @@ As someone with a smaller face, finding goggles that don't leak or overwhelm my 
 | Zoggs Predator | Budget-mid | Regular / small fit | Reliable everyday seal | Solid value starter goggle |
 | Huub Aphotic | Mid-range | One fit | Photochromic lens tech | Great for changing light |
 
-![A swimmer wearing a bright blue swim cap and pink goggles swims in open water, with an orange buoy float attached to their waist.](https://womenssportsstore.com/wp-content/uploads/2025/10/Best-open-water-goggles-for-women-zone-3-ventour-swimming-1024x576.jpg)
+![A swimmer wearing a bright blue swim cap and pink goggles swims in open water, with an orange buoy float attached to their waist.](/wp-img/2025/10/Best-open-water-goggles-for-women-zone-3-ventour-swimming-1024x576.jpg)
 
 ## The Verdict
 

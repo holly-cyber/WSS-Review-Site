@@ -9,7 +9,7 @@ product_type: "nutrition"
 tested_by: "Mel Berry"
 excerpt: "An all-natural, UK-made organic protein with 25g per serving and a genuinely clean label — gentle on the stomach and easy to live with day to day."
 meta_description: "WSS™ review of Panterre OP-16 organic protein — a natural, UK-manufactured powder with 25g protein, a clean ingredient list and gut-friendly performance, scored against the WSS nutrition framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/OP1-1536x1536.jpg"
+hero_image: "/wp-img/2025/10/OP1-1536x1536.jpg"
 overall_score: 4.1
 affiliate_link: "https://panterre.avln.me/c/aETAtDbrwIGO"
 shopify_link: ""
@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 Finding a protein I actually trust has been harder than it should be. Since my breast cancer diagnosis I've become especially mindful of what I put in my body, and so much of what's on the shelf is loaded with artificial sweeteners, colourings and fillers I'd rather avoid. **[Panterre OP-16 Organic Protein](https://panterre.avln.me/c/aETAtDbrwIGO)** is different: all-natural, organic, UK-manufactured and refreshingly free of the usual additives. After living with it as part of my daily routine, it's become a powder I reach for with confidence — clean, filling and kind to my stomach.
 
-![Back view of a green protein powder package featuring usage instructions, ingredient list, and nutritional information, with emphasis on its organic and vegan qualities.](https://womenssportsstore.com/wp-content/uploads/2025/11/Screenshot-2025-11-18-at-14.17.08-1018x1024.png)
+![Back view of a green protein powder package featuring usage instructions, ingredient list, and nutritional information, with emphasis on its organic and vegan qualities.](/wp-img/2025/11/Screenshot-2025-11-18-at-14.17.08-1018x1024.png)
 
 ## WSS™ Assessment
 

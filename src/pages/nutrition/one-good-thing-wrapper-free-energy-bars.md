@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "Wrapper-free, pocket-friendly and gut-kind: One Good Thing's flapjack rethinks the endurance energy bar from the ground up."
 meta_description: "A WSS™ review of the One Good Thing wrapper-free flapjack — taste, nutrition, performance and value for active women, runners and cyclists."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/09/OGT-Energy-Bars1-1536x1536.jpg"
+hero_image: "/wp-img/2025/09/OGT-Energy-Bars1-1536x1536.jpg"
 overall_score: 4.2
 affiliate_link: ""
 shopify_link: ""
@@ -90,7 +90,7 @@ This bar is made for **runners, cyclists, hikers and swimmers** who want on-the-
 
 The **Bakewell** flavour was satisfying but never overpowering: almond and cherry up front, a clean finish, no synthetic aftertaste. I ate it mid-run with zero need for water to wash it down, which isn't always the case with denser bars. Practically, it's best for **long rides, runs and swims** where you need compact fuel you can stash and forget. Unwrap nothing, simply eat the whole thing — beeswax coating included. With several flavours in the range, there's something for most palates.
 
-![12 OGT wrapper free Energy Bars](https://womenssportsstore.com/wp-content/uploads/2025/09/OGT-Shoot-Day-1-4513-Edit-11-1024x1024.jpg)
+![12 OGT wrapper free Energy Bars](/wp-img/2025/09/OGT-Shoot-Day-1-4513-Edit-11-1024x1024.jpg)
 
 ## How It Compares
 

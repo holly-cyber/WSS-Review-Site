@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "Featherweight carbon Z-fold trail running poles that pack to coffee-cup size — game-changing support on long climbs for a fraction of big-brand prices."
 meta_description: "WSS™ review of the Harrier Helvellyn PRO Carbon Z-Poles V2 — comfort, fit, packability, functionality and value for women who run trails and ultras, scored against the WSS equipment framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Harrier-Hellvelyn-Pro-Carbon-Ultra-Running-Poles-for-women-1536x1024.jpg"
+hero_image: "/wp-img/2025/10/Harrier-Hellvelyn-Pro-Carbon-Ultra-Running-Poles-for-women-1536x1024.jpg"
 overall_score: 3.0
 affiliate_link: ""
 shopify_link: ""
@@ -91,7 +91,7 @@ These are for women stepping into poles for the first time or upgrading from hea
 
 These poles come in **six fixed-length options**, so you choose your length for a precise, no-compromise fit — just check Harrier's size guide carefully first, because carbon doesn't bend and there's no adjustment afterwards. When folded they pack down to a tidy **38cm**, small enough to clip to your vest or slip into hand luggage. If you've ever cursed at tangled poles mid-race, you'll appreciate that the **integrated mud baskets clip together neatly** to keep everything in order.
 
-![A pair of Harrier Helvellyn PRO Carbon Z-Poles V2 trail running poles, featuring EVA foam grips and fleece-lined wrist straps, displayed in both extended and folded positions.](https://womenssportsstore.com/wp-content/uploads/2025/10/Harrier-Hellvelyn-Carbon-Pro-Ultra-Running-Poles-968x1024.png)
+![A pair of Harrier Helvellyn PRO Carbon Z-Poles V2 trail running poles, featuring EVA foam grips and fleece-lined wrist straps, displayed in both extended and folded positions.](/wp-img/2025/10/Harrier-Hellvelyn-Carbon-Pro-Ultra-Running-Poles-968x1024.png)
 
 ## How It Compares
 

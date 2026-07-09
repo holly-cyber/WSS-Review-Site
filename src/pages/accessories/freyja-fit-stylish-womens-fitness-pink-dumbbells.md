@@ -9,7 +9,7 @@ product_type: "equipment"
 tested_by: "Mel Berry"
 excerpt: "Freyja Fit’s pastel pink dumbbells pair serious lifting performance with a gym aesthetic that genuinely makes you want to train."
 meta_description: "WSS™ review of Freyja Fit women’s fitness equipment — pink dumbbells, bumper plates and barbells scored on female-specific design, performance, fit, build and transparency against the WSS equipment framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Ligh-Pink-Dumbbells.jpg"
+hero_image: "/wp-img/2025/10/Ligh-Pink-Dumbbells.jpg"
 overall_score: 4.0
 affiliate_link: "https://www.freyjafit.co.uk/products/light-pink-hex-dumbbells-pairs?variant=58489903055197"
 shopify_link: ""
@@ -97,7 +97,7 @@ It’s for women building or refreshing a home gym or boutique studio who want s
 
 The **dumbbells** span 1 kg to 25 kg, with the grips being the real fit story: comfortable for smaller hands and balanced enough that heavier sets never felt unwieldy. I mainly used the **12.5 kg** pair and never wanted for security. The **barbells** come in 15 kg and 20 kg, pairing with matching bumper plates so you can scale a programme without mixing brands. If you’re unsure where to start, the lower increments make it easy to build confidence before loading up.
 
-![A pair of Freyja Fit 12.5 kg pink dumbbells positioned on a textured black surface, accompanied by three pastel resistance bands in purple, pink, and teal.](https://womenssportsstore.com/wp-content/uploads/2025/10/Frejya-Fit-Pink-Dumbbells-and-Strength-Bands-768x1024.jpg)
+![A pair of Freyja Fit 12.5 kg pink dumbbells positioned on a textured black surface, accompanied by three pastel resistance bands in purple, pink, and teal.](/wp-img/2025/10/Frejya-Fit-Pink-Dumbbells-and-Strength-Bands-768x1024.jpg)
 
 ## How It Compares
 

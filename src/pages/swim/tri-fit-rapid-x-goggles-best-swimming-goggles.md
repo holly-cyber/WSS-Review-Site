@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "Low-profile soft-frame racing goggles with a secure 3D-gasket seal, crisp anti-fog lenses and a streamlined fit that stays put through tumble turns."
 meta_description: "WSS™ review of the Tri-Fit Rapid X swimming goggles — fit, seal, anti-fog clarity, functionality and value for women who swim and race, scored against the WSS equipment framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Rapid-X-Best-Swimming-Goggle-face-1110x1536.webp"
+hero_image: "/wp-img/2026/04/Rapid-X-Best-Swimming-Goggle-face-1110x1536.webp"
 overall_score: 3.7
 affiliate_link: "https://trifitathletic.avln.me/c/urMyJAnaiRwO"
 shopify_link: ""
@@ -43,7 +43,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 Finding the **[best swimming goggles](https://trifitathletic.avln.me/c/urMyJAnaiRwO)** as an active woman usually means choosing between comfort and performance — a snug racing fit that bites into your face, or a cushioned pair that drags in the water. The <a href="https://trifitathletic.avln.me/c/urMyJAnaiRwO" target="_blank" rel="nofollow sponsored">**Tri-Fit Rapid X Goggles**</a> refuse that trade-off. They're a low-profile, hydrodynamic soft-frame goggle built for swimmers who want a streamlined feel without unnecessary extras. I tested them in the pool and open water, and they delivered a secure fit and sharp vision in both. For me, they're a genuinely versatile training-and-race option.
 
-![](https://womenssportsstore.com/wp-content/uploads/2026/04/Rapid-X-Best-Swimming-Goggle-1024x1024.webp)
+![](/wp-img/2026/04/Rapid-X-Best-Swimming-Goggle-1024x1024.webp)
 
 ## WSS™ Assessment
 
@@ -94,7 +94,7 @@ They're less suited to anyone who prefers a larger, more cushioned goggle for ca
 
 The Rapid X is designed for a **snug, streamlined fit** that suits a more performance-oriented feel. Because of the lower-profile shape, it can sit slightly tighter than recreational goggles, but that's by design — it maintains a strong seal and reduces movement in the water. The 3D gasket and TPE seals mould to your eye socket and face profile, so it should suit a wide range of face shapes, particularly if you prefer a closer, more secure fit.
 
-![](https://womenssportsstore.com/wp-content/uploads/2026/04/Rapid-X-Best-Swimming-Goggles--1024x1024.webp)
+![](/wp-img/2026/04/Rapid-X-Best-Swimming-Goggles--1024x1024.webp)
 
 ## How It Compares
 

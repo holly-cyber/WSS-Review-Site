@@ -9,7 +9,7 @@ product_type: "nutrition"
 tested_by: "Holly Woodford"
 excerpt: "A genuinely indulgent plant-based recovery shake that tastes like a treat, refuels properly and curbs the post-session snacking."
 meta_description: "WSS™ review of the Veloforte Nova Protein Recovery Shake — taste, nutrition profile, performance and value scored against the WSS nutrition framework for active women."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-01-at-18.31.06-1536x1461.png"
+hero_image: "/wp-img/2025/10/Screenshot-2025-10-01-at-18.31.06-1536x1461.png"
 overall_score: 4.6
 affiliate_link: "https://veloforte.com/collections/protein-shakes-powders-drinks/products/nova-recovery-protein-shake"
 shopify_link: ""
@@ -89,7 +89,7 @@ Value (15%): 4/5
 
 The **banana and cocoa with maca** blend is the standout: indulgent and treat-like rather than functional. I mixed mine with semi-skimmed milk for a creamy result, but it works simply and quickly — no lumps and no fuss. Veloforte recommends drinking it within **30 minutes of finishing** your workout for the best absorption. My tip: add a few ice cubes to a thermos mug and take it with you, so a cold, chocolatey reward is waiting the moment you finish.
 
-![Visual representation of various protein sources including pea protein, pumpkin protein, brown rice protein, and maca root, highlighting their contributions to muscle recovery.](https://womenssportsstore.com/wp-content/uploads/2025/10/Protein-Recovery-Shake-for-women-1019x1024.png)
+![Visual representation of various protein sources including pea protein, pumpkin protein, brown rice protein, and maca root, highlighting their contributions to muscle recovery.](/wp-img/2025/10/Protein-Recovery-Shake-for-women-1019x1024.png)
 
 ## How It Compares
 

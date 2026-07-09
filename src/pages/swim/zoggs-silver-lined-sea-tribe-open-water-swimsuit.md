@@ -10,7 +10,7 @@ sizes: "6-22"
 tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Zoggs Sea Tribe Silver Lined Strikeback: thermal warmth, recycled Ecofeel fabric and a flattering open-water fit."
 meta_description: "Our WSS™ review of the Zoggs Sea Tribe Silver Lined Strikeback open water swimsuit — thermal lining, recycled Ecofeel fabric, inclusive fit and real-world performance for women swimmers."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Zoggs-1-1151x1536.webp"
+hero_image: "/wp-img/2025/10/Zoggs-1-1151x1536.webp"
 overall_score: 3.8
 affiliate_link: "https://www.zoggs.com/en_GB/sea-tribe-silver-lined-strikeback-swimsuit-462377-seat#u463"
 shopify_link: ""
@@ -57,7 +57,7 @@ This is a genuinely encouraging area for Zoggs. The range runs **all the way up 
 
 This is where the suit really earns its place in my kit bag. Across pool laps, long-distance training sets and choppy lake conditions, it stayed put: **no gaping, no rolling, no wedgie drama** — just smooth, confident swimming. The **Strikeback design** gives plenty of freedom through the shoulders with no strap digging or chafing, and the **medium leg height** flatters without flashing. It's **quick-drying** too, so it goes back in the bag post-swim without the soggy aftermath. One of the most comfortable open-water suits I've worn for long sessions.
 
-![Four women laughing and enjoying a swim in open water, wearing colourful swimsuits, creating a joyful and supportive atmosphere.](https://womenssportsstore.com/wp-content/uploads/2025/10/Zoggs-silverlined-open-water-swimsuits-1024x527.png)
+![Four women laughing and enjoying a swim in open water, wearing colourful swimsuits, creating a joyful and supportive atmosphere.](/wp-img/2025/10/Zoggs-silverlined-open-water-swimsuits-1024x527.png)
 
 ### Adequate Support Standards
 
