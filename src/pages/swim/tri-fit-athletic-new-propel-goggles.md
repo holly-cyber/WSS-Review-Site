@@ -34,7 +34,6 @@ faq:
     a: "Three interchangeable TPEE nose bridge sizes are included in the box. TPEE is a softer, more flexible material than standard TPE, which generally means better comfort across longer sessions. Exact measurements in millimetres are not currently published."
   - q: "How do the TRI-FIT PROPEL Goggles compare to the Rapid X model?"
     a: "Both are strong performers. In my experience"
-draft: true
 ---
 ![TRI-FIT Athletic NEW PROPEL Goggles](https://tri-fitathletic.com/cdn/shop/files/Propel_Goggles_2_Black_Gold_Front_copy_2.jpg?v=1774527625)
 
