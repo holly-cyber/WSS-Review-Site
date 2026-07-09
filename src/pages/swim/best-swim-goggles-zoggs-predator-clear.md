@@ -11,7 +11,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "The no-leak, no-faff pair that carried me across the English Channel — a WSS™ review of the Zoggs Predator Clear goggles for women."
 meta_description: "WSS™ review of the Zoggs Predator Clear goggles — seal, fit, anti-fog, clear lenses and value for women swimmers, scored against the WSS equipment framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-13-at-17.02.45-1536x1032.png"
+hero_image: "/wp-img/2025/10/Screenshot-2025-10-13-at-17.02.45-1536x1032.png"
 overall_score: 4.1
 affiliate_link: "https://www.zoggs.com/en_GB/predator-flex-goggles-461041#u463"
 shopify_link: ""
@@ -88,7 +88,7 @@ The Predator Clear is for women who want a **no-drama, no-leak, all-day-comfort*
 ## Fit & Sizing
 The Predator comes in **Regular** and **Small** profiles, and I switch between both depending on the session — Small for pool races and faster days, Regular for longer open-water swims. The **adjustable split strap** lets you fine-tune the fit each time, and the **deeper gasket** suits longer lashes without smudging. The soft silicone seal hugs gently but securely, designed to sit comfortably on a female facial structure with no pressure points.
 
-![A swimmer on a boat, celebrating with their arm raised, wearing a purple swim cap and a dark swimsuit, with clear blue water in the background.](https://womenssportsstore.com/wp-content/uploads/2025/10/IMG_0502-1024x588.jpg)
+![A swimmer on a boat, celebrating with their arm raised, wearing a purple swim cap and a dark swimsuit, with clear blue water in the background.](/wp-img/2025/10/IMG_0502-1024x588.jpg)
 
 ## How It Compares
 | Product | Price | Size Range | Key Strength | Our Verdict |

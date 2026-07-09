@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "The LUCA Road All-In-One is the best-fitting women's bib short I've worn in six years of cycling — and our WSS™ review explains why."
 meta_description: "WSS™ review of the LUCA Road All-In-One women's cycling bib shorts in black — hands-on assessment of fit, chest support, padding, materials and value."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-03-at-17.31.25-1152x1536.jpeg"
+hero_image: "/wp-img/2025/11/WhatsApp-Image-2025-11-03-at-17.31.25-1152x1536.jpeg"
 overall_score: 3.8
 pillar_scores:
   p1: 3
@@ -102,7 +102,7 @@ This is for road and turbo riders who've been let down by men's bib shorts or by
 
 I trialled an **XS** as a UK size 8 with a smaller chest and found it absolutely perfect: supportive without being restrictive. The fabric's stretch means it flatters a range of builds, particularly through the chest, and there's room to add a sports bra if you want extra support. LUCA's sizing feels well thought out and true to form — genuinely cut for women's bodies rather than scaled down.
 
-![The LUCA Road All-In-One bib shorts for women, showing the shaped women-specific fit.](https://womenssportsstore.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-03-at-17.31.25-1-225x300.jpeg)
+![The LUCA Road All-In-One bib shorts for women, showing the shaped women-specific fit.](/wp-img/2025/11/WhatsApp-Image-2025-11-03-at-17.31.25-1-225x300.jpeg)
 
 ## How It Compares
 
@@ -113,7 +113,7 @@ I trialled an **XS** as a UK size 8 with a smaller chest and found it absolutely
 | Castelli Free Aero RC | ~£190 | XS–XL | Race-day pad | Performance-focused |
 | dhb Aeron Women's Bib | ~£90 | 8–18 | Budget comfort | Great starter pair |
 
-![A model wearing the LUCA Road All-In-One bib shorts for women, showing the fitted top and supportive straps.](https://womenssportsstore.com/wp-content/uploads/2025/11/Screenshot-2025-11-18-at-14.30.54-883x1024.png)
+![A model wearing the LUCA Road All-In-One bib shorts for women, showing the fitted top and supportive straps.](/wp-img/2025/11/Screenshot-2025-11-18-at-14.30.54-883x1024.png)
 
 ## The Verdict
 

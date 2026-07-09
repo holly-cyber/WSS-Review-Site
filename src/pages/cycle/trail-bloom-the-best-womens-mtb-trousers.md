@@ -9,7 +9,7 @@ product_type: "apparel"
 draft: true
 excerpt: "Trail Bloom's women's MTB trousers pair inclusive UK 6–26 sizing with a genuine female cut, pad-friendly room and all-season performance on the trail."
 meta_description: "WSS™ review of Trail Bloom's women's MTB trousers — a hands-on look at inclusive fit, trail performance, female-specific design and value for women who ride."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Trail-Bloom-Ladies-MTB-Trousers-in-black-865x1536.jpg"
+hero_image: "/wp-img/2025/10/Trail-Bloom-Ladies-MTB-Trousers-in-black-865x1536.jpg"
 overall_score: 3.7
 tested_by: "Mel Berry"
 affiliate_link: "https://trailbloom.com/collections/ladies-mountain-biking-shorts/products/ladies-mtb-trousers"
@@ -94,7 +94,7 @@ These are made for women who ride trail centres, enduro days or casual loops and
 
 The fit is the headline strength. I went with my usual size and found it true to size, snug where it should be and forgiving where it needs to be. The subtly elasticated, high-rise waistband adapts to your body, so it works whether you're layering up for winter or riding in shorts underneath. There's genuine room at the knees for pads without that awful tight-around-the-knees feeling, and the slight stretch keeps everything comfortable from café stop to singletrack.
 
-![A woman stands next to a mountain bike, wearing sleek black mountain biking trousers from Trail Bloom. The background features a natural trail surrounded by autumn foliage.](https://womenssportsstore.com/wp-content/uploads/2025/10/Womens-mountain-biking-trousers-from-trail-and-bloom.--1024x1023.png)
+![A woman stands next to a mountain bike, wearing sleek black mountain biking trousers from Trail Bloom. The background features a natural trail surrounded by autumn foliage.](/wp-img/2025/10/Womens-mountain-biking-trousers-from-trail-and-bloom.--1024x1023.png)
 
 ## How It Compares
 

@@ -10,7 +10,7 @@ draft: true
 tested_by: "Mel Berry"
 excerpt: "A WSS™ review of the Zoggs Predator Flex Polarised: lovely lenses in low sun, but the fit and sizing let active women down."
 meta_description: "Our WSS™ review of the Zoggs Predator Flex Polarised open water goggles — polarised lenses, female-specific sizing, fit and value for women swimmers."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/04/Screenshot-2026-04-30-at-09.33.04-1536x871.png"
+hero_image: "/wp-img/2026/04/Screenshot-2026-04-30-at-09.33.04-1536x871.png"
 overall_score: 2.3
 affiliate_link: "https://www.zoggs.com/en_GB/product/predator-flex-polarized-ultra-goggles-461046#u463"
 shopify_link: ""
@@ -96,7 +96,7 @@ These are for the outdoor swimmer who can **try the fit first** and prizes glare
 
 The **Predator Flex** range comes in two fits, regular and smaller, and Zoggs publish a <a href="https://www.zoggs.com/en_GB/predator-goggle-range" target="_blank" rel="nofollow sponsored">sizing guide</a> — though you'll have to hunt for it from the product page. I tested the regular fit, and it was a mixed bag: some laps felt fine, others ended with what I can only describe as a miniature Niagara Falls into my eyes. My genuine steer is to confirm your size in person before committing, because the seal really does make or break these.
 
-![Zoggs Predator Flex Polarised goggles in black and red](https://womenssportsstore.com/wp-content/uploads/2026/04/predator-flex-swimming-goggles-polarized-lens-black-red-polarized-smoke-lens-1-768x1024.webp)
+![Zoggs Predator Flex Polarised goggles in black and red](/wp-img/2026/04/predator-flex-swimming-goggles-polarized-lens-black-red-polarized-smoke-lens-1-768x1024.webp)
 
 ## How It Compares
 

@@ -9,7 +9,7 @@ product_type: "nutrition"
 sizes: ""
 excerpt: "Two powerhouses in one scoop: U Perform's whey-and-collagen blend tastes like a treat and fuels recovery for active women."
 meta_description: "Our WSS™ review of U Perform Active Whey & Collagen Chocolate — taste, nutrition, performance and value for active women looking to train and recover."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-30-at-16.18.49-1530x1536.png"
+hero_image: "/wp-img/2025/10/Screenshot-2025-10-30-at-16.18.49-1530x1536.png"
 overall_score: 4.9
 tested_by: "Holly Woodford"
 pillar_scores:
@@ -84,7 +84,7 @@ Value (15%): 4/5
 ## Taste & Usage
 The chocolate flavour is the standout: rich and natural rather than artificially sweet, and it dissolves cleanly into milk, water or yoghurt with no grit left at the bottom of the glass. One 22g scoop is my go-to, blended into a quick breakfast or sipped after a hard session. It's easy on the stomach and pleasant enough that reaching for it never feels like a chore — which, with daily recovery nutrition, matters more than people expect.
 
-![Two bags of U Perform Active Whey & Collagen protein powder for women, one in chocolate flavour and the other in strawberry flavour, featuring the Informed Sport certification logo.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-30-at-16.19.54-1020x1024.png)
+![Two bags of U Perform Active Whey & Collagen protein powder for women, one in chocolate flavour and the other in strawberry flavour, featuring the Informed Sport certification logo.](/wp-img/2025/10/Screenshot-2025-10-30-at-16.19.54-1020x1024.png)
 
 ## How It Compares
 

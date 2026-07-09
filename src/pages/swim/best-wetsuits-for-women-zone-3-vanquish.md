@@ -11,7 +11,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "A high-performance open-water wetsuit with titanium-lined warmth, buoyant lower panels and ultra-flexible shoulders — superb once you nail the fit, tested across swims up to a 17-hour marathon challenge."
 meta_description: "WSS™ review of the Zone3 Vanquish wetsuit — fit, sizing, titanium-lined warmth, buoyancy and value for open water swimmers, scored against the WSS equipment framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-10-13-at-16.20.20-1536x1527.png"
+hero_image: "/wp-img/2025/10/Screenshot-2025-10-13-at-16.20.20-1536x1527.png"
 overall_score: 4.1
 affiliate_link: ""
 shopify_link: ""

@@ -7,7 +7,7 @@ subcategory: "race-day-and-performance"
 date: "2025-10-10"
 product_type: "nutrition"
 sizes: ""
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Raspberry_VOOM_Rocket_370x361-1536x1250.webp"
+hero_image: "/wp-img/2025/10/Raspberry_VOOM_Rocket_370x361-1536x1250.webp"
 affiliate_link: "https://www.voomnutrition.co.uk/product/pocket-rocket-electro-energy-bar/"
 shopify_link: ""
 product_url: "https://www.voomnutrition.co.uk/product/pocket-rocket-electro-energy-bar/"
@@ -84,7 +84,7 @@ It's for endurance women who want clean, reliable fuel that won't upset their st
 
 The fruit-forward flavours feel real on the palate, and the firm texture means no sticky fingers or crumbs as you eat. I tend to **break bars into segments** and drop them into a bag for easy access, timing portions for a consistent energy release rather than one big hit. The Caffeine Kick berry is my go-to for that balance of sweetness and mild tang. One practical note: eating a full bar first thing, before a run, can feel more of an effort than nibbling segments on the move.
 
-![A woman wearing sunglasses and a sleeveless shirt is outdoors, taking a bite of a Voom Pocket Rocket energy bar while holding the packaging. A person in an orange tank top is partially visible in the background, with green hills in the distance.](https://womenssportsstore.com/wp-content/uploads/2025/10/best-energy-bars-voom-pocket-rocket-for-women-and-runninng-1024x683.jpg)
+![A woman wearing sunglasses and a sleeveless shirt is outdoors, taking a bite of a Voom Pocket Rocket energy bar while holding the packaging. A person in an orange tank top is partially visible in the background, with green hills in the distance.](/wp-img/2025/10/best-energy-bars-voom-pocket-rocket-for-women-and-runninng-1024x683.jpg)
 
 ## How It Compares
 
@@ -95,7 +95,7 @@ The fruit-forward flavours feel real on the palate, and the firm texture means n
 | Veloforte Energy Bar | ~£2.30/bar | Natural carbs + dates | Rich, fruity | Lovely but pricier |
 | Clif Bar | ~£1.60/bar | Carbs + some protein | Dense, oaty | Filling, chewier on the move |
 
-![Two women wearing cycling helmets and jackets, standing outdoors with a scenic mountainous background, one holding an energy bar and the other holding a green snack.](https://womenssportsstore.com/wp-content/uploads/2025/10/best-energy-bars-voom-pocket-rocket-for-women-and-cycling-1024x683.jpg)
+![Two women wearing cycling helmets and jackets, standing outdoors with a scenic mountainous background, one holding an energy bar and the other holding a green snack.](/wp-img/2025/10/best-energy-bars-voom-pocket-rocket-for-women-and-cycling-1024x683.jpg)
 
 ## The Verdict
 

@@ -9,7 +9,7 @@ product_type: "apparel"
 tested_by: "Mel Berry"
 excerpt: "After 30 years running commando, Runderwear's Women's Running Briefs converted me — chafe-free, stay-put comfort from the first wear."
 meta_description: "Our WSS™ review of the Runderwear Women's Running Briefs — fit, seam placement, chafe-free comfort, breathability and value for women who run."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/234_HS_031222_BigTimages-1536x1024.jpg"
+hero_image: "/wp-img/2025/10/234_HS_031222_BigTimages-1536x1024.jpg"
 overall_score: 4.2
 pillar_scores:
   p1: 4
@@ -90,7 +90,7 @@ Transparency & User Reviews: 4/5
 
 These are for any runner who values chafe-free comfort and a stay-put fit — from weekend joggers to seasoned marathoners — especially if you've battled seams, wedgies or constant adjusting before. They're ideal if you want running-specific underwear that disappears the moment you start moving. They're less likely to suit you if you need a size beyond XL, or if you're after underwear with built-in impact support, which isn't what briefs are designed to provide.
 
-![A model wearing Runderwear's women's running briefs and matching sports bra in a vibrant light green color, showcasing the comfort fit and design.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-11-18-at-14.05.56-1024x968.png)
+![A model wearing Runderwear's women's running briefs and matching sports bra in a vibrant light green color, showcasing the comfort fit and design.](/wp-img/2025/10/Screenshot-2025-11-18-at-14.05.56-1024x968.png)
 
 ## How It Compares
 
@@ -100,7 +100,7 @@ These are for any runner who values chafe-free comfort and a stay-put fit — fr
 | Runderwear Hipster Brief | Mid–premium | S–XL | More coverage | Great for layering |
 | Adidas Performance Brief | Mid | XS–XL | Breathable mesh | Solid everyday option |
 
-![White women's running briefs from Runderwear with a soft, lightweight design and a comfortable waistband.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-11-18-at-14.07.55-1024x781.png)
+![White women's running briefs from Runderwear with a soft, lightweight design and a comfortable waistband.](/wp-img/2025/10/Screenshot-2025-11-18-at-14.07.55-1024x781.png)
 
 ## The Verdict
 

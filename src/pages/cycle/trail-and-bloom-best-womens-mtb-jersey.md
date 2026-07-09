@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "A soft, breathable women's MTB jersey with a mesh back, a properly female cut and an inclusive UK 8–24 size range — built for real days on the trail."
 meta_description: "WSS™ review of the Trail Bloom Mesh Back Women's MTB Jersey — fit, breathability, inclusive UK 8–24 sizing, female-first design and value, scored against the WSS apparel framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Trail-Bloom-mesh-back-ladies-MTB-jersey-in-pink-floral-print-895x1536.jpg"
+hero_image: "/wp-img/2025/10/Trail-Bloom-mesh-back-ladies-MTB-jersey-in-pink-floral-print-895x1536.jpg"
 overall_score: 3.7
 affiliate_link: ""
 shopify_link: ""

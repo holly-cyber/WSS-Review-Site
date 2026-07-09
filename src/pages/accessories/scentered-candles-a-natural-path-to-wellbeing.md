@@ -9,7 +9,7 @@ product_type: "wellness"
 tested_by: "Mel Berry"
 excerpt: "Scentered’s 100% natural-wax candles turn an active woman’s wind-down into a ritual, with a clean burn and aromatherapy blends that genuinely calm."
 meta_description: "WSS™ review of Scentered candles — natural-wax, essential-oil aromatherapy candles scored on female-focused fit, efficacy, ingredients, sensory experience and transparency against the WSS Wellness & Recovery framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-15.13.46.webp"
+hero_image: "/wp-img/2026/02/Screenshot-2026-02-17-at-15.13.46.webp"
 overall_score: 4.0
 affiliate_link: "https://www.scentered.com/products/sleep-well-aromatherapy-candle?_pos=2&_sid=c988b94c2&_ss=r"
 shopify_link: ""
@@ -95,7 +95,7 @@ Transparency, Ethics & Value (10%): 4/5
 
 The blends are built on **essential oils** rather than synthetic fragrance — the _Sleep Well_ candle layers calming oils such as **palmarosa, lavender and ylang ylang**, while _De-Stress_ leans into evening wind-down. The wax is **100% natural**, plant-based with a hint of beeswax, for that clean, even burn. In use, my tip is simple: light it 30 minutes before bed as a cue, pair it with a short meditation, then blow it out at lights-off. You can choose **travel tins (£16.95)** for bedrooms, desks or gifting, or **full-sized home candles (£39.00)** for a living space — start with a tin if you’re exploring scents, then upgrade once you’ve found your favourite (for me, it’s _Sleep Well_ all the way).
 
-![A Scentered 'Sleep Well' candle displayed beside its purple packaging, featuring calming essential oils like palmarosa, lavender, and ylang ylang on a neutral surface.](https://womenssportsstore.com/wp-content/uploads/2025/10/Scented-sleep-candles-Scentered--1024x989.png)
+![A Scentered 'Sleep Well' candle displayed beside its purple packaging, featuring calming essential oils like palmarosa, lavender, and ylang ylang on a neutral surface.](/wp-img/2025/10/Scented-sleep-candles-Scentered--1024x989.png)
 
 ## How It Compares
 

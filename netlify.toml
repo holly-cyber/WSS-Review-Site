@@ -101,6 +101,15 @@
   to = "/.netlify/functions/image-fetch"
   status = 200
 
+# Same-origin proxy for legacy WordPress media (womenssportsstore.com/wp-content
+# /uploads/…). Loading those images cross-origin from reviews.womenssportsstore.com
+# fails (hotlink/referrer blocking), so hero + inline review images point at
+# /wp-img/… and Netlify fetches the file server-side and serves it same-origin.
+[[redirects]]
+  from = "/wp-img/*"
+  to = "https://womenssportsstore.com/wp-content/uploads/:splat"
+  status = 200
+
 # ---------------------------------------------------------------------------
 # Migrated WordPress review URLs → new /<category>/<slug>/ structure.
 # These preserve the old root-level WomensSportsStore.com permalinks with a

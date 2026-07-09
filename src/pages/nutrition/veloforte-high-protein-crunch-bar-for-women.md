@@ -9,7 +9,7 @@ product_type: "nutrition"
 tested_by: "Holly Woodford"
 excerpt: "A crunchy, cocoa-and-ginger protein bar that tastes like a treat — 20g plant protein plus collagen, with real recovery staying power."
 meta_description: "WSS™ review of the Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — taste, nutrition, recovery performance and value, scored against the WSS nutrition framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforte-Coca-and-stem-ginger-protein-crunch-bar--1516x1536.png"
+hero_image: "/wp-img/2025/10/Veloforte-Coca-and-stem-ginger-protein-crunch-bar--1516x1536.png"
 overall_score: 4.9
 affiliate_link: "https://shop.womenssportsstore.com/products/veloforte-mixed-high-protein-crunch-bars"
 shopify_link: ""
@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 Getting recovery snacks right is a constant juggle for active women: you want real protein, but most bars taste chalky, artificial or far too sweet, and they rarely feel like something you'd actually *choose* to eat. The **[Veloforte Cocoa & Stem Ginger High Protein Crunch Bar](https://veloforte.com/collections/protein-bars/products/cocoa-stem-ginger-high-protein-crunch-bar)** is the rare exception. I put it to work after a tough gym session and it delivered exactly what I needed — clean nutrition, genuine recovery support and a flavour that feels indulgent rather than functional. It's earned a permanent spot in my training bag.
 
-![Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — 20g protein and 5g collagen](https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforte-Protein-Crunch-Bar-20g-protein-anf-5g-collagen.--1024x1022.png)
+![Veloforte Cocoa & Stem Ginger High Protein Crunch Bar — 20g protein and 5g collagen](/wp-img/2025/10/Veloforte-Protein-Crunch-Bar-20g-protein-anf-5g-collagen.--1024x1022.png)
 
 ## WSS™ Assessment
 
@@ -85,7 +85,7 @@ It's for active women who want a **post-workout recovery snack that actually tas
 
 The cocoa-and-ginger pairing is the star: rich chocolate with a warming, slightly spicy lift that stops it feeling one-note. I find it easy to eat straight after training when I don't fancy anything dense or dry — the crunch makes it feel more like a snack than a chore. I keep one in my training bag for after sessions, but it's just as good as a mid-afternoon bite. With a **12-month shelf life** stored cool and dry, it's an easy one to stock up on.
 
-![Veloforte Cocoa & Stem Ginger High Protein Crunch Bar ingredients — soy protein crispies, almond nut butter and Type I & III collagen](https://womenssportsstore.com/wp-content/uploads/2025/10/Veloforte-Protein-crunch-bar-ingredients--1009x1024.png)
+![Veloforte Cocoa & Stem Ginger High Protein Crunch Bar ingredients — soy protein crispies, almond nut butter and Type I & III collagen](/wp-img/2025/10/Veloforte-Protein-crunch-bar-ingredients--1009x1024.png)
 
 ## How It Compares
 

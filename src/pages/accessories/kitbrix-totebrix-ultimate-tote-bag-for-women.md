@@ -9,7 +9,7 @@ product_type: "accessory"
 tested_by: "Mel Berry"
 excerpt: "A waterproof, structured all-rounder that swallows gym kit, swim gear, a laptop and a weekend's worth of clothes — and still looks put-together."
 meta_description: "Our WSS™ review of the KitBrix ToteBrix Extra Large Tote Bag — a waterproof, structured, comfortable carry-all for gym, swim, work and travel."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/ToteBrix-Tote-Bag-all-colours-by-sea-California-for-women-.jpg"
+hero_image: "/wp-img/2025/10/ToteBrix-Tote-Bag-all-colours-by-sea-California-for-women-.jpg"
 overall_score: 4.2
 affiliate_link: "https://kitbrix.com/collections/totes/products/totepack"
 shopify_link: ""
@@ -96,9 +96,9 @@ Transparency & User Reviews (10%): 4/5
 
 When KitBrix says "extra large," they mean it — but it's large in a *useful* way, not a "where did my keys go?" way. It easily swallowed my gym gear, trainers, towel, water bottle, snacks, laptop and jacket, with the **BaseBrix™** base keeping everything upright and stable. Inside, smaller pockets held keys and wallet while shoes stayed in the main compartment without crushing clothes. It hits a real sweet spot: big enough for weekend travel, structured enough for work, and still manageable day to day. Over-pack it, though, and the size does start to tell on your shoulder.
 
-![A person standing by a railing, holding a KitBrix Extra Large Tote Bag, wearing a red top, jeans and white trainers against greenery.](https://womenssportsstore.com/wp-content/uploads/2025/10/KITBRIX_Tote-Bag-for-women-1-683x1024.jpg)
+![A person standing by a railing, holding a KitBrix Extra Large Tote Bag, wearing a red top, jeans and white trainers against greenery.](/wp-img/2025/10/KITBRIX_Tote-Bag-for-women-1-683x1024.jpg)
 
-![Infographic illustrating the features of the KitBrix Extra Large Tote Bag, including adjustable shoulder straps, wet/dry pocket, recycled fabric, BaseBrix system, inner zipped pocket, large main compartment, and outside pocket for travel.](https://womenssportsstore.com/wp-content/uploads/2025/10/Tote-Bag-KitBix-Technicals--1024x386.png)
+![Infographic illustrating the features of the KitBrix Extra Large Tote Bag, including adjustable shoulder straps, wet/dry pocket, recycled fabric, BaseBrix system, inner zipped pocket, large main compartment, and outside pocket for travel.](/wp-img/2025/10/Tote-Bag-KitBix-Technicals--1024x386.png)
 
 ## How It Compares
 

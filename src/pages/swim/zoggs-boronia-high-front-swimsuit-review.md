@@ -10,7 +10,7 @@ tested_by: "Mel Berry"
 draft: true
 excerpt: "Our WSS™ review of the Zoggs Boronia Hi Front: a flattering, eco-conscious swimsuit with light support, true-to-size fit and chlorine-resistant Ecolast fabric."
 meta_description: "WSS™ review of the Zoggs Boronia Hi Front Swimsuit — inclusive fit, light shelf-bra support, chlorine-resistant Ecolast fabric, sizing and value for women swimmers."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2025/10/picture-1202x1536.jpg"
+hero_image: "/wp-img/2025/10/picture-1202x1536.jpg"
 overall_score: 3.5
 affiliate_link: "https://www.zoggs.com/en_GB/boronia-hi-front-swimsuit-462383-boro#u463"
 shopify_link: ""
@@ -96,9 +96,9 @@ It's *not* the one if you're chasing structured bust support for high-impact tra
 
 The **Boronia** comes in UK sizes **8 to 18** and runs true to fit, so I'd happily order my usual size. The model pictured is **5'7" and wears a size 10**, which is a handy reference point. The **4-way stretch** fabric accommodates a variety of shapes — supportive and comfortable without feeling too tight or too loose — and the excellent shape retention keeps that fit consistent over time.
 
-![A woman smiling while standing in a swimming pool, wearing a navy blue swimsuit with a speckled design.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-11-18-at-16.26.21-889x1024.png)
+![A woman smiling while standing in a swimming pool, wearing a navy blue swimsuit with a speckled design.](/wp-img/2025/10/Screenshot-2025-11-18-at-16.26.21-889x1024.png)
 
-![Close-up of a navy blue swimsuit featuring a floral pattern in varying shades of blue, showcasing a medium leg height and high front design.](https://womenssportsstore.com/wp-content/uploads/2025/10/Screenshot-2025-11-18-at-16.26.13-958x1024.png)
+![Close-up of a navy blue swimsuit featuring a floral pattern in varying shades of blue, showcasing a medium leg height and high front design.](/wp-img/2025/10/Screenshot-2025-11-18-at-16.26.13-958x1024.png)
 
 ## How It Compares
 

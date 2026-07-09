@@ -9,7 +9,7 @@ product_type: "wellness"
 tested_by: "Gemma Richardson"
 excerpt: "Sea & Flo's menstrual cup is the comfortable, leak-free, stain-smart cup that finally let me train through my cycle without a second thought."
 meta_description: "WSS™ review of the Sea & Flo menstrual cup — scored on female-focused suitability, leak-free efficacy, medical-grade silicone quality, everyday usability and transparency against the WSS Wellness & Recovery framework."
-hero_image: "https://womenssportsstore.com/wp-content/uploads/2026/02/Sea-Flo-Cup-5.webp"
+hero_image: "/wp-img/2026/02/Sea-Flo-Cup-5.webp"
 overall_score: 4.7
 affiliate_link: "https://seaandflo.com/products/flo-menstrual-cup-a"
 shopify_link: ""
@@ -40,7 +40,7 @@ migration_notes: "WSS rewrite from the migrated WordPress article against the WS
 
 The unsung hero of my bathroom cabinet is the humble **[menstrual cup](https://seaandflo.com/products/flo-menstrual-cup-a)**[ — and the ](https://seaandflo.com/products/flo-menstrual-cup-a)**Sea & Flo** cup has genuinely changed how I experience my cycle. The problem it solves is a familiar one for active women: a period product that lets you train, swim and get on with your day without leaks, discomfort or constant bathroom breaks. I've tried my fair share of reusable period products and I don't hand out praise lightly, but this one earned it. Comfortable, reliable, thoughtfully designed by a female-founded brand and great value — it's become a quiet essential.
 
-![Ladies hand holding a Sea & Flow Menstrual Cup](https://womenssportsstore.com/wp-content/uploads/2026/02/DSC08978-683x1024.jpg)
+![Ladies hand holding a Sea & Flow Menstrual Cup](/wp-img/2026/02/DSC08978-683x1024.jpg)
 
 ## WSS™ Assessment
 
@@ -92,7 +92,7 @@ Transparency, Ethics & Value (10%): 4/5
 This is for active, busy women who want a comfortable, dependable cup they can train, swim and work in without a second thought — and for anyone new to cups who wants clear sizing guidance and a reassuring place to start. It's also ideal if you've tried a cup before and it never quite felt right. It's less suited to anyone who specifically needs documented third-party certification published up front before buying.
 
 
-![3 different sizes of Sea & Flow cups](https://womenssportsstore.com/wp-content/uploads/2026/02/Sea-Flo-Cup-5-1024x1024.png)
+![3 different sizes of Sea & Flow cups](/wp-img/2026/02/Sea-Flo-Cup-5-1024x1024.png)
 
 ## How It Compares
 
