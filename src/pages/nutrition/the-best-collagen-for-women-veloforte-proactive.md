@@ -32,7 +32,6 @@ faq:
     a: I used it daily for three weeks and noticed more hydrated skin, smoother recovery and stronger hair and nails. Benefits build gradually, so consistency matters.
   - q: Is it worth the price?
     a: At £27.99 for 30 servings (around £0.93 a day) it is premium, but you get a high dose of functional ingredients in one scoop rather than juggling several supplements.
-draft: true
 migration_source: "https://womenssportsstore.com/the-best-collagen-for-women-veloforte-proactive/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
 ---
