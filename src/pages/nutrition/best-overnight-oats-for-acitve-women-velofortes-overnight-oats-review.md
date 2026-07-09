@@ -9,7 +9,7 @@ product_type: "nutrition"
 tested_by: "Mel Berry"
 excerpt: "Veloforte Overnight Oats: a creamy, 15g-plant-protein breakfast I reach for before long runs — wholesome, naturally sweet and ready when you are."
 meta_description: "WSS™ review of Veloforte Overnight Oats — taste, nutrition, performance and value for active women wanting a wholesome, protein-packed breakfast."
-hero_image: "/wp-img/2025/10/veloforte-protein-overnight-oats-apple-cinnamon-complete-overnight-oats-1180616190-1536x1536.webp"
+hero_image: "/images/reviews/best-overnight-oats-for-acitve-women-velofortes-overnight-oats-review.webp"
 overall_score: 4.6
 affiliate_link: "https://veloforte.com/collections/overnight-oats/products/overnight-oats-apple-cinnamon"
 shopify_link: ""
