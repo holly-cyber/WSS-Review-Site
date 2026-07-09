@@ -34,7 +34,6 @@ faq:
     a: At £27.99 for 30 servings (around £0.93 a day) it is premium, but you get a high dose of functional ingredients in one scoop rather than juggling several supplements.
 migration_source: "https://womenssportsstore.com/the-best-collagen-for-women-veloforte-proactive/"
 migration_notes: "WSS rewrite from the migrated WordPress article against the WSS Nutrition framework. Draft scores proposed by WSS; hands-on WSS testing counted as qualifying evidence for Transparency (no overall cap applied). Confirm tested_by/reviewer and scores before publishing."
-draft: true
 ---
 ## Veloforte Collagen Proactive Review
 ### The fuss-free daily collagen that active women actually stick with
