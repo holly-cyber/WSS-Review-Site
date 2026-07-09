@@ -12,7 +12,7 @@ excerpt: "Ihamora's high impact bra is one of the few on the market with verifie
 hero_image: ""
 overall_score: 4.2
 affiliate_link: ""
-shopify_link: "https://shop.womenssportsstore.com"
+shopify_link: "https://womenssportsstore.com"
 pillar_scores:
   p1: 4
   p2: 4

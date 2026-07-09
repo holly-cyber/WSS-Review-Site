@@ -190,7 +190,9 @@ table.rev tr:hover td{background:#fcfcfd}
           <select id="fCat"><option value="">All categories</option>{categories.map((c) => <option value={c}>{c}</option>)}</select>
           <select id="fStatus"><option value="">All statuses</option><option value="draft">Draft</option><option value="live">Live</option></select>
           <button class="bg" id="fReload">↻ Reload</button>
+          <button class="bg" id="rehostImgs" title="Re-host each review's product photo from its shop/product page into the repo, replacing the broken /wp-img/ links">🖼 Re-host images</button>
         </div>
+        <div id="rehostAlert"></div>
         <table class="rev"><thead><tr><th>Review</th><th>Category</th><th>Reviewer</th><th>Score</th><th>Status</th><th></th></tr></thead><tbody id="revBody"><tr><td colspan="6" style="color:#999;padding:16px">Loading…</td></tr></tbody></table>
       </section>
 
@@ -662,6 +664,44 @@ function renderTable(){
     </tr>`).join('') : '<tr><td colspan="6" style="color:#999;padding:16px">No reviews match.</td></tr>';
 }
 ['fSearch','fCat','fStatus'].forEach(id=>$(id).addEventListener('input',renderTable));
+// Bulk re-host: for every review whose hero_image is a broken /wp-img/… (dead
+// legacy WordPress upload), scrape the real product photo from its shop/product
+// page and self-host it into public/images/reviews/, then repoint hero_image.
+function setRehostAlert(t,m){ $('rehostAlert').innerHTML=m?`<div class="al ${t}">${m}</div>`:''; }
+$('rehostImgs').addEventListener('click',rehostImages);
+async function rehostImages(){
+  if(!confirm('Re-host product photos for every review with a broken /wp-img/ hero image?\n\nFor each, this scrapes the shop/product page for the real photo, saves it into the repo, and updates the review. It runs one at a time and may take a few minutes.')) return;
+  const btn=$('rehostImgs'); btn.disabled=true; btn.textContent='Re-hosting…';
+  let done=0, fixed=0; const failed=[];
+  // Find candidates fresh from the repo so we act on current content.
+  const targets=[];
+  for(const f of files){
+    try{ const g=await ghApi('get',{path:f.path}); const content=b64decode(g.content); const {fm}=splitFrontmatter(content);
+      const hero=fmField(fm,'hero_image');
+      if(/^\/wp-img\//.test(hero) || /womenssportsstore\.com\/wp-content/.test(hero)) targets.push({f,sha:g.sha,content,fm});
+    }catch(_){}
+  }
+  setRehostAlert('inf',`Found ${targets.length} review(s) with a broken hero image. Re-hosting…`);
+  for(const t of targets){
+    done++;
+    const source=fmField(t.fm,'shopify_link')||fmField(t.fm,'product_url')||fmField(t.fm,'affiliate_link');
+    if(!/^https?:\/\//i.test(source)){ failed.push(`${t.f.slug} — no product URL to scrape`); setRehostAlert('inf',`${done}/${targets.length} · ${fixed} fixed · ${failed.length} skipped`); continue; }
+    try{
+      const imgs=await scrapeImages(source);
+      if(!imgs.length){ failed.push(`${t.f.slug} — no image found on ${source.replace(/^https?:\/\//,'').slice(0,30)}`); }
+      else{
+        const local=await hostHeroImage(imgs[0], t.f.slug, 'reviews');
+        const updated=setFrontmatterField(t.content,'hero_image',local);
+        const p=await ghApi('put',{path:t.f.path,content:b64(updated),message:`Re-host hero image: ${t.f.path}`,sha:t.sha});
+        t.f.content=updated; t.f.sha=(p.content&&p.content.sha)||t.sha; fixed++;
+      }
+    }catch(e){ failed.push(`${t.f.slug} — ${e.message}`); }
+    setRehostAlert('inf',`${done}/${targets.length} · ${fixed} fixed · ${failed.length} skipped`);
+  }
+  const msg=`Re-hosted ${fixed} of ${targets.length} hero image(s).`+(failed.length?` Couldn't do ${failed.length}: ${failed.slice(0,6).join('; ')}${failed.length>6?'…':''}`:'');
+  setRehostAlert(failed.length?'wr':'ok',msg+' Netlify redeploys within ~60s.');
+  btn.disabled=false; btn.textContent='🖼 Re-host images';
+}
 $('fReload').addEventListener('click',loadAll);
 $('revBody').addEventListener('click',(e)=>{
   const tr=e.target.closest('tr[data-i]'); const btn=e.target.closest('[data-act]'); if(!tr||!btn) return;

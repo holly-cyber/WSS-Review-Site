@@ -16,7 +16,7 @@ hero_image: "https://buddyswim.com/4616-thickbox_default/boya-buddyswim-hydrasta
 overall_score: 4.5
 affiliate_link: "https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
 product_url: "https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
-shopify_link: "https://shop.womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
+shopify_link: "https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange"
 pillar_scores:
   e1: 4
   e2: 5
@@ -42,7 +42,7 @@ faq:
 
 ### The BuddySwim HydraStation Pro Buoy Pink Review Every Open Water Swimmer Needs
 
-There's a moment, about forty minutes into a long lake swim, when your mouth goes dry and you're mentally calculating whether it's worth stopping to root around in your dry bag — and then deciding it isn't. That was me, every single session, until I started using the <a href="https://shop.womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange" rel="nofollow" target="_blank">BuddySwim HydraStation Pro Buoy (Pink/Orange)</a> (£48.00). This bright, high-visibility buoy completely changed the way I approach long-distance open water sessions. The integrated hydration pouch and nutrition netting mean I can fuel on the move without compromising my kit — and at £48.00, it punches well above its weight.
+There's a moment, about forty minutes into a long lake swim, when your mouth goes dry and you're mentally calculating whether it's worth stopping to root around in your dry bag — and then deciding it isn't. That was me, every single session, until I started using the <a href="https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange" rel="nofollow" target="_blank">BuddySwim HydraStation Pro Buoy (Pink/Orange)</a> (£48.00). This bright, high-visibility buoy completely changed the way I approach long-distance open water sessions. The integrated hydration pouch and nutrition netting mean I can fuel on the move without compromising my kit — and at £48.00, it punches well above its weight.
 
 ### Female-Specific Design & Sizing
 
@@ -74,7 +74,7 @@ At £48.00 and an overall WSS™ score of 4.1/5, the BuddySwim HydraStation Pro 
 
 <div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li><strong>Hydration pouch</strong> is genuinely accessible mid-swim — no stopping required</li><li><strong>Nutrition netting</strong> at the front is a brilliantly practical design feature</li><li>Dry bag stays sealed and dry throughout; far less worry about wet kit or medication</li><li><strong>High-visibility pink</strong> is striking — genuinely reassuring for solo open water swimmers</li><li>Tows smoothly without distracting drag; you quickly forget it's there</li><li>Comfortable waist belt that works over both swimsuit and wetsuit</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>Published belt sizing specs aren't prominently displayed — worth contacting the brand if you're unsure of fit</li><li>Would love to see more formal certification data published openly</li><li>Limited independent reviews available at present — early adopter territory</li></ul></div></div>
 
-<p class="pc-buy"><a href="https://shop.womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange" rel="nofollow" target="_blank">Shop the BuddySwim HydraStation Pro →</a></p>
+<p class="pc-buy"><a href="https://womenssportsstore.com/products/buddyswim-hydrastation-pro-buoy-orange" rel="nofollow" target="_blank">Shop the BuddySwim HydraStation Pro →</a></p>
 
 ## Who It's For / Who It's Not For
 
