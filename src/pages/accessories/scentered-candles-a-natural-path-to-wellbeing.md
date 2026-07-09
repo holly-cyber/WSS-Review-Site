@@ -9,7 +9,7 @@ product_type: "wellness"
 tested_by: "Mel Berry"
 excerpt: "Scentered’s 100% natural-wax candles turn an active woman’s wind-down into a ritual, with a clean burn and aromatherapy blends that genuinely calm."
 meta_description: "WSS™ review of Scentered candles — natural-wax, essential-oil aromatherapy candles scored on female-focused fit, efficacy, ingredients, sensory experience and transparency against the WSS Wellness & Recovery framework."
-hero_image: "/wp-img/2026/02/Screenshot-2026-02-17-at-15.13.46.webp"
+hero_image: "/images/reviews/scentered-candles-a-natural-path-to-wellbeing.webp"
 overall_score: 4.0
 affiliate_link: "https://www.scentered.com/products/sleep-well-aromatherapy-candle?_pos=2&_sid=c988b94c2&_ss=r"
 shopify_link: ""
