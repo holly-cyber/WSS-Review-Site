@@ -3,6 +3,16 @@ export const prerender = true;
 import { taxonomy } from '../data/taxonomy.js';
 import AuthGate from '../components/AuthGate.astro';
 const categories = taxonomy.map((t) => t.slug);
+
+// Umami analytics links for the dashboard. The authed cloud dashboard can't be
+// iframed (it sends X-Frame-Options), so to show live stats inline we use
+// Umami's public "Share URL" (Settings → Websites → Edit → Enable share URL).
+// Set PUBLIC_UMAMI_SHARE_URL to that link to embed it; otherwise the block just
+// deep-links to the website (or the login page) so it's always one click away.
+const umamiShare = (import.meta.env.PUBLIC_UMAMI_SHARE_URL || '').trim();
+const umamiWebsiteId = (import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || '').trim();
+const umamiDashUrl = umamiShare
+  || (umamiWebsiteId ? `https://cloud.umami.is/websites/${umamiWebsiteId}` : 'https://cloud.umami.is/login');
 ---
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -63,6 +73,14 @@ textarea{resize:vertical;line-height:1.6}
 .catrow .bar{flex:1;height:9px;background:#f0f0f4;border-radius:5px;overflow:hidden}
 .catrow .bar>span{display:block;height:100%;background:#FF5E84}
 .catrow .ct{width:54px;text-align:right;color:#888}
+.anblk{background:#fff;border:1px solid #ececf1;border-radius:12px;padding:16px 18px;margin-top:18px}
+.anhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.anhead h3{font-size:13px;color:#000036;display:flex;align-items:center;gap:8px}
+.anhead .bp{margin-left:auto}
+.anby{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#888;background:#f0f0f4;padding:2px 7px;border-radius:5px}
+.anframe{width:100%;height:640px;border:1px solid #ececf1;border-radius:10px;background:#fafafb;display:block}
+.anhint{font-size:12.5px;color:#666;line-height:1.7}
+.anhint code{background:#f0f0f4;padding:1px 5px;border-radius:4px;font-size:11.5px}
 
 /* Reviews table */
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
@@ -168,6 +186,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/" target="_blank">🌐 View review site ↗</a>
+      <a class="ext" href={umamiDashUrl} target="_blank" rel="noopener">📈 Analytics (Umami) ↗</a>
       <div style="font-size:11px;color:#5b5b7a;margin-top:10px;letter-spacing:.04em">build r6 · 2026-07-07</div>
     </nav>
     <main class="main">
@@ -178,6 +197,25 @@ table.rev tr:hover td{background:#fcfcfd}
         <div id="dashAlert"></div>
         <div class="cards" id="dashCards"></div>
         <div class="catbars" id="dashCats"><p style="color:#999;font-size:13px">Loading…</p></div>
+
+        <!-- Umami analytics -->
+        <div class="anblk">
+          <div class="anhead">
+            <h3>📈 Traffic &amp; analytics <span class="anby">Umami</span></h3>
+            <a class="bp" href={umamiDashUrl} target="_blank" rel="noopener">Open Umami dashboard ↗</a>
+          </div>
+          {umamiShare ? (
+            <iframe class="anframe" src={umamiShare} title="Umami analytics" loading="lazy"></iframe>
+          ) : (
+            <p class="anhint">
+              Live visitor stats, top pages, referrers and your <code>buy-click</code> / <code>review-open</code>
+              events are all tracked in Umami. To show them right here, open a website’s
+              <strong> Settings → Edit → Enable share URL</strong> in Umami, copy the share link, and set it as the
+              <code> PUBLIC_UMAMI_SHARE_URL</code> environment variable in Netlify — this panel will then embed the
+              live read-only dashboard. Until then, use the button above to log in.
+            </p>
+          )}
+        </div>
       </section>
 
       <!-- Reviews -->
