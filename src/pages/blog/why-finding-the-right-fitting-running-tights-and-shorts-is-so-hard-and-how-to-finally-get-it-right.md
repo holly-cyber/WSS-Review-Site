@@ -6,7 +6,7 @@ date: "2026-08-17"
 author: "Mel Berry"
 excerpt: "If you've ever ordered a pair of running tights that fit your waist perfectly but crushed your thighs, or pulled on a pair of shorts that gapped at the back every time you leant fo"
 meta_description: "If you've ever ordered a pair of running tights that fit your waist perfectly but crushed your thighs, or pulled on a pair of shorts that gapped at the back every time you leant fo"
-hero_image: "https://bimbleandbolt.com/products/midnight-super-strider-shorts-10"
+hero_image: "https://cdn.shopify.com/s/files/1/0564/9543/9920/files/Black_10_3999d075-d60b-4c6a-8000-fe1e688bfdc0.png?v=1781184074"
 hero_credit: ""
 draft: true
 ---
