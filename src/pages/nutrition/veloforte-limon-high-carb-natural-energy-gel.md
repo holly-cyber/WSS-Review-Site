@@ -55,7 +55,7 @@ Real Sicilian lemon flavour is a proper delight here — bright, clean, and nowh
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-**45g of dual-source carbohydrates** per 67g serve is genuinely impressive — most standard gels offer 20–30g, so this is in a different league for athletes working at the higher end of the recommended 90g/hour carbohydrate ceiling. The **220mg sodium** inclusion is something I particularly love: it supports fluid retention and reduces the risk of hyponatraemia during longer efforts, and it's a detail that matters more than many brands acknowledge. The **all-natural ingredients** — real Sicilian lemon, no artificial flavours or preservatives — make this feel like a product that respects what you're putting into your body.  It's also worth flagging that there is an *anti-doping certification** (byInformed Sport) mentioned, which competitive athletes subject to testing are fine to use this product.
+**45g of dual-source carbohydrates** per 67g serve is genuinely impressive — most standard gels offer 20–30g, so this is in a different league for athletes working at the higher end of the recommended 90g/hour carbohydrate ceiling. The **220mg sodium** inclusion is something I particularly love: it supports fluid retention and reduces the risk of hyponatraemia during longer efforts, and it's a detail that matters more than many brands acknowledge. The **all-natural ingredients** — real Sicilian lemon, no artificial flavours or preservatives — make this feel like a product that respects what you're putting into your body.  It's also Informed Sport certified — batch-tested for banned substances — so if you compete in a tested sport, you can fuel with it without second-guessing.
 
 ![Veloforte Limon - High-Carb Natural Energy Gel — image 3](https://cdn.shopify.com/s/files/1/1279/5219/files/45ggelsPDPpages2026-05.jpg?v=1783956174)
 
@@ -71,13 +71,13 @@ For me, the performance case for **Limon** is straightforward: high carbohydrate
 
 <span class="wss-score"><span class="wss-score-num">4</span><span class="wss-score-stars">★★★★<span class="off">☆</span></span></span>
 
-At **£2.37 per serve** when you buy a pack of three,  holds up well against other premium natural gels. Yes, a budget synthetic gel will always be cheaper per gram of carbohydrate — but if you've ever abandoned a long ride or run because your fuel tasted like a chemical spill, you'll understand why palatability has a real monetary value. The **45g carb payload** also means you need fewer gels overall to hit your hourly targets, which softens the per-session cost more than the headline price might suggest. Bulk pack options (3, 12, or 24) give you flexibility depending on your commitment level.
+At **£2.79 per serve** in a pack of three — or £2.37 on subscription — it holds up well against other premium natural gels. Yes, a budget synthetic gel will always be cheaper per gram of carbohydrate — but if you've ever abandoned a long ride or run because your fuel tasted like a chemical spill, you'll understand why palatability has a real monetary value. The **45g carb payload** also means you need fewer gels overall to hit your hourly targets, which softens the per-session cost more than the headline price might suggest. Bulk pack options (3, 12, or 24) give you flexibility depending on your commitment level.
 
-At £7.11 for three and an overall WSS™ score of 4.0/5, **Veloforte Limon** is a premium but well-justified choice — <a href="https://veloforte.com/collections/our-products/products/limon-natural-energy-gel" rel="nofollow sponsored" target="_blank">stock up on Limon here</a>.
+At £8.37 for three (£7.11 on subscription) and an overall WSS™ score of 4.0/5, **Veloforte Limon** is a premium but well-justified choice — <a href="https://veloforte.com/collections/our-products/products/limon-natural-energy-gel" rel="nofollow sponsored" target="_blank">stock up on Limon here</a>.
 
 ## Pros & Cons
 
-<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li>Genuinely bright, clean lemon flavour — easy to consume even at high intensity</li><li><strong>45g dual-source carbs</strong> per serve is among the highest on the market</li><li><strong>220mg sodium</strong> is a meaningful electrolyte inclusion</li><li>All-natural ingredients — real Sicilian lemon, no artificial nasties</li><li>Lighter texture reduces GI discomfort risk mid-effort</li><li>Anti-littering tab design is a thoughtful, eco-conscious detail</li><li>Compact 67g pack is jersey-pocket friendly</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>The anti-littering pack design takes a little more effort to open — worth practising before race day</li><li>You'll likely need two per hour for full endurance fuelling, so factor that into your budget</li></ul></div></div>
+<div class="pros-cons"><div class="pc-col pc-pros"><div class="pc-h">What I loved</div><ul><li>Genuinely bright, clean lemon flavour — easy to consume even at high intensity</li><li><strong>45g dual-source carbs</strong> per serve is among the highest on the market</li><li><strong>220mg sodium</strong> is a meaningful electrolyte inclusion</li><li>All-natural ingredients — real Sicilian lemon, no artificial nasties</li><li>Informed Sport certified — safe for athletes in tested sport</li><li>Lighter texture reduces GI discomfort risk mid-effort</li><li>Anti-littering tab design is a thoughtful, eco-conscious detail</li><li>Compact 67g pack is jersey-pocket friendly</li></ul></div><div class="pc-col pc-cons"><div class="pc-h">Watch-outs</div><ul><li>The anti-littering pack design takes a little more effort to open — worth practising before race day</li><li>You'll likely need two per hour for full endurance fuelling, so factor that into your budget</li></ul></div></div>
 
 <p class="pc-buy"><a href="https://veloforte.com/collections/our-products/products/limon-natural-energy-gel" rel="nofollow sponsored" target="_blank">Shop the Veloforte Limon gel range</a></p>
 
@@ -85,7 +85,7 @@ At £7.11 for three and an overall WSS™ score of 4.0/5, **Veloforte Limon** is
 
 **This gel is made for you if** you're a cyclist, runner, triathlete, or endurance athlete who does sessions lasting 90 minutes or more and has ever binned a gel mid-ride because it tasted awful. If you prioritise **natural ingredients**, find synthetic gels cause taste fatigue on longer efforts, or simply want the highest carb density in the most palatable format available, the <a href="https://veloforte.com/collections/our-products/products/limon-natural-energy-gel" rel="nofollow sponsored" target="_blank">Veloforte Limon for endurance athletes</a> is genuinely worth the investment. It's particularly well-suited to sportive riders, marathon runners, or anyone building up to ultra-distance events where consistent fuelling is non-negotiable.
 
-**It's probably not your first pick if** you're doing sessions under an hour (where carb gels aren't particularly necessary), you're on a very tight nutrition budget and cost-per-gram is your primary metric, or you're a competitive athlete in a tested sport who needs certified anti-doping assurance before committing.
+**It's probably not your first pick if** you're doing sessions under an hour (where carb gels aren't particularly necessary), you're on a very tight nutrition budget and cost-per-gram is your primary metric, or you want caffeine in your late-race fuel — Limon doesn't have any.
 
 ## Taste & Usage
 
@@ -95,7 +95,7 @@ The lemon flavour here is the real deal — bright and citrusy without being sha
 
 | Product | Price | Key Macro | Taste | Our Verdict |
 |---|---|---|---|---|
-| **Veloforte Limon** | £8.37 (pack) / ~£2.37/serve | 45g carbs, 220mg sodium | Bright natural lemon | Best-in-class carb density, natural and genuinely tasty |
+| **Veloforte Limon** | £8.37 pack / £2.79 per serve (£7.11 subscription) | 45g carbs, 220mg sodium | Bright natural lemon | Best-in-class carb density, natural and genuinely tasty |
 | <a href="https://reviews.womenssportsstore.com/nutrition/veloforte-mixed-energy-chews/" rel="nofollow sponsored" target="_blank">Veloforte Mixed Energy Chews</a> | — | Dual-source carbs | Mixed fruit | Great texture variety; ideal alongside gels |
 | <a href="https://reviews.womenssportsstore.com/nutrition/best-energy-bars-voom-pocket-rocket-review/" rel="nofollow sponsored" target="_blank">Best Energy Bars Voom Pocket Rocket Review</a> | — | Carb-focused bar | Varies | Solid bar-format alternative for those who prefer chewing |
 
