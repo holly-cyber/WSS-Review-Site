@@ -8,7 +8,6 @@ excerpt: "The scenes from the opening stage of the Lloyds Tour of Britain Women 
 meta_description: "The scenes from the opening stage of the Lloyds Tour of Britain Women said everything about where women's cycling is right now. Lorena Wiebes carving through Cockermouth town centr"
 hero_image: "/images/blog/women-s-cycling-is-booming-so-why-is-it-still-so-hard-to-find-kit-that-actually-fits.jpg"
 hero_credit: ""
-draft: true
 ---
 
 The scenes from the opening stage of the Lloyds Tour of Britain Women said everything about where women's cycling is right now. Lorena Wiebes carving through Cockermouth town centre to a sprint victory, Lotte Kopecky delivering a textbook lead-out, Audrey De Keersmaeker soloing off the front through the Cumbrian hills — this is racing at its absolute finest, and more women than ever are watching, getting inspired, and clipping in for the first time or returning to the sport after years away.
