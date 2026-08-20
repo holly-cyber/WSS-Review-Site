@@ -563,15 +563,22 @@ table.rev tr:hover td{background:#fcfcfd}
             <div class="panel">
               <h3>Pull in blog &amp; news</h3>
               <div class="em-hint">Build an email about a single post, or drop links to your latest content straight into the body.</div>
-              <label class="em-l">Email about one post</label>
+              <label class="em-l">Email about one review or post</label>
               <div class="em-hero-row">
-                <select id="emItemSel"><option value="">Loading posts…</option></select>
+                <select id="emItemSel"><option value="">Loading…</option></select>
                 <button class="bg" id="emItemBuild">Build email from this</button>
               </div>
-              <div class="em-hint" style="margin-top:6px">Pre-fills the subject, preview, hero image, body and CTA from the chosen post — edit freely after. This is your <strong>main story</strong>; add blog/news sections below it.</div>
+              <div class="em-hint" style="margin-top:6px">Pre-fills the subject, preview, hero image, body and CTA from the chosen review or post — edit freely after. This is your <strong>main story</strong>; add sections below it.</div>
               <div id="emItemStatus" class="em-hint" style="margin-top:8px"></div>
 
               <label class="em-l" style="margin-top:14px">Content sections <span class="em-hint2">(added as their own blocks under your main story)</span></label>
+              <div class="em-sec">
+                <div class="em-sec-h">
+                  <label class="em-ck"><input type="checkbox" id="emRevOn"/> Reviews section</label>
+                  <input id="emRevHead" value="Latest reviews" placeholder="Section heading"/>
+                </div>
+                <div id="emRevList" class="em-checks"><span class="em-hint2">No reviews loaded yet.</span></div>
+              </div>
               <div class="em-sec">
                 <div class="em-sec-h">
                   <label class="em-ck"><input type="checkbox" id="emBlogOn"/> Blog section</label>
@@ -791,6 +798,7 @@ async function loadAll(){
         alert('revAlert','inf',`Loaded ${done}/${files.length}…`); }
     });
     renderDashboard(); renderTable();
+    try{ emRefreshItems(); }catch(_){ }   // reviews just finished loading → refresh the Email studio picker
     const failed=files.filter(f=>f.error).length;
     alert('revAlert', failed?'wr':'', failed?`Loaded with ${failed} error(s) — reload to retry.`:'');
   }catch(e){
@@ -1942,7 +1950,8 @@ function emInitStudio(){
   });
   // Blog & news wiring
   $('emItemBuild').addEventListener('click',emBuildFromItem);
-  ['emBlogOn','emNewsOn','emBlogHead','emNewsHead'].forEach(id=>$(id).addEventListener('input',emRenderPreview));
+  ['emRevOn','emBlogOn','emNewsOn','emRevHead','emBlogHead','emNewsHead'].forEach(id=>$(id).addEventListener('input',emRenderPreview));
+  $('emRevList').addEventListener('change',emRenderPreview);
   $('emBlogList').addEventListener('change',emRenderPreview);
   $('emNewsList').addEventListener('change',emRenderPreview);
   // Groups + push
@@ -1958,65 +1967,86 @@ function emItemMeta(f,kind){
   let hero=fmField(fm,'hero_image')||'';
   if(hero && !/^https?:\/\//i.test(hero)) hero=EM_SITE+(hero.charAt(0)==='/'?hero:'/'+hero);
   const excerpt=(fmField(fm,'excerpt')||fmField(fm,'meta_description')||deriveExcerpt(body)||'').trim();
-  const url=EM_SITE+(kind==='blog'?'/blog/':'/news/')+f.slug+'/';
+  const url=kind==='review'
+    ? EM_SITE+'/'+(f.category||fmField(fm,'category')||'')+'/'+f.slug+'/'
+    : EM_SITE+(kind==='blog'?'/blog/':'/news/')+f.slug+'/';
   return {kind,title,hero,excerpt,url,date:f.date||fmField(fm,'date')||''};
 }
-// Refresh the single-post picker from the loaded blog + news libraries.
+// Reviews live in the console's `files` array; give each a parsed date so it
+// sorts by recency like the blog/news libraries do.
+function emReviews(){
+  return (files||[]).filter(f=>f.draft===false && f.content).map(f=>{
+    if(!f.date){ try{ f.date=fmField(splitFrontmatter(f.content).fm,'date')||''; }catch(_){ f.date=''; } }
+    return f;
+  }).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+}
+// Refresh the single-item picker + section checklists from reviews, blog & news.
 function emRefreshItems(){
   const sel=$('emItemSel'); if(!sel) return;
-  const blog=(blLib||[]).filter(f=>!f.draft).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-  const news=(nwLib||[]).filter(f=>!f.draft).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-  if(!blog.length && !news.length){ sel.innerHTML='<option value="">No published posts yet — open the News/Blog tabs to load</option>'; return; }
-  const opt=(f,kind)=>`<option value="${kind}:${esc(f.slug)}">${esc(f.title||f.slug)}</option>`;
-  sel.innerHTML=(blog.length?`<optgroup label="Blog">${blog.map(f=>opt(f,'blog')).join('')}</optgroup>`:'')
-             +(news.length?`<optgroup label="News">${news.map(f=>opt(f,'news')).join('')}</optgroup>`:'');
-  // Section checklists — latest 8 of each, the newest 3 pre-ticked.
-  emRenderChecks('emBlogList',blog,'blog');
-  emRenderChecks('emNewsList',news,'news');
+  const byD=(a,b)=>new Date(b.date||0)-new Date(a.date||0);
+  const reviews=emReviews();
+  const blog=(blLib||[]).filter(f=>!f.draft).sort(byD);
+  const news=(nwLib||[]).filter(f=>!f.draft).sort(byD);
+  if(!reviews.length && !blog.length && !news.length){ sel.innerHTML='<option value="">Nothing published yet — open the Reviews/News/Blog tabs to load</option>'; }
+  else{
+    const opt=(f,kind,val)=>`<option value="${kind}:${esc(val)}">${esc(f.title||f.slug)}</option>`;
+    sel.innerHTML=(reviews.length?`<optgroup label="Reviews">${reviews.map(f=>opt(f,'review',f.path)).join('')}</optgroup>`:'')
+               +(blog.length?`<optgroup label="Blog">${blog.map(f=>opt(f,'blog',f.slug)).join('')}</optgroup>`:'')
+               +(news.length?`<optgroup label="News">${news.map(f=>opt(f,'news',f.slug)).join('')}</optgroup>`:'');
+  }
+  // Section checklists — latest 8 of each, newest 3 pre-ticked.
+  emRenderChecks('emRevList',reviews,f=>f.path);
+  emRenderChecks('emBlogList',blog,f=>f.slug);
+  emRenderChecks('emNewsList',news,f=>f.slug);
 }
-function emRenderChecks(boxId,list,kind){
+function emRenderChecks(boxId,list,valOf){
   const box=$(boxId); if(!box) return;
   const prev=new Set([...box.querySelectorAll('input:checked')].map(i=>i.value));
   const touched=box.dataset.touched==='1';
   const rows=list.slice(0,8);
-  if(!rows.length){ box.innerHTML=`<span class="em-hint2">No published ${kind} posts yet.</span>`; return; }
-  box.innerHTML=rows.map((f,idx)=>{
+  if(!rows.length){ box.innerHTML='<span class="em-hint2">Nothing published yet.</span>'; return; }
+  box.innerHTML=rows.map((f,idx)=>{ const v=valOf(f);
     const d=f.date?new Date(f.date).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
-    const on = touched ? prev.has(f.slug) : idx<3;   // default: newest 3, unless user has changed things
-    return `<label><input type="checkbox" value="${esc(f.slug)}"${on?' checked':''}/><span>${esc(f.title||f.slug)}${d?` <span class="emc-meta">· ${d}</span>`:''}</span></label>`;
+    const on = touched ? prev.has(v) : idx<3;   // default: newest 3, unless the user has changed things
+    return `<label><input type="checkbox" value="${esc(v)}"${on?' checked':''}/><span>${esc(f.title||f.slug)}${d?` <span class="emc-meta">· ${d}</span>`:''}</span></label>`;
   }).join('');
   if(!box.dataset.bound){ box.addEventListener('change',()=>{ box.dataset.touched='1'; }); box.dataset.bound='1'; }
 }
-// Gather the ticked posts for one section into buildEmailHtml item shape.
+// Gather the ticked items for one section into buildEmailHtml item shape.
 function emSectionItems(kind){
-  const box=$(kind==='blog'?'emBlogList':'emNewsList'); if(!box) return [];
+  const box=$(kind==='review'?'emRevList':kind==='blog'?'emBlogList':'emNewsList'); if(!box) return [];
   return [...box.querySelectorAll('input:checked')].map(i=>{
-    const f=((kind==='blog'?blLib:nwLib)||[]).find(x=>x.slug===i.value); if(!f) return null;
+    const f = kind==='review' ? (files||[]).find(x=>x.path===i.value)
+                              : ((kind==='blog'?blLib:nwLib)||[]).find(x=>x.slug===i.value);
+    if(!f) return null;
     const m=emItemMeta(f,kind); return {title:m.title,url:m.url,excerpt:m.excerpt.slice(0,150),image:m.hero};
   }).filter(Boolean);
 }
 function emCollectSections(){
   const out=[];
+  if($('emRevOn')&&$('emRevOn').checked){ const items=emSectionItems('review'); if(items.length) out.push({label:($('emRevHead').value||'Latest reviews').trim(),items,accent:'#000036'}); }
   if($('emBlogOn')&&$('emBlogOn').checked){ const items=emSectionItems('blog'); if(items.length) out.push({label:($('emBlogHead').value||'From the blog').trim(),items,accent:'#FF5E84'}); }
   if($('emNewsOn')&&$('emNewsOn').checked){ const items=emSectionItems('news'); if(items.length) out.push({label:($('emNewsHead').value||'Latest news').trim(),items}); }
   return out;
 }
 function emFindItem(value){
   const i=String(value||'').indexOf(':'); if(i<0) return null;
-  const kind=value.slice(0,i), slug=value.slice(i+1);
-  const f=((kind==='blog'?blLib:nwLib)||[]).find(x=>x.slug===slug);
+  const kind=value.slice(0,i), ref=value.slice(i+1);
+  const f = kind==='review' ? (files||[]).find(x=>x.path===ref)
+                            : ((kind==='blog'?blLib:nwLib)||[]).find(x=>x.slug===ref);
   return f?emItemMeta(f,kind):null;
 }
-// Pre-fill the whole composer from one blog/news post.
+// Pre-fill the whole composer from one review / blog / news item.
 function emBuildFromItem(){
   const m=emFindItem($('emItemSel').value);
-  if(!m){ $('emItemStatus').innerHTML='<span style="color:#c00">Pick a post first.</span>'; return; }
-  if(!($('emName').value||'').trim()) $('emName').value=(m.kind==='blog'?'Blog: ':'News: ')+m.title;
+  if(!m){ $('emItemStatus').innerHTML='<span style="color:#c00">Pick a review or post first.</span>'; return; }
+  const kindLabel=m.kind==='review'?'Review':m.kind==='blog'?'Blog':'News';
+  if(!($('emName').value||'').trim()) $('emName').value=kindLabel+': '+m.title;
   $('emSubject').value=m.title;
   $('emPreheader').value=m.excerpt.slice(0,140);
   $('emHeroLink').value=m.url;
-  if(m.hero){ emState.heroPreview=m.hero; emState.heroSend=m.hero; $('emHeroStatus').innerHTML='<span style="color:#0a7a33">Using the post’s hero image.</span>'; }
-  const ctaText=m.kind==='blog'?'Read the full post':'Read the full story';
+  if(m.hero){ emState.heroPreview=m.hero; emState.heroSend=m.hero; $('emHeroStatus').innerHTML='<span style="color:#0a7a33">Using the '+kindLabel.toLowerCase()+'’s hero image.</span>'; }
+  const ctaText=m.kind==='review'?'Read the full review':m.kind==='blog'?'Read the full post':'Read the full story';
   $('emCtaText').value=ctaText; $('emCtaUrl').value=m.url;
   emFmt='html'; $('emFmtToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x.dataset.fmt==='html'));
   $('emBody').value=`<h2>${esc(m.title)}</h2>\n<p>${esc(m.excerpt)}</p>\n<p><a href="${m.url}">${ctaText} →</a></p>`;
