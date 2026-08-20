@@ -732,7 +732,10 @@ table.rev tr:hover td{background:#fcfcfd}
                 <label class="em-ck"><input type="checkbox" id="scTgIg" checked/> 📸 Instagram</label>
                 <label class="em-ck"><input type="checkbox" id="scTgFb" checked/> 📘 Facebook</label>
               </div>
-              <button class="bp" id="scPublish" style="margin-top:10px">🚀 Publish now</button>
+              <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center">
+                <button class="bp" id="scPublish">🚀 Publish now</button>
+                <button class="bg" id="scCheck">🔌 Check connection</button>
+              </div>
               <div id="scPubAlert" style="margin-top:8px"></div>
               <div class="em-hint" style="margin-top:6px">Posts the composed image + caption straight to your connected channels. Needs the Meta tokens set in Netlify (<code>FB_PAGE_ID</code>, <code>FB_PAGE_ACCESS_TOKEN</code>, <code>IG_USER_ID</code>, <code>IG_ACCESS_TOKEN</code>) — until then each channel returns a clear “not configured” message.</div>
             </div>
@@ -2323,6 +2326,7 @@ function scInitStudio(){
   $('scDownload').addEventListener('click',scDownloadImg);
   $('scCopyCap').addEventListener('click',scCopyCaption);
   $('scPublish').addEventListener('click',scPublish);
+  $('scCheck').addEventListener('click',scCheckConn);
   // Wait for Poppins so canvas text uses the brand font, then draw.
   (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(scDraw);
   scRefreshItems();
@@ -2436,6 +2440,25 @@ function scDownloadImg(){
 async function scCopyCaption(){
   try{ await navigator.clipboard.writeText($('scCaption').value||''); alert('scAlert','ok','Caption copied ✓'); }
   catch(_){ alert('scAlert','wr','Could not copy automatically — select the caption text and copy it manually.'); }
+}
+async function scCheckConn(){
+  const btn=$('scCheck'); const orig=btn.textContent; btn.disabled=true; btn.textContent='Checking…'; alert('scPubAlert','inf','Checking Meta connection…');
+  try{
+    const r=await fetch(apiUrl('/api/social-status')); const d=await r.json().catch(()=>({}));
+    const line=(label,c,idVar,tokVar)=>{
+      if(!c) return `• ${label}: —`;
+      if(c.ok) return `✓ ${label}: connected${c.name?' ('+esc(c.name)+')':c.username?' (@'+esc(c.username)+')':''}`;
+      const miss=[]; const hasId=('hasPageId'in c)?c.hasPageId:c.hasUserId;
+      if(!hasId) miss.push(idVar); if(!c.hasToken) miss.push(tokVar);
+      if(miss.length) return `✗ ${label}: not set — add ${miss.join(' &amp; ')} in Netlify`;
+      return `✗ ${label}: token rejected — ${esc(c.error||'not connected')}`;
+    };
+    const fb=line('Facebook',d.facebook,'FB_PAGE_ID','FB_PAGE_ACCESS_TOKEN');
+    const ig=line('Instagram',d.instagram,'IG_USER_ID','IG_ACCESS_TOKEN');
+    const good=(d.facebook&&d.facebook.ok)||(d.instagram&&d.instagram.ok);
+    alert('scPubAlert', good?'ok':'wr', fb+'<br>'+ig);
+  }catch(e){ alert('scPubAlert','er','Check failed: '+esc(e.message)); }
+  btn.disabled=false; btn.textContent=orig;
 }
 async function scPublish(){
   const targets=[]; if($('scTgIg').checked) targets.push('instagram'); if($('scTgFb').checked) targets.push('facebook');
