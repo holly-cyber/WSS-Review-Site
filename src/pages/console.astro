@@ -141,9 +141,17 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-pvhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
 .em-themesel{max-width:200px}
 .em-frame{width:100%;height:640px;border:1px solid #ececf1;border-radius:10px;background:#f4f4f6}
-.em-round{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.em-round select{max-width:110px}
 #emItemSel{flex:1;min-width:200px}
+.em-sec{border:1px solid #ececf1;border-radius:9px;padding:10px 12px;margin:8px 0}
+.em-sec-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.em-ck{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#000036;white-space:nowrap;cursor:pointer}
+.em-ck input{width:16px;height:16px;cursor:pointer}
+.em-sec-h input[type=text],.em-sec-h>input{flex:1;min-width:140px}
+.em-checks{max-height:150px;overflow:auto;display:flex;flex-direction:column;gap:3px}
+.em-checks label{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#444;padding:3px 4px;border-radius:6px;cursor:pointer}
+.em-checks label:hover{background:#f6f6f9}
+.em-checks input{width:15px;height:15px;margin-top:2px;flex-shrink:0;cursor:pointer}
+.em-checks .emc-meta{color:#aaa;font-size:11px}
 .actbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .actbar .grouplbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#aaa;width:100%;margin-top:4px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e0e0e6;color:#444;padding:7px 13px;border-radius:8px;font-size:12.5px;font-weight:600}
@@ -560,15 +568,25 @@ table.rev tr:hover td{background:#fcfcfd}
                 <select id="emItemSel"><option value="">Loading posts…</option></select>
                 <button class="bg" id="emItemBuild">Build email from this</button>
               </div>
-              <div class="em-hint" style="margin-top:6px">Pre-fills the subject, preview, hero image, body and CTA from the chosen post — edit freely after.</div>
-              <label class="em-l">Insert a “latest” roundup</label>
-              <div class="em-round">
-                <button class="bg" id="emRoundBlog">＋ Latest blogs</button>
-                <button class="bg" id="emRoundNews">＋ Latest news</button>
-                <button class="bg" id="emRoundBoth">＋ Blogs &amp; news</button>
-                <select id="emRoundN" title="How many of each"><option value="3">3 each</option><option value="4">4 each</option><option value="5">5 each</option></select>
-              </div>
+              <div class="em-hint" style="margin-top:6px">Pre-fills the subject, preview, hero image, body and CTA from the chosen post — edit freely after. This is your <strong>main story</strong>; add blog/news sections below it.</div>
               <div id="emItemStatus" class="em-hint" style="margin-top:8px"></div>
+
+              <label class="em-l" style="margin-top:14px">Content sections <span class="em-hint2">(added as their own blocks under your main story)</span></label>
+              <div class="em-sec">
+                <div class="em-sec-h">
+                  <label class="em-ck"><input type="checkbox" id="emBlogOn"/> Blog section</label>
+                  <input id="emBlogHead" value="From the blog" placeholder="Section heading"/>
+                </div>
+                <div id="emBlogList" class="em-checks"><span class="em-hint2">No blog posts loaded yet.</span></div>
+              </div>
+              <div class="em-sec">
+                <div class="em-sec-h">
+                  <label class="em-ck"><input type="checkbox" id="emNewsOn"/> News section</label>
+                  <input id="emNewsHead" value="Latest news" placeholder="Section heading"/>
+                </div>
+                <div id="emNewsList" class="em-checks"><span class="em-hint2">No news posts loaded yet.</span></div>
+              </div>
+              <div class="em-hint" style="margin-top:2px">Tick the posts to feature in each section. Each shows its title, excerpt and a thumbnail, linking to the live page.</div>
             </div>
 
             <div class="panel">
@@ -1856,6 +1874,7 @@ function emOpts(forSend){
     ctaText: ($('emCtaText').value||'').trim(),
     ctaUrl: ($('emCtaUrl').value||'').trim(),
     preheader: ($('emPreheader').value||'').trim(),
+    sections: emCollectSections(),
   };
 }
 let emPvTimer=null;
@@ -1923,9 +1942,9 @@ function emInitStudio(){
   });
   // Blog & news wiring
   $('emItemBuild').addEventListener('click',emBuildFromItem);
-  $('emRoundBlog').addEventListener('click',()=>emInsertRoundup('blog'));
-  $('emRoundNews').addEventListener('click',()=>emInsertRoundup('news'));
-  $('emRoundBoth').addEventListener('click',()=>emInsertRoundup('both'));
+  ['emBlogOn','emNewsOn','emBlogHead','emNewsHead'].forEach(id=>$(id).addEventListener('input',emRenderPreview));
+  $('emBlogList').addEventListener('change',emRenderPreview);
+  $('emNewsList').addEventListener('change',emRenderPreview);
   // Groups + push
   emLoadGroups();
   $('emPushBtn').addEventListener('click',emPushDraft);
@@ -1951,6 +1970,36 @@ function emRefreshItems(){
   const opt=(f,kind)=>`<option value="${kind}:${esc(f.slug)}">${esc(f.title||f.slug)}</option>`;
   sel.innerHTML=(blog.length?`<optgroup label="Blog">${blog.map(f=>opt(f,'blog')).join('')}</optgroup>`:'')
              +(news.length?`<optgroup label="News">${news.map(f=>opt(f,'news')).join('')}</optgroup>`:'');
+  // Section checklists — latest 8 of each, the newest 3 pre-ticked.
+  emRenderChecks('emBlogList',blog,'blog');
+  emRenderChecks('emNewsList',news,'news');
+}
+function emRenderChecks(boxId,list,kind){
+  const box=$(boxId); if(!box) return;
+  const prev=new Set([...box.querySelectorAll('input:checked')].map(i=>i.value));
+  const touched=box.dataset.touched==='1';
+  const rows=list.slice(0,8);
+  if(!rows.length){ box.innerHTML=`<span class="em-hint2">No published ${kind} posts yet.</span>`; return; }
+  box.innerHTML=rows.map((f,idx)=>{
+    const d=f.date?new Date(f.date).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
+    const on = touched ? prev.has(f.slug) : idx<3;   // default: newest 3, unless user has changed things
+    return `<label><input type="checkbox" value="${esc(f.slug)}"${on?' checked':''}/><span>${esc(f.title||f.slug)}${d?` <span class="emc-meta">· ${d}</span>`:''}</span></label>`;
+  }).join('');
+  if(!box.dataset.bound){ box.addEventListener('change',()=>{ box.dataset.touched='1'; }); box.dataset.bound='1'; }
+}
+// Gather the ticked posts for one section into buildEmailHtml item shape.
+function emSectionItems(kind){
+  const box=$(kind==='blog'?'emBlogList':'emNewsList'); if(!box) return [];
+  return [...box.querySelectorAll('input:checked')].map(i=>{
+    const f=((kind==='blog'?blLib:nwLib)||[]).find(x=>x.slug===i.value); if(!f) return null;
+    const m=emItemMeta(f,kind); return {title:m.title,url:m.url,excerpt:m.excerpt.slice(0,150),image:m.hero};
+  }).filter(Boolean);
+}
+function emCollectSections(){
+  const out=[];
+  if($('emBlogOn')&&$('emBlogOn').checked){ const items=emSectionItems('blog'); if(items.length) out.push({label:($('emBlogHead').value||'From the blog').trim(),items,accent:'#FF5E84'}); }
+  if($('emNewsOn')&&$('emNewsOn').checked){ const items=emSectionItems('news'); if(items.length) out.push({label:($('emNewsHead').value||'Latest news').trim(),items}); }
+  return out;
 }
 function emFindItem(value){
   const i=String(value||'').indexOf(':'); if(i<0) return null;
@@ -1974,28 +2023,6 @@ function emBuildFromItem(){
   $('emItemStatus').innerHTML='<span style="color:#0a7a33">✓ Built from “'+esc(m.title)+'”. Edit anything, pick a theme, then create the draft.</span>';
   emRenderPreview();
 }
-// One roundup section (heading + linked, excerpted items). Each element sits on
-// its own line starting with "<" so it passes through mdToHtml untouched in
-// Markdown mode and is valid HTML in HTML mode.
-function emRoundupItems(kind,n){
-  return ((kind==='blog'?blLib:nwLib)||[]).filter(f=>!f.draft)
-    .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0)).slice(0,n).map(f=>emItemMeta(f,kind));
-}
-function emRoundupBlock(title,items){
-  if(!items.length) return '';
-  const rows=items.map(m=>`<p style="margin:0 0 16px"><a href="${m.url}" style="color:#000036;font-weight:700;font-size:16px;text-decoration:none">${esc(m.title)}</a><br><span style="color:#555;font-size:14px;line-height:1.5">${esc(m.excerpt.slice(0,150))}</span><br><a href="${m.url}" style="color:#FF5E84;font-size:13px;font-weight:600;text-decoration:none">Read more →</a></p>`).join('\n');
-  return `<h3 style="color:#000036;font-size:15px;margin:22px 0 12px">${esc(title)}</h3>\n${rows}`;
-}
-function emInsertRoundup(kind){
-  const n=parseInt($('emRoundN').value||'3',10)||3;
-  let block='';
-  if(kind==='blog'||kind==='both') block+=emRoundupBlock('Latest from the blog',emRoundupItems('blog',n));
-  if(kind==='news'||kind==='both'){ if(block) block+='\n'; block+=emRoundupBlock('Latest news',emRoundupItems('news',n)); }
-  if(!block){ $('emItemStatus').innerHTML='<span style="color:#8a5a00">No published '+(kind==='both'?'posts':kind)+' to insert yet.</span>'; return; }
-  const ta=$('emBody'); const cur=ta.value.replace(/\s+$/,''); ta.value=(cur?cur+'\n\n':'')+block+'\n';
-  $('emItemStatus').innerHTML='<span style="color:#0a7a33">✓ Inserted — links open the live pages.</span>';
-  emRenderPreview();
-}
 async function emLoadGroups(){
   const sel=$('emGroup'); if(!sel||emGroupsLoaded) return;
   try{
@@ -2013,7 +2040,7 @@ async function emPushDraft(){
   const group=$('emGroup').value;
   if(!name){ alert('emPushAlert','er','Give the campaign an internal name.'); return; }
   if(!subject){ alert('emPushAlert','er','Add a subject line.'); return; }
-  if(!($('emBody').value||'').trim()){ alert('emPushAlert','er','Write the email body first.'); return; }
+  if(!($('emBody').value||'').trim() && !emCollectSections().length){ alert('emPushAlert','er','Write the main story, or add at least one blog/news section.'); return; }
   if(!from){ alert('emPushAlert','er','Enter a verified sender email.'); return; }
   if(!group){ alert('emPushAlert','er','Pick a recipient group.'); return; }
   emSaveCfg({fromName,from,group,theme:$('emTheme').value});
