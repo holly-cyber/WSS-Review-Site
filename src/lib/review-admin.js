@@ -478,8 +478,21 @@ export function buildEmailHtml(opts = {}) {
   // Optional content sections (e.g. "From the blog", "Latest news") rendered as
   // their own distinct blocks below the main story — each with a coloured pill
   // heading and a list of linked, excerpted items (with an optional thumbnail).
-  const sectionsHtml = (opts.sections || []).filter((s) => s && s.items && s.items.length).map((s) => {
+  const sectionsHtml = (opts.sections || []).filter((s) => s && (
+    (s.custom && (s.image || s.heading || s.html || (s.btnText && s.btnUrl))) ||
+    (s.items && s.items.length)
+  )).map((s) => {
     const acc = s.accent || t.accent;
+    const divider = `<tr><td style="padding:6px 28px 0"><div style="border-top:1px solid #eeeeee;margin:16px 0 0"></div></td></tr>`;
+    // Freeform custom block: optional image, heading, text (pre-rendered HTML)
+    // and a button.
+    if (s.custom) {
+      const img = s.image ? `<tr><td style="padding:18px 28px 0"><a href="${q(s.btnUrl || heroLink)}"><img src="${q(s.image)}" width="544" alt="" style="display:block;width:100%;max-width:544px;height:auto;border-radius:10px;border:0"/></a></td></tr>` : '';
+      const head = s.heading ? `<tr><td style="padding:16px 28px 0;font-family:'Poppins',Helvetica,Arial,sans-serif;color:#000036;font-size:19px;font-weight:700;line-height:1.3">${q(s.heading)}</td></tr>` : '';
+      const txt = s.html ? `<tr><td style="padding:8px 28px 0;color:#000036;font-size:15px;line-height:1.6">${s.html}</td></tr>` : '';
+      const btn = (s.btnText && s.btnUrl) ? `<tr><td style="padding:16px 28px 4px"><a href="${q(s.btnUrl)}" style="display:inline-block;background:${acc};color:${t.accentText};text-decoration:none;font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;padding:11px 26px;border-radius:8px">${q(s.btnText)}</a></td></tr>` : '';
+      return divider + img + head + txt + btn;
+    }
     const items = s.items.map((it) => {
       const thumb = it.image
         ? `<td width="104" valign="top" style="padding:0 14px 0 0"><a href="${q(it.url)}"><img src="${q(it.image)}" width="104" alt="" style="display:block;width:104px;height:78px;object-fit:cover;border-radius:8px;border:0"/></a></td>`

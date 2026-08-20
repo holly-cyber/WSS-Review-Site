@@ -152,6 +152,14 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-checks label:hover{background:#f6f6f9}
 .em-checks input{width:15px;height:15px;margin-top:2px;flex-shrink:0;cursor:pointer}
 .em-checks .emc-meta{color:#aaa;font-size:11px}
+.em-grip{cursor:grab;color:#bbb;font-size:15px;line-height:1;user-select:none;padding:2px 2px;flex-shrink:0}
+.em-grip:hover{color:#888}
+.em-grip:active{cursor:grabbing}
+.em-sec.dragging{opacity:.5;border-color:#FF5E84}
+#emSections .em-sec{background:#fff}
+.em-cust-text{margin-top:6px}
+.em-cust-del{padding:4px 10px;font-size:11.5px}
+.em-cust-imgstatus{margin-top:4px}
 .actbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .actbar .grouplbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#aaa;width:100%;margin-top:4px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e0e0e6;color:#444;padding:7px 13px;border-radius:8px;font-size:12.5px;font-weight:600}
@@ -571,29 +579,35 @@ table.rev tr:hover td{background:#fcfcfd}
               <div class="em-hint" style="margin-top:6px">Pre-fills the subject, preview, hero image, body and CTA from the chosen review or post — edit freely after. This is your <strong>main story</strong>; add sections below it.</div>
               <div id="emItemStatus" class="em-hint" style="margin-top:8px"></div>
 
-              <label class="em-l" style="margin-top:14px">Content sections <span class="em-hint2">(added as their own blocks under your main story)</span></label>
-              <div class="em-sec">
-                <div class="em-sec-h">
-                  <label class="em-ck"><input type="checkbox" id="emRevOn"/> Reviews section</label>
-                  <input id="emRevHead" value="Latest reviews" placeholder="Section heading"/>
+              <label class="em-l" style="margin-top:14px">Content sections <span class="em-hint2">(drag ⠿ to reorder — they render top-to-bottom under your main story)</span></label>
+              <div id="emSections">
+                <div class="em-sec" data-block="reviews">
+                  <div class="em-sec-h">
+                    <span class="em-grip" draggable="true" title="Drag to reorder">⠿</span>
+                    <label class="em-ck"><input type="checkbox" id="emRevOn"/> Reviews section</label>
+                    <input id="emRevHead" value="Latest reviews" placeholder="Section heading"/>
+                  </div>
+                  <div id="emRevList" class="em-checks"><span class="em-hint2">No reviews loaded yet.</span></div>
                 </div>
-                <div id="emRevList" class="em-checks"><span class="em-hint2">No reviews loaded yet.</span></div>
-              </div>
-              <div class="em-sec">
-                <div class="em-sec-h">
-                  <label class="em-ck"><input type="checkbox" id="emBlogOn"/> Blog section</label>
-                  <input id="emBlogHead" value="From the blog" placeholder="Section heading"/>
+                <div class="em-sec" data-block="blog">
+                  <div class="em-sec-h">
+                    <span class="em-grip" draggable="true" title="Drag to reorder">⠿</span>
+                    <label class="em-ck"><input type="checkbox" id="emBlogOn"/> Blog section</label>
+                    <input id="emBlogHead" value="From the blog" placeholder="Section heading"/>
+                  </div>
+                  <div id="emBlogList" class="em-checks"><span class="em-hint2">No blog posts loaded yet.</span></div>
                 </div>
-                <div id="emBlogList" class="em-checks"><span class="em-hint2">No blog posts loaded yet.</span></div>
-              </div>
-              <div class="em-sec">
-                <div class="em-sec-h">
-                  <label class="em-ck"><input type="checkbox" id="emNewsOn"/> News section</label>
-                  <input id="emNewsHead" value="Latest news" placeholder="Section heading"/>
+                <div class="em-sec" data-block="news">
+                  <div class="em-sec-h">
+                    <span class="em-grip" draggable="true" title="Drag to reorder">⠿</span>
+                    <label class="em-ck"><input type="checkbox" id="emNewsOn"/> News section</label>
+                    <input id="emNewsHead" value="Latest news" placeholder="Section heading"/>
+                  </div>
+                  <div id="emNewsList" class="em-checks"><span class="em-hint2">No news posts loaded yet.</span></div>
                 </div>
-                <div id="emNewsList" class="em-checks"><span class="em-hint2">No news posts loaded yet.</span></div>
               </div>
-              <div class="em-hint" style="margin-top:2px">Tick the posts to feature in each section. Each shows its title, excerpt and a thumbnail, linking to the live page.</div>
+              <div style="margin-top:8px"><button class="bg" id="emAddBlock">＋ Add content block</button></div>
+              <div class="em-hint" style="margin-top:6px">Tick posts for each roundup, or add a custom block for an image, text and a button. Drag any block by its ⠿ handle to reorder.</div>
             </div>
 
             <div class="panel">
@@ -1882,7 +1896,7 @@ function emOpts(forSend){
     ctaText: ($('emCtaText').value||'').trim(),
     ctaUrl: ($('emCtaUrl').value||'').trim(),
     preheader: ($('emPreheader').value||'').trim(),
-    sections: emCollectSections(),
+    sections: emCollectSections(forSend),
   };
 }
 let emPvTimer=null;
@@ -1954,6 +1968,8 @@ function emInitStudio(){
   $('emRevList').addEventListener('change',emRenderPreview);
   $('emBlogList').addEventListener('change',emRenderPreview);
   $('emNewsList').addEventListener('change',emRenderPreview);
+  $('emAddBlock').addEventListener('click',emAddCustom);
+  emInitDrag();
   // Groups + push
   emLoadGroups();
   $('emPushBtn').addEventListener('click',emPushDraft);
@@ -2022,12 +2038,104 @@ function emSectionItems(kind){
     const m=emItemMeta(f,kind); return {title:m.title,url:m.url,excerpt:m.excerpt.slice(0,150),image:m.hero};
   }).filter(Boolean);
 }
-function emCollectSections(){
+// Walk the section cards in their (drag-reordered) DOM order, producing the
+// sections array for buildEmailHtml. forSend picks the committed image URL for
+// custom blocks (vs the instant preview URL).
+const EM_FIXED={reviews:['emRevOn','emRevHead','review','Latest reviews','#000036'],
+                blog:['emBlogOn','emBlogHead','blog','From the blog','#FF5E84'],
+                news:['emNewsOn','emNewsHead','news','Latest news','']};
+function emCollectSections(forSend){
+  const cont=$('emSections'); if(!cont) return [];
   const out=[];
-  if($('emRevOn')&&$('emRevOn').checked){ const items=emSectionItems('review'); if(items.length) out.push({label:($('emRevHead').value||'Latest reviews').trim(),items,accent:'#000036'}); }
-  if($('emBlogOn')&&$('emBlogOn').checked){ const items=emSectionItems('blog'); if(items.length) out.push({label:($('emBlogHead').value||'From the blog').trim(),items,accent:'#FF5E84'}); }
-  if($('emNewsOn')&&$('emNewsOn').checked){ const items=emSectionItems('news'); if(items.length) out.push({label:($('emNewsHead').value||'Latest news').trim(),items}); }
+  for(const card of cont.children){
+    const type=card.dataset.block;
+    if(EM_FIXED[type]){
+      const [onId,headId,kind,def,accent]=EM_FIXED[type];
+      if($(onId)&&$(onId).checked){ const items=emSectionItems(kind); if(items.length) out.push({label:($(headId).value||def).trim(),items,accent:accent||undefined}); }
+    }else if(type==='custom'){
+      const id=card.dataset.id, st=emCustom[id]||{};
+      const g=s=>card.querySelector(s);
+      const heading=(g('.em-cust-head').value||'').trim();
+      const text=(g('.em-cust-text').value||'').trim();
+      const btnText=(g('.em-cust-btntext').value||'').trim();
+      const btnUrl=(g('.em-cust-btnurl').value||'').trim();
+      const image=forSend?(st.imgSend||''):(st.imgPreview||st.imgSend||'');
+      if(heading||text||image||(btnText&&btnUrl)) out.push({custom:true,image,heading,html:text?mdToHtml(text):'',btnText,btnUrl,accent:'#FF5E84'});
+    }
+  }
   return out;
+}
+// ---- Custom content blocks (image + text + button) ----
+let emCustom={}, emCustomSeq=0;
+function emAddCustom(){
+  const id='c'+(++emCustomSeq); emCustom[id]={imgPreview:'',imgSend:''};
+  const card=document.createElement('div'); card.className='em-sec'; card.dataset.block='custom'; card.dataset.id=id;
+  card.innerHTML=`<div class="em-sec-h">
+      <span class="em-grip" draggable="true" title="Drag to reorder">⠿</span>
+      <strong style="font-size:13px;color:#000036">Content block</strong>
+      <button class="bg bdanger em-cust-del" style="margin-left:auto" type="button">Remove</button>
+    </div>
+    <input class="em-cust-head" placeholder="Heading (optional)"/>
+    <textarea class="em-cust-text" rows="3" placeholder="Text (optional) — Markdown supported"></textarea>
+    <div class="em-hero-row" style="margin-top:6px">
+      <input class="em-cust-imgurl" placeholder="Image URL (optional)"/>
+      <button class="bg em-cust-imgbtn" type="button">Use URL</button>
+      <label class="bg em-upload">Upload<input type="file" class="em-cust-imgfile" accept="image/*" hidden/></label>
+    </div>
+    <div class="em-cust-imgstatus em-hint"></div>
+    <div class="em-cta2" style="margin-top:4px">
+      <div><input class="em-cust-btntext" placeholder="Button text (optional)"/></div>
+      <div><input class="em-cust-btnurl" placeholder="Button URL"/></div>
+    </div>`;
+  $('emSections').appendChild(card);
+  card.querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input',emRenderPreview));
+  card.querySelector('.em-cust-del').addEventListener('click',()=>{ delete emCustom[id]; card.remove(); emRenderPreview(); });
+  card.querySelector('.em-cust-imgbtn').addEventListener('click',()=>emCustomImg(id,card,'url'));
+  card.querySelector('.em-cust-imgfile').addEventListener('change',e=>emCustomImg(id,card,'file',e));
+  emBindGrip(card.querySelector('.em-grip'));
+  card.querySelector('.em-cust-head').focus();
+  emRenderPreview();
+}
+async function emCustomImg(id,card,mode,ev){
+  const st=emCustom[id]; if(!st) return;
+  const status=card.querySelector('.em-cust-imgstatus');
+  if(mode==='url'){
+    const url=(card.querySelector('.em-cust-imgurl').value||'').trim();
+    if(!/^https?:\/\//i.test(url)){ status.innerHTML='<span style="color:#c00">Enter a valid image URL.</span>'; return; }
+    st.imgPreview=url; emRenderPreview(); status.textContent='Saving image into the repo…';
+    try{ st.imgSend=await emHostUrl(url); status.innerHTML='<span style="color:#0a7a33">✓ Image saved — live on the next deploy.</span>'; }
+    catch(err){ st.imgSend=url; status.innerHTML='<span style="color:#8a5a00">Could not self-host ('+esc(err.message)+') — the original URL will be used.</span>'; }
+  }else{
+    const file=ev.target.files&&ev.target.files[0]; if(!file) return;
+    if(file.size>5*1024*1024){ status.innerHTML='<span style="color:#c00">Image is over 5MB — use a smaller file.</span>'; return; }
+    const ext=(file.name.split('.').pop()||'jpg'); const reader=new FileReader();
+    reader.onload=async()=>{ st.imgPreview=reader.result; emRenderPreview(); status.textContent='Uploading image…';
+      try{ st.imgSend=await emHostUpload(reader.result,ext); status.innerHTML='<span style="color:#0a7a33">✓ Uploaded — live on the next deploy.</span>'; }
+      catch(err){ status.innerHTML='<span style="color:#c00">Upload failed: '+esc(err.message)+'</span>'; } };
+    reader.readAsDataURL(file);
+  }
+}
+// Shared: host an external image URL into the repo, return its absolute URL.
+async function emHostUrl(url){ const local=await hostHeroImage(url,'email-'+Date.now(),'email'); return EM_SITE+local; }
+// ---- Drag-to-reorder for the section cards ----
+let emDrag=null;
+function emBindGrip(grip){
+  if(!grip) return;
+  grip.addEventListener('dragstart',()=>{ emDrag=grip.closest('.em-sec'); if(emDrag) emDrag.classList.add('dragging'); });
+  grip.addEventListener('dragend',()=>{ if(emDrag) emDrag.classList.remove('dragging'); emDrag=null; emRenderPreview(); });
+}
+function emInitDrag(){
+  const cont=$('emSections'); if(!cont||cont.dataset.dragBound) return; cont.dataset.dragBound='1';
+  cont.addEventListener('dragover',e=>{ if(!emDrag) return; e.preventDefault();
+    const after=emDragAfter(cont,e.clientY);
+    if(after==null) cont.appendChild(emDrag); else cont.insertBefore(emDrag,after);
+  });
+  cont.querySelectorAll('.em-grip').forEach(emBindGrip);
+}
+function emDragAfter(cont,y){
+  let best=null,bestOff=-Infinity;
+  cont.querySelectorAll('.em-sec:not(.dragging)').forEach(el=>{ const b=el.getBoundingClientRect(); const off=y-b.top-b.height/2; if(off<0&&off>bestOff){ bestOff=off; best=el; } });
+  return best;
 }
 function emFindItem(value){
   const i=String(value||'').indexOf(':'); if(i<0) return null;
@@ -2070,7 +2178,7 @@ async function emPushDraft(){
   const group=$('emGroup').value;
   if(!name){ alert('emPushAlert','er','Give the campaign an internal name.'); return; }
   if(!subject){ alert('emPushAlert','er','Add a subject line.'); return; }
-  if(!($('emBody').value||'').trim() && !emCollectSections().length){ alert('emPushAlert','er','Write the main story, or add at least one blog/news section.'); return; }
+  if(!($('emBody').value||'').trim() && !emCollectSections().length){ alert('emPushAlert','er','Write the main story, or add at least one content section or block.'); return; }
   if(!from){ alert('emPushAlert','er','Enter a verified sender email.'); return; }
   if(!group){ alert('emPushAlert','er','Pick a recipient group.'); return; }
   emSaveCfg({fromName,from,group,theme:$('emTheme').value});
