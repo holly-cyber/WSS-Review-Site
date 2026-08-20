@@ -1889,7 +1889,13 @@ async function emMlApi(action,payload){
 }
 function emBodyHtml(){
   const raw=$('emBody').value||'';
-  return emFmt==='html' ? raw : mdToHtml(raw);
+  let html = emFmt==='html' ? raw : mdToHtml(raw);
+  // Safety net: turn any leftover Markdown-style [text](url) link into a real
+  // <a> — even with a stray space before the "(", and even in HTML mode (where
+  // Markdown isn't otherwise converted). Skips links already inside an href.
+  html = html.replace(/\[([^\]\n]+)\]\s*\(\s*((?:https?:\/\/|mailto:)[^)\s]+)\s*\)/gi,
+    (m,text,url)=>`<a href="${url.trim()}" style="color:#FF5E84;text-decoration:underline">${text.trim()}</a>`);
+  return html;
 }
 function emOpts(forSend){
   return {
