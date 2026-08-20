@@ -431,3 +431,94 @@ export function reviewMeta(path) {
   const category = parts.pop();
   return { slug, category, liveUrl: `/${category}/${slug}/` };
 }
+
+// ---------------------------------------------------------------------------
+// Standalone email builder (used by the console Email studio). Wraps an HTML
+// body in a branded, MailerLite-ready template. Unlike the pipeline's review
+// email, this is theme-able so campaigns don't all look identical — pick a
+// theme to change the header treatment, accent colour and framing while
+// keeping the brand recognisable. Everything is table-based with inline styles
+// so it survives email clients; {$unsubscribe} is MailerLite's merge tag.
+// ---------------------------------------------------------------------------
+export const EMAIL_THEMES = {
+  classic:   { label: 'Classic Navy',      headerBg: '#000036', eyebrowColor: '#FF5E84', accent: '#FF5E84', accentText: '#ffffff', eyebrow: 'WSS™ Independent Reviews', logo: 'image' },
+  editorial: { label: 'Editorial Light',   headerBg: '#ffffff', headerColor: '#000036', eyebrowColor: '#FF5E84', accent: '#FF5E84', accentText: '#ffffff', eyebrow: 'Women’s Sports Store', logo: 'wordmark', rule: true },
+  bold:      { label: 'Bold Pink',         headerBg: '#FF5E84', headerColor: '#ffffff', eyebrowColor: '#ffffff', accent: '#000036', accentText: '#ffffff', eyebrow: 'Women’s Sports Store', logo: 'wordmark-light' },
+  minimal:   { label: 'Minimal',           headerBg: '#ffffff', headerColor: '#000036', eyebrowColor: '#999999', accent: '#000036', accentText: '#ffffff', eyebrow: '', logo: 'wordmark' },
+  spotlight: { label: 'Product Spotlight',  headerBg: '#0b1f3a', eyebrowColor: '#7CE0C3', accent: '#7CE0C3', accentText: '#04121f', eyebrow: 'This week at WSS™', logo: 'image' },
+};
+
+export function buildEmailHtml(opts = {}) {
+  const t = EMAIL_THEMES[opts.theme] || EMAIL_THEMES.classic;
+  const site = 'https://reviews.womenssportsstore.com';
+  const logoImg = site + '/email-logo.png';
+  const q = (s) => String(s == null ? '' : s).replace(/"/g, '&quot;');
+  const alt = q(opts.heroAlt || 'Women’s Sports Store');
+  const heroLink = opts.heroLink || (site + '/');
+  const headerColor = t.headerColor || '#ffffff';
+
+  // Header block — image ring logo on dark themes, a styled wordmark on light
+  // ones (the ring logo is designed for dark backgrounds).
+  let brand;
+  if (t.logo === 'image') {
+    brand = `<img src="${logoImg}" width="96" height="96" alt="Women&rsquo;s Sports Store" class="wss-logo" style="display:inline-block;border:0"/>`;
+  } else {
+    const wc = t.logo === 'wordmark-light' ? '#ffffff' : '#000036';
+    brand = `<div style="font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;letter-spacing:.5px;color:${wc}">Women&rsquo;s Sports Store</div>`;
+  }
+  const eyebrow = t.eyebrow
+    ? `<div style="color:${t.eyebrowColor};font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px">${t.eyebrow}</div>`
+    : '';
+  const rule = t.rule ? `<div style="height:3px;width:56px;background:${t.accent};margin:14px auto 0;border-radius:2px"></div>` : '';
+
+  const heroRow = opts.heroImage
+    ? `<tr><td style="padding:0"><a href="${heroLink}"><img src="${opts.heroImage}" alt="${alt}" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0"/></a></td></tr>`
+    : '';
+
+  const cta = (opts.ctaText && opts.ctaUrl)
+    ? `<tr><td class="wss-cta" style="padding:8px 28px 24px;text-align:center">
+<a href="${q(opts.ctaUrl)}" style="display:inline-block;background:${t.accent};color:${t.accentText};text-decoration:none;font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:700;font-size:15px;padding:13px 30px;border-radius:9px">${q(opts.ctaText)}</a>
+</td></tr>`
+    : '';
+
+  const preheader = opts.preheader
+    ? `<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;height:0;width:0">${q(opts.preheader)}</div>`
+    : '';
+
+  return `<style>
+@media only screen and (max-width:600px){
+  .wss-shell{padding:0 !important}
+  .wss-card{border-radius:0 !important}
+  .wss-head{padding:22px 16px !important}
+  .wss-logo{width:76px !important;height:76px !important}
+  .wss-body{padding:22px 18px 6px !important;font-size:16px !important}
+  .wss-foot{padding:16px 18px 24px !important}
+}
+</style>
+${preheader}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;padding:0;background:#f4f4f6">
+<tr><td class="wss-shell" align="center" style="padding:24px 12px">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" class="wss-card" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:'Poppins',Helvetica,Arial,sans-serif">
+<tr><td class="wss-head" style="background:${t.headerBg};padding:24px;text-align:center;color:${headerColor}">
+${brand}
+${eyebrow}
+${rule}
+</td></tr>
+${heroRow}
+<tr><td class="wss-body" style="padding:28px 28px 8px;color:#000036;font-size:16px;line-height:1.65">
+${opts.body || ''}
+</td></tr>
+${cta}
+<tr><td class="wss-foot" style="padding:18px 28px 28px;border-top:1px solid #eeeeee;text-align:center;color:#888888;font-size:12px;line-height:1.7">
+<p style="margin:0 0 6px">Women&rsquo;s Sports Store &mdash; independent reviews tested against the Women&rsquo;s Sports Standard&trade;.</p>
+<p style="margin:0"><a href="{$unsubscribe}" style="color:#888888;text-decoration:underline">Unsubscribe</a> &nbsp;&middot;&nbsp; <a href="${site}/" style="color:#888888;text-decoration:underline">Visit the site</a></p>
+</td></tr>
+</table>
+</td></tr>
+</table>`;
+}
+
+// System prompt for the Email studio's optional "write with AI" helper — it
+// drafts just the inner body (the branded template is added around it).
+export const EMAIL_ASSIST_SYSTEM = `You are the WomensSportsStore.com email copywriter. Voice: expert, warm, direct, a little sassy; British English; never patronising ("pink it and shrink it" is banned).
+Write ONLY the inner body of a single marketing email in simple HTML — do NOT add a logo, header, greeting image, footer, unsubscribe link or company address (a branded template wraps your output).
+Start with a short <h2> headline, then 2–4 short <p> paragraphs (you may use <strong>, <em>, <ul><li>). Keep it scannable and under ~180 words. Do not include the subject line or preview text in the body. Output HTML only — no markdown fences, no commentary.`;

@@ -115,6 +115,32 @@ table.rev tr:hover td{background:#fcfcfd}
 .panel{background:#fff;border:1px solid #ececf1;border-radius:12px;padding:16px 18px;margin-top:16px}
 .panel h3{font-size:14px;color:#000036;margin-bottom:4px}
 .panel .hint{font-size:12px;color:#777;margin-bottom:10px;line-height:1.5}
+/* Email studio */
+.em-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:1080px){.em-grid{grid-template-columns:1fr}}
+.em-compose .panel:first-child{margin-top:0}
+.em-l{display:block;font-size:11px;font-weight:600;color:#777;margin:12px 0 4px}
+.em-hint{font-size:12px;color:#777;line-height:1.5;margin:2px 0 8px}
+.em-hint2{font-weight:400;color:#aaa;font-size:11px}
+.em-bodyhead{display:flex;align-items:center;justify-content:space-between;margin:12px 0 2px}
+.em-toggle{display:inline-flex;border:1px solid #ddd;border-radius:8px;overflow:hidden}
+.em-toggle button{background:#fff;color:#666;padding:5px 12px;font-size:12px}
+.em-toggle button.active{background:#000036;color:#fff}
+.em-ai{display:flex;gap:8px;margin-top:10px}
+.em-ai input{flex:1}
+.em-ai button{white-space:nowrap}
+.em-hero-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.em-hero-row input{flex:1;min-width:180px}
+.em-hero-row button,.em-upload{white-space:nowrap}
+.em-upload{display:inline-flex;align-items:center;cursor:pointer;padding:7px 14px;border-radius:7px}
+.em-cta2,.em-send{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.em-send{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:720px){.em-cta2,.em-send{grid-template-columns:1fr}}
+.em-previewcol{min-width:0}
+.em-sticky{position:sticky;top:20px;margin-top:0}
+.em-pvhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.em-themesel{max-width:200px}
+.em-frame{width:100%;height:640px;border:1px solid #ececf1;border-radius:10px;background:#f4f4f6}
 .actbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .actbar .grouplbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#aaa;width:100%;margin-top:4px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e0e0e6;color:#444;padding:7px 13px;border-radius:8px;font-size:12.5px;font-weight:600}
@@ -183,6 +209,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="pipeline">＋ New review</button>
       <button class="navbtn" data-nav="news">📰 News</button>
       <button class="navbtn" data-nav="blog">✍ Blog</button>
+      <button class="navbtn" data-nav="email">✉ Email</button>
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/" target="_blank">🌐 View review site ↗</a>
@@ -491,6 +518,85 @@ table.rev tr:hover td{background:#fcfcfd}
       </section>
 
       <!-- Social -->
+      <!-- Email studio -->
+      <section id="view-email" class="view">
+        <div class="h1">Email studio</div>
+        <div class="sub">Compose a standalone MailerLite campaign — no review required. Uses the branded WSS™ email template, with theme options so your sends don't all look the same.</div>
+        <div id="emAlert"></div>
+        <div class="em-grid">
+          <!-- Compose column -->
+          <div class="em-compose">
+            <div class="panel">
+              <h3>Content</h3>
+              <label class="em-l">Campaign name <span class="em-hint2">(internal only — how it shows in MailerLite)</span></label>
+              <input id="emName" placeholder="e.g. August drop — open-water goggles"/>
+              <label class="em-l">Subject line</label>
+              <input id="emSubject" placeholder="The subject your subscribers see"/>
+              <label class="em-l">Preview text <span class="em-hint2">(the grey snippet after the subject in the inbox)</span></label>
+              <input id="emPreheader" placeholder="Optional — a teaser line"/>
+              <div class="em-bodyhead">
+                <label class="em-l" style="margin:0">Body</label>
+                <span class="em-toggle" id="emFmtToggle">
+                  <button data-fmt="md" class="active">Markdown</button>
+                  <button data-fmt="html">HTML</button>
+                </span>
+              </div>
+              <div class="em-hint">Write in Markdown (headings, <strong>**bold**</strong>, lists, [links](url)) — it's converted to email HTML. Switch to HTML to paste your own.</div>
+              <textarea id="emBody" rows="12" spellcheck="true" placeholder="## Your headline&#10;&#10;A short intro paragraph…&#10;&#10;- A punchy point&#10;- Another one&#10;&#10;[Read the review](https://reviews.womenssportsstore.com/…)"></textarea>
+              <div class="em-ai">
+                <input id="emAiBrief" placeholder="✨ Or describe the email and let AI draft the body — e.g. 'new Zone3 goggles just landed, push the open-water range'"/>
+                <button class="bg" id="emAiBtn">Write with AI</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>Hero image <span class="em-hint2">(optional)</span></h3>
+              <div class="em-hint">Sits full-width under the header. Add a URL or upload a file — uploads and URL images are saved into the repo and go live on the next deploy (fine for a draft you'll schedule later).</div>
+              <div class="em-hero-row">
+                <input id="emHeroUrl" placeholder="https://… image URL"/>
+                <button class="bg" id="emHeroUrlBtn">Use URL</button>
+                <label class="bg em-upload">Upload<input type="file" id="emHeroFile" accept="image/*" hidden/></label>
+              </div>
+              <div id="emHeroStatus" class="em-hint" style="margin-top:8px"></div>
+              <label class="em-l">Image links to <span class="em-hint2">(where a click on the hero goes)</span></label>
+              <input id="emHeroLink" placeholder="https://reviews.womenssportsstore.com/… (defaults to the site)"/>
+            </div>
+
+            <div class="panel">
+              <h3>Call-to-action button <span class="em-hint2">(optional)</span></h3>
+              <div class="em-cta2">
+                <div><label class="em-l">Button text</label><input id="emCtaText" placeholder="Shop the range"/></div>
+                <div><label class="em-l">Button URL</label><input id="emCtaUrl" placeholder="https://womenssportsstore.com/…"/></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>Send</h3>
+              <div class="em-send">
+                <div><label class="em-l">From name</label><input id="emFromName" placeholder="WomensSportsStore.com"/></div>
+                <div><label class="em-l">From email <span class="em-hint2">(must be verified in MailerLite)</span></label><input id="emFrom" placeholder="holly@womenssportsstore.com"/></div>
+                <div><label class="em-l">Recipient group</label><select id="emGroup"><option value="">Loading groups…</option></select></div>
+              </div>
+              <button class="bp" id="emPushBtn" style="margin-top:12px">⬆ Create MailerLite draft</button>
+              <div id="emPushAlert" style="margin-top:8px"></div>
+              <div class="em-hint" style="margin-top:6px">Creates a <strong>draft</strong> campaign — review, test and schedule it from your MailerLite dashboard.</div>
+            </div>
+          </div>
+
+          <!-- Preview column -->
+          <div class="em-previewcol">
+            <div class="panel em-sticky">
+              <div class="em-pvhead">
+                <h3 style="margin:0">Preview</h3>
+                <select id="emTheme" class="em-themesel"></select>
+              </div>
+              <div class="em-hint" style="margin-bottom:10px">Pick a theme to change the look — header, accent colour and framing — without touching your content.</div>
+              <iframe id="emPreview" class="em-frame" title="Email preview"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="view-social" class="view">
         <div class="h1">Social &amp; outbound</div>
         <div class="sub">Distribution channels for published reviews. Each becomes available from a review's Actions panel once configured.</div>
@@ -574,7 +680,7 @@ table.rev tr:hover td{background:#fcfcfd}
 </AuthGate>
 
 <script>
-import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, BLOG_SYSTEM, buildBlogPrompt, insertImages, reviewMeta, isReviewPath, apiUrl } from '../lib/review-admin.js';
+import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, BLOG_SYSTEM, buildBlogPrompt, insertImages, reviewMeta, isReviewPath, apiUrl, buildEmailHtml, EMAIL_THEMES, EMAIL_ASSIST_SYSTEM } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
 import { slugify } from '../data/taxonomy.js';
@@ -594,6 +700,7 @@ function showView(name){
   $('view-'+name).classList.add('active');
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
   if(name==='blog'){ if(!blLibLoaded){ blLibLoaded=true; loadBlLib(); } updateBlCatalogNote(); }
+  if(name==='email'){ emInitStudio(); }
   // Load the embedded pipeline tool the first time its tab is opened.
   if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
 }
@@ -1694,6 +1801,138 @@ async function pushBlog(){
     blLibLoaded=true; loadBlLib();
   }catch(e){ alert('blPushAlert','er','Push failed: '+e.message); }
   btn.disabled=false; btn.textContent=blEditPath?'Save changes →':'Push as draft →';
+}
+
+// ===================== Email studio =====================
+// Standalone MailerLite campaign composer. Reuses the branded email template
+// (buildEmailHtml, theme-able) and the same /api/mailerlite-campaign function
+// the pipeline uses to push drafts — but needs no review to exist first.
+const EM_SITE='https://reviews.womenssportsstore.com';
+let emFmt='md';                         // body input mode: markdown | html
+let emState={heroPreview:'',heroSend:''}; // heroPreview = shown now; heroSend = committed absolute URL
+let emGroupsLoaded=false, emInit=false;
+function emCfg(){ try{ return JSON.parse(localStorage.getItem('wssEmailCfg')||'{}'); }catch(_){ return {}; } }
+function emSaveCfg(p){ try{ localStorage.setItem('wssEmailCfg', JSON.stringify({...emCfg(),...p})); }catch(_){ } }
+
+async function emMlApi(action,payload){
+  const r=await fetch(apiUrl('/api/mailerlite-campaign'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,payload})});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(data.message||data.error||('HTTP '+r.status));
+  return data;
+}
+function emBodyHtml(){
+  const raw=$('emBody').value||'';
+  return emFmt==='html' ? raw : mdToHtml(raw);
+}
+function emOpts(forSend){
+  return {
+    theme: $('emTheme').value||'classic',
+    body: emBodyHtml(),
+    heroImage: forSend ? (emState.heroSend||'') : (emState.heroPreview||emState.heroSend||''),
+    heroLink: ($('emHeroLink').value||'').trim(),
+    heroAlt: ($('emSubject').value||'').trim(),
+    ctaText: ($('emCtaText').value||'').trim(),
+    ctaUrl: ($('emCtaUrl').value||'').trim(),
+    preheader: ($('emPreheader').value||'').trim(),
+  };
+}
+let emPvTimer=null;
+function emRenderPreview(){
+  clearTimeout(emPvTimer);
+  emPvTimer=setTimeout(()=>{ const f=$('emPreview'); if(f) f.srcdoc=buildEmailHtml(emOpts(false)); },140);
+}
+// Host an uploaded file (dataURL) into the repo, return absolute deployed URL.
+async function emHostUpload(dataUrl,ext){
+  const base64=String(dataUrl).split(',')[1]||'';
+  const clean=(ext||'jpg').replace(/[^a-z0-9]/gi,'').toLowerCase()||'jpg';
+  const slug='email-'+Date.now();
+  const path=`public/images/email/${slug}.${clean}`;
+  await ghApi('put',{path,content:base64,message:`Add email hero image: ${path}`});
+  return `${EM_SITE}/images/email/${slug}.${clean}`;
+}
+
+function emInitStudio(){
+  if(emInit) return; emInit=true;
+  const cfg=emCfg();
+  // Theme options
+  $('emTheme').innerHTML=Object.entries(EMAIL_THEMES).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('');
+  $('emTheme').value=cfg.theme||'classic';
+  $('emFromName').value=cfg.fromName||'WomensSportsStore.com';
+  $('emFrom').value=cfg.from||'holly@womenssportsstore.com';
+  // Live preview bindings
+  ['emBody','emPreheader','emHeroLink','emCtaText','emCtaUrl','emSubject'].forEach(id=>$(id).addEventListener('input',emRenderPreview));
+  $('emTheme').addEventListener('change',()=>{ emSaveCfg({theme:$('emTheme').value}); emRenderPreview(); });
+  // Body format toggle
+  $('emFmtToggle').addEventListener('click',e=>{ const b=e.target.closest('[data-fmt]'); if(!b) return;
+    emFmt=b.dataset.fmt; $('emFmtToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x.dataset.fmt===emFmt)); emRenderPreview(); });
+  // Hero: URL
+  $('emHeroUrlBtn').addEventListener('click',async()=>{
+    const url=($('emHeroUrl').value||'').trim(); if(!/^https?:\/\//i.test(url)){ $('emHeroStatus').innerHTML='<span style="color:#c00">Enter a valid image URL.</span>'; return; }
+    emState.heroPreview=url; emRenderPreview();
+    $('emHeroStatus').textContent='Saving image into the repo…';
+    try{ const local=await hostHeroImage(url,'email-'+Date.now(),'email'); emState.heroSend=EM_SITE+local; $('emHeroStatus').innerHTML='<span style="color:#0a7a33">✓ Image saved — goes live on the next deploy.</span>'; }
+    catch(err){ emState.heroSend=url; $('emHeroStatus').innerHTML='<span style="color:#8a5a00">Could not self-host ('+esc(err.message)+') — the original URL will be used.</span>'; }
+  });
+  // Hero: upload
+  $('emHeroFile').addEventListener('change',e=>{
+    const file=e.target.files&&e.target.files[0]; if(!file) return;
+    if(file.size>5*1024*1024){ $('emHeroStatus').innerHTML='<span style="color:#c00">Image is over 5MB — please use a smaller file.</span>'; return; }
+    const ext=(file.name.split('.').pop()||'jpg');
+    const reader=new FileReader();
+    reader.onload=async()=>{
+      emState.heroPreview=reader.result; emRenderPreview();
+      $('emHeroStatus').textContent='Uploading image into the repo…';
+      try{ emState.heroSend=await emHostUpload(reader.result,ext); $('emHeroStatus').innerHTML='<span style="color:#0a7a33">✓ Uploaded — goes live on the next deploy.</span>'; }
+      catch(err){ $('emHeroStatus').innerHTML='<span style="color:#c00">Upload failed: '+esc(err.message)+'</span>'; }
+    };
+    reader.readAsDataURL(file);
+  });
+  // AI body assist
+  $('emAiBtn').addEventListener('click',async()=>{
+    const brief=($('emAiBrief').value||'').trim(); if(!brief){ $('emAiBrief').focus(); return; }
+    const btn=$('emAiBtn'); btn.disabled=true; btn.textContent='Writing…';
+    emFmt='html'; $('emFmtToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x.dataset.fmt==='html'));
+    try{
+      await aiStream({ system:EMAIL_ASSIST_SYSTEM, max_tokens:900,
+        messages:[{role:'user',content:`Write the email body. Brief: ${brief}\nSubject (for tone): ${($('emSubject').value||'').trim()||'(none yet)'}`}],
+        onText:(t)=>{ $('emBody').value=t; emRenderPreview(); } });
+    }catch(err){ alert('emAlert','er','AI draft failed: '+esc(err.message)); }
+    btn.disabled=false; btn.textContent='Write with AI';
+  });
+  // Groups + push
+  emLoadGroups();
+  $('emPushBtn').addEventListener('click',emPushDraft);
+  emRenderPreview();
+}
+async function emLoadGroups(){
+  const sel=$('emGroup'); if(!sel||emGroupsLoaded) return;
+  try{
+    const data=await emMlApi('groups'); const groups=(data&&data.data)||[];
+    sel.innerHTML='<option value="">— select a group —</option>'+groups.map(g=>`<option value="${g.id}">${esc(g.name)} (${g.active_count??0})</option>`).join('');
+    const cfg=emCfg(); if(cfg.group) sel.value=cfg.group;
+    emGroupsLoaded=true;
+  }catch(err){ sel.innerHTML=`<option value="">Could not load groups — ${esc(err.message)}</option>`; }
+}
+async function emPushDraft(){
+  const name=($('emName').value||'').trim();
+  const subject=($('emSubject').value||'').trim();
+  const fromName=($('emFromName').value||'WomensSportsStore.com').trim();
+  const from=($('emFrom').value||'').trim();
+  const group=$('emGroup').value;
+  if(!name){ alert('emPushAlert','er','Give the campaign an internal name.'); return; }
+  if(!subject){ alert('emPushAlert','er','Add a subject line.'); return; }
+  if(!($('emBody').value||'').trim()){ alert('emPushAlert','er','Write the email body first.'); return; }
+  if(!from){ alert('emPushAlert','er','Enter a verified sender email.'); return; }
+  if(!group){ alert('emPushAlert','er','Pick a recipient group.'); return; }
+  emSaveCfg({fromName,from,group,theme:$('emTheme').value});
+  const btn=$('emPushBtn'); const orig=btn.textContent; btn.disabled=true; btn.textContent='Creating draft…';
+  alert('emPushAlert','inf','Creating the draft campaign in MailerLite…');
+  try{
+    const content=buildEmailHtml(emOpts(true));
+    await emMlApi('create',{name,subject,from,from_name:fromName,content,group});
+    alert('emPushAlert','ok','✓ Draft campaign created in MailerLite. Review, test &amp; schedule it from your MailerLite dashboard.');
+  }catch(err){ alert('emPushAlert','er','Could not create the draft: '+esc(err.message)); }
+  btn.disabled=false; btn.textContent=orig;
 }
 
 loadAll();
