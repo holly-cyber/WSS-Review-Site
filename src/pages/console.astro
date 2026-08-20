@@ -143,6 +143,8 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-pvhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
 .em-themesel{max-width:200px}
 .em-frame{width:100%;height:640px;border:1px solid #ececf1;border-radius:10px;background:#f4f4f6}
+.sc-stage{display:flex;justify-content:center;background:#f4f4f6;border:1px solid #ececf1;border-radius:10px;padding:14px}
+.sc-stage canvas{max-width:100%;max-height:70vh;height:auto;border-radius:8px;box-shadow:0 6px 22px rgba(0,0,54,.16)}
 #emItemSel{flex:1;min-width:200px}
 .em-sec{border:1px solid #ececf1;border-radius:9px;padding:10px 12px;margin:8px 0}
 .em-sec-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
@@ -231,6 +233,7 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="news">📰 News</button>
       <button class="navbtn" data-nav="blog">✍ Blog</button>
       <button class="navbtn" data-nav="email">✉ Email</button>
+      <button class="navbtn" data-nav="socialstudio">📣 Social post</button>
       <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/" target="_blank">🌐 View review site ↗</a>
@@ -663,6 +666,80 @@ table.rev tr:hover td{background:#fcfcfd}
         </div>
       </section>
 
+      <!-- Social studio -->
+      <section id="view-socialstudio" class="view">
+        <div class="h1">Social post</div>
+        <div class="sub">Turn a review, blog or news post into a social graphic — hero image with a headline and description over it — plus a ready caption. Download it now; one-click publishing to Instagram &amp; Facebook lands in the next update.</div>
+        <div id="scAlert"></div>
+        <div class="em-grid">
+          <!-- Compose column -->
+          <div class="em-compose">
+            <div class="panel">
+              <h3>Start from a post</h3>
+              <div class="em-hint">Pick a review, blog or news post to fill the headline, description, caption and image — or just fill them in yourself below.</div>
+              <div class="em-hero-row">
+                <select id="scItemSel"><option value="">Loading…</option></select>
+                <button class="bg" id="scItemBuild">Build from this</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>On-image text</h3>
+              <label class="em-l">Headline <span class="em-hint2">(big text over the image)</span></label>
+              <input id="scHeadline" placeholder="e.g. Serious cycling kit, built for women"/>
+              <label class="em-l">Description <span class="em-hint2">(small line under the headline)</span></label>
+              <input id="scDesc" placeholder="e.g. Race-fit that doesn't compromise"/>
+              <label class="em-l">Eyebrow <span class="em-hint2">(little pill top-left)</span></label>
+              <input id="scEyebrow" placeholder="e.g. WSS™ Review"/>
+            </div>
+
+            <div class="panel">
+              <h3>Image</h3>
+              <div class="em-hint">The background photo. Add a URL or upload — external images are fetched through the site so they render cleanly.</div>
+              <div class="em-hero-row">
+                <input id="scImgUrl" placeholder="https://… image URL"/>
+                <button class="bg" id="scImgUrlBtn">Use URL</button>
+                <label class="bg em-upload">Upload<input type="file" id="scImgFile" accept="image/*" hidden/></label>
+              </div>
+              <div id="scImgStatus" class="em-hint" style="margin-top:8px"></div>
+              <label class="em-l">Shape</label>
+              <select id="scSize" style="max-width:260px">
+                <option value="portrait">Portrait 4:5 (1080×1350) — feed</option>
+                <option value="square">Square 1:1 (1080×1080) — feed</option>
+                <option value="story">Story 9:16 (1080×1920)</option>
+              </select>
+            </div>
+
+            <div class="panel">
+              <h3>Caption</h3>
+              <div class="em-bodyhead">
+                <label class="em-l" style="margin:0">Post text</label>
+                <div class="em-bodytools"><button class="bg" id="scLinkBtn" type="button" title="Insert a link">🔗 Link</button></div>
+              </div>
+              <div class="em-hint">The words under the post. "Build from this" drops in a snippet of the content and the link.</div>
+              <textarea id="scCaption" rows="8" placeholder="Write the caption, or Build from a post to auto-fill…"></textarea>
+              <div class="em-ai">
+                <input id="scAiBrief" placeholder="✨ Or let AI write the caption — e.g. 'punchy, upbeat, 3 hashtags'"/>
+                <button class="bg" id="scAiBtn">Write with AI</button>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+                <button class="bp" id="scDownload">⬇ Download image</button>
+                <button class="bg" id="scCopyCap">⧉ Copy caption</button>
+              </div>
+              <div class="em-hint" style="margin-top:8px">Publishing to <strong>Instagram</strong> &amp; <strong>Facebook</strong> activates once the Meta app is connected — coming in the next update. For now, download the image and paste the caption.</div>
+            </div>
+          </div>
+
+          <!-- Preview column -->
+          <div class="em-previewcol">
+            <div class="panel em-sticky">
+              <h3 style="margin-bottom:10px">Preview</h3>
+              <div class="sc-stage"><canvas id="scCanvas" width="1080" height="1350"></canvas></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="view-social" class="view">
         <div class="h1">Social &amp; outbound</div>
         <div class="sub">Distribution channels for published reviews. Each becomes available from a review's Actions panel once configured.</div>
@@ -767,6 +844,7 @@ function showView(name){
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
   if(name==='blog'){ if(!blLibLoaded){ blLibLoaded=true; loadBlLib(); } updateBlCatalogNote(); }
   if(name==='email'){ emInitStudio(); emRefreshItems(); }
+  if(name==='socialstudio'){ scInitStudio(); scRefreshItems(); }
   // Load the embedded pipeline tool the first time its tab is opened.
   if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
 }
@@ -818,6 +896,7 @@ async function loadAll(){
     });
     renderDashboard(); renderTable();
     try{ emRefreshItems(); }catch(_){ }   // reviews just finished loading → refresh the Email studio picker
+    try{ scRefreshItems(); }catch(_){ }   // …and the Social studio picker
     const failed=files.filter(f=>f.error).length;
     alert('revAlert', failed?'wr':'', failed?`Loaded with ${failed} error(s) — reload to retry.`:'');
   }catch(e){
@@ -2219,6 +2298,153 @@ async function emPushDraft(){
     alert('emPushAlert','ok','✓ Draft campaign created in MailerLite. Review, test &amp; schedule it from your MailerLite dashboard.');
   }catch(err){ alert('emPushAlert','er','Could not create the draft: '+esc(err.message)); }
   btn.disabled=false; btn.textContent=orig;
+}
+
+// ===================== Social studio (Phase 1: compose + preview + download) =====================
+const SC_SIZES={portrait:[1080,1350],square:[1080,1080],story:[1080,1920]};
+let scImg=null, scInited=false;
+function scInitStudio(){
+  if(scInited) return; scInited=true;
+  $('scItemBuild').addEventListener('click',scBuildFromItem);
+  ['scHeadline','scDesc','scEyebrow'].forEach(id=>$(id).addEventListener('input',scDraw));
+  $('scSize').addEventListener('change',scDraw);
+  $('scImgUrlBtn').addEventListener('click',scUseImgUrl);
+  $('scImgFile').addEventListener('change',scUseImgFile);
+  $('scLinkBtn').addEventListener('click',scInsertLink);
+  $('scAiBtn').addEventListener('click',scAiCaption);
+  $('scDownload').addEventListener('click',scDownloadImg);
+  $('scCopyCap').addEventListener('click',scCopyCaption);
+  // Wait for Poppins so canvas text uses the brand font, then draw.
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(scDraw);
+  scRefreshItems();
+}
+function scRefreshItems(){
+  const sel=$('scItemSel'); if(!sel) return;
+  const byD=(a,b)=>new Date(b.date||0)-new Date(a.date||0);
+  const reviews=(typeof emReviews==='function')?emReviews():[];
+  const blog=(blLib||[]).filter(f=>!f.draft).sort(byD);
+  const news=(nwLib||[]).filter(f=>!f.draft).sort(byD);
+  if(!reviews.length&&!blog.length&&!news.length){ sel.innerHTML='<option value="">Nothing published yet</option>'; return; }
+  const opt=(f,kind,val)=>`<option value="${kind}:${esc(val)}">${esc(f.title||f.slug)}</option>`;
+  sel.innerHTML=(reviews.length?`<optgroup label="Reviews">${reviews.map(f=>opt(f,'review',f.path)).join('')}</optgroup>`:'')
+             +(blog.length?`<optgroup label="Blog">${blog.map(f=>opt(f,'blog',f.slug)).join('')}</optgroup>`:'')
+             +(news.length?`<optgroup label="News">${news.map(f=>opt(f,'news',f.slug)).join('')}</optgroup>`:'');
+}
+function scFindRaw(value){
+  const i=String(value||'').indexOf(':'); if(i<0) return null;
+  const kind=value.slice(0,i), ref=value.slice(i+1);
+  const f = kind==='review' ? (files||[]).find(x=>x.path===ref) : ((kind==='blog'?blLib:nwLib)||[]).find(x=>x.slug===ref);
+  return f?{f,kind}:null;
+}
+// A longer plain-text snippet of the item body for the caption.
+function scSnippet(f,max){ max=max||300;
+  let body=''; try{ body=splitFrontmatter(f.content).body||''; }catch(_){ }
+  let txt=body.replace(/```[\s\S]*?```/g,' ').replace(/<[^>]+>/g,' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g,' ').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1')
+    .replace(/^\s{0,3}#{1,6}\s+.*$/gm,' ').replace(/[*_`>|]/g,'').replace(/\s+/g,' ').trim();
+  if(txt.length>max) txt=txt.slice(0,max).replace(/\s+\S*$/,'')+'…';
+  return txt;
+}
+function scBuildFromItem(){
+  const r=scFindRaw($('scItemSel').value);
+  if(!r){ alert('scAlert','er','Pick a review or post first.'); return; }
+  const m=emItemMeta(r.f,r.kind);
+  $('scHeadline').value=m.title;
+  $('scDesc').value=(m.excerpt||'').slice(0,90);
+  $('scEyebrow').value=r.kind==='review'?'WSS™ Review':r.kind==='blog'?'WSS™ Blog':'WSS™ News';
+  const snip=scSnippet(r.f,300)||m.excerpt||'';
+  const cta=r.kind==='review'?'Read the full review':'Read more';
+  $('scCaption').value=`${m.title}\n\n${snip}\n\n${cta}: ${m.url}`;
+  alert('scAlert','ok','Built from “'+esc(m.title)+'”. Tweak the text and image, then download.');
+  if(m.hero) scSetImage(m.hero); else scDraw();
+}
+function scUseImgUrl(){ const url=($('scImgUrl').value||'').trim(); if(!/^https?:\/\//i.test(url)){ $('scImgStatus').innerHTML='<span style="color:#c00">Enter a valid image URL.</span>'; return; } scSetImage(url); }
+function scUseImgFile(e){ const file=e.target.files&&e.target.files[0]; if(!file) return; if(file.size>10*1024*1024){ $('scImgStatus').innerHTML='<span style="color:#c00">Image over 10MB — use a smaller file.</span>'; return; } const reader=new FileReader(); reader.onload=()=>scSetImage(reader.result); reader.readAsDataURL(file); }
+async function scSetImage(url){
+  $('scImgStatus').textContent='Loading image…';
+  try{ scImg=await scLoadImage(url); $('scImgStatus').innerHTML='<span style="color:#0a7a33">✓ Image loaded.</span>'; }
+  catch(err){ $('scImgStatus').innerHTML='<span style="color:#c00">Could not load image: '+esc(err.message)+'</span>'; }
+  scDraw();
+}
+// Load into an Image. External URLs go via /api/image-fetch (→ same-origin data
+// URI) so the canvas is never tainted and can be exported/downloaded.
+function scLoadImage(url){
+  return new Promise((resolve,reject)=>{
+    const finish=(src)=>{ const img=new Image(); img.onload=()=>resolve(img); img.onerror=()=>reject(new Error('image failed to load')); img.src=src; };
+    if(/^data:/i.test(url)) return finish(url);
+    if(/^https?:\/\//i.test(url)){
+      fetch(apiUrl('/api/image-fetch'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})})
+        .then(r=>r.json()).then(d=>{ if(d&&d.ok&&d.base64) finish('data:'+(d.contentType||'image/jpeg')+';base64,'+d.base64); else reject(new Error((d&&d.error)||'fetch failed')); })
+        .catch(e=>reject(e));
+    } else finish(url);
+  });
+}
+function scWrap(ctx,text,maxW){
+  const words=String(text||'').split(/\s+/).filter(Boolean); const lines=[]; let line='';
+  for(const w of words){ const t=line?line+' '+w:w; if(ctx.measureText(t).width>maxW && line){ lines.push(line); line=w; } else line=t; }
+  if(line) lines.push(line); return lines;
+}
+function scRoundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function scDraw(){
+  const canvas=$('scCanvas'); if(!canvas) return; const ctx=canvas.getContext('2d');
+  const [W,H]=SC_SIZES[($('scSize')||{}).value]||SC_SIZES.portrait;
+  canvas.width=W; canvas.height=H;
+  ctx.fillStyle='#0b1f3a'; ctx.fillRect(0,0,W,H);
+  if(scImg){ const s=Math.max(W/scImg.width,H/scImg.height); const dw=scImg.width*s, dh=scImg.height*s; ctx.drawImage(scImg,(W-dw)/2,(H-dh)/2,dw,dh); }
+  else{ ctx.fillStyle='rgba(255,255,255,.45)'; ctx.textAlign='center'; ctx.font=`500 ${Math.round(W*0.03)}px Poppins, sans-serif`; ctx.fillText('Add an image →',W/2,H/2); ctx.textAlign='left'; }
+  const g=ctx.createLinearGradient(0,H*0.30,0,H);
+  g.addColorStop(0,'rgba(0,0,54,0)'); g.addColorStop(0.55,'rgba(0,0,54,0.45)'); g.addColorStop(1,'rgba(0,0,54,0.94)');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  const pad=Math.round(W*0.075);
+  // Eyebrow pill
+  const eb=($('scEyebrow').value||'').trim().toUpperCase();
+  if(eb){ ctx.font=`700 ${Math.round(W*0.026)}px Poppins, sans-serif`; const tw=ctx.measureText(eb).width; const ph=Math.round(W*0.058), pw=tw+Math.round(W*0.05);
+    ctx.fillStyle='#FF5E84'; scRoundRect(ctx,pad,pad,pw,ph,ph/2); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.textBaseline='middle'; ctx.fillText(eb,pad+Math.round(W*0.025),pad+ph/2+1); ctx.textBaseline='alphabetic'; }
+  // Headline + description, anchored to the bottom
+  const headline=($('scHeadline').value||'').trim(), desc=($('scDesc').value||'').trim();
+  const maxW=W-pad*2, hlSize=Math.round(W*0.072), hlLH=Math.round(hlSize*1.12), dSize=Math.round(W*0.036), dLH=Math.round(dSize*1.35), gap=Math.round(W*0.022);
+  ctx.font=`700 ${hlSize}px Poppins, sans-serif`; const hlLines=scWrap(ctx,headline,maxW).slice(0,4);
+  ctx.font=`400 ${dSize}px Poppins, sans-serif`; const dLines=desc?scWrap(ctx,desc,maxW).slice(0,3):[];
+  const blockH=hlLines.length*hlLH + (dLines.length?gap+dLines.length*dLH:0);
+  let ty=H-pad-blockH; ctx.textBaseline='top';
+  ctx.fillStyle='#fff'; ctx.font=`700 ${hlSize}px Poppins, sans-serif`;
+  for(const ln of hlLines){ ctx.fillText(ln,pad,ty); ty+=hlLH; }
+  if(dLines.length){ ty+=gap; ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font=`400 ${dSize}px Poppins, sans-serif`; for(const ln of dLines){ ctx.fillText(ln,pad,ty); ty+=dLH; } }
+  ctx.textBaseline='alphabetic';
+}
+function scDownloadImg(){
+  const canvas=$('scCanvas'); if(!canvas) return;
+  try{
+    canvas.toBlob(blob=>{ if(!blob){ alert('scAlert','er','Could not export the image (the source photo blocked it). Try re-adding the image.'); return; }
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+      const nm=(($('scHeadline').value||'wss-social').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'wss-social').slice(0,50);
+      a.download=nm+'.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),3000);
+      alert('scAlert','ok','Image downloaded ✓');
+    },'image/png');
+  }catch(e){ alert('scAlert','er','Could not export the image: '+esc(e.message)); }
+}
+async function scCopyCaption(){
+  try{ await navigator.clipboard.writeText($('scCaption').value||''); alert('scAlert','ok','Caption copied ✓'); }
+  catch(_){ alert('scAlert','wr','Could not copy automatically — select the caption text and copy it manually.'); }
+}
+function scInsertLink(){
+  const ta=$('scCaption'); if(!ta) return;
+  const s=ta.selectionStart||0,e=ta.selectionEnd||0; const text=ta.value.slice(s,e).trim();
+  let url=(prompt('Link address (URL):','https://')||'').trim(); if(!url||url==='https://') return;
+  if(!/^(https?:|mailto:)/i.test(url)) url='https://'+url.replace(/^\/+/,'');
+  const snippet=text?`${text}: ${url}`:url;   // captions are plain text — raw URLs are clickable on Facebook
+  ta.value=ta.value.slice(0,s)+snippet+ta.value.slice(e); const pos=s+snippet.length; ta.focus(); try{ ta.setSelectionRange(pos,pos); }catch(_){ }
+}
+async function scAiCaption(){
+  const btn=$('scAiBtn'); btn.disabled=true; btn.textContent='Writing…';
+  try{
+    const sys='You are the WomensSportsStore.com social copywriter. Voice: expert, warm, a little sassy; British English; never "pink it and shrink it". Write ONE Instagram/Facebook caption in plain text (no markdown, no asterisks). Hook on the first line, then 2-4 short lines, a clear call to action, then up to 5 relevant hashtags on the final line. Under 120 words. Output only the caption.';
+    const brief=($('scAiBrief').value||'').trim();
+    const content=`Headline: ${$('scHeadline').value||''}\nDescription: ${$('scDesc').value||''}\nSnippet/current caption: ${$('scCaption').value||''}\nExtra direction: ${brief||'(none)'}`;
+    await aiStream({ system:sys, max_tokens:500, messages:[{role:'user',content}], onText:(t)=>{ $('scCaption').value=t; } });
+  }catch(e){ alert('scAlert','er','AI caption failed: '+esc(e.message)); }
+  btn.disabled=false; btn.textContent='Write with AI';
 }
 
 loadAll();
