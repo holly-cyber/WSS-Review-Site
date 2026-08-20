@@ -141,6 +141,9 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-pvhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
 .em-themesel{max-width:200px}
 .em-frame{width:100%;height:640px;border:1px solid #ececf1;border-radius:10px;background:#f4f4f6}
+.em-round{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.em-round select{max-width:110px}
+#emItemSel{flex:1;min-width:200px}
 .actbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .actbar .grouplbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#aaa;width:100%;margin-top:4px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e0e0e6;color:#444;padding:7px 13px;border-radius:8px;font-size:12.5px;font-weight:600}
@@ -550,6 +553,25 @@ table.rev tr:hover td{background:#fcfcfd}
             </div>
 
             <div class="panel">
+              <h3>Pull in blog &amp; news</h3>
+              <div class="em-hint">Build an email about a single post, or drop links to your latest content straight into the body.</div>
+              <label class="em-l">Email about one post</label>
+              <div class="em-hero-row">
+                <select id="emItemSel"><option value="">Loading posts…</option></select>
+                <button class="bg" id="emItemBuild">Build email from this</button>
+              </div>
+              <div class="em-hint" style="margin-top:6px">Pre-fills the subject, preview, hero image, body and CTA from the chosen post — edit freely after.</div>
+              <label class="em-l">Insert a “latest” roundup</label>
+              <div class="em-round">
+                <button class="bg" id="emRoundBlog">＋ Latest blogs</button>
+                <button class="bg" id="emRoundNews">＋ Latest news</button>
+                <button class="bg" id="emRoundBoth">＋ Blogs &amp; news</button>
+                <select id="emRoundN" title="How many of each"><option value="3">3 each</option><option value="4">4 each</option><option value="5">5 each</option></select>
+              </div>
+              <div id="emItemStatus" class="em-hint" style="margin-top:8px"></div>
+            </div>
+
+            <div class="panel">
               <h3>Hero image <span class="em-hint2">(optional)</span></h3>
               <div class="em-hint">Sits full-width under the header. Add a URL or upload a file — uploads and URL images are saved into the repo and go live on the next deploy (fine for a draft you'll schedule later).</div>
               <div class="em-hero-row">
@@ -700,7 +722,7 @@ function showView(name){
   $('view-'+name).classList.add('active');
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
   if(name==='blog'){ if(!blLibLoaded){ blLibLoaded=true; loadBlLib(); } updateBlCatalogNote(); }
-  if(name==='email'){ emInitStudio(); }
+  if(name==='email'){ emInitStudio(); emRefreshItems(); }
   // Load the embedded pipeline tool the first time its tab is opened.
   if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
 }
@@ -1899,9 +1921,79 @@ function emInitStudio(){
     }catch(err){ alert('emAlert','er','AI draft failed: '+esc(err.message)); }
     btn.disabled=false; btn.textContent='Write with AI';
   });
+  // Blog & news wiring
+  $('emItemBuild').addEventListener('click',emBuildFromItem);
+  $('emRoundBlog').addEventListener('click',()=>emInsertRoundup('blog'));
+  $('emRoundNews').addEventListener('click',()=>emInsertRoundup('news'));
+  $('emRoundBoth').addEventListener('click',()=>emInsertRoundup('both'));
   // Groups + push
   emLoadGroups();
   $('emPushBtn').addEventListener('click',emPushDraft);
+  emRefreshItems();
+  emRenderPreview();
+}
+// Build a normalised {kind,title,hero,excerpt,url,date} from a nwLib/blLib item.
+function emItemMeta(f,kind){
+  let fm='',body=''; try{ const s=splitFrontmatter(f.content); fm=s.fm; body=s.body; }catch(_){ }
+  const title=f.title||fmField(fm,'title')||f.slug;
+  let hero=fmField(fm,'hero_image')||'';
+  if(hero && !/^https?:\/\//i.test(hero)) hero=EM_SITE+(hero.charAt(0)==='/'?hero:'/'+hero);
+  const excerpt=(fmField(fm,'excerpt')||fmField(fm,'meta_description')||deriveExcerpt(body)||'').trim();
+  const url=EM_SITE+(kind==='blog'?'/blog/':'/news/')+f.slug+'/';
+  return {kind,title,hero,excerpt,url,date:f.date||fmField(fm,'date')||''};
+}
+// Refresh the single-post picker from the loaded blog + news libraries.
+function emRefreshItems(){
+  const sel=$('emItemSel'); if(!sel) return;
+  const blog=(blLib||[]).filter(f=>!f.draft).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  const news=(nwLib||[]).filter(f=>!f.draft).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  if(!blog.length && !news.length){ sel.innerHTML='<option value="">No published posts yet — open the News/Blog tabs to load</option>'; return; }
+  const opt=(f,kind)=>`<option value="${kind}:${esc(f.slug)}">${esc(f.title||f.slug)}</option>`;
+  sel.innerHTML=(blog.length?`<optgroup label="Blog">${blog.map(f=>opt(f,'blog')).join('')}</optgroup>`:'')
+             +(news.length?`<optgroup label="News">${news.map(f=>opt(f,'news')).join('')}</optgroup>`:'');
+}
+function emFindItem(value){
+  const i=String(value||'').indexOf(':'); if(i<0) return null;
+  const kind=value.slice(0,i), slug=value.slice(i+1);
+  const f=((kind==='blog'?blLib:nwLib)||[]).find(x=>x.slug===slug);
+  return f?emItemMeta(f,kind):null;
+}
+// Pre-fill the whole composer from one blog/news post.
+function emBuildFromItem(){
+  const m=emFindItem($('emItemSel').value);
+  if(!m){ $('emItemStatus').innerHTML='<span style="color:#c00">Pick a post first.</span>'; return; }
+  if(!($('emName').value||'').trim()) $('emName').value=(m.kind==='blog'?'Blog: ':'News: ')+m.title;
+  $('emSubject').value=m.title;
+  $('emPreheader').value=m.excerpt.slice(0,140);
+  $('emHeroLink').value=m.url;
+  if(m.hero){ emState.heroPreview=m.hero; emState.heroSend=m.hero; $('emHeroStatus').innerHTML='<span style="color:#0a7a33">Using the post’s hero image.</span>'; }
+  const ctaText=m.kind==='blog'?'Read the full post':'Read the full story';
+  $('emCtaText').value=ctaText; $('emCtaUrl').value=m.url;
+  emFmt='html'; $('emFmtToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x.dataset.fmt==='html'));
+  $('emBody').value=`<h2>${esc(m.title)}</h2>\n<p>${esc(m.excerpt)}</p>\n<p><a href="${m.url}">${ctaText} →</a></p>`;
+  $('emItemStatus').innerHTML='<span style="color:#0a7a33">✓ Built from “'+esc(m.title)+'”. Edit anything, pick a theme, then create the draft.</span>';
+  emRenderPreview();
+}
+// One roundup section (heading + linked, excerpted items). Each element sits on
+// its own line starting with "<" so it passes through mdToHtml untouched in
+// Markdown mode and is valid HTML in HTML mode.
+function emRoundupItems(kind,n){
+  return ((kind==='blog'?blLib:nwLib)||[]).filter(f=>!f.draft)
+    .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0)).slice(0,n).map(f=>emItemMeta(f,kind));
+}
+function emRoundupBlock(title,items){
+  if(!items.length) return '';
+  const rows=items.map(m=>`<p style="margin:0 0 16px"><a href="${m.url}" style="color:#000036;font-weight:700;font-size:16px;text-decoration:none">${esc(m.title)}</a><br><span style="color:#555;font-size:14px;line-height:1.5">${esc(m.excerpt.slice(0,150))}</span><br><a href="${m.url}" style="color:#FF5E84;font-size:13px;font-weight:600;text-decoration:none">Read more →</a></p>`).join('\n');
+  return `<h3 style="color:#000036;font-size:15px;margin:22px 0 12px">${esc(title)}</h3>\n${rows}`;
+}
+function emInsertRoundup(kind){
+  const n=parseInt($('emRoundN').value||'3',10)||3;
+  let block='';
+  if(kind==='blog'||kind==='both') block+=emRoundupBlock('Latest from the blog',emRoundupItems('blog',n));
+  if(kind==='news'||kind==='both'){ if(block) block+='\n'; block+=emRoundupBlock('Latest news',emRoundupItems('news',n)); }
+  if(!block){ $('emItemStatus').innerHTML='<span style="color:#8a5a00">No published '+(kind==='both'?'posts':kind)+' to insert yet.</span>'; return; }
+  const ta=$('emBody'); const cur=ta.value.replace(/\s+$/,''); ta.value=(cur?cur+'\n\n':'')+block+'\n';
+  $('emItemStatus').innerHTML='<span style="color:#0a7a33">✓ Inserted — links open the live pages.</span>';
   emRenderPreview();
 }
 async function emLoadGroups(){
