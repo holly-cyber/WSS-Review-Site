@@ -8,7 +8,6 @@ excerpt: "The 2026 Lloyds Tour of Britain Women is shaping up to be one of the m
 meta_description: "The 2026 Lloyds Tour of Britain Women is shaping up to be one of the most compelling editions of the race yet, with a field that reads like a who's who of contemporary women's cycl"
 hero_image: "/images/news/tour-of-britain-women-lines-up-its-strongest-ever-field-as-wiebes-kopecky-and-le-court-pienaar-head-the-bill.jpg"
 hero_credit: ""
-draft: true
 sources:
   - title: "Women's Tour of Britain start list is star-studded – with Lorena Wiebes, Lotte Kopecky and Kim Le Court Pienaar confirmed"
     url: "https://www.bikeradar.com/news/2026-lloyds-tour-of-britain-women-start-list"
