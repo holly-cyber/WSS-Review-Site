@@ -123,6 +123,8 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-hint{font-size:12px;color:#777;line-height:1.5;margin:2px 0 8px}
 .em-hint2{font-weight:400;color:#aaa;font-size:11px}
 .em-bodyhead{display:flex;align-items:center;justify-content:space-between;margin:12px 0 2px}
+.em-bodytools{display:flex;gap:8px;align-items:center}
+.em-bodytools .bg{padding:5px 12px}
 .em-toggle{display:inline-flex;border:1px solid #ddd;border-radius:8px;overflow:hidden}
 .em-toggle button{background:#fff;color:#666;padding:5px 12px;font-size:12px}
 .em-toggle button.active{background:#000036;color:#fff}
@@ -555,12 +557,15 @@ table.rev tr:hover td{background:#fcfcfd}
               <input id="emPreheader" placeholder="Optional — a teaser line"/>
               <div class="em-bodyhead">
                 <label class="em-l" style="margin:0">Body</label>
-                <span class="em-toggle" id="emFmtToggle">
-                  <button data-fmt="md" class="active">Markdown</button>
-                  <button data-fmt="html">HTML</button>
-                </span>
+                <div class="em-bodytools">
+                  <button class="bg" id="emLinkBtn" type="button" title="Insert a link">🔗 Link</button>
+                  <span class="em-toggle" id="emFmtToggle">
+                    <button data-fmt="md" class="active">Markdown</button>
+                    <button data-fmt="html">HTML</button>
+                  </span>
+                </div>
               </div>
-              <div class="em-hint">Write in Markdown (headings, <strong>**bold**</strong>, lists, [links](url)) — it's converted to email HTML. Switch to HTML to paste your own.</div>
+              <div class="em-hint">Type your text, then select a word and click <strong>🔗 Link</strong> to turn it into a link (or click it with nothing selected to add one). Headings, <strong>**bold**</strong> and lists in Markdown also work.</div>
               <textarea id="emBody" rows="12" spellcheck="true" placeholder="## Your headline&#10;&#10;A short intro paragraph…&#10;&#10;- A punchy point&#10;- Another one&#10;&#10;[Read the review](https://reviews.womenssportsstore.com/…)"></textarea>
               <div class="em-ai">
                 <input id="emAiBrief" placeholder="✨ Or describe the email and let AI draft the body — e.g. 'new Zone3 goggles just landed, push the open-water range'"/>
@@ -1928,6 +1933,8 @@ function emInitStudio(){
   // Body format toggle
   $('emFmtToggle').addEventListener('click',e=>{ const b=e.target.closest('[data-fmt]'); if(!b) return;
     emFmt=b.dataset.fmt; $('emFmtToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x.dataset.fmt===emFmt)); emRenderPreview(); });
+  // Insert-link helper — no need to remember Markdown link syntax.
+  $('emLinkBtn').addEventListener('click',emInsertLink);
   // Hero: URL
   $('emHeroUrlBtn').addEventListener('click',async()=>{
     const url=($('emHeroUrl').value||'').trim(); if(!/^https?:\/\//i.test(url)){ $('emHeroStatus').innerHTML='<span style="color:#c00">Enter a valid image URL.</span>'; return; }
@@ -1974,6 +1981,22 @@ function emInitStudio(){
   emLoadGroups();
   $('emPushBtn').addEventListener('click',emPushDraft);
   emRefreshItems();
+  emRenderPreview();
+}
+// Insert a link into the body at the cursor — wraps the selected text, or
+// prompts for the text if nothing is selected. Writes Markdown or an <a> tag to
+// match the current body mode, so the user never types the syntax by hand.
+function emInsertLink(){
+  const ta=$('emBody'); if(!ta) return;
+  const start=ta.selectionStart||0, end=ta.selectionEnd||0;
+  let text=ta.value.slice(start,end).trim();
+  if(!text){ text=(prompt('Link text (what the reader sees):','')||'').trim(); if(!text) return; }
+  let url=(prompt('Link address (URL):','https://')||'').trim();
+  if(!url||url==='https://') return;
+  if(!/^(https?:|mailto:)/i.test(url)) url='https://'+url.replace(/^\/+/,'');
+  const snippet = emFmt==='html' ? `<a href="${url}">${text}</a>` : `[${text}](${url})`;
+  ta.value=ta.value.slice(0,start)+snippet+ta.value.slice(end);
+  const pos=start+snippet.length; ta.focus(); try{ ta.setSelectionRange(pos,pos); }catch(_){ }
   emRenderPreview();
 }
 // Build a normalised {kind,title,hero,excerpt,url,date} from a nwLib/blLib item.
