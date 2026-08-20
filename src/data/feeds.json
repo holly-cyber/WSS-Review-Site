@@ -26,5 +26,9 @@
   {
     "name": "Bike Radar",
     "url": "https://feeds.purplemanager.com/193c804a-a673-47bd-b09b-11baf4822a17/bikeradar-news"
+  },
+  {
+    "name": "Bike Radar - Road Racing",
+    "url": "https://feeds.purplemanager.com/193c804a-a673-47bd-b09b-11baf4822a17/bikeradar-road-news"
   }
 ]
