@@ -475,6 +475,26 @@ export function buildEmailHtml(opts = {}) {
     ? `<tr><td style="padding:0"><a href="${heroLink}"><img src="${opts.heroImage}" alt="${alt}" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0"/></a></td></tr>`
     : '';
 
+  // Optional content sections (e.g. "From the blog", "Latest news") rendered as
+  // their own distinct blocks below the main story — each with a coloured pill
+  // heading and a list of linked, excerpted items (with an optional thumbnail).
+  const sectionsHtml = (opts.sections || []).filter((s) => s && s.items && s.items.length).map((s) => {
+    const acc = s.accent || t.accent;
+    const items = s.items.map((it) => {
+      const thumb = it.image
+        ? `<td width="104" valign="top" style="padding:0 14px 0 0"><a href="${q(it.url)}"><img src="${q(it.image)}" width="104" alt="" style="display:block;width:104px;height:78px;object-fit:cover;border-radius:8px;border:0"/></a></td>`
+        : '';
+      return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 18px"><tr>${thumb}<td valign="top" style="font-family:'Poppins',Helvetica,Arial,sans-serif">
+<a href="${q(it.url)}" style="color:#000036;font-weight:700;font-size:16px;line-height:1.35;text-decoration:none">${q(it.title)}</a>
+${it.excerpt ? `<div style="color:#555555;font-size:14px;line-height:1.5;margin:4px 0 5px">${q(it.excerpt)}</div>` : ''}
+<a href="${q(it.url)}" style="color:${acc};font-size:13px;font-weight:600;text-decoration:none">Read more &rarr;</a>
+</td></tr></table>`;
+    }).join('');
+    return `<tr><td style="padding:6px 28px 0"><div style="border-top:1px solid #eeeeee;margin:16px 0 0"></div></td></tr>
+<tr><td style="padding:20px 28px 2px"><span style="display:inline-block;background:${acc};color:${t.accentText};font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 13px;border-radius:20px">${q(s.label || 'More')}</span></td></tr>
+<tr><td style="padding:14px 28px 0">${items}</td></tr>`;
+  }).join('');
+
   const cta = (opts.ctaText && opts.ctaUrl)
     ? `<tr><td class="wss-cta" style="padding:8px 28px 24px;text-align:center">
 <a href="${q(opts.ctaUrl)}" style="display:inline-block;background:${t.accent};color:${t.accentText};text-decoration:none;font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:700;font-size:15px;padding:13px 30px;border-radius:9px">${q(opts.ctaText)}</a>
@@ -507,6 +527,7 @@ ${heroRow}
 <tr><td class="wss-body" style="padding:28px 28px 8px;color:#000036;font-size:16px;line-height:1.65">
 ${opts.body || ''}
 </td></tr>
+${sectionsHtml}
 ${cta}
 <tr><td class="wss-foot" style="padding:18px 28px 28px;border-top:1px solid #eeeeee;text-align:center;color:#888888;font-size:12px;line-height:1.7">
 <p style="margin:0 0 6px">Women&rsquo;s Sports Store &mdash; independent reviews tested against the Women&rsquo;s Sports Standard&trade;.</p>
