@@ -145,6 +145,7 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-frame{width:100%;height:640px;border:1px solid #ececf1;border-radius:10px;background:#f4f4f6}
 .sc-stage{display:flex;justify-content:center;background:#f4f4f6;border:1px solid #ececf1;border-radius:10px;padding:14px}
 .sc-stage canvas{max-width:100%;max-height:70vh;height:auto;border-radius:8px;box-shadow:0 6px 22px rgba(0,0,54,.16)}
+.sc-targets{display:flex;gap:16px;flex-wrap:wrap;margin-top:4px}
 #emItemSel{flex:1;min-width:200px}
 .em-sec{border:1px solid #ececf1;border-radius:9px;padding:10px 12px;margin:8px 0}
 .em-sec-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
@@ -723,10 +724,17 @@ table.rev tr:hover td{background:#fcfcfd}
                 <button class="bg" id="scAiBtn">Write with AI</button>
               </div>
               <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-                <button class="bp" id="scDownload">⬇ Download image</button>
+                <button class="bg" id="scDownload">⬇ Download image</button>
                 <button class="bg" id="scCopyCap">⧉ Copy caption</button>
               </div>
-              <div class="em-hint" style="margin-top:8px">Publishing to <strong>Instagram</strong> &amp; <strong>Facebook</strong> activates once the Meta app is connected — coming in the next update. For now, download the image and paste the caption.</div>
+              <div class="em-l" style="margin-top:14px">Publish to</div>
+              <div class="sc-targets">
+                <label class="em-ck"><input type="checkbox" id="scTgIg" checked/> 📸 Instagram</label>
+                <label class="em-ck"><input type="checkbox" id="scTgFb" checked/> 📘 Facebook</label>
+              </div>
+              <button class="bp" id="scPublish" style="margin-top:10px">🚀 Publish now</button>
+              <div id="scPubAlert" style="margin-top:8px"></div>
+              <div class="em-hint" style="margin-top:6px">Posts the composed image + caption straight to your connected channels. Needs the Meta tokens set in Netlify (<code>FB_PAGE_ID</code>, <code>FB_PAGE_ACCESS_TOKEN</code>, <code>IG_USER_ID</code>, <code>IG_ACCESS_TOKEN</code>) — until then each channel returns a clear “not configured” message.</div>
             </div>
           </div>
 
@@ -2314,6 +2322,7 @@ function scInitStudio(){
   $('scAiBtn').addEventListener('click',scAiCaption);
   $('scDownload').addEventListener('click',scDownloadImg);
   $('scCopyCap').addEventListener('click',scCopyCaption);
+  $('scPublish').addEventListener('click',scPublish);
   // Wait for Poppins so canvas text uses the brand font, then draw.
   (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(scDraw);
   scRefreshItems();
@@ -2427,6 +2436,29 @@ function scDownloadImg(){
 async function scCopyCaption(){
   try{ await navigator.clipboard.writeText($('scCaption').value||''); alert('scAlert','ok','Caption copied ✓'); }
   catch(_){ alert('scAlert','wr','Could not copy automatically — select the caption text and copy it manually.'); }
+}
+async function scPublish(){
+  const targets=[]; if($('scTgIg').checked) targets.push('instagram'); if($('scTgFb').checked) targets.push('facebook');
+  if(!targets.length){ alert('scPubAlert','er','Pick Instagram, Facebook, or both.'); return; }
+  if(!scImg){ alert('scPubAlert','er','Add an image first.'); return; }
+  const canvas=$('scCanvas'); let dataUrl;
+  try{ dataUrl=canvas.toDataURL('image/jpeg',0.92); }
+  catch(e){ alert('scPubAlert','er','Could not read the image (the source photo blocked export) — re-add the image and try again.'); return; }
+  const caption=$('scCaption').value||'';
+  const names=targets.map(t=>t==='instagram'?'Instagram':'Facebook').join(' + ');
+  if(!confirm('Publish this post now to '+names+'?\n\nThis posts live to your channel(s).')) return;
+  const btn=$('scPublish'); const orig=btn.textContent; btn.disabled=true; btn.textContent='Publishing…'; alert('scPubAlert','inf','Publishing to '+names+'…');
+  try{
+    const r=await fetch(apiUrl('/api/social-publish'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({targets,imageBase64:dataUrl,caption})});
+    const d=await r.json().catch(()=>({}));
+    const res=d.results||{};
+    const parts=targets.map(t=>{ const label=t==='instagram'?'Instagram':'Facebook'; const x=res[t];
+      if(x&&x.ok) return `✓ ${label} published${x.permalink?` — <a href="${x.permalink}" target="_blank">view</a>`:''}`;
+      return `✗ ${label}: ${esc((x&&x.error)||d.error||('HTTP '+r.status))}`; });
+    const anyOk=targets.some(t=>res[t]&&res[t].ok), anyFail=parts.some(p=>p.indexOf('✗')===0);
+    alert('scPubAlert', anyOk?(anyFail?'wr':'ok'):'er', parts.join('<br>'));
+  }catch(e){ alert('scPubAlert','er','Publish failed: '+esc(e.message)); }
+  btn.disabled=false; btn.textContent=orig;
 }
 function scInsertLink(){
   const ta=$('scCaption'); if(!ta) return;
