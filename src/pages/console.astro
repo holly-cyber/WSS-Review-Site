@@ -235,7 +235,6 @@ table.rev tr:hover td{background:#fcfcfd}
       <button class="navbtn" data-nav="blog">✍ Blog</button>
       <button class="navbtn" data-nav="email">✉ Email</button>
       <button class="navbtn" data-nav="socialstudio">📣 Social post</button>
-      <button class="navbtn" data-nav="social">✦ Social &amp; outbound</button>
       <div class="spacer"></div>
       <a class="ext" href="/" target="_blank">🌐 View review site ↗</a>
       <a class="ext" href={umamiDashUrl} target="_blank" rel="noopener">📈 Analytics (Umami) ↗</a>
@@ -755,11 +754,6 @@ table.rev tr:hover td{background:#fcfcfd}
         </div>
       </section>
 
-      <section id="view-social" class="view">
-        <div class="h1">Social &amp; outbound</div>
-        <div class="sub">Distribution channels for published reviews. Each becomes available from a review's Actions panel once configured.</div>
-        <div class="cards" id="socialCards"></div>
-      </section>
     </main>
   </div>
 
@@ -898,7 +892,7 @@ async function loadAll(){
       return { path, sha:'', ...m, content:'', title:m.slug, brand:'', tested_by:'', overall:'', draft:undefined }; })
       .sort((a,b)=>a.path.localeCompare(b.path));
     alert('dashAlert','','');
-    renderDashboard(); renderTable(); renderSocial();
+    renderDashboard(); renderTable();
     if(!files.length){ alert('revAlert',''); return; }
     // Hydrate metadata (title, score, reviewer, draft state) in small batches.
     let done=0;
@@ -1321,11 +1315,6 @@ $('intgClose').addEventListener('click',()=>$('intgOv').classList.remove('show')
 $('intgOv').addEventListener('click',e=>{if(e.target===$('intgOv'))$('intgOv').classList.remove('show');});
 
 // ---- Social view ----
-function renderSocial(){
-  $('socialCards').innerHTML=Object.entries(INTEGRATIONS).map(([k,v])=>
-    `<div class="card"><div style="font-size:22px">${v.icon}</div><div class="l" style="margin-top:6px;text-transform:none;font-size:13px;color:#000036;font-weight:600">${esc(v.label)}</div><div style="font-size:12px;color:#888;margin-top:4px;line-height:1.5">${esc(v.blurb)}</div><div style="margin-top:8px"><span class="badge draft">Setup</span></div></div>`).join('');
-}
-
 // ================= News generator =================
 let nwAllItems=[], nwSel=[];
 let nwEditPath='', nwEditDate='', nwEditSources=null;  // set when editing an existing article
