@@ -41,6 +41,11 @@
 [functions."ai-proxy"]
   timeout = 26
 
+# Instagram publishing polls the media container until it's processed, which can
+# take a few seconds — give it headroom over the 10s default.
+[functions."social-publish"]
+  timeout = 26
+
 [[redirects]]
   from = "/api/ai-proxy"
   to = "/.netlify/functions/ai-proxy"
