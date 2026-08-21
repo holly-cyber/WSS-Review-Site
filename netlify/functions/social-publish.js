@@ -94,16 +94,19 @@ exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: CORS, body: '' };
   if (event.httpMethod !== 'POST') return { statusCode: 405, headers: CORS, body: 'Method not allowed' };
   try {
-    const { targets, imageBase64, caption } = JSON.parse(event.body || '{}');
+    const { targets, imageBase64, caption, captions } = JSON.parse(event.body || '{}');
     const want = Array.isArray(targets) ? targets : [];
     if (!want.length) return json({ ok: false, error: 'Pick at least one channel (Instagram or Facebook).' });
     if (!imageBase64) return json({ ok: false, error: 'No image to publish — compose the graphic first.' });
     const { buffer, contentType } = decodeImage(imageBase64);
     if (!buffer.length) return json({ ok: false, error: 'Could not read the image data.' });
 
+    // Per-channel captions when provided (Instagram can't use clickable links,
+    // so the console sends a link-stripped Instagram variant); else a single one.
+    const capFor = (t) => (captions && typeof captions === 'object' && captions[t] != null) ? captions[t] : (caption || '');
     const results = {};
-    if (want.includes('facebook')) results.facebook = await publishFacebook(buffer, contentType, caption);
-    if (want.includes('instagram')) results.instagram = await publishInstagram(buffer, contentType, caption);
+    if (want.includes('facebook')) results.facebook = await publishFacebook(buffer, contentType, capFor('facebook'));
+    if (want.includes('instagram')) results.instagram = await publishInstagram(buffer, contentType, capFor('instagram'));
     const anyOk = Object.values(results).some((r) => r && r.ok);
     return json({ ok: anyOk, results });
   } catch (err) {
