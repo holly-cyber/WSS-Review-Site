@@ -2464,6 +2464,7 @@ async function scPublish(){
   const targets=[]; if($('scTgIg').checked) targets.push('instagram'); if($('scTgFb').checked) targets.push('facebook');
   if(!targets.length){ alert('scPubAlert','er','Pick Instagram, Facebook, or both.'); return; }
   if(!scImg){ alert('scPubAlert','er','Add an image first.'); return; }
+  if(targets.includes('instagram') && ($('scSize')||{}).value==='story'){ alert('scPubAlert','wr','Instagram feed posts don’t allow the tall 9:16 Story shape — pick Portrait 4:5 or Square for Instagram. (Facebook accepts any shape.)'); return; }
   const canvas=$('scCanvas'); let dataUrl;
   try{ dataUrl=canvas.toDataURL('image/jpeg',0.92); }
   catch(e){ alert('scPubAlert','er','Could not read the image (the source photo blocked export) — re-add the image and try again.'); return; }
