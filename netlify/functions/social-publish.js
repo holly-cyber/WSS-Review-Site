@@ -11,6 +11,15 @@
 //               IG_ACCESS_TOKEN (the same Page token works for both).
 const { getStore } = require('@netlify/blobs');
 
+// Netlify Blobs normally auto-configures inside Functions, but some deploy
+// runtimes don't inject that context. When NETLIFY_BLOBS_TOKEN is set we
+// configure the store manually with siteID + token instead.
+function socialStore() {
+  const token = process.env.NETLIFY_BLOBS_TOKEN;
+  const siteID = process.env.BLOBS_SITE_ID || process.env.SITE_ID || '66c21efb-4d43-4271-b164-37081de5da02';
+  return token ? getStore({ name: 'social-images', siteID, token }) : getStore('social-images');
+}
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -57,7 +66,7 @@ async function publishInstagram(buffer, contentType, caption) {
   let store, id;
   try {
     // 1) Stash the image in Netlify Blobs and expose it via /api/social-image.
-    store = getStore('social-images');
+    store = socialStore();
     id = 'ig-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
     await store.set(id, buffer, { metadata: { ct: contentType } });
     const imageUrl = `${SITE}/api/social-image?id=${encodeURIComponent(id)}`;
@@ -83,7 +92,11 @@ async function publishInstagram(buffer, contentType, caption) {
     try { const pl = await fetch(`${GRAPH}/${published.id}?fields=permalink&access_token=${encodeURIComponent(token)}`); permalink = (await pl.json()).permalink || ''; } catch {}
     return { ok: true, id: published.id, permalink };
   } catch (e) {
-    return { ok: false, error: e.message };
+    let msg = e.message || String(e);
+    if (/not been configured to use Netlify Blobs/i.test(msg)) {
+      msg = 'Instagram image hosting isn’t set up yet — add a NETLIFY_BLOBS_TOKEN environment variable in Netlify (a Netlify personal access token) and redeploy. Facebook does not need this.';
+    }
+    return { ok: false, error: msg };
   } finally {
     // The image was fetched during container creation, so it's safe to clean up.
     if (store && id) { try { await store.delete(id); } catch {} }
