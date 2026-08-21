@@ -732,6 +732,10 @@ table.rev tr:hover td{background:#fcfcfd}
                 <label class="em-ck"><input type="checkbox" id="scTgIg" checked/> 📸 Instagram</label>
                 <label class="em-ck"><input type="checkbox" id="scTgFb" checked/> 📘 Facebook</label>
               </div>
+              <label class="em-ck" style="margin-top:8px"><input type="checkbox" id="scIgBio" checked/> Instagram: swap links for “🔗 Link in bio”</label>
+              <div class="em-hint" style="margin-top:2px">Instagram captions can't have clickable links, so any URL is replaced with “Link in bio” for Instagram only — Facebook keeps the real link. Use the 👁 preview below to see each version.</div>
+              <div style="margin-top:6px"><button class="bg" id="scCapPreview" type="button">👁 Preview captions</button></div>
+              <div id="scCapPreviewBox" class="em-hint" style="display:none;margin-top:6px"></div>
               <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center">
                 <button class="bp" id="scPublish">🚀 Publish now</button>
                 <button class="bg" id="scCheck">🔌 Check connection</button>
@@ -2327,6 +2331,8 @@ function scInitStudio(){
   $('scCopyCap').addEventListener('click',scCopyCaption);
   $('scPublish').addEventListener('click',scPublish);
   $('scCheck').addEventListener('click',scCheckConn);
+  $('scCapPreview').addEventListener('click',()=>{ const b=$('scCapPreviewBox'); const show=b.style.display==='none'; b.style.display=show?'block':'none'; $('scCapPreview').textContent=show?'👁 Hide captions':'👁 Preview captions'; if(show) scRenderCapPreview(); });
+  ['scCaption','scIgBio'].forEach(id=>$(id).addEventListener('input',()=>{ if($('scCapPreviewBox').style.display!=='none') scRenderCapPreview(); }));
   // Wait for Poppins so canvas text uses the brand font, then draw.
   (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(scDraw);
   scRefreshItems();
@@ -2469,11 +2475,12 @@ async function scPublish(){
   try{ dataUrl=canvas.toDataURL('image/jpeg',0.92); }
   catch(e){ alert('scPubAlert','er','Could not read the image (the source photo blocked export) — re-add the image and try again.'); return; }
   const caption=$('scCaption').value||'';
+  const captions={ facebook:caption, instagram: scCaptionFor('instagram') };
   const names=targets.map(t=>t==='instagram'?'Instagram':'Facebook').join(' + ');
   if(!confirm('Publish this post now to '+names+'?\n\nThis posts live to your channel(s).')) return;
   const btn=$('scPublish'); const orig=btn.textContent; btn.disabled=true; btn.textContent='Publishing…'; alert('scPubAlert','inf','Publishing to '+names+'…');
   try{
-    const r=await fetch(apiUrl('/api/social-publish'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({targets,imageBase64:dataUrl,caption})});
+    const r=await fetch(apiUrl('/api/social-publish'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({targets,imageBase64:dataUrl,caption,captions})});
     const d=await r.json().catch(()=>({}));
     const res=d.results||{};
     const parts=targets.map(t=>{ const label=t==='instagram'?'Instagram':'Facebook'; const x=res[t];
@@ -2483,6 +2490,26 @@ async function scPublish(){
     alert('scPubAlert', anyOk?(anyFail?'wr':'ok'):'er', parts.join('<br>'));
   }catch(e){ alert('scPubAlert','er','Publish failed: '+esc(e.message)); }
   btn.disabled=false; btn.textContent=orig;
+}
+// Build the caption for a given channel. Instagram can't have clickable links,
+// so (when the toggle is on) any URL is dropped and, if one was present, a
+// "Link in bio" line is appended. Facebook keeps the caption as written.
+function scCaptionFor(channel){
+  const raw=$('scCaption').value||'';
+  if(channel!=='instagram' || !($('scIgBio')&&$('scIgBio').checked)) return raw;
+  const hadUrl=/https?:\/\/\S+/i.test(raw);
+  let out=raw
+    .replace(/https?:\/\/\S+/gi,'')                                   // links aren't clickable on IG
+    .replace(/^\s*(read (the )?(full )?(review|post|story)|read more|link|shop|buy( now)?)\s*[:\-–—]?\s*$/gim,'') // now-empty CTA labels
+    .replace(/[ \t]+$/gm,'').replace(/\n{3,}/g,'\n\n').trim();
+  if(hadUrl) out=(out?out+'\n\n':'')+'🔗 Link in bio';
+  return out;
+}
+function scRenderCapPreview(){
+  const box=$('scCapPreviewBox'); if(!box) return;
+  const fb=$('scCaption').value||'', ig=scCaptionFor('instagram');
+  box.innerHTML=`<div style="border:1px solid #ececf1;border-radius:8px;padding:8px 10px;margin-bottom:6px"><strong>📘 Facebook</strong><div style="white-space:pre-wrap;color:#444;margin-top:4px">${esc(fb)||'<em>(empty)</em>'}</div></div>`
+    +`<div style="border:1px solid #ececf1;border-radius:8px;padding:8px 10px"><strong>📸 Instagram</strong><div style="white-space:pre-wrap;color:#444;margin-top:4px">${esc(ig)||'<em>(empty)</em>'}</div></div>`;
 }
 function scInsertLink(){
   const ta=$('scCaption'); if(!ta) return;
