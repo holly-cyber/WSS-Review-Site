@@ -79,6 +79,19 @@ async function publishInstagram(buffer, contentType, caption) {
     const created = await createRes.json().catch(() => ({}));
     if (!createRes.ok || !created.id) return { ok: false, error: created.error?.message || `IG container creation failed (HTTP ${createRes.status}).` };
 
+    // 2b) Wait for Instagram to fetch + process the image. Publishing before the
+    // container is FINISHED fails with "Media ID is not available".
+    for (let i = 0; i < 8; i++) {
+      const st = await fetch(`${GRAPH}/${created.id}?fields=status_code,status&access_token=${encodeURIComponent(token)}`);
+      const sd = await st.json().catch(() => ({}));
+      if (sd.status_code === 'FINISHED') break;
+      if (sd.status_code === 'ERROR' || sd.status_code === 'EXPIRED') {
+        return { ok: false, error: 'Instagram could not process the image — ' + (sd.status || sd.status_code) };
+      }
+      if (i === 7) return { ok: false, error: 'Instagram took too long to process the image — please try again.' };
+      await new Promise((r) => setTimeout(r, 1500));
+    }
+
     // 3) Publish the container.
     const pubRes = await fetch(`${GRAPH}/${igUser}/media_publish`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
