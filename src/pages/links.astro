@@ -1,0 +1,163 @@
+---
+// Standalone "link in bio" landing page (reviews.womenssportsstore.com/links).
+// Mobile-first, brand-styled. Auto-lists the latest reviews, blog posts and news
+// on every deploy, plus fixed links to the shop and the review home page. Not
+// wrapped in BaseLayout — it's a focused, app-like page, but it still loads
+// Umami (with per-link events) so bio-link clicks are tracked.
+import { taxonomy, withBase } from '../data/taxonomy.js';
+
+const CAT_SLUGS = new Set(taxonomy.map((t) => t.slug));
+const PROD = import.meta.env.PROD;
+const live = (fm) => (PROD ? fm.draft !== true : true);
+const byDate = (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime();
+
+// Reviews — src/pages/<category>/<slug>.md
+const reviewMods = import.meta.glob('./*/*.md', { eager: true });
+const reviews = Object.entries(reviewMods)
+  .map(([path, mod]: [string, any]) => {
+    const parts = path.split('/');
+    const category = parts[parts.length - 2];
+    const slug = parts[parts.length - 1].replace('.md', '');
+    return { ...mod.frontmatter, category, slug, url: `/${category}/${slug}/` };
+  })
+  .filter((r: any) => CAT_SLUGS.has(r.category) && live(r))
+  .sort(byDate)
+  .slice(0, 5);
+
+const mapPosts = (mods: Record<string, any>, base: string) =>
+  Object.entries(mods)
+    .map(([path, mod]: [string, any]) => {
+      const slug = path.split('/').pop().replace('.md', '');
+      return { ...mod.frontmatter, slug, url: `/${base}/${slug}/` };
+    })
+    .filter(live)
+    .sort(byDate);
+
+const blog = mapPosts(import.meta.glob('./blog/*.md', { eager: true }), 'blog').slice(0, 3);
+const news = mapPosts(import.meta.glob('./news/*.md', { eager: true }), 'news').slice(0, 3);
+
+const SHOP_URL = 'https://womenssportsstore.com';
+
+// Umami (same env-driven activation as BaseLayout).
+const rawUmamiSrc = (import.meta.env.PUBLIC_UMAMI_SRC || '').trim();
+const rawUmamiId = (import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || '').trim();
+const umamiSrc = (rawUmamiSrc.match(/src=["']([^"']+)["']/)?.[1] || rawUmamiSrc);
+const umamiId = rawUmamiId || (rawUmamiSrc.match(/data-website-id=["']([^"']+)["']/)?.[1] || '');
+
+const fmtDate = (d: string) => d ? new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+---
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Women's Sports Store — Links</title>
+<meta name="description" content="Latest independent reviews, blog and news from Women's Sports Store — plus the shop and full review site." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+{umamiSrc && umamiId && <script is:inline defer src={umamiSrc} data-website-id={umamiId}></script>}
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <img class="logo" src={withBase('/email-logo.png')} width="84" height="84" alt="Women's Sports Store" />
+    <h1>Women's Sports Store</h1>
+    <p class="tag">Independent kit reviews, tested against the Women's Sports Standard™</p>
+  </header>
+
+  <div class="primary">
+    <a class="btn btn-pink" href={SHOP_URL} target="_blank" rel="noopener"
+       data-umami-event="bio-click" data-umami-event-dest="shop">🛍️ Shop the store</a>
+    <a class="btn btn-navy" href="/"
+       data-umami-event="bio-click" data-umami-event-dest="reviews-home">⭐ Browse all reviews</a>
+  </div>
+
+  {reviews.length > 0 && (
+    <section>
+      <div class="sec-h"><span class="pill pill-review">Latest reviews</span></div>
+      {reviews.map((r: any) => (
+        <a class="card" href={r.url} data-umami-event="bio-click" data-umami-event-dest="review" data-umami-event-title={r.title}>
+          {r.hero_image ? <img class="thumb" src={withBase(r.hero_image)} alt={r.title} loading="lazy" /> : <span class="thumb thumb-ph">⭐</span>}
+          <span class="card-body">
+            <span class="card-title">{r.title}</span>
+            <span class="card-meta">{r.category}{r.overall_score ? ` · ${r.overall_score}★` : ''}</span>
+          </span>
+          <span class="chev">›</span>
+        </a>
+      ))}
+    </section>
+  )}
+
+  {blog.length > 0 && (
+    <section>
+      <div class="sec-h"><span class="pill pill-blog">From the blog</span></div>
+      {blog.map((p: any) => (
+        <a class="card" href={p.url} data-umami-event="bio-click" data-umami-event-dest="blog" data-umami-event-title={p.title}>
+          {p.hero_image ? <img class="thumb" src={withBase(p.hero_image)} alt={p.title} loading="lazy" /> : <span class="thumb thumb-ph">✍️</span>}
+          <span class="card-body">
+            <span class="card-title">{p.title}</span>
+            <span class="card-meta">{p.topic ? p.topic : 'Blog'}{p.date ? ` · ${fmtDate(p.date)}` : ''}</span>
+          </span>
+          <span class="chev">›</span>
+        </a>
+      ))}
+    </section>
+  )}
+
+  {news.length > 0 && (
+    <section>
+      <div class="sec-h"><span class="pill pill-news">Latest news</span></div>
+      {news.map((p: any) => (
+        <a class="card" href={p.url} data-umami-event="bio-click" data-umami-event-dest="news" data-umami-event-title={p.title}>
+          {p.hero_image ? <img class="thumb" src={withBase(p.hero_image)} alt={p.title} loading="lazy" /> : <span class="thumb thumb-ph">📰</span>}
+          <span class="card-body">
+            <span class="card-title">{p.title}</span>
+            <span class="card-meta">{p.topic ? p.topic : 'News'}{p.date ? ` · ${fmtDate(p.date)}` : ''}</span>
+          </span>
+          <span class="chev">›</span>
+        </a>
+      ))}
+    </section>
+  )}
+
+  <footer class="foot">
+    <a href="/" data-umami-event="bio-click" data-umami-event-dest="reviews-home-foot">reviews.womenssportsstore.com</a>
+    <span>© {new Date().getFullYear()} Women's Sports Store</span>
+  </footer>
+</main>
+
+<style is:global>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f4f5f8; color: #000036; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 20px 16px 40px; }
+  .hero { text-align: center; padding: 26px 18px 22px; background: #000036; border-radius: 18px; color: #fff; }
+  .hero .logo { display: inline-block; border-radius: 50%; }
+  .hero h1 { font-size: 22px; font-weight: 700; margin-top: 12px; }
+  .hero .tag { font-size: 12.5px; color: #cfcfe6; margin-top: 6px; line-height: 1.5; }
+  .primary { display: flex; flex-direction: column; gap: 10px; margin: 16px 0 22px; }
+  .btn { display: block; text-align: center; text-decoration: none; font-weight: 600; font-size: 15px; padding: 15px 18px; border-radius: 13px; transition: transform .06s ease, box-shadow .2s ease; }
+  .btn:active { transform: scale(.99); }
+  .btn-pink { background: #FF5E84; color: #fff; box-shadow: 0 6px 18px rgba(255,94,132,.28); }
+  .btn-navy { background: #fff; color: #000036; border: 1.5px solid #000036; }
+  section { margin-bottom: 22px; }
+  .sec-h { margin: 0 2px 10px; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #fff; padding: 5px 12px; border-radius: 20px; }
+  .pill-review { background: #000036; }
+  .pill-blog { background: #FF5E84; }
+  .pill-news { background: #1666c4; }
+  .card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ececf1; border-radius: 14px; padding: 10px; margin-bottom: 10px; text-decoration: none; color: inherit; transition: border-color .15s ease, box-shadow .15s ease, transform .06s ease; }
+  .card:hover { border-color: #FF5E84; box-shadow: 0 6px 18px rgba(0,0,54,.08); }
+  .card:active { transform: scale(.995); }
+  .thumb { width: 60px; height: 60px; flex-shrink: 0; object-fit: cover; border-radius: 10px; background: #f0f0f4; }
+  .thumb-ph { display: flex; align-items: center; justify-content: center; font-size: 24px; }
+  .card-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
+  .card-title { font-size: 14px; font-weight: 600; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-meta { font-size: 11.5px; color: #888; text-transform: capitalize; }
+  .chev { color: #c9c9d4; font-size: 22px; flex-shrink: 0; padding-right: 4px; }
+  .foot { text-align: center; margin-top: 18px; display: flex; flex-direction: column; gap: 4px; }
+  .foot a { color: #FF5E84; font-size: 13px; font-weight: 600; text-decoration: none; }
+  .foot span { font-size: 11px; color: #aaa; }
+</style>
+</body>
+</html>
