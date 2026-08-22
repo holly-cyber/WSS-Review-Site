@@ -8,7 +8,6 @@ excerpt: "Switzerland's Julie Derron has tightened her hold on the T100 women's 
 meta_description: "Switzerland's Julie Derron has tightened her hold on the T100 women's series standings following a composed and tactically astute race in Vancouver — her third start of the season "
 hero_image: "/images/news/julie-derron-surges-to-vancouver-victory-to-lead-the-women-s-t100-world-tour.avif"
 hero_credit: ""
-draft: true
 sources:
   - title: "Julie Derron Takes Pole Position in T100 Tour With Vancouver Masterclass Win"
     url: "https://www.triathlete.com/culture/news/julie-derron-takes-pole-position-in-t100-tour-with-vancouver-masterclass-win/"
