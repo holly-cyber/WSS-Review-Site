@@ -8,7 +8,6 @@ excerpt: "Dr Stacy Sims, one of the most recognisable voices in female physiolog
 meta_description: "Dr Stacy Sims, one of the most recognisable voices in female physiology and sports science, has been confirmed as a keynote speaker at the Epicenter: Women's Global Sports Summit, "
 hero_image: "/images/news/dr-stacy-sims-takes-centre-stage-at-nike-s-women-s-global-sports-summit.jpg"
 hero_credit: ""
-draft: true
 sources:
   - title: "Keynote: Dr. Stacy Sims - The Epicenter: <b>Women&#39;s</b> Global <b>Sports</b> Summit presented by Nike"
     url: "https://www.google.com/url?rct=j&amp;sa=t&amp;url=https://www.kptv.com/2026/08/21/keynote-dr-stacy-sims-epicenter-womens-global-sports-summit-presented-by-nike/&amp;ct=ga&amp;cd=CAIyGjAxMGFlYTQ5NGJhNjEyMDc6Y29tOmVuOlVT&amp;usg=AOvVaw1DkQmIjNNPGx33VMamCrT2"
