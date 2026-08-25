@@ -8,7 +8,6 @@ excerpt: "She didn't grow up as a runner. She got her parents to write notes to 
 meta_description: "She didn't grow up as a runner. She got her parents to write notes to excuse her from cross-country at school. She took up running to lose weight, shuffling around London for fifte"
 hero_image: "/images/blog/from-parkrun-to-the-alps-what-sophie-grant-s-record-breaking-run-teaches-every-woman-about-starting-and-never-stopping.jpg"
 hero_credit: ""
-draft: true
 ---
 
 She didn't grow up as a runner. She got her parents to write notes to excuse her from cross-country at school. She took up running to lose weight, shuffling around London for fifteen minutes at a time. And then, just over a decade later, Sophie Grant became the fastest human being — man or woman — to ever cross the Alps on foot.
