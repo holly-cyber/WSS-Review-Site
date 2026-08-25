@@ -8,7 +8,6 @@ excerpt: "There are races, and then there is UTMB. The Ultra-Trail du Mont-Blanc
 meta_description: "There are races, and then there is UTMB. The Ultra-Trail du Mont-Blanc — a loop around the highest peak in the Alps, threading through France, Italy and Switzerland — is the closes"
 hero_image: "/images/news/utmb-2026-how-to-follow-every-step-of-ultrarunning-s-most-spectacular-week.jpg"
 hero_credit: ""
-draft: true
 sources:
   - title: "2026 UTMB Live Coverage"
     url: "https://www.irunfar.com/2026-utmb-live-coverage"
