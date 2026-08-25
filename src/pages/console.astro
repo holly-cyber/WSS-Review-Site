@@ -408,6 +408,17 @@ table.rev tr:hover td{background:#fcfcfd}
         <div id="nwtab-generate" class="nwtab" hidden>
         <h3 class="nw-gen-h">Generate a new article</h3>
 
+        <div class="nw-feeds" id="nwUrlBox" style="border-color:#ffd6e4;background:#fff8fb">
+          <div style="font-weight:700;font-size:13px;color:#000036">✦ Paste a web article</div>
+          <div class="hint" style="margin-top:6px">Not in the RSS feeds? Paste any news article URL — we'll read it and write an original WSS story from it (fully rewritten in your voice, source linked, originality-checked).</div>
+          <div class="nw-feed-add">
+            <input id="nwUrl" placeholder="https://… article URL" style="flex:2;min-width:220px"/>
+            <input id="nwUrlAngle" placeholder="Optional angle (e.g. UK perspective; upbeat)" style="flex:1;min-width:180px"/>
+            <button class="bp" id="nwUrlGen">✦ Generate from URL</button>
+          </div>
+          <div id="nwUrlAlert" style="margin-top:6px"></div>
+        </div>
+
         <details class="nw-feeds" id="nwFeedsBox">
           <summary>RSS feeds <span class="nw-tabcount" id="nwFeedsCount"></span></summary>
           <div class="hint">Sources pulled when you refresh. Add or remove feeds — changes are saved to <code>src/data/feeds.json</code> in the repo.</div>
@@ -1589,7 +1600,8 @@ function updateNwSel(){
 }
 
 $('nwGenerate').addEventListener('click',generateNews);
-$('nwRegen').addEventListener('click',generateNews);
+$('nwRegen').addEventListener('click',regenerateNews);
+$('nwUrlGen').addEventListener('click',generateNewsFromUrl);
 
 // Originality guard: warn if the draft shares any verbatim 6+ word run with a source.
 function nwCheckOriginality(text,items){
@@ -1603,36 +1615,72 @@ function nwCheckOriginality(text,items){
   }
 }
 
-async function generateNews(){
-  if(!nwSel.length) return;
+let nwLastAngle='';
+// Core generation, shared by the RSS-selection flow and the paste-a-URL flow.
+async function nwRunGeneration(items, angle){
   nwEditPath=''; nwEditDate=''; nwEditSources=null; $('nwSlug').readOnly=false; $('nwPush').textContent='Push as draft →';
-  const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean);
-  nwLastItems=items;
-  const btn=$('nwGenerate'), rbtn=$('nwRegen');
-  btn.disabled=true; rbtn.disabled=true; btn.textContent='Generating…';
+  nwLastItems=items; nwLastAngle=angle||'';
   $('nwOutPanel').style.display='block';
   $('nwBody').value=''; $('nwPreview').innerHTML='<p style="padding:12px;color:#999">Writing…</p>';
   $('nwView').style.display='none'; alert('nwPushAlert','','');
   nwHeroImgs=[]; nwHeroCredit=''; $('nwHeroGrid').innerHTML=''; $('nwHero').value=''; $('nwStockQuery').value=''; $('nwHeroNote').style.display='none';
+  const text=await aiStream({
+    system:NEWS_SYSTEM,
+    messages:[{role:'user',content:buildNewsPrompt(items,angle||'')}],
+    max_tokens:1800,
+    onText:(t)=>{ $('nwBody').value=t; },
+  });
+  const {title,body}=splitHeadline(text);
+  $('nwTitle').value=title||'Untitled article';
+  $('nwSlug').value=slugify(title||'news-article');
+  $('nwBody').value=body;
+  if(!$('nwTopic').value) $('nwTopic').value=(items[0]&&items[0].tag)||"Women's Sport";
+  renderNwPreview();
+  await nwEnforceOriginality(items);
+  nwAutoHero(items);
+}
+async function generateNews(){
+  if(!nwSel.length) return;
+  const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean);
+  const btn=$('nwGenerate'), rbtn=$('nwRegen');
+  btn.disabled=true; rbtn.disabled=true; btn.textContent='Generating…';
   try{
     alert('nwPushAlert','inf','Fetching source articles for context & the originality check…');
     await nwAttachFullText(items);
-    const text=await aiStream({
-      system:NEWS_SYSTEM,
-      messages:[{role:'user',content:buildNewsPrompt(items,$('nwAngle').value.trim())}],
-      max_tokens:1800,
-      onText:(t)=>{ $('nwBody').value=t; },
-    });
-    const {title,body}=splitHeadline(text);
-    $('nwTitle').value=title||'Untitled article';
-    $('nwSlug').value=slugify(title||'news-article');
-    $('nwBody').value=body;
-    if(!$('nwTopic').value) $('nwTopic').value=(items[0]&&items[0].tag)||"Women's Sport";
-    renderNwPreview();
-    await nwEnforceOriginality(items);
-    nwAutoHero(items);
-  }catch(e){ $('nwPreview').innerHTML=''; alert('newsAlert','er','Generation failed: '+e.message); }
+    await nwRunGeneration(items, $('nwAngle').value.trim());
+  }catch(e){ $('nwPreview').innerHTML=''; alert('nwPushAlert','er','Generation failed: '+esc(e.message)); }
   btn.disabled=nwSel.length===0; rbtn.disabled=false; btn.textContent='✦ Generate draft';
+}
+async function regenerateNews(){
+  const items=nwLastItems||[]; if(!items.length) return;
+  const rbtn=$('nwRegen'); rbtn.disabled=true; const orig=rbtn.textContent; rbtn.textContent='Regenerating…';
+  try{ await nwRunGeneration(items, nwLastAngle); }
+  catch(e){ $('nwPreview').innerHTML=''; alert('nwPushAlert','er','Regeneration failed: '+esc(e.message)); }
+  rbtn.disabled=false; rbtn.textContent=orig;
+}
+// Paste-a-URL flow: read any article and write an original WSS piece from it.
+async function generateNewsFromUrl(){
+  const url=($('nwUrl').value||'').trim();
+  if(!/^https?:\/\//i.test(url)){ alert('nwUrlAlert','er','Paste a full article URL (https://…).'); return; }
+  const btn=$('nwUrlGen'); const orig=btn.textContent; btn.disabled=true; btn.textContent='Fetching…';
+  alert('nwUrlAlert','inf','Reading the article…');
+  try{
+    const r=await fetch(apiUrl('/api/article-text'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({urls:[url]})});
+    const d=await r.json().catch(()=>({}));
+    const res=(d.results||[])[0]||{};
+    if(!res.ok || !res.text || res.text.length<200){
+      alert('nwUrlAlert','er','Couldn’t read enough text from that page ('+esc(res.error||'too little content')+'). Some sites block scraping — try the article’s AMP/print link, or a different source.');
+      btn.disabled=false; btn.textContent=orig; return;
+    }
+    let host=''; try{ host=new URL(url).hostname.replace(/^www\./,''); }catch(_){ }
+    const item={ title: res.title || host || 'Article', source: host, link:url, fulltext:res.text, summary:res.text.slice(0,400), tag:'' };
+    nwSel=[]; document.querySelectorAll('#nwItems input[type=checkbox]').forEach(c=>c.checked=false); updateNwSel();
+    alert('nwUrlAlert','ok','Read “'+esc(item.title)+'” — writing an original WSS story…');
+    btn.textContent='Writing…';
+    await nwRunGeneration([item], ($('nwUrlAngle').value||'').trim());
+    alert('nwUrlAlert','','');
+  }catch(e){ alert('nwUrlAlert','er','Failed: '+esc(e.message)); }
+  btn.disabled=false; btn.textContent=orig;
 }
 
 // Fetch the full text of each source (best-effort) so the model has the real
@@ -1749,8 +1797,10 @@ async function pushNews(){
   try{
     let sha, keepDraft=true;
     try{ const g=await ghApi('get',{path}); sha=g.sha; if(editing) keepDraft=isDraft(b64decode(g.content)); }catch(_){}
-    const items=nwSel.map(i=>nwAllItems[i]).filter(Boolean);
-    const srcItems=editing?(nwEditSources||[]):items.map(it=>({title:it.title,link:it.link}));
+    // Use the items actually behind the current draft (RSS selection OR a pasted
+    // URL), so the source is attributed/linked either way.
+    const items=(nwLastItems&&nwLastItems.length)?nwLastItems:nwSel.map(i=>nwAllItems[i]).filter(Boolean);
+    const srcItems=editing?(nwEditSources||[]):items.map(it=>({title:it.title,link:it.link})).filter(s=>s.link);
     const date=(editing&&nwEditDate)?nwEditDate:new Date().toISOString().slice(0,10);
     const excerpt=deriveExcerpt(body);
     const sourcesYaml=srcItems.length?('sources:\n'+srcItems.map(it=>`  - title: ${yamlStr(it.title)}\n    url: ${yamlStr(it.link)}`).join('\n')+'\n'):'';
