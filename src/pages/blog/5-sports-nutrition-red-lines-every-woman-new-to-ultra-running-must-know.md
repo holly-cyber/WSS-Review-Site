@@ -8,7 +8,6 @@ excerpt: "The mountains around Chamonix have a way of pulling at something deep 
 meta_description: "The mountains around Chamonix have a way of pulling at something deep inside you. Every summer, thousands of runners from across the world descend on the French Alps for UTMB — the"
 hero_image: "/images/blog/5-sports-nutrition-red-lines-every-woman-new-to-ultra-running-must-know.avif"
 hero_credit: ""
-draft: true
 ---
 
 The mountains around Chamonix have a way of pulling at something deep inside you. Every summer, thousands of runners from across the world descend on the French Alps for UTMB — the Ultra-Trail du Mont-Blanc — one of the most breathtaking and demanding ultra running events on the planet. Watching women charge through alpine trails, headtorches blazing in the dark, is enough to make anyone lace up their trainers and dream a little bigger.
