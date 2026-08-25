@@ -8,7 +8,6 @@ excerpt: "Something is shifting on the trails. The paths through mountain forest
 meta_description: "Something is shifting on the trails. The paths through mountain forests, across open moorland and up technical singletrack are welcoming more women than ever before, and the moment"
 hero_image: "/images/blog/more-women-are-toeing-trail-running-start-lines-than-ever-here-s-how-to-join-them.avif"
 hero_credit: ""
-draft: true
 ---
 
 Something is shifting on the trails. The paths through mountain forests, across open moorland and up technical singletrack are welcoming more women than ever before, and the momentum feels genuinely exciting. Whether you've been quietly curious about trail running for months, or you've already done a few parkruns and are wondering what comes next, now is a brilliant time to step off the road and onto the dirt.
