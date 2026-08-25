@@ -38,5 +38,9 @@
   {
     "name": "IRunFar",
     "url": "https://www.irunfar.com/feed"
+  },
+  {
+    "name": "www.theguardian.com",
+    "url": "https://www.theguardian.com/lifeandstyle/ultrarunning/rss"
   }
 ]
