@@ -35,6 +35,16 @@ function extractText(html) {
   return text.slice(0, MAX);
 }
 
+function extractTitle(html) {
+  const h = String(html || '');
+  const og = h.match(/<meta[^>]+property=["']og:title["'][^>]*content=["']([^"']+)["']/i)
+          || h.match(/<meta[^>]+content=["']([^"']+)["'][^>]*property=["']og:title["']/i);
+  if (og) return decodeEntities(og[1]).replace(/\s+/g, ' ').trim().slice(0, 240);
+  const t = h.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  if (t) return decodeEntities(t[1]).replace(/\s+/g, ' ').trim().slice(0, 240);
+  return '';
+}
+
 async function fetchOne(url) {
   if (!/^https?:\/\//i.test(url || '')) return { url, ok: false, error: 'not a url', text: '' };
   const ctrl = new AbortController();
@@ -43,8 +53,8 @@ async function fetchOne(url) {
     const res = await fetch(url, { redirect: 'follow', signal: ctrl.signal, headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml,*/*' } });
     clearTimeout(timer);
     if (!res.ok) return { url, ok: false, error: 'HTTP ' + res.status, text: '' };
-    const text = extractText(await res.text());
-    return { url, ok: true, text };
+    const html = await res.text();
+    return { url, ok: true, text: extractText(html), title: extractTitle(html) };
   } catch (e) {
     clearTimeout(timer);
     return { url, ok: false, error: e.name === 'AbortError' ? 'timed out' : e.message, text: '' };
