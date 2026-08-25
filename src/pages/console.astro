@@ -542,6 +542,11 @@ table.rev tr:hover td{background:#fcfcfd}
             <textarea id="blBody" spellcheck="false"></textarea>
             <div id="blPreview" class="nw-preview"></div>
           </div>
+          <div class="bl-links" id="blLinksPanel" style="display:none">
+            <div class="bl-links-h">🔗 Cross-links <span id="blLinksCount" class="nw-tabcount"></span><button type="button" class="bg" id="blLinksRescan" style="margin-left:auto;padding:4px 10px">↻ Rescan</button></div>
+            <div class="hint" style="margin:2px 0 8px">The reviews &amp; news the post links to. Swap any for a different one, or edit its wording — the body updates instantly.</div>
+            <div id="blLinksList"></div>
+          </div>
           <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
             <button class="bp" id="blPush">Push as draft →</button>
             <button class="bg" id="blRegen">↻ Regenerate</button>
@@ -789,6 +794,18 @@ table.rev tr:hover td{background:#fcfcfd}
   .nw-tab.active{color:#FF5E84;border-bottom-color:#FF5E84}
   .nw-tabcount:not(:empty){display:inline-block;min-width:16px;padding:0 5px;margin-left:2px;font-size:11px;line-height:16px;text-align:center;border-radius:9px;background:#eee;color:#666;font-weight:700}
   .nw-tab.active .nw-tabcount:not(:empty){background:#FF5E84;color:#fff}
+  .bl-links{margin-top:12px;border:1px solid #ececf1;border-radius:10px;padding:12px 14px;background:#fafafe}
+  .bl-links-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#000036;margin-bottom:2px}
+  .bl-link-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;padding:7px 0;border-top:1px solid #eee}
+  .bl-link-row:first-child{border-top:none}
+  .bl-link-row .blk-text{font-size:12.5px}
+  .bl-link-row select{font-size:12.5px}
+  .bl-link-kind{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:8px;white-space:nowrap}
+  .bl-link-kind.review{background:#000036;color:#fff}
+  .bl-link-kind.news{background:#1666c4;color:#fff}
+  .bl-link-kind.blog{background:#FF5E84;color:#fff}
+  .bl-link-kind.other{background:#eee;color:#777}
+  @media(max-width:640px){.bl-link-row{grid-template-columns:1fr}}
   .nwtab[hidden]{display:none}
   .nw-gen-h{font-size:14px;color:#000036;margin:2px 0 6px}
   .nw-feeds{border:1px solid #e6e6ef;border-radius:9px;padding:10px 12px;margin:0 0 12px;background:#fafafe}
@@ -1929,8 +1946,9 @@ async function generateBlog(){
     $('blBody').value=body;
     if(!$('blTopic').value) $('blTopic').value=theme.slice(0,40);
     renderBlPreview();
-    const links=(body.match(/\]\((\/[a-z-]+\/)[^)]+\)/g)||[]).length;
-    alert('blogAlert','ok',`Draft generated with ${links} internal link${links===1?'':'s'} to your reviews/news. Review and push.`);
+    blRenderLinks();
+    const links=blParseLinks(body).length;
+    alert('blogAlert','ok',`Draft generated with ${links} internal link${links===1?'':'s'} to your reviews/news — swap any in the Cross-links panel below. Review and push.`);
     $('blStockQuery').value=theme.split(/\s+/).slice(0,4).join(' ');
   }catch(e){ $('blPreview').innerHTML=''; alert('blogAlert','er','Generation failed: '+e.message); }
   btn.disabled=false; rbtn.disabled=false; btn.textContent='✦ Generate post';
@@ -1940,7 +1958,55 @@ function renderBlPreview(){
   $('blPreview').innerHTML=`<div class="pv-content" style="padding:16px">${hero?`<img src="${esc(hero)}" style="width:100%;border-radius:8px;margin-bottom:12px" alt=""/>`:''}<h1 style="font-size:22px;color:#000036;margin:0 0 10px;line-height:1.2">${esc($('blTitle').value||'Untitled')}</h1>${mdToHtml($('blBody').value)}</div>`;
 }
 ['blBody','blTitle'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(blPvT);blPvT=setTimeout(renderBlPreview,250);}));
+$('blBody').addEventListener('change',blRenderLinks);   // refresh cross-links after manual body edits (on blur)
 $('blSlug').addEventListener('input',()=>{ $('blSlug').value=slugify($('blSlug').value); });
+
+// ---- Cross-links: let the user swap the reviews/news a blog post links to ----
+function blLinkInternal(url){ return /^\/[a-z0-9-]+\/[a-z0-9-]+\/?(#.*)?$/i.test(url); }
+function blLinkKind(url){ if(/^\/news\//.test(url)) return 'news'; if(/^\/blog\//.test(url)) return 'blog'; if(blLinkInternal(url)) return 'review'; return 'other'; }
+function blParseLinks(body){
+  const re=/\[([^\]\n]+)\]\((\/[^)\s]+)\)/g; const out=[]; let m;
+  while((m=re.exec(body))){ if(blLinkInternal(m[2])) out.push({text:m[1], url:m[2], start:m.index, end:re.lastIndex}); }
+  return out;
+}
+function blLinkOptions(currentUrl){
+  const {reviews,news}=blogCatalog();
+  const opt=(o)=>`<option value="${esc(o.url)}"${o.url===currentUrl?' selected':''}>${esc(o.title)}</option>`;
+  const known=new Set([...reviews,...news].map(o=>o.url));
+  let html='';
+  if(currentUrl && !known.has(currentUrl)) html+=`<optgroup label="Current"><option value="${esc(currentUrl)}" selected>${esc(currentUrl)}</option></optgroup>`;
+  if(reviews.length) html+=`<optgroup label="Reviews">${reviews.map(opt).join('')}</optgroup>`;
+  if(news.length) html+=`<optgroup label="News">${news.map(opt).join('')}</optgroup>`;
+  return html;
+}
+let blLinksBound=false;
+function blRenderLinks(){
+  const panel=$('blLinksPanel'), list=$('blLinksList'); if(!panel||!list) return;
+  const links=blParseLinks($('blBody').value);
+  $('blLinksCount').textContent=links.length||'';
+  panel.style.display='block';
+  if(!links.length){ list.innerHTML='<div class="hint" style="margin:0">No internal links yet. Add one by linking text in the body to a review or news page, then Rescan.</div>'; return; }
+  list.innerHTML=links.map((lnk,i)=>{
+    const kind=blLinkKind(lnk.url);
+    return `<div class="bl-link-row" data-i="${i}"><input class="blk-text" data-i="${i}" value="${esc(lnk.text)}" title="Link wording"/><select class="blk-url" data-i="${i}">${blLinkOptions(lnk.url)}</select><span class="bl-link-kind ${kind}">${kind}</span></div>`;
+  }).join('');
+  if(!blLinksBound){
+    // Apply on change (select pick, or text input blur) — not per keystroke, so
+    // the row keeps focus while typing.
+    list.addEventListener('change',e=>{ const el=e.target.closest('[data-i]'); if(el) blApplyLink(+el.dataset.i); });
+    blLinksBound=true;
+  }
+}
+function blApplyLink(i){
+  const row=$('blLinksList').querySelector('.bl-link-row[data-i="'+i+'"]'); if(!row) return;
+  const text=(row.querySelector('.blk-text').value||'').trim()||'link';
+  const url=row.querySelector('.blk-url').value;
+  const body=$('blBody').value; const links=blParseLinks(body); if(i>=links.length) return;
+  const lnk=links[i];
+  $('blBody').value=body.slice(0,lnk.start)+`[${text}](${url})`+body.slice(lnk.end);
+  renderBlPreview(); blRenderLinks();
+}
+$('blLinksRescan').addEventListener('click',blRenderLinks);
 
 // --- Hero (rights-free stock) ---
 $('blStockSearch').addEventListener('click',blSearchStock);
@@ -1973,7 +2039,7 @@ function editBlArticle(f){
   $('blBody').value=body.trim();
   const a=g('author'); if(a){ const sel=$('blAuthor'); if([...sel.options].some(o=>o.value===a)) sel.value=a; }
   blHeroImgs=[]; $('blHeroGrid').innerHTML=''; $('blHeroNote').style.display='none';
-  setBlTab('generate'); $('blOutPanel').style.display='block'; renderBlPreview();
+  setBlTab('generate'); $('blOutPanel').style.display='block'; renderBlPreview(); blRenderLinks();
   $('blPush').textContent='Save changes →';
   alert('blPushAlert','inf',`Editing “${esc(f.slug)}” — Save changes to commit.`);
   $('blOutPanel').scrollIntoView({behavior:'smooth',block:'start'});
