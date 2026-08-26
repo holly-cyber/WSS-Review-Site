@@ -2152,12 +2152,13 @@ function emInitStudio(){
   // Insert-link helper — no need to remember Markdown link syntax.
   $('emLinkBtn').addEventListener('click',emInsertLink);
   // Hero: URL
-  $('emHeroUrlBtn').addEventListener('click',async()=>{
+  $('emHeroUrlBtn').addEventListener('click',()=>{
     const url=($('emHeroUrl').value||'').trim(); if(!/^https?:\/\//i.test(url)){ $('emHeroStatus').innerHTML='<span style="color:#c00">Enter a valid image URL.</span>'; return; }
-    emState.heroPreview=url; emRenderPreview();
-    $('emHeroStatus').textContent='Saving image into the repo…';
-    try{ const local=await hostHeroImage(url,'email-'+Date.now(),'email'); emState.heroSend=EM_SITE+local; $('emHeroStatus').innerHTML='<span style="color:#0a7a33">✓ Image saved — goes live on the next deploy.</span>'; }
-    catch(err){ emState.heroSend=url; $('emHeroStatus').innerHTML='<span style="color:#8a5a00">Could not self-host ('+esc(err.message)+') — the original URL will be used.</span>'; }
+    // Use the public URL directly — an email hero just needs to be reachable when
+    // MailerLite renders it. Re-hosting into the repo would 404 until the next
+    // deploy, which is exactly why the hero was going missing.
+    emState.heroPreview=url; emState.heroSend=url; emRenderPreview();
+    $('emHeroStatus').innerHTML='<span style="color:#0a7a33">✓ Using this image — it works in MailerLite straight away.</span>';
   });
   // Hero: upload
   $('emHeroFile').addEventListener('change',e=>{
@@ -2356,9 +2357,9 @@ async function emCustomImg(id,card,mode,ev){
   if(mode==='url'){
     const url=(card.querySelector('.em-cust-imgurl').value||'').trim();
     if(!/^https?:\/\//i.test(url)){ status.innerHTML='<span style="color:#c00">Enter a valid image URL.</span>'; return; }
-    st.imgPreview=url; emRenderPreview(); status.textContent='Saving image into the repo…';
-    try{ st.imgSend=await emHostUrl(url); status.innerHTML='<span style="color:#0a7a33">✓ Image saved — live on the next deploy.</span>'; }
-    catch(err){ st.imgSend=url; status.innerHTML='<span style="color:#8a5a00">Could not self-host ('+esc(err.message)+') — the original URL will be used.</span>'; }
+    // Use the public URL directly so it renders in MailerLite immediately (no deploy wait).
+    st.imgPreview=url; st.imgSend=url; emRenderPreview();
+    status.innerHTML='<span style="color:#0a7a33">✓ Using this image — works in MailerLite straight away.</span>';
   }else{
     const file=ev.target.files&&ev.target.files[0]; if(!file) return;
     if(file.size>5*1024*1024){ status.innerHTML='<span style="color:#c00">Image is over 5MB — use a smaller file.</span>'; return; }
@@ -2369,8 +2370,6 @@ async function emCustomImg(id,card,mode,ev){
     reader.readAsDataURL(file);
   }
 }
-// Shared: host an external image URL into the repo, return its absolute URL.
-async function emHostUrl(url){ const local=await hostHeroImage(url,'email-'+Date.now(),'email'); return EM_SITE+local; }
 // ---- Drag-to-reorder for the section cards ----
 let emDrag=null;
 function emBindGrip(grip){
