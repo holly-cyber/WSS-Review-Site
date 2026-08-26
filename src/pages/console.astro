@@ -890,8 +890,13 @@ function showView(name){
   if(name==='socialstudio'){ scInitStudio(); scRefreshItems(); }
   // Load the embedded pipeline tool the first time its tab is opened.
   if(name==='pipeline'){ const f=$('pipelineFrame'); if(f && !f.src) f.src='/pipeline?embed=1'; }
+  // Remember the current tab so a refresh returns here (only real nav tabs, not
+  // the transient editor view).
+  if(document.querySelector('.navbtn[data-nav="'+name+'"]')){ try{ localStorage.setItem('wssConsoleView', name); }catch(_){ } }
 }
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.nav)));
+// Restore the last tab on load (falls back to the default Dashboard).
+try{ const _v=localStorage.getItem('wssConsoleView'); if(_v && _v!=='dashboard' && $('view-'+_v) && document.querySelector('.navbtn[data-nav="'+_v+'"]')) showView(_v); }catch(_){ }
 
 // ---- Load all reviews ----
 // Concurrency-limited pool: fetching every file at once trips GitHub's
