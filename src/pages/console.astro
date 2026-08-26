@@ -79,35 +79,6 @@ textarea{resize:vertical;line-height:1.6}
 .anhead .bp{margin-left:auto}
 .anby{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#888;background:#f0f0f4;padding:2px 7px;border-radius:5px}
 .anframe{width:100%;height:640px;border:1px solid #ececf1;border-radius:10px;background:#fafafb;display:block}
-.anrange{max-width:150px;font-size:12.5px;padding:6px 8px}
-.anhead .anrange{margin-left:auto}
-.anhead .bp{margin-left:8px}
-.an-headline{margin:12px 0 4px}
-.an-headline .card .n{font-size:24px}
-.an-headline .card .sub2{font-size:11px;color:#aaa;margin-top:1px}
-.an-split{display:grid;grid-template-columns:260px 1fr;gap:14px;margin-top:6px}
-@media(max-width:820px){.an-split{grid-template-columns:1fr}}
-.an-dm{background:#000036;color:#fff;border-radius:12px;padding:16px 18px}
-.an-dm h4{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#cfcfe6;margin-bottom:12px;font-weight:600}
-.an-dm .dm-row{display:flex;justify-content:space-between;align-items:baseline;margin:9px 0}
-.an-dm .dm-row .lbl{font-size:13px;color:#cfcfe6}
-.an-dm .dm-row .val{font-size:22px;font-weight:700}
-.an-dm .dm-stick{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15);text-align:center}
-.an-dm .dm-stick .big{font-size:30px;font-weight:700;color:#7CE0C3}
-.an-dm .dm-stick .cap{font-size:11px;color:#cfcfe6;margin-top:2px}
-.an-top{background:#fff;border:1px solid #ececf1;border-radius:12px;padding:14px 16px}
-.an-top h4{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#888;margin-bottom:10px;font-weight:700}
-.an-top .toprow{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid #f1f1f4;font-size:13px}
-.an-top .toprow:first-of-type{border-top:none}
-.an-top .rk{width:20px;color:#bbb;font-weight:700;text-align:right;flex-shrink:0}
-.an-top .tp-kind{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 6px;border-radius:7px;flex-shrink:0}
-.an-top .tp-kind.home{background:#eef;color:#3636a8}.an-top .tp-kind.review{background:#000036;color:#fff}
-.an-top .tp-kind.blog{background:#FF5E84;color:#fff}.an-top .tp-kind.news{background:#1666c4;color:#fff}.an-top .tp-kind.other{background:#eee;color:#777}
-.an-top .tp-path{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#000036}
-.an-top .tp-views{font-weight:700;color:#000036;flex-shrink:0}
-.an-embed{margin-top:14px}
-.an-embed>summary{cursor:pointer;font-size:13px;font-weight:600;color:#000036}
-.an-embed .anframe{margin-top:10px}
 .anhint{font-size:12.5px;color:#666;line-height:1.7}
 .anhint code{background:#f0f0f4;padding:1px 5px;border-radius:4px;font-size:11.5px}
 
@@ -289,24 +260,18 @@ table.rev tr:hover td{background:#fcfcfd}
         <div class="anblk">
           <div class="anhead">
             <h3>📈 Traffic &amp; analytics <span class="anby">Umami</span></h3>
-            <select id="anRange" class="anrange">
-              <option value="7">Last 7 days</option>
-              <option value="30" selected>Last 30 days</option>
-              <option value="90">Last 90 days</option>
-            </select>
-            <a class="bp" href={umamiDashUrl} target="_blank" rel="noopener">Open Umami ↗</a>
+            <a class="bp" href={umamiDashUrl} target="_blank" rel="noopener">Open Umami dashboard ↗</a>
           </div>
-          <div id="anAlert"></div>
-          <div class="cards an-headline" id="anHeadline"><p style="color:#999;font-size:13px">Loading analytics…</p></div>
-          <div class="an-split">
-            <div class="an-dm" id="anDauMau"></div>
-            <div class="an-top" id="anTop"></div>
-          </div>
-          {umamiShare && (
-            <details class="an-embed">
-              <summary>Open the full live dashboard here</summary>
-              <iframe class="anframe" src={umamiShare} title="Umami analytics" loading="lazy"></iframe>
-            </details>
+          {umamiShare ? (
+            <iframe class="anframe" src={umamiShare} title="Umami analytics" loading="lazy"></iframe>
+          ) : (
+            <p class="anhint">
+              Live visitor stats, top pages, referrers and your <code>buy-click</code> / <code>review-open</code>
+              events are all tracked in Umami. To show them right here, open a website’s
+              <strong> Settings → Edit → Enable share URL</strong> in Umami, copy the share link, and set it as the
+              <code> PUBLIC_UMAMI_SHARE_URL</code> environment variable in Netlify — this panel will then embed the
+              live read-only dashboard. Until then, use the button above to log in.
+            </p>
           )}
         </div>
       </section>
@@ -917,8 +882,7 @@ table.rev tr:hover td{background:#fcfcfd}
 import { ghApi, scrapeImages, b64, b64decode, esc, splitFrontmatter, fmField, setDraftFlag, setReviewer, setFrontmatterField, linkFirstProductMention, parsePillarScores, setPillarScore, setOverallScore, recalcOverall, syncBodyScores, isDraft, reviewPreviewHtml, mdToHtml, aiStream, NEWS_SYSTEM, buildNewsPrompt, buildRewritePrompt, sourceOverlap, isWomensContent, isWomensFeed, BLOG_SYSTEM, buildBlogPrompt, insertImages, reviewMeta, isReviewPath, apiUrl, buildEmailHtml, EMAIL_THEMES, EMAIL_ASSIST_SYSTEM } from '../lib/review-admin.js';
 import { team } from '../data/team.js';
 import { feeds } from '../data/feeds.js';
-import { slugify, taxonomy as _taxonomy } from '../data/taxonomy.js';
-const AN_REVIEW_CATS=new Set((_taxonomy||[]).map(t=>t.slug));
+import { slugify } from '../data/taxonomy.js';
 
 const $ = (id) => document.getElementById(id);
 function alert(id, type, msg){ const el=$(id); if(el) el.innerHTML = msg?`<div class="al ${type}">${msg}</div>`:''; }
@@ -935,7 +899,6 @@ function showView(name){
   $('view-'+name).classList.add('active');
   if(name==='news' && !nwLibLoaded){ nwLibLoaded=true; loadNwLib(); }
   if(name==='blog'){ if(!blLibLoaded){ blLibLoaded=true; loadBlLib(); } updateBlCatalogNote(); }
-  if(name==='dashboard' && !anLoaded && !anLoading){ loadAnalytics(); }
   if(name==='email'){ emInitStudio(); emRefreshItems(); }
   if(name==='socialstudio'){ scInitStudio(); scRefreshItems(); }
   // Load the embedded pipeline tool the first time its tab is opened.
@@ -1020,53 +983,6 @@ function renderDashboard(){
     Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([c,n])=>
       `<div class="catrow"><span class="nm">${esc(c)}</span><span class="bar"><span style="width:${(n/max*100)}%"></span></span><span class="ct">${n}</span></div>`).join('');
 }
-
-// ---- Umami analytics on the dashboard ----
-let anLoaded=false, anLoading=false;
-function anAreaOf(path){
-  const p=(path||'').split('?')[0].split('#')[0];
-  if(p==='/'||p==='') return 'home';
-  if(/^\/blog(\/|$)/.test(p)) return 'blog';
-  if(/^\/news(\/|$)/.test(p)) return 'news';
-  const seg=p.split('/').filter(Boolean);
-  if(seg.length>=1 && AN_REVIEW_CATS.has(seg[0])) return (seg.length>=2?'review':'home'); // /cat/slug = review; /cat/ = listing → count as other-ish
-  return 'other';
-}
-const AN_KIND_LABEL={home:'Home',review:'Review',blog:'Blog',news:'News',other:'Other'};
-const fmtNum=(n)=> (n>=1000? (n/1000).toFixed(n>=10000?0:1)+'k' : String(n||0));
-async function loadAnalytics(){
-  if(anLoading) return; anLoading=true;
-  const days=parseInt(($('anRange')&&$('anRange').value)||'30',10)||30;
-  $('anHeadline').innerHTML='<p style="color:#999;font-size:13px">Loading analytics…</p>';
-  $('anAlert').innerHTML=''; $('anDauMau').innerHTML=''; $('anTop').innerHTML='';
-  try{
-    const r=await fetch(apiUrl('/api/umami-stats?days='+days));
-    const d=await r.json().catch(()=>({}));
-    if(!d||!d.ok){ $('anHeadline').innerHTML=''; alert('anAlert','wr',(d&&d.error)||'Could not load Umami analytics.'); anLoading=false; return; }
-    // Bucket page views by area.
-    const buckets={home:0,blog:0,news:0,review:0,other:0};
-    (d.urls||[]).forEach(u=>{ buckets[anAreaOf(u.path)] += (u.views||0); });
-    const total=d.pageviews||0;
-    $('anHeadline').innerHTML=
-      `<div class="card"><div class="n">${fmtNum(total)}</div><div class="l">Total views</div><div class="sub2">${d.visitors||0} visitors · ${days}d</div></div>`+
-      `<div class="card"><div class="n">${fmtNum(buckets.home)}</div><div class="l">Home</div></div>`+
-      `<div class="card"><div class="n">${fmtNum(buckets.review)}</div><div class="l">Reviews</div></div>`+
-      `<div class="card"><div class="n">${fmtNum(buckets.blog)}</div><div class="l">Blog</div></div>`+
-      `<div class="card"><div class="n">${fmtNum(buckets.news)}</div><div class="l">News</div></div>`;
-    // DAU / MAU / stickiness.
-    const dau=d.dau||0, mau=d.mau||0; const stick=mau? Math.round(dau/mau*100):0;
-    $('anDauMau').innerHTML=`<h4>Active users</h4>`+
-      `<div class="dm-row"><span class="lbl">DAU <span style="opacity:.6">· 24h</span></span><span class="val">${fmtNum(dau)}</span></div>`+
-      `<div class="dm-row"><span class="lbl">MAU <span style="opacity:.6">· 30d</span></span><span class="val">${fmtNum(mau)}</span></div>`+
-      `<div class="dm-stick"><div class="big">${stick}%</div><div class="cap">DAU/MAU stickiness</div></div>`;
-    // Top 10 pages.
-    const top=(d.urls||[]).slice().sort((a,b)=>(b.views||0)-(a.views||0)).slice(0,10);
-    $('anTop').innerHTML=`<h4>Top 10 pages · ${days}d</h4>`+ (top.length? top.map((u,i)=>{ const k=anAreaOf(u.path); return `<div class="toprow"><span class="rk">${i+1}</span><span class="tp-kind ${k}">${AN_KIND_LABEL[k]}</span><span class="tp-path" title="${esc(u.path)}">${esc(u.path)}</span><span class="tp-views">${fmtNum(u.views)}</span></div>`; }).join('') : '<div class="toprow" style="color:#999">No page views yet in this period.</div>');
-    anLoaded=true;
-  }catch(e){ $('anHeadline').innerHTML=''; alert('anAlert','er','Analytics failed to load: '+esc(e.message)); }
-  anLoading=false;
-}
-if($('anRange')) $('anRange').addEventListener('change',()=>{ anLoaded=false; loadAnalytics(); });
 
 // ---- Reviews table ----
 function filtered(){
@@ -2882,7 +2798,6 @@ async function scAiCaption(){
 }
 
 loadAll();
-loadAnalytics();                // dashboard Umami headline numbers, DAU/MAU, top 10
 nwLibLoaded=true; loadNwLib();  // also drives the dashboard "News articles" count
 blLibLoaded=true; loadBlLib();  // drives the dashboard "Blog posts" count
 loadNwFeeds();                  // pull the managed feed list from the repo
