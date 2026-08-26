@@ -908,8 +908,6 @@ function showView(name){
   if(document.querySelector('.navbtn[data-nav="'+name+'"]')){ try{ localStorage.setItem('wssConsoleView', name); }catch(_){ } }
 }
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.nav)));
-// Restore the last tab on load (falls back to the default Dashboard).
-try{ const _v=localStorage.getItem('wssConsoleView'); if(_v && _v!=='dashboard' && $('view-'+_v) && document.querySelector('.navbtn[data-nav="'+_v+'"]')) showView(_v); }catch(_){ }
 
 // ---- Load all reviews ----
 // Concurrency-limited pool: fetching every file at once trips GitHub's
@@ -2803,6 +2801,11 @@ loadAll();
 nwLibLoaded=true; loadNwLib();  // also drives the dashboard "News articles" count
 blLibLoaded=true; loadBlLib();  // drives the dashboard "Blog posts" count
 loadNwFeeds();                  // pull the managed feed list from the repo
+
+// Restore the last tab on load — MUST run after all module-scope `let`/`const`
+// (emState, emInit, scImg, …) are initialised, else showView('email'/'social')
+// calls their init before those exist and throws a temporal-dead-zone error.
+try{ const _v=localStorage.getItem('wssConsoleView'); if(_v && _v!=='dashboard' && $('view-'+_v) && document.querySelector('.navbtn[data-nav="'+_v+'"]')) showView(_v); }catch(_){ }
 </script>
 </body>
 </html>
