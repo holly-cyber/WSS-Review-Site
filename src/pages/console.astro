@@ -655,7 +655,7 @@ table.rev tr:hover td{background:#fcfcfd}
 
             <div class="panel">
               <h3>Hero image <span class="em-hint2">(optional)</span></h3>
-              <div class="em-hint">Sits full-width under the header. <strong>Paste a URL</strong> — used as-is, so it shows in MailerLite straight away (recommended). Or <strong>upload a file</strong> (under 3MB) — it's saved into the repo and appears after the next deploy, so it's best for a draft you'll schedule later.</div>
+              <div class="em-hint">Sits full-width under the header. Paste a URL or upload a file — either way it's hosted instantly and shows in MailerLite straight away. Big photos are resized automatically.</div>
               <div class="em-hero-row">
                 <input id="emHeroUrl" placeholder="https://… image URL"/>
                 <button class="bg" id="emHeroUrlBtn">Use URL</button>
@@ -2139,13 +2139,26 @@ function emRenderPreview(){
   emPvTimer=setTimeout(()=>{ const f=$('emPreview'); if(f) f.srcdoc=buildEmailHtml(emOpts(false)); },140);
 }
 // Host an uploaded file (dataURL) into the repo, return absolute deployed URL.
-async function emHostUpload(dataUrl,ext){
-  const base64=String(dataUrl).split(',')[1]||'';
-  const clean=(ext||'jpg').replace(/[^a-z0-9]/gi,'').toLowerCase()||'jpg';
-  const slug='email-'+Date.now();
-  const path=`public/images/email/${slug}.${clean}`;
-  await ghApi('put',{path,content:base64,message:`Add email hero image: ${path}`});
-  return `${EM_SITE}/images/email/${slug}.${clean}`;
+// Resize/compress an uploaded image client-side (keeps the payload small and
+// under Netlify's function limit), then host it instantly via /api/email-image
+// (Netlify Blobs) → a public URL that works in MailerLite straight away.
+function emResizeImage(file,maxW,quality){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>{ const img=new Image();
+      img.onload=()=>{ let w=img.width,h=img.height; if(w>maxW){ h=Math.round(h*maxW/w); w=maxW; }
+        const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(img,0,0,w,h);
+        try{ resolve(c.toDataURL('image/jpeg',quality||0.85)); }catch(e){ reject(e); } };
+      img.onerror=()=>reject(new Error('could not read image')); img.src=reader.result; };
+    reader.onerror=()=>reject(new Error('could not read file')); reader.readAsDataURL(file);
+  });
+}
+async function emHostUpload(file){
+  const dataUrl=await emResizeImage(file,1200,0.85);
+  const r=await fetch(apiUrl('/api/email-image'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base64:dataUrl})});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok||!d||!d.ok||!d.url) throw new Error((d&&d.error)||('HTTP '+r.status));
+  return {url:d.url, preview:dataUrl};
 }
 
 function emInitStudio(){
@@ -2173,19 +2186,14 @@ function emInitStudio(){
     emState.heroPreview=url; emState.heroSend=url; emRenderPreview();
     $('emHeroStatus').innerHTML='<span style="color:#0a7a33">✓ Using this image — it works in MailerLite straight away.</span>';
   });
-  // Hero: upload
-  $('emHeroFile').addEventListener('change',e=>{
+  // Hero: upload — resized client-side, then hosted instantly (works in MailerLite now).
+  $('emHeroFile').addEventListener('change',async e=>{
     const file=e.target.files&&e.target.files[0]; if(!file) return;
-    if(file.size>3*1024*1024){ $('emHeroStatus').innerHTML='<span style="color:#c00">Image is over 3MB — please use a smaller file, or paste a URL instead.</span>'; return; }
-    const ext=(file.name.split('.').pop()||'jpg');
-    const reader=new FileReader();
-    reader.onload=async()=>{
-      emState.heroPreview=reader.result; emRenderPreview();
-      $('emHeroStatus').textContent='Uploading image into the repo…';
-      try{ emState.heroSend=await emHostUpload(reader.result,ext); $('emHeroStatus').innerHTML='<span style="color:#0a7a33">✓ Uploaded — goes live on the next deploy.</span>'; }
-      catch(err){ $('emHeroStatus').innerHTML='<span style="color:#c00">Upload failed: '+esc(err.message)+'</span>'; }
-    };
-    reader.readAsDataURL(file);
+    if(file.size>20*1024*1024){ $('emHeroStatus').innerHTML='<span style="color:#c00">Image is over 20MB — please use a smaller file.</span>'; return; }
+    $('emHeroStatus').textContent='Processing & uploading…';
+    try{ const {url,preview}=await emHostUpload(file); emState.heroPreview=url||preview; emState.heroSend=url; emRenderPreview();
+      $('emHeroStatus').innerHTML='<span style="color:#0a7a33">✓ Uploaded — works in MailerLite straight away.</span>'; }
+    catch(err){ $('emHeroStatus').innerHTML='<span style="color:#c00">Upload failed: '+esc(err.message)+'</span>'; }
   });
   // AI body assist
   $('emAiBtn').addEventListener('click',async()=>{
@@ -2493,12 +2501,11 @@ async function emCustomImg(id,card,mode,ev){
     status.innerHTML='<span style="color:#0a7a33">✓ Using this image — works in MailerLite straight away.</span>';
   }else{
     const file=ev.target.files&&ev.target.files[0]; if(!file) return;
-    if(file.size>3*1024*1024){ status.innerHTML='<span style="color:#c00">Image is over 3MB — use a smaller file, or paste a URL instead.</span>'; return; }
-    const ext=(file.name.split('.').pop()||'jpg'); const reader=new FileReader();
-    reader.onload=async()=>{ st.imgPreview=reader.result; emRenderPreview(); status.textContent='Uploading image…';
-      try{ st.imgSend=await emHostUpload(reader.result,ext); status.innerHTML='<span style="color:#0a7a33">✓ Uploaded — live on the next deploy.</span>'; }
-      catch(err){ status.innerHTML='<span style="color:#c00">Upload failed: '+esc(err.message)+'</span>'; } };
-    reader.readAsDataURL(file);
+    if(file.size>20*1024*1024){ status.innerHTML='<span style="color:#c00">Image is over 20MB — use a smaller file.</span>'; return; }
+    status.textContent='Processing & uploading…';
+    try{ const {url,preview}=await emHostUpload(file); st.imgPreview=url||preview; st.imgSend=url; emRenderPreview();
+      status.innerHTML='<span style="color:#0a7a33">✓ Uploaded — works in MailerLite straight away.</span>'; }
+    catch(err){ status.innerHTML='<span style="color:#c00">Upload failed: '+esc(err.message)+'</span>'; }
   }
 }
 // ---- Drag-to-reorder for the section cards ----
