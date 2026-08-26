@@ -152,7 +152,10 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-ck{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#000036;white-space:nowrap;cursor:pointer}
 .em-ck input{width:16px;height:16px;cursor:pointer}
 .em-sec-h input[type=text],.em-sec-h>input{flex:1;min-width:140px}
-.em-checks{max-height:150px;overflow:auto;display:flex;flex-direction:column;gap:3px}
+.em-search{width:100%;font-size:12px;padding:5px 8px;margin:2px 0 6px}
+.em-checks{max-height:200px;overflow:auto;display:flex;flex-direction:column;gap:3px}
+.em-checks label[hidden]{display:none}
+.em-checks-none{color:#aaa;font-size:11.5px;padding:2px 4px}
 .em-checks label{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#444;padding:3px 4px;border-radius:6px;cursor:pointer}
 .em-checks label:hover{background:#f6f6f9}
 .em-checks input{width:15px;height:15px;margin-top:2px;flex-shrink:0;cursor:pointer}
@@ -611,6 +614,7 @@ table.rev tr:hover td{background:#fcfcfd}
                     <label class="em-ck"><input type="checkbox" id="emRevOn"/> Reviews section</label>
                     <input id="emRevHead" value="Latest reviews" placeholder="Section heading"/>
                   </div>
+                  <input class="em-search" id="emRevSearch" data-for="emRevList" placeholder="🔎 Filter all reviews…"/>
                   <div id="emRevList" class="em-checks"><span class="em-hint2">No reviews loaded yet.</span></div>
                 </div>
                 <div class="em-sec" data-block="blog">
@@ -619,6 +623,7 @@ table.rev tr:hover td{background:#fcfcfd}
                     <label class="em-ck"><input type="checkbox" id="emBlogOn"/> Blog section</label>
                     <input id="emBlogHead" value="From the blog" placeholder="Section heading"/>
                   </div>
+                  <input class="em-search" id="emBlogSearch" data-for="emBlogList" placeholder="🔎 Filter all blog posts…"/>
                   <div id="emBlogList" class="em-checks"><span class="em-hint2">No blog posts loaded yet.</span></div>
                 </div>
                 <div class="em-sec" data-block="news">
@@ -627,6 +632,7 @@ table.rev tr:hover td{background:#fcfcfd}
                     <label class="em-ck"><input type="checkbox" id="emNewsOn"/> News section</label>
                     <input id="emNewsHead" value="Latest news" placeholder="Section heading"/>
                   </div>
+                  <input class="em-search" id="emNewsSearch" data-for="emNewsList" placeholder="🔎 Filter all news…"/>
                   <div id="emNewsList" class="em-checks"><span class="em-hint2">No news posts loaded yet.</span></div>
                 </div>
               </div>
@@ -2181,6 +2187,7 @@ function emInitStudio(){
   $('emBlogList').addEventListener('change',emRenderPreview);
   $('emNewsList').addEventListener('change',emRenderPreview);
   $('emAddBlock').addEventListener('click',emAddCustom);
+  document.querySelectorAll('.em-search').forEach(s=>s.addEventListener('input',()=>emFilterChecks(s.dataset.for)));
   emInitDrag();
   // Groups + push
   emLoadGroups();
@@ -2247,14 +2254,28 @@ function emRenderChecks(boxId,list,valOf){
   const box=$(boxId); if(!box) return;
   const prev=new Set([...box.querySelectorAll('input:checked')].map(i=>i.value));
   const touched=box.dataset.touched==='1';
-  const rows=list.slice(0,8);
-  if(!rows.length){ box.innerHTML='<span class="em-hint2">Nothing published yet.</span>'; return; }
-  box.innerHTML=rows.map((f,idx)=>{ const v=valOf(f);
+  if(!list.length){ box.innerHTML='<span class="em-hint2">Nothing published yet.</span>'; return; }
+  // Render ALL items (sorted newest-first). Filtering hides rows without removing
+  // them, so items ticked but not matching the filter stay selected.
+  box.innerHTML=list.map((f,idx)=>{ const v=valOf(f);
     const d=f.date?new Date(f.date).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
     const on = touched ? prev.has(v) : idx<3;   // default: newest 3, unless the user has changed things
-    return `<label><input type="checkbox" value="${esc(v)}"${on?' checked':''}/><span>${esc(f.title||f.slug)}${d?` <span class="emc-meta">· ${d}</span>`:''}</span></label>`;
+    const t=(f.title||f.slug||'').toLowerCase();
+    return `<label data-t="${esc(t)}"><input type="checkbox" value="${esc(v)}"${on?' checked':''}/><span>${esc(f.title||f.slug)}${d?` <span class="emc-meta">· ${d}</span>`:''}</span></label>`;
   }).join('');
   if(!box.dataset.bound){ box.addEventListener('change',()=>{ box.dataset.touched='1'; }); box.dataset.bound='1'; }
+  emFilterChecks(boxId);   // re-apply any active filter after a re-render
+}
+// Hide checklist rows that don't match the section's filter box (selection kept).
+function emFilterChecks(boxId){
+  const box=$(boxId); if(!box) return;
+  const search=document.querySelector('.em-search[data-for="'+boxId+'"]');
+  const q=((search&&search.value)||'').trim().toLowerCase();
+  let shown=0;
+  box.querySelectorAll('label').forEach(l=>{ const hit=!q||(l.dataset.t||'').includes(q); l.hidden=!hit; if(hit) shown++; });
+  let none=box.querySelector('.em-checks-none');
+  if(q && !shown){ if(!none){ none=document.createElement('div'); none.className='em-checks-none'; box.appendChild(none); } none.textContent='No matches for “'+q+'”.'; }
+  else if(none){ none.remove(); }
 }
 // Gather the ticked items for one section into buildEmailHtml item shape.
 function emSectionItems(kind){
