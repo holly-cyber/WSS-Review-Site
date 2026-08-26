@@ -152,6 +152,10 @@ table.rev tr:hover td{background:#fcfcfd}
 .em-ck{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#000036;white-space:nowrap;cursor:pointer}
 .em-ck input{width:16px;height:16px;cursor:pointer}
 .em-sec-h input[type=text],.em-sec-h>input{flex:1;min-width:140px}
+.em-draftbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid #ececf1;border-radius:10px;padding:9px 12px;margin-bottom:14px}
+.em-draftbar .em-draftlbl{font-size:12.5px;font-weight:700;color:#000036}
+.em-draftbar select{max-width:280px}
+.em-draftbar button{padding:6px 12px}
 .em-search{width:100%;font-size:12px;padding:5px 8px;margin:2px 0 6px}
 .em-checks{max-height:200px;overflow:auto;display:flex;flex-direction:column;gap:3px}
 .em-checks label[hidden]{display:none}
@@ -565,6 +569,15 @@ table.rev tr:hover td{background:#fcfcfd}
       <section id="view-email" class="view">
         <div class="h1">Email studio</div>
         <div class="sub">Compose a standalone MailerLite campaign — no review required. Uses the branded WSS™ email template, with theme options so your sends don't all look the same.</div>
+        <div class="em-draftbar">
+          <span class="em-draftlbl">📄 Drafts</span>
+          <select id="emDraftSel"><option value="">— saved drafts —</option></select>
+          <button class="bg" id="emDraftOpen">Open</button>
+          <button class="bg" id="emDraftSave">💾 Save draft</button>
+          <button class="bg" id="emDraftNew">＋ New</button>
+          <button class="bg bdanger" id="emDraftDelete">Delete</button>
+          <span id="emDraftState" class="em-hint2" style="margin-left:auto"></span>
+        </div>
         <div id="emAlert"></div>
         <div class="em-grid">
           <!-- Compose column -->
@@ -642,7 +655,7 @@ table.rev tr:hover td{background:#fcfcfd}
 
             <div class="panel">
               <h3>Hero image <span class="em-hint2">(optional)</span></h3>
-              <div class="em-hint">Sits full-width under the header. Add a URL or upload a file — uploads and URL images are saved into the repo and go live on the next deploy (fine for a draft you'll schedule later).</div>
+              <div class="em-hint">Sits full-width under the header. <strong>Paste a URL</strong> — used as-is, so it shows in MailerLite straight away (recommended). Or <strong>upload a file</strong> (under 3MB) — it's saved into the repo and appears after the next deploy, so it's best for a draft you'll schedule later.</div>
               <div class="em-hero-row">
                 <input id="emHeroUrl" placeholder="https://… image URL"/>
                 <button class="bg" id="emHeroUrlBtn">Use URL</button>
@@ -2163,7 +2176,7 @@ function emInitStudio(){
   // Hero: upload
   $('emHeroFile').addEventListener('change',e=>{
     const file=e.target.files&&e.target.files[0]; if(!file) return;
-    if(file.size>5*1024*1024){ $('emHeroStatus').innerHTML='<span style="color:#c00">Image is over 5MB — please use a smaller file.</span>'; return; }
+    if(file.size>3*1024*1024){ $('emHeroStatus').innerHTML='<span style="color:#c00">Image is over 3MB — please use a smaller file, or paste a URL instead.</span>'; return; }
     const ext=(file.name.split('.').pop()||'jpg');
     const reader=new FileReader();
     reader.onload=async()=>{
@@ -2192,8 +2205,14 @@ function emInitStudio(){
   $('emRevList').addEventListener('change',emRenderPreview);
   $('emBlogList').addEventListener('change',emRenderPreview);
   $('emNewsList').addEventListener('change',emRenderPreview);
-  $('emAddBlock').addEventListener('click',emAddCustom);
+  $('emAddBlock').addEventListener('click',()=>emAddCustom());
   document.querySelectorAll('.em-search').forEach(s=>s.addEventListener('input',()=>emFilterChecks(s.dataset.for)));
+  // Draft save/open/new/delete (stored in the repo, shared across devices)
+  $('emDraftSave').addEventListener('click',emSaveDraft);
+  $('emDraftOpen').addEventListener('click',emOpenDraft);
+  $('emDraftNew').addEventListener('click',emNewDraft);
+  $('emDraftDelete').addEventListener('click',emDeleteDraft);
+  emLoadDrafts();
   emInitDrag();
   // Groups + push
   emLoadGroups();
@@ -2320,9 +2339,120 @@ function emCollectSections(forSend){
   }
   return out;
 }
+// ---- Email drafts: save the whole composition to the repo and re-open it ----
+const EM_DRAFTS_PATH='src/data/email-drafts.json';
+let emDrafts=[], emDraftsSha='', emCurrentDraftId='', emPendingGroup='';
+function emGenId(){ return 'd'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+const EM_SEC_IDS={reviews:['emRevOn','emRevHead','emRevList'],blog:['emBlogOn','emBlogHead','emBlogList'],news:['emNewsOn','emNewsHead','emNewsList']};
+// Capture the full composer state (core fields + sections + custom blocks, in order).
+function emSerialize(){
+  const sections=[]; const cont=$('emSections');
+  if(cont) for(const card of cont.children){
+    const type=card.dataset.block;
+    if(EM_SEC_IDS[type]){
+      const [onId,headId,listId]=EM_SEC_IDS[type];
+      const checked=[...($(listId)?$(listId).querySelectorAll('input:checked'):[])].map(i=>i.value);
+      sections.push({type, on:$(onId)?$(onId).checked:false, head:$(headId)?$(headId).value:'', checked});
+    }else if(type==='custom'){
+      const st=emCustom[card.dataset.id]||{}; const g=s=>card.querySelector(s);
+      sections.push({type:'custom', heading:g('.em-cust-head').value, text:g('.em-cust-text').value, btnText:g('.em-cust-btntext').value, btnUrl:g('.em-cust-btnurl').value, imgPreview:st.imgPreview||'', imgSend:st.imgSend||''});
+    }
+  }
+  return { id:emCurrentDraftId||emGenId(), name:$('emName').value, subject:$('emSubject').value, preheader:$('emPreheader').value,
+    fmt:emFmt, body:$('emBody').value, theme:$('emTheme').value,
+    heroPreview:emState.heroPreview, heroSend:emState.heroSend, heroLink:$('emHeroLink').value,
+    ctaText:$('emCtaText').value, ctaUrl:$('emCtaUrl').value,
+    fromName:$('emFromName').value, from:$('emFrom').value, group:$('emGroup').value,
+    sections, updatedAt:new Date().toISOString() };
+}
+// Rebuild the sections area (fixed cards reordered + custom cards recreated) from a saved list.
+function emRestoreSections(sections){
+  const cont=$('emSections'); if(!cont) return;
+  [...cont.querySelectorAll('.em-sec[data-block="custom"]')].forEach(c=>c.remove()); emCustom={};
+  const fixed={reviews:cont.querySelector('.em-sec[data-block="reviews"]'),blog:cont.querySelector('.em-sec[data-block="blog"]'),news:cont.querySelector('.em-sec[data-block="news"]')};
+  const used=new Set();
+  (sections||[]).forEach(s=>{
+    if(EM_SEC_IDS[s.type]){
+      const card=fixed[s.type]; if(!card) return; used.add(s.type);
+      const [onId,headId,listId]=EM_SEC_IDS[s.type];
+      if($(onId)) $(onId).checked=!!s.on;
+      if($(headId) && s.head!=null) $(headId).value=s.head;
+      const box=$(listId);
+      if(box){ box.dataset.touched='1'; const want=new Set(s.checked||[]); box.querySelectorAll('input[type=checkbox]').forEach(cb=>{ cb.checked=want.has(cb.value); }); }
+      cont.appendChild(card);
+    }else if(s.type==='custom'){
+      const card=emAddCustom(true); const id=card.dataset.id;
+      card.querySelector('.em-cust-head').value=s.heading||'';
+      card.querySelector('.em-cust-text').value=s.text||'';
+      card.querySelector('.em-cust-btntext').value=s.btnText||'';
+      card.querySelector('.em-cust-btnurl').value=s.btnUrl||'';
+      emCustom[id]={imgPreview:s.imgPreview||'', imgSend:s.imgSend||''};
+      if(s.imgPreview||s.imgSend) card.querySelector('.em-cust-imgstatus').innerHTML='<span style="color:#0a7a33">Image restored.</span>';
+    }
+  });
+  ['reviews','blog','news'].forEach(t=>{ if(!used.has(t)&&fixed[t]) cont.appendChild(fixed[t]); }); // any not saved → keep at end
+}
+async function emApplyDraft(d){
+  emCurrentDraftId=d.id||'';
+  $('emName').value=d.name||''; $('emSubject').value=d.subject||''; $('emPreheader').value=d.preheader||'';
+  emFmt=d.fmt||'md'; $('emFmtToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x.dataset.fmt===emFmt));
+  $('emBody').value=d.body||''; $('emTheme').value=d.theme||'classic';
+  emState.heroPreview=d.heroPreview||''; emState.heroSend=d.heroSend||''; $('emHeroLink').value=d.heroLink||'';
+  $('emHeroStatus').innerHTML=(emState.heroSend||emState.heroPreview)?'<span style="color:#0a7a33">Hero image restored.</span>':'';
+  $('emCtaText').value=d.ctaText||''; $('emCtaUrl').value=d.ctaUrl||'';
+  if(d.fromName) $('emFromName').value=d.fromName; if(d.from) $('emFrom').value=d.from;
+  emPendingGroup=d.group||''; const gsel=$('emGroup'); if(gsel && d.group){ gsel.value=d.group; if(gsel.value===d.group) emPendingGroup=''; }
+  emRestoreSections(d.sections||[]);
+  emRenderPreview();
+}
+async function emLoadDrafts(){
+  try{ const g=await ghApi('get',{path:EM_DRAFTS_PATH}); emDraftsSha=g.sha; const arr=JSON.parse(b64decode(g.content)); emDrafts=Array.isArray(arr)?arr:[]; }
+  catch(_){ emDrafts=[]; emDraftsSha=''; }
+  emRenderDraftList();
+}
+function emRenderDraftList(){
+  const sel=$('emDraftSel'); if(!sel) return;
+  const sorted=[...emDrafts].sort((a,b)=>new Date(b.updatedAt||0)-new Date(a.updatedAt||0));
+  sel.innerHTML='<option value="">— saved drafts —</option>'+sorted.map(d=>{ const dt=d.updatedAt?new Date(d.updatedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):''; return `<option value="${esc(d.id)}"${d.id===emCurrentDraftId?' selected':''}>${esc(d.name||d.subject||'Untitled')}${dt?' · '+dt:''}</option>`; }).join('');
+}
+async function emWriteDrafts(msg){
+  await ghApi('put',{path:EM_DRAFTS_PATH, content:b64(JSON.stringify(emDrafts,null,2)), message:msg, ...(emDraftsSha?{sha:emDraftsSha}:{})});
+  try{ const g=await ghApi('get',{path:EM_DRAFTS_PATH}); emDraftsSha=g.sha; }catch(_){ }
+}
+async function emSaveDraft(){
+  const d=emSerialize();
+  if(!(d.name||d.subject).trim()){ alert('emAlert','wr','Add a campaign name or subject before saving a draft.'); return; }
+  emCurrentDraftId=d.id;
+  const idx=emDrafts.findIndex(x=>x.id===d.id); if(idx>=0) emDrafts[idx]=d; else emDrafts.push(d);
+  $('emDraftState').textContent='Saving…';
+  try{ await emWriteDrafts('Email draft: '+(d.name||d.subject||d.id)); emRenderDraftList(); $('emDraftState').textContent='Saved ✓ '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); }
+  catch(e){ $('emDraftState').textContent=''; alert('emAlert','er','Could not save draft: '+esc(e.message)); }
+}
+async function emOpenDraft(){
+  const id=$('emDraftSel').value; if(!id){ alert('emAlert','wr','Pick a saved draft to open.'); return; }
+  const d=emDrafts.find(x=>x.id===id); if(!d){ alert('emAlert','er','Draft not found — reload the list.'); return; }
+  await emApplyDraft(d); $('emDraftState').textContent='Editing “'+(d.name||d.subject||'draft')+'”';
+}
+function emNewDraft(){
+  emCurrentDraftId='';
+  ['emName','emSubject','emPreheader','emBody','emHeroLink','emCtaText','emCtaUrl'].forEach(id=>{ if($(id)) $(id).value=''; });
+  emState.heroPreview=''; emState.heroSend=''; if($('emHeroStatus')) $('emHeroStatus').innerHTML='';
+  emRestoreSections([{type:'reviews',on:false,head:'Latest reviews',checked:[]},{type:'blog',on:false,head:'From the blog',checked:[]},{type:'news',on:false,head:'Latest news',checked:[]}]);
+  emRenderDraftList(); $('emDraftState').textContent='New draft'; emRenderPreview();
+}
+async function emDeleteDraft(){
+  const id=$('emDraftSel').value||emCurrentDraftId; if(!id){ alert('emAlert','wr','Pick a draft to delete.'); return; }
+  const d=emDrafts.find(x=>x.id===id); if(!d) return;
+  if(!confirm('Delete the draft “'+(d.name||d.subject||'Untitled')+'”? This can’t be undone.')) return;
+  emDrafts=emDrafts.filter(x=>x.id!==id); if(emCurrentDraftId===id) emCurrentDraftId='';
+  $('emDraftState').textContent='Deleting…';
+  try{ await emWriteDrafts('Delete email draft'); emRenderDraftList(); $('emDraftState').textContent='Deleted ✓'; }
+  catch(e){ $('emDraftState').textContent=''; alert('emAlert','er','Could not delete: '+esc(e.message)); }
+}
+
 // ---- Custom content blocks (image + text + button) ----
 let emCustom={}, emCustomSeq=0;
-function emAddCustom(){
+function emAddCustom(skipFocus){
   const id='c'+(++emCustomSeq); emCustom[id]={imgPreview:'',imgSend:''};
   const card=document.createElement('div'); card.className='em-sec'; card.dataset.block='custom'; card.dataset.id=id;
   card.innerHTML=`<div class="em-sec-h">
@@ -2348,8 +2478,9 @@ function emAddCustom(){
   card.querySelector('.em-cust-imgbtn').addEventListener('click',()=>emCustomImg(id,card,'url'));
   card.querySelector('.em-cust-imgfile').addEventListener('change',e=>emCustomImg(id,card,'file',e));
   emBindGrip(card.querySelector('.em-grip'));
-  card.querySelector('.em-cust-head').focus();
+  if(!skipFocus) card.querySelector('.em-cust-head').focus();
   emRenderPreview();
+  return card;
 }
 async function emCustomImg(id,card,mode,ev){
   const st=emCustom[id]; if(!st) return;
@@ -2362,7 +2493,7 @@ async function emCustomImg(id,card,mode,ev){
     status.innerHTML='<span style="color:#0a7a33">✓ Using this image — works in MailerLite straight away.</span>';
   }else{
     const file=ev.target.files&&ev.target.files[0]; if(!file) return;
-    if(file.size>5*1024*1024){ status.innerHTML='<span style="color:#c00">Image is over 5MB — use a smaller file.</span>'; return; }
+    if(file.size>3*1024*1024){ status.innerHTML='<span style="color:#c00">Image is over 3MB — use a smaller file, or paste a URL instead.</span>'; return; }
     const ext=(file.name.split('.').pop()||'jpg'); const reader=new FileReader();
     reader.onload=async()=>{ st.imgPreview=reader.result; emRenderPreview(); status.textContent='Uploading image…';
       try{ st.imgSend=await emHostUpload(reader.result,ext); status.innerHTML='<span style="color:#0a7a33">✓ Uploaded — live on the next deploy.</span>'; }
@@ -2420,6 +2551,7 @@ async function emLoadGroups(){
     const data=await emMlApi('groups'); const groups=(data&&data.data)||[];
     sel.innerHTML='<option value="">— select a group —</option>'+groups.map(g=>`<option value="${g.id}">${esc(g.name)} (${g.active_count??0})</option>`).join('');
     const cfg=emCfg(); if(cfg.group) sel.value=cfg.group;
+    if(emPendingGroup){ sel.value=emPendingGroup; emPendingGroup=''; }   // a loaded draft's group, once options exist
     emGroupsLoaded=true;
   }catch(err){ sel.innerHTML=`<option value="">Could not load groups — ${esc(err.message)}</option>`; }
 }
