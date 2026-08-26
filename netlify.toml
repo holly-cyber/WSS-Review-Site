@@ -121,6 +121,11 @@
   to = "/.netlify/functions/social-status"
   status = 200
 
+[[redirects]]
+  from = "/api/email-image"
+  to = "/.netlify/functions/email-image"
+  status = 200
+
 # Same-origin proxy for legacy WordPress media (womenssportsstore.com/wp-content
 # /uploads/…). Loading those images cross-origin from reviews.womenssportsstore.com
 # fails (WordPress hotlink/referrer protection). Hero + inline review images point
