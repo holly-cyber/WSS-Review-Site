@@ -8,7 +8,6 @@ excerpt: "Open water swimming is one of the most exhilarating things you can do,
 meta_description: "Open water swimming is one of the most exhilarating things you can do, whether you're lake swimming at dawn, tackling a triathlon swim leg, or exploring the coastline. But there's "
 hero_image: "/images/blog/best-swimming-goggles-for-open-water-how-to-find-a-pair-that-fits-seals-and-stays-clear.jpg"
 hero_credit: ""
-draft: true
 ---
 
 Open water swimming is one of the most exhilarating things you can do, whether you're lake swimming at dawn, tackling a triathlon swim leg, or exploring the coastline. But there's one piece of kit that can make or break the whole experience: your goggles. Too tight and you'll spend the swim wincing. Too loose and you'll spend it half blind. And fogged up? That's a special kind of frustrating.
