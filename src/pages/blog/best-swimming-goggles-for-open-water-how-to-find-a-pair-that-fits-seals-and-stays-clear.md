@@ -6,7 +6,7 @@ date: "2026-09-02"
 author: "Mel Berry"
 excerpt: "Open water swimming is one of the most exhilarating things you can do, whether you're lake swimming at dawn, tackling a triathlon swim leg, or exploring the coastline. But there's "
 meta_description: "Open water swimming is one of the most exhilarating things you can do, whether you're lake swimming at dawn, tackling a triathlon swim leg, or exploring the coastline. But there's "
-hero_image: "https://womenssportsstore.com/products/buddyswim-ozeanx-swim-goggles-red-white-blue-mirror"
+hero_image: "/images/blog/best-swimming-goggles-for-open-water-how-to-find-a-pair-that-fits-seals-and-stays-clear.jpg"
 hero_credit: ""
 draft: true
 ---
