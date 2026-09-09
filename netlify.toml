@@ -36,6 +36,15 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+  # Native image renderer for the daily social graphic — don't bundle it, include
+  # it from node_modules so the platform binary ships intact.
+  external_node_modules = ["@napi-rs/canvas"]
+
+# The daily post renders an image + calls the Graph API, so give it headroom.
+[functions."daily-social"]
+  timeout = 30
+[functions."daily-social-run"]
+  timeout = 30
 
 # Give the AI proxy headroom for long streamed generations (default is 10s).
 [functions."ai-proxy"]
@@ -124,6 +133,11 @@
 [[redirects]]
   from = "/api/email-image"
   to = "/.netlify/functions/email-image"
+  status = 200
+
+[[redirects]]
+  from = "/api/daily-social-run"
+  to = "/.netlify/functions/daily-social-run"
   status = 200
 
 # Same-origin proxy for legacy WordPress media (womenssportsstore.com/wp-content
