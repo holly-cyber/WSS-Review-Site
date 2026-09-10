@@ -2,11 +2,11 @@
 // schedule is trusted, or to fire an extra post on demand. Protected by
 // DAILY_SOCIAL_RUN_KEY (?key=…). ?force=1 posts even while the schedule is off
 // (DAILY_SOCIAL_ENABLED not yet true), so you can verify end-to-end first.
-const { runDailySocial } = require('../shared/daily-social');
+import { runDailySocial } from '../shared/daily-social.js';
 
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS' };
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: CORS, body: '' };
   const q = event.queryStringParameters || {};
   const need = process.env.DAILY_SOCIAL_RUN_KEY;
