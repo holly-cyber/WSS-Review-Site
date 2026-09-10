@@ -3,7 +3,9 @@
 // graphic (hero + gradient + headline + verdict), and publishes it to Instagram
 // and Facebook. Used by the scheduled function (daily-social) and the manual
 // test endpoint (daily-social-run).
-const { getStore } = require('@netlify/blobs');
+import { getStore } from '@netlify/blobs';
+import canvasPkg from '@napi-rs/canvas';
+const { createCanvas, loadImage, GlobalFonts } = canvasPkg;
 
 const SITE = 'https://reviews.womenssportsstore.com';
 const GRAPH = 'https://graph.facebook.com/v21.0';
@@ -26,7 +28,6 @@ async function ensureFonts() {
   if (fontsTried) return fontsOk;
   fontsTried = true;
   try {
-    const { GlobalFonts } = require('@napi-rs/canvas');
     const files = [
       'https://cdn.jsdelivr.net/npm/@expo-google-fonts/poppins@0.2.3/Poppins_700Bold.ttf',
       'https://cdn.jsdelivr.net/npm/@expo-google-fonts/poppins@0.2.3/Poppins_400Regular.ttf',
@@ -39,7 +40,6 @@ async function ensureFonts() {
   return fontsOk;
 }
 async function compose(review) {
-  const { createCanvas, loadImage } = require('@napi-rs/canvas');
   const ok = await ensureFonts();
   const FONT = ok ? 'Poppins' : 'sans-serif';
   const W = 1080, H = 1350; const canvas = createCanvas(W, H); const ctx = canvas.getContext('2d');
@@ -155,4 +155,4 @@ async function runDailySocial(source, opts = {}) {
   return { ok: anyOk, source: source || 'manual', review: { title: pick.title, url: pick.url }, remaining_in_rotation: pool.length - 1, results };
 }
 
-module.exports = { runDailySocial, compose, captions };
+export { runDailySocial, compose, captions };
