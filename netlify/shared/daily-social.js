@@ -135,6 +135,17 @@ async function runDailySocial(source, opts = {}) {
   if (!reviews.length) return { ok: false, error: 'No live reviews with a hero image to post.' };
 
   const state = store('social-daily');
+  // Once-a-day lock: Netlify's scheduler is at-least-once, so a scheduled run can
+  // fire twice. Claim today's date before posting; a duplicate invocation sees it
+  // and skips. Manual runs (force) bypass the lock.
+  const today = new Date().toISOString().slice(0, 10);
+  if (source === 'scheduled' && !opts.force) {
+    let lastRunDate = '';
+    try { lastRunDate = await state.get('lastRunDate', { type: 'text' }); } catch (_) {}
+    if (lastRunDate === today) return { ok: false, skipped: 'already posted today', date: today };
+    try { await state.set('lastRunDate', today); } catch (_) {}
+  }
+
   let posted = {};
   try { posted = (await state.get('posted', { type: 'json' })) || {}; } catch (_) {}
   let pool = reviews.filter((r) => !posted[r.url]);
