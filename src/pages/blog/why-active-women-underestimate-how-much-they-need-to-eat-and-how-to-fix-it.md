@@ -6,7 +6,7 @@ date: "2026-09-15"
 author: "Mel Berry"
 excerpt: "If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything \"right,\" there's a good chance the miss"
 meta_description: "If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything \"right,\" there's a good chance the miss"
-hero_image: ""
+hero_image: "/images/blog/why-active-women-underestimate-how-much-they-need-to-eat-and-how-to-fix-it.jpg"
 hero_credit: ""
 draft: true
 ---
