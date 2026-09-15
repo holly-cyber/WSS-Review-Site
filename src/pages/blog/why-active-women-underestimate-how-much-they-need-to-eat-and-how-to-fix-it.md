@@ -4,13 +4,16 @@ title: "Why Active Women Underestimate How Much They Need to Eat, and How to Fix
 topic: "Understanding your nutrition with Renee"
 date: "2026-09-15"
 author: "Mel Berry"
-excerpt: "If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything \"right,\" there's a good chance the miss"
-meta_description: "If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything \"right,\" there's a good chance the miss"
+excerpt: "If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything \"right\"."
+meta_description: "If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything \"right\"."
 hero_image: "/images/blog/why-active-women-underestimate-how-much-they-need-to-eat-and-how-to-fix-it.jpg"
 hero_credit: ""
+draft: false
 ---
 
-If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything "right," there's a good chance the missing piece isn't your training plan. It's your plate. Specifically, you may not be eating enough to support the life you're actually living.
+If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything "right".
+
+There's a good chance the missing piece isn't your training plan. It's your plate. Specifically, you may not be eating enough to support the life you're actually living.
 
 This is one of the core themes explored in a brilliant episode of the Voom Performance Podcast, hosted by Mel Berry, featuring leading sports dietitian Renée McGregor. It's a conversation that every active woman should hear — not because it offers quick fixes, but because it reframes the way you think about food and performance entirely.
 
