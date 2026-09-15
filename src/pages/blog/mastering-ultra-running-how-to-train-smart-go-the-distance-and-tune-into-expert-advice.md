@@ -4,14 +4,14 @@ title: "Mastering Ultra Running: How to Train Smart, Go the Distance and Tune In
 topic: "How to train for an ultra run"
 date: "2026-09-15"
 author: "Mel Berry"
-excerpt: "Ultra running is one of those pursuits that sounds impossibly daunting from the outside — and then becomes utterly addictive the moment you cross your first finish line. Whether yo"
-meta_description: "Ultra running is one of those pursuits that sounds impossibly daunting from the outside — and then becomes utterly addictive the moment you cross your first finish line. Whether yo"
+excerpt: "Ultra running is one of those pursuits that sounds impossibly daunting from the outside and then becomes utterly addictive the moment you cross your first finish line. Whether you'"
+meta_description: "Ultra running is one of those pursuits that sounds impossibly daunting from the outside and then becomes utterly addictive the moment you cross your first finish line. Whether you'"
 hero_image: "/images/blog/mastering-ultra-running-how-to-train-smart-go-the-distance-and-tune-into-expert-advice.jpg"
 hero_credit: ""
 draft: false
 ---
 
-Ultra running is one of those pursuits that sounds impossibly daunting from the outside — and then becomes utterly addictive the moment you cross your first finish line. Whether you're eyeing a 50K on rolling trails or dreaming of triple-digit kilometres through mountain terrain, the good news is this: ultra running is very much learnable. It rewards patience, consistency and smart preparation far more than raw speed or genetic talent.
+Ultra running is one of those pursuits that sounds impossibly daunting from the outside and then becomes utterly addictive the moment you cross your first finish line. Whether you're eyeing a 50K on rolling trails or dreaming of triple-digit kilometres through mountain terrain, the good news is this: ultra running is very much learnable. It rewards patience, consistency and smart preparation far more than raw speed or genetic talent.
 
 If you want to go deep on the subject, one of the best things you can do right now is listen to the [Voom Performance Podcast episode with ultra running legend Paul Tierney](https://voomperformancepodcast.buzzsprout.com/2622286/episodes/19772822-mastering-ultra-running-insights-from-paul-tierney). Tierney is best known for completing the Wainwrights round in record time and shares genuinely grounding insights on pacing, mindset and what it actually takes to keep moving when everything in you wants to stop. It's the kind of conversation that makes you want to lace up immediately.
 
