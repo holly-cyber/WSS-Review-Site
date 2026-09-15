@@ -8,7 +8,6 @@ excerpt: "If you've ever found yourself exhausted mid-training block, struggling
 meta_description: "If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything \"right,\" there's a good chance the miss"
 hero_image: "/images/blog/why-active-women-underestimate-how-much-they-need-to-eat-and-how-to-fix-it.jpg"
 hero_credit: ""
-draft: true
 ---
 
 If you've ever found yourself exhausted mid-training block, struggling to recover between sessions, or feeling flat despite doing everything "right," there's a good chance the missing piece isn't your training plan. It's your plate. Specifically, you may not be eating enough to support the life you're actually living.
