@@ -61,4 +61,4 @@ Comfort over long efforts is everything. Anti-chafe products are non-negotiable 
 
 ---
 
-Ultra running has a way of showing you exactly what you're capable of — and then showing you a little bit more. Start with the basics, respect the process, feed yourself well and lean into the community of knowledge around you. That Paul Tierney podcast is a brilliant first stop. The trails are waiting.
+Ultra running has a way of showing you exactly what you're capable of and then showing you a little bit more. Start with the basics, respect the process, feed yourself well and lean into the community of knowledge around you. That Paul Tierney podcast is a brilliant first stop. The trails are waiting.
