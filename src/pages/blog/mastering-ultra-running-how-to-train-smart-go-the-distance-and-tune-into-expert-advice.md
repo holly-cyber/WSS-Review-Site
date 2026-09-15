@@ -1,13 +1,14 @@
 ---
 layout: "../../layouts/BlogLayout.astro"
 title: "Mastering Ultra Running: How to Train Smart, Go the Distance and Tune Into Expert Advice"
-topic: "How to train for an ultra run https://vo"
+topic: "How to train for an ultra run"
 date: "2026-09-15"
 author: "Mel Berry"
 excerpt: "Ultra running is one of those pursuits that sounds impossibly daunting from the outside — and then becomes utterly addictive the moment you cross your first finish line. Whether yo"
 meta_description: "Ultra running is one of those pursuits that sounds impossibly daunting from the outside — and then becomes utterly addictive the moment you cross your first finish line. Whether yo"
 hero_image: "/images/blog/mastering-ultra-running-how-to-train-smart-go-the-distance-and-tune-into-expert-advice.jpg"
 hero_credit: ""
+draft: false
 ---
 
 Ultra running is one of those pursuits that sounds impossibly daunting from the outside — and then becomes utterly addictive the moment you cross your first finish line. Whether you're eyeing a 50K on rolling trails or dreaming of triple-digit kilometres through mountain terrain, the good news is this: ultra running is very much learnable. It rewards patience, consistency and smart preparation far more than raw speed or genetic talent.
