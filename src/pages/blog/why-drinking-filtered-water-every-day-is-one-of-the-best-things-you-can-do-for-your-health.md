@@ -6,7 +6,7 @@ date: "2026-10-02"
 author: "Mel Berry"
 excerpt: "Water is the foundation of everything. Every cell in your body depends on it, every system runs on it, and yet most of us underestimate just how much the quality of the water we dr"
 meta_description: "Water is the foundation of everything. Every cell in your body depends on it, every system runs on it, and yet most of us underestimate just how much the quality of the water we dr"
-hero_image: "https://watertogo.eu/wp-content/uploads/2025/07/Black-75-Strapped-300x300.png"
+hero_image: "https://watertogo.eu/wp-content/uploads/2025/07/Black-75-Strapped-scaled.png"
 hero_credit: ""
 draft: true
 ---
