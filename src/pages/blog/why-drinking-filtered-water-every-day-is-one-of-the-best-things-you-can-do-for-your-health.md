@@ -8,7 +8,6 @@ excerpt: "Water is the foundation of everything. Every cell in your body depends
 meta_description: "Water is the foundation of everything. Every cell in your body depends on it, every system runs on it, and yet most of us underestimate just how much the quality of the water we dr"
 hero_image: "https://watertogo.eu/wp-content/uploads/2025/07/Black-75-Strapped-scaled.png"
 hero_credit: ""
-draft: true
 ---
 
 Water is the foundation of everything. Every cell in your body depends on it, every system runs on it, and yet most of us underestimate just how much the *quality* of the water we drink matters, not only the quantity. If you're an active woman who trains hard, recovers smart and thinks carefully about what you put into your body, filtered water deserves a place at the very centre of that conversation.
