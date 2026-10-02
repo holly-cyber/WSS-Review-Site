@@ -8,7 +8,6 @@ excerpt: "You train consistently. You track your sessions. You're committed to g
 meta_description: "You train consistently. You track your sessions. You're committed to getting better. So why does nutrition still feel like the one piece of the puzzle that never quite fits? You're"
 hero_image: "/images/blog/why-smart-athletes-still-get-nutrition-wrong-and-what-to-do-about-it.jpg"
 hero_credit: ""
-draft: true
 ---
 
 You train consistently. You track your sessions. You're committed to getting better. So why does nutrition still feel like the one piece of the puzzle that never quite fits? You're not alone. Even experienced, performance-focused women find that understanding nutrition in theory and actually applying it under the pressures of real life are two very different things.
